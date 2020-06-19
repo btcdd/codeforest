@@ -52,8 +52,8 @@ public class CompileControllerJava {
 		StringBuffer readBuffer = new StringBuffer();
 		try {
 			// Linux의 경우는 /bin/bash
-//			 Process process = Runtime.getRuntime().exec(content);
-			Process process = Runtime.getRuntime().exec("cmd");
+			 Process process = Runtime.getRuntime().exec(content);
+//			Process process = Runtime.getRuntime().exec("cmd");
 			System.out.println(content);
       
 			// Process의 각 stream을 받는다.
@@ -73,8 +73,8 @@ public class CompileControllerJava {
 				// InputStreamReader(stdout, "euc-kr")
 				// try (BufferedReader reader = new BufferedReader(new InputStreamReader(stdout,
 				// "euc-kr"))) {
-				try (BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"))) {
-//				try (BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"))) {
+//				try (BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"))) {
+				try (BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"))) {
 					
 					String line;
 					while ((line = reader.readLine()) != null) {
@@ -94,8 +94,8 @@ public class CompileControllerJava {
 				// InputStreamReader(stdout, "euc-kr")
 				// try (BufferedReader reader = new BufferedReader(new InputStreamReader(stderr,
 				// "euc-kr"))) {
-				try (BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"))) {
-//				try (BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"))) {
+//				try (BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"))) {
+				try (BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"))) {
 					String line;
 					while ((line = reader.readLine()) != null) {
 						readBuffer2.append(line);
