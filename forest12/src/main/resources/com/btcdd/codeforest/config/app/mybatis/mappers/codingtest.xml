@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="codingtest">
+	
+	<select id="selectTestList" resultType="problemvo">
+		<![CDATA[
+			  select p.no as no, u.email as email , p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as levelNo, date_format(p.start_time, '%Y-%m-%d %h:%i') as startTime, date_format(p.end_time, '%Y-%m-%d %h:%i') as endTime,
+				case
+					when start_time <= now() and end_time > now() then 1
+				    when start_time > now() then 2
+				    when end_time <= now() then 3
+				    else 4
+				end priority
+			    from problem p, user u, kind k 
+			   where p.user_no = u.no
+				 and p.kind_no = k.no
+                 and p.level_no = 6
+                 and state = 'y'
+                 and p.start_time is not null
+                 and p.end_time is not null
+                 and p.password is not null
+			order by priority, case 
+									when priority = 1 
+									then p.start_time 
+                                end asc, 
+                                case 
+									when priority = 2 
+									then p.start_time 
+                                end asc, 
+                                case 
+									when priority = 3 
+									then p.start_time 
+                                end desc, 
+                                p.end_time, p.title
+		]]>
+	</select>
+	
+	<select id="findUserByEmail" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select *
+			  from user
+			 where email = #{email }
+		]]>
+	</select>	
+ 	<update id="updateHit" parameterType="long">
+		<![CDATA[
+			update problem
+			   set hit = hit + 1
+			 where no = #{problemNo }
+		]]>	
+	</update>
+	
+	<select id="selectProblemOne" parameterType="long" resultType="problemvo">
+		<![CDATA[
+			  select
+			  	no,
+			   	title,
+			   	hit,
+			   	recommend,
+			   	date_format(start_time,'%Y-%m-%d %H:%i:%s') as startTime,
+			   	date_format(end_time,'%Y-%m-%d %H:%i:%s') as endTime,
+			   	user_no as userNo , 
+			   	kind_no as kindNo ,
+			   	date_format(reg_date,'%Y-%m-%d %H:%i:%s') as regDate,
+			   	password,
+			   	state,
+			   	privacy
+			    from problem
+			   where no = #{problemNo }
+		]]>
+	</select>		
+
+	<insert id="insertInputValueByAuthUserNo" parameterType="map">
+		<![CDATA[
+			update user
+				set name = #{name}, birth = #{birth}
+			where no = #{authUserNo}
+		]]>
+	</insert>
+	
+	
+	<select id="findSubProblemList" parameterType="long" resultType="subproblemvo">
+		<![CDATA[
+			select no, title, contents, exam_input as examInput, exam_output as examOutput, problem_no as problemNo, state
+			  from sub_problem
+			 where problem_no = #{problemNo } and state = 'y'
+		]]>
+	</select>	
+		
+</mapper>

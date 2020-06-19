@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases >
+		<typeAlias alias="uservo" type="com.btcdd.codeforest.vo.UserVo"/>
+		<typeAlias alias="problemvo" type="com.btcdd.codeforest.vo.ProblemVo"/>
+		<typeAlias alias="kindvo" type="com.btcdd.codeforest.vo.KindVo"/>
+		<typeAlias alias="levelvo" type="com.btcdd.codeforest.vo.LevelVo"/>
+		<typeAlias alias="submitvo" type="com.btcdd.codeforest.vo.SubmitVo"/>
+		<typeAlias alias="subproblemvo" type="com.btcdd.codeforest.vo.SubProblemVo"/>
+		<typeAlias alias="statisticsvo" type="com.btcdd.codeforest.vo.StatisticsVo"/>
+		<typeAlias alias="answeruserlistvo" type="com.btcdd.codeforest.vo.AnswerUserListVo"/>
+		<typeAlias alias="savepathvo" type="com.btcdd.codeforest.vo.SavePathVo"/>
+		<typeAlias alias="codevo" type="com.btcdd.codeforest.vo.CodeVo"/>
+		<typeAlias alias="savevo" type="com.btcdd.codeforest.vo.SaveVo"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/user.xml" />
+		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/mypage.xml" />
+		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/training.xml" />
+		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/codingtest.xml" />
+		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/codetree.xml" />
+	</mappers>
+</configuration>

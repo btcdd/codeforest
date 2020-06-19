@@ -1,0 +1,29 @@
+<ul class="file-tree__subtree"> 
+       <%
+       		for(var i = 0; i < data.savePathList.length; i++) {
+       		var vo = data.savePathList[i];
+       %> 
+	       <li class="file-tree__item">
+	       		<div id="folder" class="folder folder--open" data-no="<%=vo.no %>" data-no2="<%=vo.subProblemNo%>" ><%=data.saveVo.title%>/<%=i+1 %></div>
+	       		<ul class="file-tree__subtree" id="file<%=vo.no %>">
+					<%
+						for(var j = 0; j < data.codeList.length; j++) {
+							var codeList = data.codeList[j];
+							if(vo.no == codeList.savePathNo) {
+					%>
+							<li class='userFile' data-no="<%=codeList.no%>" data-file-name="<%=codeList.fileName %>">
+								<div class="file" data-no="<%=codeList.no%>" data-subproblem-no="<%=codeList.subProblemNo%>" data-language="<%=codeList.language%>" data-file-name="<%=codeList.fileName %>" data-package-path="<%=vo.packagePath %>"><%=codeList.fileName%></div>
+							</li>	
+					<%
+							}
+						}
+					%>	
+				</ul>
+	       </li>
+       <%
+       		}
+       %>
+</ul>
+   
+   
+   

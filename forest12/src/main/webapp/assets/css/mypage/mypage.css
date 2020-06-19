@@ -1,0 +1,143 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Teko:wght@600&display=swap')
+	;
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	width: 820px;
+    margin: auto;
+    margin-top: 6em;
+    padding: 10px 30px;
+    margin-bottom: 9em;
+    margin-left: 38em;
+}
+
+.menu-item {
+	float: left;
+	margin: 3px 10px 0 0;
+	padding: 8px 10px;
+}
+
+.menu-user {
+	float: right;
+	font-size: 1em;
+	margin-top: 2px;
+}
+
+.menu-user a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.menu-user a:visited {
+	color: #fff;
+}
+
+.menu-user a:hover {
+	text-decoration: none;
+	color: #fff
+}
+
+ul {
+	list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+
+#right-problem {
+	color: #428BCA;
+}
+
+#right-problem:hover {
+	font-weight: bold;
+}
+
+#wrong-problem {
+	color: #e7911f;
+}
+
+#wrong-problem:hover {
+	font-weight: bold;
+}
+
+.menulist {
+	padding: 10px 3px;
+    border-bottom: 1px solid #B4B4B4;
+    color: #7d7d7d;
+    font-size: 0.9em;
+}
+
+.menulist:hover {
+	background-color: #f2f0ed;
+}
+
+.correct, .wrong {
+	border-bottom: 1px solid lightgray;
+	margin-bottom: 5px;
+}
+
+.correct-answer, .wrong-answer {
+	margin: 10px 0px;
+}
+
+.clearfix::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+#footer {
+	float: left;
+	width: 100%;
+	margin-top: 30px;
+}
+
+.footer {
+	display: flow-root;
+	margin: auto;
+	padding: 60px 0;
+	left: 0;
+	bottom: 0;
+	width: 55%;
+	background-color: #fAFAFA;
+	color: #3C3C3C;
+	text-align: center;
+	border-top: 1px solid #BFBFBf;
+}
+
+.mypage {
+	border-left: 3px solid #cb2431;
+    pointer-events: none;
+    color: saddlebrown;
+    padding-left: 4px;
+    margin-left: -1px;
+}
+
+.span-account, .span-problem {
+	margin-left: 6px;
+}
+
+.span-mypage {
+	margin-left: 3px;
+	font-weight: bold;
+}
+
+.empty-right-submit, .empty-wrong-submit {
+	margin: auto;
+    width: 100%;
+    text-align: center;
+    margin-top: 3em;
+    font-size: 0.95em;
+    color: #aaa;
+}
+
+.light {
+	margin-left: 0.6em;
+}
+

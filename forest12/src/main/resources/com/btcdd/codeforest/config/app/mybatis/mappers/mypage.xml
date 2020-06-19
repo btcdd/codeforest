@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+	
+	<update id="changeNickname" parameterType="uservo">
+		<![CDATA[
+			update user 
+   			   set nickname = #{nickname }
+ 			 where no = #{no }
+		]]>
+	</update>
+	
+	<update id="changePassword" parameterType="uservo">
+		<![CDATA[
+			update user 
+   			   set password = #{password }
+ 			 where no = #{no }
+		]]>
+	</update>
+	
+	<update id="foreignKeyChecks">
+		<![CDATA[
+			set foreign_key_checks = 0
+		]]>
+	</update>
+	
+	<delete id="deleteUser" parameterType="uservo">
+		<![CDATA[
+			delete
+  			  from user
+ 			 where no = #{no } and email = #{email } and password = #{password }
+		]]>
+	</delete>
+	
+	<select id="lookUpPassword" parameterType="string" resultType="string">
+		<![CDATA[
+			select password
+  			  from user
+			 where email = #{email }
+		]]>
+	</select>
+	
+	<select id="selectProblemList" parameterType="map"  resultType="problemvo">
+		<![CDATA[
+			select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend, start_time as startTime, end_time as endTime
+			  from problem p, user u
+			 where u.no = #{userNo } 
+			   and p.user_no = u.no 
+			   and p.state = 'y'
+			   limit #{displayPost}, #{postNum}
+		]]>
+	</select>
+	
+	<update id="deleteProblem" parameterType="long">
+		<![CDATA[
+			update problem
+			   set state = 'n'
+			 where no = #{no }
+		]]>
+	</update>
+	
+	<select id="problemSolveList" parameterType="long" resultType="submitVo">
+		<![CDATA[
+			select u.email as email, u.name as name, u.nickname as nickname, s.lang as lang, s.solve_time as solveTime, tc.attempt as tryCount
+			from submit s, user u, problem p, sub_problem sp, try_count tc
+			where u.no = s.user_no && p.no = sp.problem_no && s.subproblem_no = sp.no && p.no = #{no } && s.no = tc.submit_no
+			group by u.email
+		]]>
+	</select>
+
+
+	<select id="totalCount" parameterType="long" resultType="integer">
+		<![CDATA[
+			select count(*) 
+			  from problem p, user u 
+			 where p.user_no = u.no 
+			   and u.no = #{userNo }
+			   and p.state = 'y'
+		]]>
+	</select>
+	
+	<select id="findSubProblem" parameterType="long"  resultType="subproblemvo">
+		<![CDATA[
+			select no, title, contents, exam_input as examInput, exam_input as examInput, problem_no as problemNo, state
+			  from sub_problem sp
+			 where problem_no = #{no }
+			   and sp.state = 'y'
+		]]>
+	</select>
+
+	<update id="deleteSubProblem" parameterType="long">
+		<![CDATA[
+			update sub_problem
+  			   set state = 'n'
+ 			 where no = #{no }
+		]]>
+	</update>
+
+	<select id="findRrightSubmit" parameterType="long"  resultType="submitvo">
+		<![CDATA[
+			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo
+			  from submit s, sub_problem sp
+			 where s.subproblem_no = sp.no
+			   and s.user_no = #{no }
+			   and answer = 'y'
+		]]>
+	</select>
+	
+	<select id="findWrongSubmit" parameterType="long"  resultType="submitvo">
+		<![CDATA[
+			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo
+			  from submit s, sub_problem sp
+			 where s.subproblem_no = sp.no
+			   and s.user_no = #{no }
+			   and answer = 'n'
+		]]>
+	</select>
+	
+	<update id="privacyChange" parameterType="map">
+		<![CDATA[
+			update user
+  			   set privacy = #{privacy }
+ 			 where no = #{authUserNo }
+		]]>
+	</update>
+	
+</mapper>

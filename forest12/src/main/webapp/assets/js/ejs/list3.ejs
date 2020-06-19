@@ -1,0 +1,20 @@
+<%
+	for(var i = 0; i < data.list3.length; i++) {
+		var vo = data.list3[i];
+%>
+		<div class="test" data-no="<%=vo.no %>" id="priority<%=vo.priority %>">
+			<div class="test-top">
+				<div class="test-no"><%=data.list3.length - i %></div>						
+				<div class="writer"><%=vo.nickname %></div>
+				<div class="state">마감</div>
+			</div>
+			<div class="test-mid">
+				<div class="title"><%=vo.title %></div>
+			</div>
+			<div class="test-bottom">
+				<div class="date">시작:<%=vo.startTime %><br/>마감:<%=vo.endTime %></div>
+			</div>
+		</div>
+<%
+	}
+%>

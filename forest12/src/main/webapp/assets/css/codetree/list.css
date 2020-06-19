@@ -1,0 +1,105 @@
+html, body{height:100%;}
+.content {
+    width: 80vw;
+    margin: auto;
+    margin-top: 6%
+}
+.header {
+	background-image: url('../../images/main/autumn.jpg');
+    background-position-y: 22%;
+}
+.footer{
+	position:absolute;
+	width:100%;
+	background-color: #454545;
+	color: #fff;
+	text-align: center;
+}
+
+
+.problem-box {
+    float: left;
+    background-color: #E7E7E7;
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+    margin: 15px 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+}
+.problem-box:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.problem-no {
+    width: 22%;
+    text-align: center;
+    border: 1px #7A8B9B;
+    color: #FCFBF4;
+    border-radius: 15px;
+    background-color: #7A8B9B; 
+    padding: 2px 9px;
+    margin-top: 7px;
+}
+.problem-title {
+	margin:20px auto;
+}
+
+.problem-user {
+	float:right;
+	margin:0 auto 8px;
+}
+.pager {
+    width: 90%;
+    float: left;
+    margin: 2.5% 0 0% 4%;
+    text-align: center;
+}
+
+.page {
+    text-decoration: none;
+    padding: 0px 10px;
+}
+
+.pager b {
+    color: #ca6d03;
+}
+input[type=text] {
+    width: 30%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../../images/search.png');
+    background-size: 40px;
+    background-position: 5px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 55px;
+    color: #999999;
+}
+.search {
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+#search {
+    background-color: #FFF1D6;
+    border: none;
+    color: #6e6e6e;
+    padding: 10px 10px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    border: 1.5px #FFF1D6 solid;
+    cursor: pointer;
+}
+
+#search:hover {
+    background-color: #BFB5A0;
+    color: #fff;
+    border: 1.5px #BFB5A0 solid;
+}

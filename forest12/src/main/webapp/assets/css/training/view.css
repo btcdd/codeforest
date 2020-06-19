@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Bigshot+One&family=Noto+Sans+KR:wght@900&family=Pacifico&family=Roboto:wght@300&display=swap');
+
+
+html {
+	background-color: #FAFAFA
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #FAFAFA;
+	font-family: Roboto,Helvetica Neue,sans-serif;
+}
+
+.container {
+    width: 60vw;
+    margin: 100px auto;
+    padding: 30px 0;
+}
+
+.top {
+	padding-bottom: 20px;
+    width: 100%;
+    border-bottom: 1px solid #b2b2b2;
+}
+
+.top p, .top button {
+	display: inline;
+}
+
+.no {
+    background-color: #EDEDEE;
+    border-radius: 15px;
+    padding: 2px 10px;
+    margin-left: 1em;
+    text-align: center;
+    width: 3em;
+    display: inline-block;
+}
+
+.problem-title {
+	display: inline-block;
+    width: 30vw;
+    margin-left: 1em;
+    font-weight: bold;
+}
+
+.top button {
+/* 	float: left; */
+}
+
+.problem {
+    width: 100%;
+    height: 100%;
+    margin: 20px 0;
+    border: 1px solid #b2b2b2;
+}
+
+.top-prob {
+	padding: 15px 0;
+/*     border-bottom: 1px solid #b2b2b2; */
+    background-color: #fff;
+}
+
+.top-prob:hover{
+	background-color: #EBEBEB;
+}
+
+.top-prob:selected {
+	background-color: #EBEBEB;
+}
+
+.division {
+	margin-left: 20px;
+}
+
+.recommend-div, .save-div, .statistics-div {
+    display: inline-block;
+    border-radius: 15px;
+    height: 32px;
+}
+
+.recommend, .save {
+	outline: 0;
+    height: 32px;
+    border: none;
+    width: 100px;
+    border-radius: 15px;
+    border: 2px solid #616161;
+    background-color: rgba(255,255,255,0);
+}
+
+.recommend-image, .save-image {
+	border: none;
+    width: 35px;
+    height: 35px;
+    margin-top: 2px;
+}
+
+.recommend-text, .save-text {
+	display: inline-block;
+}
+
+.recommend-value {
+	display: inline-block;
+}
+
+.problem-statistics {
+	font-size: 0.9em;
+}
+
+.second-block {
+    display: block;
+    height: 2em;
+    margin: 0.2em 2em 0.2em 0;
+}
+
+.hit {
+	dispaly: inline-block;
+	float: right;
+	font-size: 0.9em;
+    padding-top: 7px;	
+}
+
+.modify {
+	dispaly: inline-block;
+	float: right;
+	font-size: 0.9em;
+    padding-top: 7px;	
+}
+
+.modify:hover {
+	
+}
+
+.subProblemIndex {
+    display: inline-block;
+    padding: 0.5em 0.8em;
+    margin-left: 1em;
+    color: #244C1E;
+}
+
+.bookmark {
+    margin-right: 0.5em;
+}
+
+.subProblemNo {
+	display: inline-block;
+}
+
+.subProblemTitle {
+	display: inline-block;
+	margin-left: 1em;
+	width: 67%;
+}
+
+.pro {
+	padding: 0 0 0px 0;
+}
+
+.pro p {
+	display: inline;
+	margin-right: 30px;
+}
+
+.explain {
+	word-break: break-all;
+    line-height: 200%;
+    word-spacing: 200%;
+    margin: 1.5em 3em;
+    color: #454545;
+}
+
+.pro button {
+/* 	float: left; */
+}
+
+.example {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.input {
+	float: left;
+	width: 45%;
+	padding: 0 20px 2em;
+}
+
+fieldset {
+	border-radius: 10px;
+	border: solid rgb(165, 165, 165) 1px;
+}
+
+.example-division {
+	border-radius: 10px;
+	text-align: center;
+	margin-left: 1em;
+	padding: 0.2em 0.8em
+}
+
+.result {
+	float: left;
+	width: 45%;
+	padding: 0 20px 2em;
+}
+
+.input-content {
+	padding-bottom: 20px;
+	padding: 10px
+}
+
+.result-content {
+	padding-bottom: 20px;
+	padding: 10px
+}
+
+button#modify {
+	margin: 10px;
+	float: right;
+}
+
+#footer {
+	float: left;
+	width: 100%;
+	margin-top : 30px;
+}
+
+.footer {
+    display: flow-root;
+	margin: auto;
+	padding: 60px 0;
+	left: 0;
+	bottom: 0;
+	width: 61%;
+    background-color: #fAFAFA;
+	color: #3C3C3C;
+	text-align: center;
+	border-top: 1px solid #BFBFBf
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#like-button {
+	 color: #888;
+	 font-size: 0.9em;
+	 font-family: Roboto,Helvetica Neue,sans-serif;
+	 background-color: transparent;
+	 border: 0.1em solid;
+	 border-radius: 1em;
+	 padding: 0.333em 1em 0.25em;
+	 line-height: 1.2em;
+     box-shadow: 0 0.1em 0.8em -0.3em;
+	 cursor: pointer;
+	 transition: color 150ms ease-in-out, background-color 150ms ease-in-out, transform 150ms ease-in-out;
+	 outline: 0;
+	 margin-left: 1em;
+}
+ #like-button:hover {
+	 color: indianred;
+}
+ #like-button:active {
+	 transform: scale(0.95);
+}
+ #like-button.selected {
+	 color: #fff;
+	 background-color: indianred;
+	 border-color: indianred;
+}
+ #like-button .heart-icon {
+	 display: inline-block;
+	 fill: currentColor;
+	 width: 0.8em;
+	 height: 0.8em;
+	 margin-right: 0.2em;
+}
+
+#recommend-num {
+	padding-left: 10px;
+}
+
+#save-button {
+	 color: #888;
+	 font-size: 0.9em;
+	 font-family: Roboto,Helvetica Neue,sans-serif;
+	 background-color: transparent;
+	 border: 0.1em solid;
+	 border-radius: 1em;
+	 padding: 0.333em 1em 0.25em;
+	 line-height: 1.2em;
+     box-shadow: 0 0.1em 0.8em -0.3em;
+	 cursor: pointer;
+	 transition: color 150ms ease-in-out, background-color 150ms ease-in-out, transform 150ms ease-in-out;
+	 outline: 0;
+	 margin-left:1em;
+}
+ #save-button:hover {
+	 color: indianred;
+}
+ #save-button:active {
+	 transform: scale(0.95);
+}
+ #save-button.selected {
+	 color: #fff;
+	 background-color: indianred;
+	 border-color: indianred;
+}
+ #save-button .heart-icon {
+	 display: inline-block;
+	 fill: currentColor;
+	 width: 0.8em;
+	 height: 0.8em;
+	 margin-right: 0.2em;
+}
+
+#statistics-button {
+	 color: #888;
+	 font-size: 0.9em;
+	 font-family: Roboto,Helvetica Neue,sans-serif;
+	 background-color: transparent;
+	 border: 0.1em solid;
+	 border-radius: 1em;
+	 padding: 0.333em 1em 0.25em;
+	 line-height: 1.2em;
+     box-shadow: 0 0.1em 0.8em -0.3em;
+	 cursor: pointer;
+	 transition: color 150ms ease-in-out, background-color 150ms ease-in-out, transform 150ms ease-in-out;
+	 outline: 0;
+	 margin-left:10.5em;
+}
+ #statistics-button:hover {
+	 color: indianred;
+}
+ #statistics-button:active {
+	 transform: scale(0.95);
+}
+
+.correct-person {
+	display: inline-block;
+}
+
+#correct-person-button {
+	 color: #888;
+	 font-size: 0.9em;
+	 font-family: Roboto,Helvetica Neue,sans-serif;
+	 background-color: transparent;
+	 border: 0.1em solid;
+	 border-radius: 1em;
+	 padding: 0.333em 1em 0.25em;
+	 line-height: 1.2em;
+     box-shadow: 0 0.1em 0.8em -0.3em;
+	 cursor: pointer;
+	 transition: color 150ms ease-in-out, background-color 150ms ease-in-out, transform 150ms ease-in-out;
+	 outline: 0;
+	 margin-left:9em;
+}
+ #correct-person-button:hover {
+	 color: indianred;
+     background-color: #fff;
+}
+ #correct-person-button:active {
+	 transform: scale(0.95);
+}
+
+#MOVE-TOP {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    cursor: pointer;
+    font-size: 2.2em;
+    text-align: center;
+    border: 2px solid #adbac0;
+    border-radius: 2rem;
+    width: 50px;
+    height: 50px;
+    background-color: #adbac0;
+}
+
+.custom {
+    text-align: center;
+    color: #fff;
+}
+
+pre {
+    font-family: consolas;
+    margin: 0;
+    padding: 0;
+}

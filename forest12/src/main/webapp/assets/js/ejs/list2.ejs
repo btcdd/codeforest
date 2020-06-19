@@ -1,0 +1,27 @@
+<%
+	var map = data.dday;
+	for(var i = 0; i < data.list2.length; i++) {
+		var vo = data.list2[i];
+		var dday = map[vo.no];
+%>
+		<div class="test" data-no="<%=vo.no %>" id="priority<%=vo.priority %>">
+			<div class="test-top">
+				<div class="test-no"><%=data.list2.length - i %></div>						
+				<div class="writer"><%=vo.nickname %></div>
+				<div class="state">예정</div>
+			</div>
+			<div class="test-mid">
+				<div class="title"><%=vo.title %></div>
+				<% if(dday == 0) { %>
+					<div class="d-day" data-no="<%=vo.no %>">D-DAY</div>
+				<%} else { %>
+					<div class="d-day" data-no="<%=vo.no %>">D<%= dday %></div>
+				<% } %>
+			</div>
+			<div class="test-bottom">
+				<div class="date">시작:<%=vo.startTime %><br/>마감:<%=vo.endTime %></div>
+			</div>
+		</div>
+<%
+	}
+%>

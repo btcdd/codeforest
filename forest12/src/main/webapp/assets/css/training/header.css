@@ -1,0 +1,87 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Teko:wght@600&display=swap')
+	;
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	background-color: white;
+	border-bottom: 1px solid #E3E3E3;
+}
+
+.logo {
+	float: left;
+	margin-right: 40px;
+	margin-top: 4px;
+}
+
+.logo a {
+	text-decoration: none;
+	color: #167426;
+	font-family: 'Teko', sans-serif;
+	font-size: 1.7em;
+	margin-left: 20px;
+	margin-top: 4px;
+}
+
+.logo a:visited {
+	color: #167426;
+}
+
+.logo a:hover {
+	text-decoration: none;
+	color: #167426;
+}
+
+.menu {
+	float: left;
+}
+
+.menu-user {
+	float: right;
+	font-size: 0.8em;
+	margin-top: 2px
+}
+
+.menu-item {
+	float: left;
+	margin: 3px 10px 0 0;
+	padding: 8px 10px
+}
+
+.menu a {
+	text-decoration: none;
+	color: #222;
+}
+
+.menu a:visited {
+	color: #222;
+}
+
+.menu a:hover {
+	text-decoration: none;
+	color: #167426
+}
+
+.menu-user a {
+	text-decoration: none;
+	color: #222;
+}
+
+.menu-user a:visited {
+	color: #222;
+}
+
+.menu-user a:hover {
+	text-decoration: none;
+	color: #167426
+}
+
+.clearfix::after {
+	content: "";
+	display: block;
+	clear: both;
+}

@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="training">
+
+	<select id="selectProblemListOrigin" parameterType="hashmap"
+		resultType="problemvo">
+		<![CDATA[
+			  select p.no as no, p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as level 
+			    from problem p, user u, kind k 
+			   where p.user_no = u.no
+				 and p.kind_no = k.no
+				 and (title like '%${keyword}%' or nickname like '%${keyword}%')
+				 and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+			order by p.reg_date desc
+			limit #{displayPost}, #{postNum}
+		]]>
+	</select>
+
+	<select id="selectLevelList" parameterType="hashmap"
+		resultType="problemvo">
+		<![CDATA[
+			select p.no as no, p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as level 
+			from problem p, user u, kind k 
+			where p.user_no = u.no
+				and p.user_no = 10000
+				and p.kind_no = k.no
+				and (title like '%${keyword}%' or nickname like '%${keyword}%')
+                and p.kind_no = 6
+                and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+		]]>
+
+		<if test="size != 0">
+			<![CDATA[
+				and	(
+			]]>
+
+			<if test="one != null">
+			<![CDATA[
+			    p.level_no = 1 or 
+			]]>
+			</if>
+			<if test="two != null">
+			<![CDATA[
+			    p.level_no = 2 or 
+			]]>
+			</if>
+			<if test="three != null">
+			<![CDATA[
+			    p.level_no = 3 or 
+			]]>
+			</if>
+			<if test="four != null">
+			<![CDATA[
+			    p.level_no = 4 or 
+			]]>
+			</if>
+			<if test="five != null">
+			<![CDATA[
+			    p.level_no = 5 or 
+			]]>
+			</if>
+		<![CDATA[
+		 0=1)
+		]]>
+		</if>
+		<![CDATA[
+			limit #{displayPost}, #{postNum}
+ 		]]>
+	</select>
+
+
+	<select id="selectOrganizationList" parameterType="hashmap"
+		resultType="problemvo">
+		<![CDATA[
+			select p.no as no, p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as level
+			  from problem p, user u, kind k
+			 where p.user_no = u.no
+			   and p.kind_no = k.no
+			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
+			   and p.level_no = 6
+			   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+		]]>
+
+		<if test="size != 0">
+			<![CDATA[
+				and	(
+			]]>
+
+			<if test="enterprise != null">
+			<![CDATA[
+			    p.kind_no = 1 or 
+			]]>
+			</if>
+			<if test="individual != null">
+			<![CDATA[
+			    p.kind_no = 2 or 
+			]]>
+			</if>
+			<if test="academy != null">
+			<![CDATA[
+			    p.kind_no = 3 or 
+			]]>
+			</if>
+			<if test="school != null">
+			<![CDATA[
+			    p.kind_no = 4 or 
+			]]>
+			</if>
+			<if test="other != null">
+			<![CDATA[
+			    p.kind_no = 5 or 
+			]]>
+			</if>
+		<![CDATA[
+		 0=1)
+		]]>
+		</if>
+ 		<![CDATA[ 
+			 limit #{displayPost}, #{postNum}
+ 		]]>
+	</select>
+
+	<insert id="insertProblem" parameterType="map">
+		<![CDATA[
+			insert 
+  			  into problem
+			values (null, #{problemVo.title }, #{problemVo.password }, 0, 0, now(), #{authUserNo }, #{problemVo.kindNo }, #{problemVo.startTime }, #{problemVo.endTime }, 6, 'y', #{problemVo.privacy })
+		]]>
+	</insert>
+
+	<select id="selectProblemNo" resultType="long">
+		<![CDATA[
+			  select no
+			    from problem 
+			order by no desc limit 1
+		]]>
+	</select>
+
+	<insert id="insertSubProblem" parameterType="hashmap">
+		<![CDATA[
+			insert 
+			into sub_problem 
+			values
+		]]>
+		<foreach collection="subProblemList" item="item" separator=",">
+			<![CDATA[
+				(null, "${item.title }", "${item.contents }", "${item.examInput }", "${item.examOutput }", ${problemNo },'y')
+			]]>
+		</foreach>
+	</insert>
+
+	<insert id="modify" parameterType="hashmap"
+		useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			insert 
+			  into sub_problem (no, title, contents, exam_input, exam_output, problem_no, state)
+			values
+		]]>
+		<foreach collection="subProblemList" item="item" separator=",">
+			<![CDATA[
+				(
+			]]>
+			<if test="item.no == null">
+				<![CDATA[
+					null
+				]]>
+			</if>
+			<if test="item.no != null">
+				<![CDATA[
+					${item.no }
+				]]>
+			</if>
+			<![CDATA[
+				, "${item.title }", "${item.contents }", "${item.examInput }", "${item.examOutput }", #{problemNo },"y")
+			]]>
+		</foreach>
+		<![CDATA[
+			on duplicate key update no = values(no), title = values(title), contents = values(contents), exam_input = values(exam_input), 
+					 			exam_output = values(exam_output), problem_no = #{problemNo }, state = values(state)
+		]]>
+
+	</insert>
+
+	<select id="selectProblemOne" parameterType="long"
+		resultType="problemvo">
+		<![CDATA[
+			  select
+			  	no,
+			   	title,
+			   	hit,
+			   	recommend,
+			   	date_format(start_time,'%Y-%m-%d %H:%i:%s') as startTime,
+			   	date_format(end_time,'%Y-%m-%d %H:%i:%s') as endTime,
+			   	user_no as userNo , 
+			   	kind_no as kindNo ,
+			   	date_format(reg_date,'%Y-%m-%d %H:%i:%s') as regDate,
+			   	password,
+			   	state,
+			   	privacy
+			    from problem
+			   where no = #{problemNo }
+		]]>
+	</select>
+
+	<select id="selectSubProblem" parameterType="long"
+		resultType="subproblemvo">
+		<![CDATA[
+			  select no, title, contents, exam_input as examInput, exam_output as examOutput, problem_no as problemNo
+				from sub_problem 
+			   where problem_no = #{no }
+			     and state = 'y'
+		]]>
+	</select>
+
+	<select id="totalCount" parameterType="string"
+		resultType="integer">
+		<choose>
+			<when test="_parameter == null or _parameter == ''">
+				<![CDATA[
+					select count(*) 
+					  from problem p 
+					 where p.state = 'y' 
+					   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+				]]>
+			</when>
+			<otherwise>
+			 <![CDATA[
+				 select count(*) from problem p,user u
+				 where
+				 	p.user_no = u.no and p.state = 'y' 
+				 	and (title like '%${_parameter}%' or nickname like '%${_parameter}%')
+				 	and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+			 ]]>
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="getLevelListCount" parameterType="hashmap"
+		resultType="integer">
+		<![CDATA[
+			select count(*) 
+			from problem p, user u, kind k 
+			where p.user_no = u.no
+				and p.user_no = 10000
+				and p.kind_no = k.no
+				and (title like '%${keyword}%' or nickname like '%${keyword}%')
+                and p.kind_no = 6
+                and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+		]]>
+
+		<if test="size != 0">
+			<![CDATA[
+				and	(
+			]]>
+
+			<if test="one != null">
+			<![CDATA[
+			    p.level_no = 1 or 
+			]]>
+			</if>
+			<if test="two != null">
+			<![CDATA[
+			    p.level_no = 2 or 
+			]]>
+			</if>
+			<if test="three != null">
+			<![CDATA[
+			    p.level_no = 3 or 
+			]]>
+			</if>
+			<if test="four != null">
+			<![CDATA[
+			    p.level_no = 4 or 
+			]]>
+			</if>
+			<if test="five != null">
+			<![CDATA[
+			    p.level_no = 5 or 
+			]]>
+			</if>
+		<![CDATA[
+		 0=1)
+		]]>
+		</if>
+	</select>
+
+	<select id="getOrganizationListCount" parameterType="hashmap"
+		resultType="integer">
+		<![CDATA[
+			select count(*)
+			  from problem p, user u, kind k
+			 where p.user_no = u.no
+			   and p.kind_no = k.no
+			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
+			   and p.level_no = 6
+			   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+		]]>
+
+		<if test="size != 0">
+			<![CDATA[
+				and	(
+			]]>
+
+			<if test="enterprise != null">
+			<![CDATA[
+			    p.kind_no = 1 or 
+			]]>
+			</if>
+			<if test="individual != null">
+			<![CDATA[
+			    p.kind_no = 2 or 
+			]]>
+			</if>
+			<if test="academy != null">
+			<![CDATA[
+			    p.kind_no = 3 or 
+			]]>
+			</if>
+			<if test="school != null">
+			<![CDATA[
+			    p.kind_no = 4 or 
+			]]>
+			</if>
+			<if test="other != null">
+			<![CDATA[
+			    p.kind_no = 5 or 
+			]]>
+			</if>
+		<![CDATA[
+		 0=1)
+		]]>
+		</if>
+	</select>
+
+	<select id="selectTrainingList" parameterType="map"
+		resultType="problemvo">
+		<choose>
+			<when test="keyword == null or keyword == ''">
+				<![CDATA[
+					select 
+						p.no as no, 
+						p.title as title, 
+						p.hit as hit, 
+						p.recommend as recommend, 
+						u.nickname,
+						k.name as kind
+					  from problem p, user u, kind k
+					 where p.user_no = u.no 
+					   and k.no = p.kind_no
+					   and p.state = 'y'
+					   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+					 limit #{displayPost}, #{postNum}
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					select 
+						p.no as no, 
+						p.title as title, 
+						p.hit as hit, 
+						p.recommend as recommend, 
+						u.nickname,
+						k.name as kind
+					  from problem p, user u, kind k
+					 where 
+					  	p.user_no = u.no and k.no = p.kind_no
+					  	and (title like '%${keyword}%' or nickname like '%${keyword}%')
+					   	and p.state = 'y'
+					   	and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+					   	limit #{displayPost}, #{postNum}
+				]]>
+			</otherwise>
+		</choose>
+
+	</select>
+
+	<update id="deleteSubProblem" parameterType="hashmap">
+		<![CDATA[
+			  update sub_problem
+			     set state = 'n'
+			   where no in (
+		]]>
+		<foreach collection="deleteNoList" item="item" separator=",">
+			<if test="item != null">
+				<![CDATA[
+					${item }
+				]]>
+			</if>
+		</foreach>  
+		<![CDATA[
+			)
+		]]>
+	</update>
+
+	<select id="findByUserEmail" parameterType="string"
+		resultType="uservo">
+		<![CDATA[
+			select 
+				no
+			from user 
+			where email = #{email}
+			 
+		]]>
+	</select>
+
+
+	<select id="selectStatistics" parameterType="map"
+		resultType="statisticsvo">
+		select lang as language, count(*) as count
+		from submit s, sub_problem sp
+		where s.subproblem_no = sp.no
+		and s.subproblem_no = #{subProblemNo }
+		group by lang
+		union
+		select answer as language, count(*) as count
+		from submit s, sub_problem sp
+		where s.subproblem_no = sp.no
+		and s.subproblem_no = #{subProblemNo }
+		group by answer
+	</select>
+
+	<select id="selectStatisticsOne" parameterType="long"
+		resultType="statisticsvo">
+		select lang as language, count(*) as count
+		from submit s, sub_problem sp
+		where s.subproblem_no = sp.no
+		and s.subproblem_no = #{subProblemNo }
+		group by lang
+		union
+		select answer as language, count(*) as count
+		from submit s, sub_problem sp
+		where s.subproblem_no = sp.no
+		and s.subproblem_no = #{subProblemNo }
+		group by answer
+	</select>
+
+	<select id="userFindByProblemNo" parameterType="long"
+		resultType="uservo">
+		<![CDATA[
+			  select u.no, u.name, u.nickname, u.email, u.birth, u.password
+				from user u, problem p
+				where u.no = p.user_no and p.no = #{problemNo }
+				limit 1;
+		]]>
+	</select>
+
+	<select id="getAnswerUserListTotalCount" parameterType="long"
+		resultType="integer">
+		select count(*)
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+	</select>
+
+	<select id="getAnswerUserLangListTotalCount" parameterType="map"
+		resultType="integer">
+		select count(*)
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		and lang =
+		#{lang }
+	</select>
+
+	<select id="selectAnswerUserList" parameterType="map"
+		resultType="answeruserlistvo">
+		select s.code as code, u.nickname as nickname, s.lang as
+		lang, s.try as tryCnt
+		from submit s, user u
+		where s.user_no = u.no
+		and
+		s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		order by
+		solve_time desc
+		limit #{displayPost}, #{postNum}
+	</select>
+
+	<select id="selectAnswerUserLangList" parameterType="map"
+		resultType="answeruserlistvo">
+		select s.code as code, u.nickname as nickname, s.lang as
+		lang, s.try as tryCnt
+		from submit s, user u
+		where s.user_no = u.no
+		and
+		s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		and lang = #{lang
+		}
+		order by solve_time desc
+		limit #{displayPost}, #{postNum}
+	</select>
+
+
+	<insert id="insertSaveProblemNo" parameterType="map">
+		insert
+		into save
+		values (null, #{userNo }, #{problemNo })
+	</insert>
+
+	<select id="findSaveNo" parameterType="long" resultType="long">
+		<![CDATA[
+			  select no
+			    from save 
+			   where problem_no = #{problemNo }
+			     and user_no = #{authUserNo }
+		]]>
+	</select>
+
+	<insert id="insertSavePath" parameterType="hashmap">
+		insert into save_path
+		values
+		<foreach collection="subProblemNoArray" item="item"
+			separator=",">
+			(null, ${item}, ${saveNo}, concat('/userDirectory/user',
+			${authUserNo }, '/prob', ${problemNo }, '/subProb', ${item }))
+		</foreach>
+	</insert>
+
+	<select id="selectSaveNo" parameterType="map" resultType="long">
+		<![CDATA[
+			  select no 
+			    from save 
+			   where user_no = #{authUserNo } and problem_no = #{problemNo }
+		]]>
+	</select>
+
+	<select id="selectSavepath" parameterType="long"
+		resultType="savepathvo">
+		<![CDATA[
+			  select no, sub_problem_no as subProblemNo, save_no as saveNo , package_path as packagePath
+			    from save_path
+			   where save_no = #{saveNo }
+		]]>
+	</select>
+
+	<select id="selectCode" parameterType="map" resultType="codevo">
+		<foreach collection="savePathNoArray" item="item"
+			separator="union">
+			select c.no as no, c.save_path_no as savePathNo, c.language
+			as language, c.code as code, c.file_name as fileName, (select
+			sub_problem_no from save_path where no = ${item }) as subProblemNo
+			from code c, save_path sp
+			where c.save_path_no = ${item }
+			and c.save_path_no = sp.no
+		</foreach>
+	</select>
+
+	<select id="selectSaveNoList" parameterType="long"
+		resultType="savevo">
+		<![CDATA[
+			  select s.no as no, s.user_no as userNo, s.problem_no as problemNo, p.title as title, k.name as kind, u.nickname as nickname
+				from save s, problem p, kind k, user u
+			   where s.user_no = #{authUserNo }
+				 and s.user_no = u.no
+				 and s.problem_no = p.no
+				 and p.kind_no = k.no
+		]]>
+	</select>
+
+	<update id="updateHit" parameterType="long">
+		<![CDATA[
+			update problem
+			   set hit = hit + 1
+			 where no = #{problemNo }
+		]]>
+	</update>
+
+	<select id="checkUserRecommend" parameterType="map"
+		resultType="long">
+		<![CDATA[
+			  select count(*)
+			    from recommend
+			   where user_no = #{authUserNo}
+			     and problem_no = #{problemNo}
+		]]>
+	</select>
+
+	<update id="updatePlusRecommend" parameterType="long">
+		<![CDATA[
+			update problem
+			   set recommend = recommend + 1
+			 where no = #{problemNo }
+		]]>
+	</update>
+
+	<insert id="insertRecommendValue" parameterType="hashmap">
+		insert into
+		recommend values(#{authUserNo},#{problemNo})
+	</insert>
+
+	<delete id="deleteRecommendValue" parameterType="hashmap">
+		<![CDATA[
+			  delete from recommend 
+			   where user_no = #{authUserNo } 
+			     and problem_no = #{problemNo }
+		]]>
+	</delete>
+
+	<update id="updateMinusRecommend" parameterType="long">
+		<![CDATA[
+			update problem
+			   set recommend = recommend - 1
+			 where no = #{problemNo }
+		]]>
+	</update>
+
+	<update id="updateTestProblem" parameterType="problemvo">
+		<![CDATA[
+			update problem 
+			   set password = #{password }, privacy = #{privacy }, start_time = #{startTime}, end_time = #{endTime} where no = #{no}
+		]]>
+	</update>
+
+	<update id="updateTrainingProblem" parameterType="problemvo">
+		<![CDATA[
+			update problem 
+			   set password = null, privacy = #{privacy }, start_time = null, end_time = null where no = #{no}
+		]]>
+	</update>
+
+	<select id="selectRecommend" parameterType="long"
+		resultType="long">
+		<![CDATA[
+			  select recommend
+			    from problem
+			   where no = #{problemNo }
+		]]>
+	</select>
+
+	<select id="findSavePathNo" parameterType="long"
+		resultType="savepathvo">
+		<![CDATA[
+			  select no, sub_problem_no as subProblemNo, save_no as saveNo, package_path as packagePath
+			    from save_path
+			   where save_no = #{saveNo }
+		]]>
+	</select>
+
+	<delete id="deleteCode" parameterType="map">
+		<![CDATA[
+ 			  delete
+ 			    from code
+ 			   where save_path_no in (
+ 		]]>
+		<foreach collection="savePathVoList" item="item" separator=",">
+			<![CDATA[
+ 				${item.no }
+ 			]]>
+		</foreach>
+		<![CDATA[
+ 			)
+ 		]]>
+	</delete>
+
+	<delete id="deleteSavePath" parameterType="long">
+ 		<![CDATA[
+			  delete
+ 			    from save_path
+ 			   where save_no = #{saveNo }
+ 		]]>
+	</delete>
+
+	<delete id="deleteSaveByProblemNo" parameterType="map">
+ 		<![CDATA[
+ 			  delete
+			    from save
+ 			   where user_no = #{authUserNo }
+ 			     and problem_no = #{problemNo }
+		]]>
+	</delete>
+
+	<insert id="insertSubProblemFaceCode" parameterType="map">
+		insert 
+		  into code(no, save_path_no, language, file_name)
+		values
+		<foreach collection="savePathVoList" item="item" separator=",">
+			<foreach collection="langArray" item="lang" separator=",">
+				(null, ${item.no}, '${lang}', concat('Test.','${lang}'))
+			</foreach>
+		</foreach>
+	</insert>
+	
+	<select id="findSubProblemNo" parameterType="long" resultType="long">
+		<![CDATA[
+			  select no 
+				from sub_problem 
+			   where problem_no = #{problemNo }
+				 and state = 'y'
+		]]>
+	</select>
+
+</mapper>
