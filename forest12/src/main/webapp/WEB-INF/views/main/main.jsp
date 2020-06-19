@@ -31,6 +31,7 @@
 <script>
 
 var result = '';
+var content = '';
 
 $(function() {
 	$(window).scroll(function() {
@@ -48,6 +49,7 @@ $(function() {
         return false;
     });
 
+    
 	
    var save = false;
    $(".codeTest").submit(function(event) {
@@ -61,7 +63,10 @@ $(function() {
          async: true,
          type: 'post',
          dataType: 'json',
-         data: {code:code},
+         data: {
+        	 "code":code,
+        	 "content":content
+       	},
          success: function(response){
             if(response.result != "success") {
                console.error(response.message);
@@ -150,8 +155,11 @@ $(function() {
  		if (key.keyCode == 13) {
 
      	 content = result;
- 			result = '';
- 			
+     	 content2 = $('#result').val();
+ 		result = '';
+ 		
+//  		$(".codeTest").trigger('submit');
+ 		
  			$.ajax({
  		         url: '${pageContext.request.contextPath }/compile/test',
  		         async: true,
@@ -163,11 +171,10 @@ $(function() {
  		               console.error(response.message);
  		               return;
  		            }
-					console.log('content : ' + content);
-					console.log('response : ' + response.data.readbuffer);
-					console.log('response2 : ' + response.data.readbuffer2);
+// 					console.log('content : ' + content);
+					console.log('response : ' + response.data);
 //  		            $('#result').keyUp();
- 		            $('#result').val(content + "\n" + "> " + response.data.readbuffer);
+ 		            $('#result').val(content2 + "\n" + response.data);
  		            
  		            return;
  		         },

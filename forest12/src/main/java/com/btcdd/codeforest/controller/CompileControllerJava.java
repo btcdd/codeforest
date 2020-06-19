@@ -31,11 +31,17 @@ public class CompileControllerJava {
 	
 	@ResponseBody
 	@PostMapping("/java")
-	public JsonResult javaCompile(@RequestParam String code) {
-		rtt.createFileAsSource(code);
-		rtt.execCompile();
+	public JsonResult javaCompile(String code, String content) throws IOException {
+		
+		if("".equals(content)) {
+			rtt.createFileAsSource(code);
+			rtt.execCompile();
+		}
+		
+//		rtt.runProcess();
 		String result = rtt.execCommand();
 		String errorResult = rtt.execCompile();
+		
 		
 		String[] res = new String[2];
 		res[0] = result;
@@ -47,13 +53,14 @@ public class CompileControllerJava {
 	@ResponseBody
 	@PostMapping("/test")
 	public JsonResult javaTest(@RequestParam String content) {
-		
-		Map<String, Object> map = new HashMap<>();
+		String result = rtt.writer(content);
+		/*Map<String, Object> map = new HashMap<>();
 		StringBuffer readBuffer = new StringBuffer();
 		try {
 			// Linux의 경우는 /bin/bash
 //			 Process process = Runtime.getRuntime().exec(content);
 			Process process = Runtime.getRuntime().exec("cmd");
+			
 			System.out.println(content);
       
 			// Process의 각 stream을 받는다.
@@ -109,6 +116,7 @@ public class CompileControllerJava {
 			});
 			// 입력 stream을 BufferedWriter로 받아서 콘솔로부터 받은 입력을 Process 클래스로 실행시킨다.
 			Executors.newCachedThreadPool().execute(() -> {
+				
 				String contents = content;
 				// Scanner 클래스는 콘솔로 부터 입력을 받기 위한 클래스 입니다.
 				try (Scanner scan = new Scanner(System.in)) {
@@ -142,5 +150,7 @@ public class CompileControllerJava {
 		readBuffer.delete(0,readBuffer.length());
 		readBuffer.trimToSize();
 		return JsonResult.success(map);
+		*/
+		return JsonResult.success(result);
 	}
 }
