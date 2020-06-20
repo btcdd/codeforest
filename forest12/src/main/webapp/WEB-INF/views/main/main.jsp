@@ -57,6 +57,8 @@ $(function() {
       var lang = $("select option:selected").val();
       
       var code = editor.getValue();
+      
+      content = $('#scanner').val();
 
       $.ajax({
          url: '${pageContext.request.contextPath }/compile/' + lang,
@@ -148,44 +150,6 @@ $(function() {
    
  	$('.CodeMirror').addClass('code');
  	
- 	$('#result').keydown(function(key) {
- 		var keyCode = typeof key.which === "number" ? key.which : key.keyCode;
- 		result += String.fromCharCode(keyCode);
- 		
- 		if (key.keyCode == 13) {
-
-     	 content = result;
-     	 content2 = $('#result').val();
- 		result = '';
- 		
-//  		$(".codeTest").trigger('submit');
- 		
- 			$.ajax({
- 		         url: '${pageContext.request.contextPath }/compile/test',
- 		         async: true,
- 		         type: 'post',
- 		         dataType: 'json',
- 		         data: {content: content},
- 		         success: function(response){
- 		            if(response.result != "success") {
- 		               console.error(response.message);
- 		               return;
- 		            }
-// 					console.log('content : ' + content);
-					console.log('response : ' + response.data);
-//  		            $('#result').keyUp();
- 		            $('#result').val(content2 + "\n" + response.data);
- 		            
- 		            return;
- 		         },
- 		         error: function(xhr, status, e) {
- 		            console.error(status + ":" + e);
- 		         }
- 		      });
- 			
- 		}
-	});
- 	
 });
 
 </script>
@@ -239,6 +203,7 @@ $(function() {
 	                    </optgroup>
 	                  </select>
                   </td>
+               		<td><textarea id="scanner"></textarea></td>
                   <td style="margin:0">
 	                <span style="float: right;">
 	                  <input type="submit" class="btn-run" value="Run">
@@ -259,7 +224,7 @@ public class Test{
 }</textarea>
                   </td>
                   <td>
-                     <textarea name="" id="result"></textarea>
+                     <textarea name="" id="result" readonly></textarea>
                   </td>
                </tr>
             </table>

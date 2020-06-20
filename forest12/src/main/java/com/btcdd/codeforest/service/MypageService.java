@@ -95,8 +95,8 @@ public class MypageService {
 		return mypageRepository.deleteSubProblem(no);
 	}
 
-	public List<SubmitVo> findRrightSubmit(Long no) {
-		return mypageRepository.findRrightSubmit(no);
+	public List<SubmitVo> findRightSubmit(Long no) {
+		return mypageRepository.findRightSubmit(no);
 	}
 
 	public List<SubmitVo> findWrongSubmit(Long no) {
