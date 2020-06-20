@@ -96,7 +96,7 @@
 		]]>
 	</update>
 
-	<select id="findRrightSubmit" parameterType="long"  resultType="submitvo">
+	<select id="findRightSubmit" parameterType="long"  resultType="submitvo">
 		<![CDATA[
 			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo
 			  from submit s, sub_problem sp

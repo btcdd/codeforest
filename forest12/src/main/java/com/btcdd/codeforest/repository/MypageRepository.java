@@ -70,8 +70,8 @@ public class MypageRepository {
 		return result;
 	}
 
-	public List<SubmitVo> findRrightSubmit(Long no) {
-		return sqlSession.selectList("mypage.findRrightSubmit", no);
+	public List<SubmitVo> findRightSubmit(Long no) {
+		return sqlSession.selectList("mypage.findRightSubmit", no);
 	}
 
 	public List<SubmitVo> findWrongSubmit(Long no) {
