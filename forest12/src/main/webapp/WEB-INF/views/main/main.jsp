@@ -31,6 +31,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
 <script src="resources/js/dialog/zebra_dialog.src.js"></script>
    <link rel="stylesheet" href="resources/css/dialog/zebra_dialog.css" type="text/css"/>
+   <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script> 
 <script>
 // websocket을 지정한 URL로 연결
 var sock = new SockJS("<c:url value="/echo"/>");
