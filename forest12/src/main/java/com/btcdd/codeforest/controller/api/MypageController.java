@@ -58,7 +58,6 @@ public class MypageController {
 	@DeleteMapping(value = "/problem/delete/{no}")
 	public JsonResult deleteProblem(@PathVariable("no") Long no) {
 		int result = mypageService.deleteProblem(no);
-
 		return JsonResult.success(result);
 	}
 

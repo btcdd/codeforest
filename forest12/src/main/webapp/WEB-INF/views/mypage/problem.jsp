@@ -189,6 +189,7 @@ $(function() {
 					data: '',
 					success: function(response) {
 						dialogDelete.dialog('close');
+						console.log("들어오닝 ? " + response.data);
 						// 삭제 추가해야하는 곳
 						$(".list-contents[data-no=" + no + "]").remove();
 						$(".sub-problem-contents" + no).remove();

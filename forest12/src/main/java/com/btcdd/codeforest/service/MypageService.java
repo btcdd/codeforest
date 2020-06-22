@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.btcdd.codeforest.linux.MypageLinux;
 import com.btcdd.codeforest.repository.MypageRepository;
 import com.btcdd.codeforest.vo.ProblemVo;
 import com.btcdd.codeforest.vo.SubProblemVo;
@@ -48,7 +49,10 @@ public class MypageService {
 	}
 
 	public int deleteProblem(Long no) {
-		return mypageRepository.deleteProblem(no);
+		MypageLinux mypageLinux = new MypageLinux();
+		int check = mypageLinux.deleteProblemAllUsers(no);
+		mypageRepository.deleteProblem(no);
+		return check;
 	}
 
 	public List<SubmitVo> problemSolveList(Long no) {
