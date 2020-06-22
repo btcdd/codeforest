@@ -15,7 +15,7 @@ public class MypageLinux {
 	public int deleteProblemAllUsers(Long problemNo) {	
 		
 		try {
-			process = Runtime.getRuntime().exec("find . -name 'prob36' -type d | xargs rm -rf");
+			process = Runtime.getRuntime().exec("find /userDirectory/ -name 'prob" + problemNo + "' -type d | xargs rm -rf");
 		}
 		catch (IOException e) {
 			e.printStackTrace();
