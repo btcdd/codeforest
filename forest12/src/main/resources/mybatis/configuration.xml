@@ -15,10 +15,10 @@
 		<typeAlias alias="savevo" type="com.btcdd.codeforest.vo.SaveVo"/>
 	</typeAliases>
 	<mappers>
-		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/user.xml" />
-		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/mypage.xml" />
-		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/training.xml" />
-		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/codingtest.xml" />
-		<mapper resource="com/btcdd/codeforest/config/app/mybatis/mappers/codetree.xml" />
+		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/mypage.xml" />
+		<mapper resource="mybatis/mappers/training.xml" />
+		<mapper resource="mybatis/mappers/codingtest.xml" />
+		<mapper resource="mybatis/mappers/codetree.xml" />
 	</mappers>
 </configuration>
