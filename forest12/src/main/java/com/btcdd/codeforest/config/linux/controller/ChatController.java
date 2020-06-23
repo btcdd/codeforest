@@ -36,6 +36,7 @@ public class ChatController {
 //				process = Runtime.getRuntime().exec("cmd");
 //				process = Runtime.getRuntime().exec("java Test");
 				process = Runtime.getRuntime().exec("java -cp . Test");
+				readBuffer.setLength(0);
 			}
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
