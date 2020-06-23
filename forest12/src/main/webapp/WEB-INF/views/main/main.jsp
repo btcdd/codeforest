@@ -86,6 +86,22 @@ function onMessageReceived(payload) {
     
     var prevText = resultText.val();
     resultText.val(message.sender + message.content);
+    
+    
+    var txtArea = resultText;
+    var txtValue = txtArea.value;
+    var selectPos = txtArea.selectionStart; // 커서 위치 지정
+    var beforeTxt = txtValue.substring(0, selectPos);  // 기존텍스트 ~ 커서시작점 까지의 문자
+    var afterTxt = txtValue.substring(txtArea.selectionEnd, txtValue.length);   // 커서끝지점 ~ 기존텍스트 까지의 문자
+    var addTxt = message.sender + message.content; // 추가 입력 할 텍스트
+
+    txtArea.value = beforeTxt + addTxt + afterTxt;
+
+    selectPos = selectPos + addTxt.length;
+    txtArea.selectionStart = selectPos; // 커서 시작점을 추가 삽입된 텍스트 이후로 지정
+    txtArea.selectionEnd = selectPos; // 커서 끝지점을 추가 삽입된 텍스트 이후로 지정
+    resultText.focus();
+
 }
 
 
