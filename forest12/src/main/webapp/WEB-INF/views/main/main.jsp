@@ -35,7 +35,8 @@
 <script>
 
 var result = '';
-var r;
+var resultText;
+var tmp = '';
 
 //채팅 시작하기
 function connect(event) {
@@ -44,7 +45,7 @@ function connect(event) {
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
 
-    stompClient.connect({}, onConnected, onError);
+    stompClient.connect({"data":"data"}, onConnected, onError);
     
     event.preventDefault();
 }
@@ -69,21 +70,24 @@ function onError(error) {
 
 function sendMessage(event, res) {
 	
+	tmp = res;
+	
     var messageContent = res;
         var chatMessage = {
             content: messageContent,
             type: 'CHAT'
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     
-     r.val(message.content);
-     console.log('r:', r);
-	console.log('message:',  message.content);
+    var prevText = resultText.val();
+    resultText.val(prevText + '\n' + message.content);
+    
+    $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
 
 
@@ -211,7 +215,7 @@ $(function() {
    
     $('.CodeMirror').addClass('code');
     
-    r = $('#result');
+    resultText = $('#result');
     
     $('#result').keydown(event, function(key) {
        var keyCode = typeof key.which === "number" ? key.which : key.keyCode;
@@ -219,6 +223,7 @@ $(function() {
        
        if (key.keyCode == 13) {
           sendMessage(event, result);
+          result = '';
        }
    });
     
