@@ -85,7 +85,7 @@ function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     
     var prevText = resultText.val();
-    resultText.val(message.sender + '\n' + message.content);
+    resultText.val(message.sender + message.content);
 }
 
 
