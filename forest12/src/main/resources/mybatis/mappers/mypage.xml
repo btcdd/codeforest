@@ -47,7 +47,14 @@
 			 where u.no = #{userNo } 
 			   and p.user_no = u.no 
 			   and p.state = 'y'
-			   limit #{displayPost}, #{postNum}
+		]]>
+		<if test="keyword != null or keyword != ''">
+			<![CDATA[
+			   and (p.title like '%${keyword}%' or p.no like '%${keyword}%')
+			]]>
+		</if>
+		<![CDATA[
+			limit #{displayPost}, #{postNum}
 		]]>
 	</select>
 	
@@ -69,7 +76,7 @@
 	</select>
 
 
-	<select id="totalCount" parameterType="long" resultType="integer">
+	<select id="totalCount" parameterType="map" resultType="integer">
 		<![CDATA[
 			select count(*) 
 			  from problem p, user u 
@@ -77,6 +84,11 @@
 			   and u.no = #{userNo }
 			   and p.state = 'y'
 		]]>
+		<if test="keyword != null or keyword != ''">
+			<![CDATA[
+			   and (p.title like '%${keyword}%' or p.no like '%${keyword}%')
+			]]>
+		</if>
 	</select>
 	
 	<select id="findSubProblem" parameterType="long"  resultType="subproblemvo">
@@ -96,7 +108,7 @@
 		]]>
 	</update>
 
-	<select id="findRightSubmit" parameterType="long"  resultType="submitvo">
+	<select id="findRrightSubmit" parameterType="long"  resultType="submitvo">
 		<![CDATA[
 			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo
 			  from submit s, sub_problem sp

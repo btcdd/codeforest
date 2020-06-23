@@ -39,11 +39,13 @@ public class MypageRepository {
 		sqlSession.update("mypage.foreignKeyChecks", 0L);
 	}
 
-	public List<ProblemVo> selectProblemList(int displayPost, int postNum, Long userNo) {
+	public List<ProblemVo> selectProblemList(int displayPost, int postNum, Long userNo, String keyword) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("displayPost",displayPost);
 		map.put("postNum",postNum);	
-		map.put("userNo",userNo);		
+		map.put("userNo",userNo);
+		map.put("keyword", keyword);
+		
 		List<ProblemVo> list = sqlSession.selectList("mypage.selectProblemList",map);
 		return list;
 	}
@@ -56,8 +58,12 @@ public class MypageRepository {
 		return sqlSession.selectList("mypage.problemSolveList", no);
 	}
 
-	public int getTotalCount(Long userNo) {
-		return sqlSession.selectOne("mypage.totalCount", userNo);
+	public int getTotalCount(Long userNo, String keyword) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectOne("mypage.totalCount", map);
 	}
 
 	public List<SubProblemVo> findSubProblem(Long no) {
@@ -70,8 +76,8 @@ public class MypageRepository {
 		return result;
 	}
 
-	public List<SubmitVo> findRightSubmit(Long no) {
-		return sqlSession.selectList("mypage.findRightSubmit", no);
+	public List<SubmitVo> findRrightSubmit(Long no) {
+		return sqlSession.selectList("mypage.findRrightSubmit", no);
 	}
 
 	public List<SubmitVo> findWrongSubmit(Long no) {

@@ -7,7 +7,6 @@ body {
 	padding: 0;
 }
 
-
 .wrong {
     position: absolute;
     width: 100vw;
@@ -39,41 +38,6 @@ ul {
     padding: 0;
     margin: 0;
 }
-
-.menu-item {
-	float: left;
-	margin: 3px 10px 0 0;
-	padding: 8px 10px
-}
-
-.menu-user {
-	float: right;
-	font-size: 1em;
-	margin-top: 2px
-}
-
-.menu-user a {
-	text-decoration: none;
-	color: #fff;
-}
-
-.menu-user a:visited {
-	color: #fff;
-}
-
-.menu-user a:hover {
-	text-decoration: none;
-	color: #fff
-}
-
-/* a { */
-/* 	text-decoration: none; */
-/* 	color: #fff; */
-/* } */
-
-/* a:visited { */
-/* 	color: #fff; */
-/* } */
 
 .menulist {
 	padding: 10px 3px;

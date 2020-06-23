@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.btcdd.codeforest.linux.TrainingLinux;
 import com.btcdd.codeforest.service.TrainingService;
 import com.btcdd.codeforest.vo.ProblemVo;
 import com.btcdd.codeforest.vo.SubProblemList;
@@ -51,7 +52,9 @@ public class TrainingController {
 			ProblemVo problemVo, HttpSession session) {
 		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-
+		
+		System.out.println("dd:" + problemVo.getKindNo());
+		
 		trainingService.insert(subProblemList, problemVo, authUser.getNo());
 
 		return "redirect:/training";
@@ -130,12 +133,8 @@ public class TrainingController {
 			@RequestParam(value = "array", required = true, defaultValue = "") Long[] array,
 			HttpSession session) {
 
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-
 		problemVo.setNo(problemNo);
 		trainingService.modifyProblem(problemVo);
-		
-		System.out.println(subProblemList);
 		
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
 
@@ -151,10 +150,6 @@ public class TrainingController {
 		if(list.size() > 0) {
 			trainingService.modify(subProblemList, problemNo);
 		}
-		
-//		List<Long> subProblemNoList = trainingService.findSubProblemNo(problemNo); 
-//		TrainingLinux trainingLinux = new TrainingLinux();
-//		trainingLinux.modifyFile(authUser.getNo(), list, array, problemNo, subProblemNoList);
 		
 		return "redirect:/training/view/" + problemNo;
 	}

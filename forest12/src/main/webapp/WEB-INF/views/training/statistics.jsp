@@ -13,51 +13,92 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script>
+
 $(function() {
-	var tableWidth = $('#statistics-table').width();
 	
-	$('.line').css('width', tableWidth + 64 + 'px');
+	var title = [];
+	var rate = [];
+	for(var i = 0; i < ${size}; i++) {
+		title.push('문제 ' + (i + 1));
+		var rateTmp = $('#rate' + i).text();
+		rate.push(rateTmp.substring(0, rateTmp.length - 3));
+	}
+	
+    var rgbaRandom1 = [];
+    var rgbaRandom2 = [];
+    
+    var randomNumber = function() {
+    	var min=0;
+        var max=255;
+    	return Math.floor(Math.random() * (+max - +min)) + +min;
+    }
+
+    for(var i = 0; i < ${size}; i++) {
+    	rgbaRandom1.push('rgba(' +  randomNumber() + ', ' + randomNumber() + ', ' + randomNumber()
+    						+ ', 0.2)');
+    }
+    for(var i = 0; i < ${size}; i++) {
+    	rgbaRandom2.push(rgbaRandom1[i].replace('0.2', '1'));
+    }
+	
+	var ctx = document.getElementById('chart');
+	var myChart = new Chart(ctx, {
+		type: 'polarArea',
+		data: {
+			labels: title,
+			datasets: [{
+				label: '# of Votes',
+				data: rate,
+				backgroundColor: rgbaRandom1,
+				borderColor: rgbaRandom2,
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		}
+	});
 });
 </script>
 </head>
 
 <body>
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
-	    <div class="side">
-	        <nav>
-	            <ul>
-	            	<c:forEach items='${subProblemList }' var='vo' step='1' varStatus='status'>
-		                <li class="menulist" title="${vo.title }">문제 ${status.index + 1} - ${vo.title }</li>
-		            </c:forEach>
-	            </ul>
-	        </nav>
-	    </div>
 	    <div class="statistics-container">
+            <div class="line">
+                <h4>문제 통계</h4>
+            </div>
 	        <div class="quizlist">
-	            <div class="line">
-	                <h4>문제 통계</h4>
-	            </div>
-	            <br />
 	            <table id="statistics-table">
 	                <thead>
 	                    <tr>
 	                        <th></th>
 	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
-								<th>문제 ${status.index+1 }</th>
+								<th class="problem-title">문제 ${status.index+1 }</th>
 	                        </c:forEach>
 	                    </tr>
 	                </thead>
 	                <tbody>
 	                    <tr>
-	                        <th>맞았습니다</th>
+	                        <th>정답</th>
 	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
 								<td>${vo.y }</td>
 	                        </c:forEach>
 	                    </tr>
 	                    <tr>
-	                        <th>틀렸습니다</th>
+	                        <th>오답</th>
 	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
 								<td>${vo.n }</td>
 	                        </c:forEach>
@@ -101,11 +142,14 @@ $(function() {
 	                    <tr>
 	                        <th>정답율</th>
 	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
-								<td>${vo.rate }%</td>	                        
+								<td id="rate${status.index }" value="${vo.rate }">${vo.rate }%</td>	                        
 	                        </c:forEach>
 	                    </tr>
 	                </tbody>
 	            </table>
+	        </div>
+	        <div class="chart-div">
+	            <canvas class="chart" id="chart" width="400" height="400"></canvas>
 	        </div>
 	    </div>
 	    <c:import url="/WEB-INF/views/include/footer.jsp" />

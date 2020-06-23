@@ -34,7 +34,7 @@ public class MypageController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		authUser.setNickname(vo.getNickname());
 		session.setAttribute("authUser", authUser);
-		return JsonResult.success(result);
+		return JsonResult.success(authUser.getNickname());
 	}
 
 	@Auth
@@ -58,7 +58,6 @@ public class MypageController {
 	@DeleteMapping(value = "/problem/delete/{no}")
 	public JsonResult deleteProblem(@PathVariable("no") Long no) {
 		int result = mypageService.deleteProblem(no);
-
 		return JsonResult.success(result);
 	}
 
@@ -66,7 +65,7 @@ public class MypageController {
 	@DeleteMapping(value = "/sub-problem/delete/{no}")
 	public JsonResult deleteSubProblem(@PathVariable("no") Long no) {
 		int result = mypageService.deleteSubProblem(no);
-
+		
 		return JsonResult.success(result);
 	}
 
@@ -99,11 +98,11 @@ public class MypageController {
 
 	@Auth
 	@PostMapping(value = "/problem")
-	public JsonResult findProblem(String page, HttpSession session) {
+	public JsonResult findProblem(String page, String keyword, HttpSession session) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
 		int currentPage = Integer.parseInt(page);
-		Map<String, Object> map = mypageService.getContentsList(currentPage, authUser.getNo());
+		Map<String, Object> map = mypageService.getContentsList(currentPage, authUser.getNo(), keyword);
 	
 		return JsonResult.success(map);
 	}

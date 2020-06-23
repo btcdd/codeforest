@@ -101,7 +101,7 @@
 				 and s.problem_no = p.no
 				 and p.kind_no = k.no
 				 and p.state ='y'
-				 and p.privacy = 'y'
+				 and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 				 order by s.no desc
 				 limit #{displayPost}, #{postNum}
 				]]>
@@ -115,7 +115,7 @@
 				 and s.problem_no = p.no
 				 and p.kind_no = k.no 
 				 and p.state ='y'
-				 and p.privacy = 'y'                    
+				 and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
                 and (p.title like '%${keyword}%' or u.nickname like '%${keyword}%' or k.name like '%${keyword}%' )
                 order by s.no desc
                limit #{displayPost}, #{postNum}			 	
@@ -276,5 +276,6 @@
 			where no = #{submitNo }
 		]]>	
 	</update>
+
 	
 </mapper>

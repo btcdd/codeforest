@@ -28,7 +28,7 @@ public class MypageController {
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		List<SubmitVo> rightSubmit = mypageService.findRightSubmit(authUser.getNo());
+		List<SubmitVo> rightSubmit = mypageService.findRrightSubmit(authUser.getNo());
 		
 		List<SubmitVo> wrongSubmit = mypageService.findWrongSubmit(authUser.getNo());
 		
@@ -46,15 +46,7 @@ public class MypageController {
 	
 	@Auth
 	@RequestMapping(value="/problem", method=RequestMethod.GET)
-	public String problem(
-			@RequestParam(value="p",required=true,defaultValue="1") int currentPage,
-			Model model,
-			HttpSession session) {
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		
-		Map<String,Object> map = mypageService.getContentsList(currentPage, authUser.getNo());
-		
-		model.addAttribute("map",map);
+	public String problem() {
 		
 		return "mypage/problem";
 	}
