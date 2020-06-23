@@ -57,7 +57,6 @@ spring:
       password: codeforest
       initialSize: 10
       maxActive: 100
-
 ---
 # spring production profile configuration
 spring:

@@ -8,5 +8,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>forest12</module>
+		<module>chatting</module>
+		<module>chat</module>
 	</modules>
 </project>
