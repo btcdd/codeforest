@@ -87,7 +87,7 @@ function onMessageReceived(payload) {
     var prevText = resultText.val();
     resultText.val(prevText + '\n' + message.content);
     
-    
+    $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
 
 
