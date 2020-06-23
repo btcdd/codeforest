@@ -215,7 +215,7 @@ public class RunJava {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp . Test");	
+		buffer.append("java -cp . Test");
 		
 		return buffer.toString();
 	}

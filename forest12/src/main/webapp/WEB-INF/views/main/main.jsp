@@ -28,11 +28,88 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/js/codemirror.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/mode/clike.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 <script>
 
 var result = '';
+var r;
+
+//채팅 시작하기
+function connect(event) {
+    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+    var socket = new SockJS('${pageContext.request.contextPath }/ws');
+    // 전역 변수에 세션 설정
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, onConnected, onError);
+    
+    event.preventDefault();
+}
+
+
+function onConnected() {
+    // Subscribe to the Public Topic
+    stompClient.subscribe('/topic/public', onMessageReceived);
+
+    // Tell your username to the server
+    stompClient.send("/app/chat",
+        {},
+        JSON.stringify({})
+    )
+}
+
+
+function onError(error) {
+//     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+//     connectingElement.style.color = 'red';
+}
+
+function sendMessage(event, res) {
+	
+    var messageContent = res;
+        var chatMessage = {
+            content: messageContent,
+            type: 'CHAT'
+        };
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+    event.preventDefault();
+}
+
+function onMessageReceived(payload) {
+    var message = JSON.parse(payload.body);
+    
+     r.val(message.content);
+     console.log('r:', r);
+	console.log('message:',  message.content);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $(function() {
+	
+	
    $(window).scroll(function() {
         if ($(this).scrollTop() > 500) {
             $('#MOVE-TOP').fadeIn();
@@ -49,38 +126,29 @@ $(function() {
     });
 
    
+    
    var save = false;
-   $(".codeTest").submit(function(event) {
-      event.preventDefault();
-      var lang = $("select option:selected").val();
-      
-      var code = editor.getValue();
+   
+   var d = document.querySelector('.codeTest');
+   d.addEventListener('submit', connect, true);
+   
+   /*
+   $('.codeTest').on('submit',function(e) {
+	   
+	   e.preventDefault();
+	   
+		// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+	    var socket = new SockJS('/ws');
+	    // 전역 변수에 세션 설정
+	    stompClient = Stomp.over(socket);
 
-      $.ajax({
-         url: '${pageContext.request.contextPath }/compile/' + lang,
-         async: true,
-         type: 'post',
-         dataType: 'json',
-         data: {code:code},
-         success: function(response){
-            if(response.result != "success") {
-               console.error(response.message);
-               return;
-            }
-            if(response.data[1] != "") {
-               console.log("data[1]\n" + response.data[1]);
-               $("#result").val(response.data[1]);
-            } else {
-               console.log("data[0]\n" + response.data[0]);
-               $('#result').val(response.data[0]);
-            }
-         
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }
-      });
+	    stompClient.connect({}, onConnected, onError);
    });
+   */
+   
+   
+   
+//    $('.codeTest').on('submit',function(e)
    
    var code = $('.CodeMirror')[0];
    var editor = CodeMirror.fromTextArea(code, {
@@ -143,41 +211,17 @@ $(function() {
    
     $('.CodeMirror').addClass('code');
     
-    $('#result').keydown(function(key) {
+    r = $('#result');
+    
+    $('#result').keydown(event, function(key) {
        var keyCode = typeof key.which === "number" ? key.which : key.keyCode;
        result += String.fromCharCode(keyCode);
        
        if (key.keyCode == 13) {
-
-         content = result;
-          result = '';
-          
-          $.ajax({
-                url: '${pageContext.request.contextPath }/compile/test',
-                async: true,
-                type: 'post',
-                dataType: 'json',
-                data: {content: content},
-                success: function(response){
-                   if(response.result != "success") {
-                      console.error(response.message);
-                      return;
-                   }
-               console.log('content : ' + content);
-               console.log('response : ' + response.data.readbuffer);
-               console.log('response2 : ' + response.data.readbuffer2);
-//                    $('#result').keyUp();
-                   $('#result').val(content + "\n" + "> " + response.data.readbuffer);
-                   
-                   return;
-                },
-                error: function(xhr, status, e) {
-                   console.error(status + ":" + e);
-                }
-             });
-          
+          sendMessage(event, result);
        }
    });
+    
     
 });
 
@@ -252,7 +296,7 @@ public class Test{
 }</textarea>
                   </td>
                   <td>
-                     <textarea name="" id="result"></textarea>
+                     <textarea name="" id="result" class="res"></textarea>
                   </td>
                </tr>
             </table>
