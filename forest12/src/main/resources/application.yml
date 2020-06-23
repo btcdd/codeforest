@@ -69,6 +69,9 @@ spring:
       password: codeforest
       initialSize: 10
       maxActive: 100
+      validation-query: SELECT 1
+      test-on-borrow: true
+      test-while-idle: true
 ---
 # spring production profile configuration
 spring:
