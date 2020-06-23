@@ -52,9 +52,6 @@ public class ChatController {
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
-						if(line == 10 || line == 13) {
-							readBuffer.setLength(0);
-						}
 					}
 					reader.reset();
 				} catch (Exception e) {
@@ -94,6 +91,7 @@ public class ChatController {
 							chatMessage.setSender(readBuffer2.toString());
 							writer.write(input);
 							writer.flush();
+							readBuffer.setLength(0);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
