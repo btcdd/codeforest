@@ -52,7 +52,7 @@ public class ChatController {
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
-						if(c == 10 || c == 13) {
+						if(line == 10 || line == 13) {
 							readBuffer.setLength(0);
 						}
 					}
