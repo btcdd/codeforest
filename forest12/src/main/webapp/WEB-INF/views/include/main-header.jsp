@@ -19,12 +19,12 @@
         <div class="menu-user clearfix">
 	        <c:choose>
 				<c:when test="${empty authUser }">
-					<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/login">Sign In</a></div>
-					<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/join">Sign Up</a></div>
+					<div class="menu-item"><a class="menu-item-child" href="${pageContext.servletContext.contextPath }/user/login">Sign In</a></div>
+					<div class="menu-item"><a class="menu-item-child" href="${pageContext.servletContext.contextPath }/user/join">Sign Up</a></div>
 				</c:when>
 				<c:otherwise>
-					<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/mypage/account">Settings</a></div>
-					<div class="menu-item"><a href="${pageContext.request.contextPath }/user/logout">Sign Out</a></div>
+					<div class="menu-item"><a class="menu-item-child" href="${pageContext.servletContext.contextPath }/mypage/account">${authUser.nickname }<i class="fas fa-cog account-icon"></i></a></div>
+					<div class="menu-item"><a class="menu-item-child" href="${pageContext.request.contextPath }/user/logout">Sign Out</a></div>
 				</c:otherwise>
 			</c:choose>
         </div>

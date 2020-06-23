@@ -53,9 +53,11 @@ var originList = function(page, kwd, category) {
 			}
 			map = response.data;
 			
-			if(page == '1') {
-				endPageTrueNum = map.endPageNum;
-			}
+			if(map.count / 12 % 1 == 0) {
+	        	 endPageTrueNum = map.count / 12;
+	        } else {
+		         endPageTrueNum = parseInt(map.count / 12 + 1);
+	        }
 			
 			fetchList();
 		},
@@ -357,7 +359,7 @@ $(function() {
 
         <div class="list">
             <div class="search">
-                <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();">
+                <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();" autoComplete="off">
                 <input type="button" id="search" value="검색" >
                 <button class="reset">초기화</button>
                 <button class="make-problem" onclick="location.href='${pageContext.servletContext.contextPath }/training/write'">문제작성</button>
