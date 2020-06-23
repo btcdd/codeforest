@@ -54,6 +54,7 @@ public class ChatController {
 						readBuffer.append(line);
 					}
 					reader.reset();
+					readBuffer.setLength(0);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
