@@ -218,8 +218,11 @@ $(function() {
     resultText = $('#result');
     
     $('#result').keydown(event, function(key) {
+        console.log('key.keyCode:',  key.keyCode);
        var keyCode = typeof key.which === "number" ? key.which : key.keyCode;
+       console.log('key.keyCode22222:',  key.keyCode);
        result += String.fromCharCode(keyCode);
+       console.log('result:' + result);
        
        if (key.keyCode == 13) {
           sendMessage(event, result);

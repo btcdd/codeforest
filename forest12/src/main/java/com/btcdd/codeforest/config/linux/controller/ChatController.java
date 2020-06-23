@@ -60,6 +60,7 @@ public class ChatController {
 				} finally {
 				}
 			});
+			
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().execute(() -> {
 				try {
