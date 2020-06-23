@@ -15,6 +15,7 @@ import com.btcdd.codeforest.vo.UserVo;
 @Service
 public class UserService {
 	
+	@Autowired
 	private JavaMailSender mailSender;
 
 	private Process process;
@@ -26,7 +27,7 @@ public class UserService {
 		userRepository.insert(vo);
 		
 		Long no = userRepository.findByEmail(vo.getEmail());
-		
+		 
 		try {
 			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no);
 		} catch(Exception e) {
