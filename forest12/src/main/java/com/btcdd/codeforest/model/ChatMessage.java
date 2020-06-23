@@ -5,6 +5,7 @@ public class ChatMessage {
     private MessageType type;
     private String content;
     private String sender;
+    private String outputContent;
 
     public MessageType getType() {
         return type;
