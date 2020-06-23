@@ -15,7 +15,6 @@ import com.btcdd.codeforest.vo.UserVo;
 @Service
 public class UserService {
 	
-	@Autowired
 	private JavaMailSender mailSender;
 
 	private Process process;
