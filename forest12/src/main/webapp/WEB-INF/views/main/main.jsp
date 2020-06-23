@@ -89,7 +89,7 @@ function onMessageReceived(payload) {
     
     
     var txtArea = resultText;
-    var txtValue = txtArea.value;
+    var txtValue = txtArea.val();
     var selectPos = txtArea.selectionStart; // 커서 위치 지정
     var beforeTxt = txtValue.substring(0, selectPos);  // 기존텍스트 ~ 커서시작점 까지의 문자
     var afterTxt = txtValue.substring(txtArea.selectionEnd, txtValue.length);   // 커서끝지점 ~ 기존텍스트 까지의 문자
