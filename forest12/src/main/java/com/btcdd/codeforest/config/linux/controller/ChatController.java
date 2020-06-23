@@ -87,6 +87,8 @@ public class ChatController {
 						try {
 							input += "\n";
 							readBuffer2.append(input);
+							System.out.println("readBuffer2:" + readBuffer2.toString());
+							chatMessage.setSender(readBuffer2.toString());
 							writer.write(input);
 							writer.flush();
 						} catch (IOException e) {
@@ -108,8 +110,7 @@ public class ChatController {
 		}
 
 		chatMessage.setContent(readBuffer.toString());
-		chatMessage.setSender(readBuffer2.toString());
-
+		
 		return chatMessage;
 	}
 }
