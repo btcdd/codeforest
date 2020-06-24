@@ -42,8 +42,7 @@ var code;
 
 //채팅 시작하기
 function connect(event) {
-	console.log('언어:', lang);
-	code = $('#code').val();
+	code = editor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
     var socket = new SockJS('${pageContext.request.contextPath }/ws');
