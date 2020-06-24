@@ -63,17 +63,17 @@ public class ChatController {
 					RunC rc = new RunC();
 					rc.createFileAsSource(code);
 					errorResult = rc.execCompile();
-					process = Runtime.getRuntime().exec("timeout 2s ./test.exe");
+					process = Runtime.getRuntime().exec("./test.exe");
 				} else if("cpp".equals(language)) {
 					RunCpp rcpp = new RunCpp();
 					rcpp.createFileAsSource(code);
 					errorResult = rcpp.execCompile();
-					process = Runtime.getRuntime().exec("timeout 2s ./cppTest.exe");
+					process = Runtime.getRuntime().exec("./cppTest.exe");
 				} else if("cs".equals(language)) {
 					RunCs rcs = new RunCs();
 					rcs.createFileAsSource(code);
 					errorResult = rcs.execCompile();
-					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
+					process = Runtime.getRuntime().exec("mono testCs.exe");
 				} else if("java".equals(language)) {
 					RunJava rj = new RunJava();
 					rj.createFileAsSource(code);
@@ -83,12 +83,12 @@ public class ChatController {
 					RunJs rjs = new RunJs();
 					rjs.createFileAsSource(code);
 					errorResult = rjs.execCompile();
-					process = Runtime.getRuntime().exec("timeout 2s node test.js");
+					process = Runtime.getRuntime().exec("node test.js");
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy();
 					rpy.createFileAsSource(code);
 					errorResult = rpy.execCompile();
-					process = Runtime.getRuntime().exec("timeout 2s python3 testPy.py");
+					process = Runtime.getRuntime().exec("python3 testPy.py");
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
