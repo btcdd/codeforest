@@ -37,14 +37,15 @@
 var result = '';
 var resultText;
 var tmp = '';
-var lang = '';
-var code = '';
+var lang;
+var code;
 
 //채팅 시작하기
 function connect(event) {
     // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
     var socket = new SockJS('${pageContext.request.contextPath }/ws');
     
+    console.log('언어:', lang);
     code = $('#code').val();
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
