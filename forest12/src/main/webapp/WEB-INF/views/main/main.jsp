@@ -85,8 +85,7 @@ function sendMessage(event, res) {
         content: messageContent,
         type: 'CHAT'
     };
-    stompClient.send("/app/chat", {"language":lang,
-		"code":code}, JSON.stringify(chatMessage));
+    stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
