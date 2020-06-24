@@ -217,11 +217,14 @@ $(function() {
     
     resultText = $('#result');
     
+    console.log("input : ", resultText.prop('selectionStart'));
+    
     $('#result').keydown(event, function(key) {
        var keyCode = typeof key.which === "number" ? key.which : key.keyCode;
        result += String.fromCharCode(keyCode);	
        
        if (key.keyCode == 13) {
+		    console.log("enter : ", resultText.prop('selectionStart'));
           sendMessage(event, result);
           result = '';
        }
