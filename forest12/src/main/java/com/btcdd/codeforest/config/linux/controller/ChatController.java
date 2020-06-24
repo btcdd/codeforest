@@ -101,6 +101,7 @@ public class ChatController {
 					rj.createFileAsSource(code);
 					Thread.sleep(1000);
 					errorResult = rj.execCompile();
+					Thread.sleep(1000);
 					process = Runtime.getRuntime().exec("timeout 2s java -cp . Test");
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs();
