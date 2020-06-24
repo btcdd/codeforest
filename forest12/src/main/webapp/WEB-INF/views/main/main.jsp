@@ -33,26 +33,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 <script>
+
 var result = '';
 var resultText;
 var tmp = '';
 var lang;
 var code;
 var editor;
-vat execPandan;
+var execPandan;
 
 //채팅 시작하기
 function connect(event) {
-    code = editor.getValue();
-	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+   code = editor.getValue();
+   
+   // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
     var socket = new SockJS('${pageContext.request.contextPath }/ws');
+   
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
-
     stompClient.connect({}, onConnected, onError);
     
     event.preventDefault();
 }
+
 
 function onConnected() {
     // Subscribe to the Public Topic
@@ -60,13 +63,12 @@ function onConnected() {
 
     execPandan = true;
     var chatMessage = {
-    		language: $('.lang option:selected').val(),
-    		code:code,
-    		execPandan: exexPandan,
-    		type: 'CHAT'
-    };
+            language:$(".lang option:selected").val(),
+          code:code,
+          execPandan: execPandan,
+            type: 'CHAT'
+        };
     execPandan = false;
-    
     // Tell your username to the server
     stompClient.send("/app/chat",
         {},
@@ -81,19 +83,20 @@ function onError(error) {
 }
 
 function sendMessage(event, res) {
-	
-	tmp = res;
-	
+   
+   tmp = res;
+   
     var messageContent = res;
-        var chatMessage = {
-            content: messageContent,
-            type: 'CHAT'
-        };
-        stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
+    var chatMessage = {
+        content: messageContent,
+        type: 'CHAT'
+    };
+    stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
 function onMessageReceived(payload) {
+   
     var message = JSON.parse(payload.body);
     
     var prevText = resultText.val();
@@ -102,9 +105,9 @@ function onMessageReceived(payload) {
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
 
+
 $(function() {
-	
-	
+   
    $(window).scroll(function() {
         if ($(this).scrollTop() > 500) {
             $('#MOVE-TOP').fadeIn();
@@ -129,15 +132,15 @@ $(function() {
    
    /*
    $('.codeTest').on('submit',function(e) {
-	   
-	   e.preventDefault();
-	   
-		// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-	    var socket = new SockJS('/ws');
-	    // 전역 변수에 세션 설정
-	    stompClient = Stomp.over(socket);
+      
+      e.preventDefault();
+      
+      // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+       var socket = new SockJS('/ws');
+       // 전역 변수에 세션 설정
+       stompClient = Stomp.over(socket);
 
-	    stompClient.connect({}, onConnected, onError);
+       stompClient.connect({}, onConnected, onError);
    });
    */
    
@@ -160,7 +163,8 @@ $(function() {
    });
    
    $('.lang').change(function() {
-      var lang = $(".lang option:selected").val();
+      lang = $(".lang option:selected").val();
+      
       var face = '';
       
       if(lang === 'c') {
@@ -202,6 +206,7 @@ $(function() {
       }
       
       editor.setValue(face);
+      $('#code').val(editor.getValue());
    });
    
     $('.CodeMirror').addClass('code');
@@ -211,20 +216,20 @@ $(function() {
     var prevCursor = 0;
     var cursorPandan = false;
     $('#result').keyup(event, function(key) {
-    	
-    	if(cursorPandan == false) {
-	    	prevCursor = $(this).prop('selectionStart') - 1;
-	    	cursorPandan = true;
-    	}
-    	if (key.keyCode == 13) {
-    		cursorPandan = false;
-    		
-	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
-	        
-	        sendMessage(event, result);
-	        result = '';
-    	}
-    	
+       
+       if(cursorPandan == false) {
+          prevCursor = $(this).prop('selectionStart') - 1;
+          cursorPandan = true;
+       }
+       if (key.keyCode == 13) {
+          cursorPandan = false;
+          
+           result = $(this).val().substring(prevCursor-1).replace("\n", "");
+           
+           sendMessage(event, result);
+           result = '';
+       }
+       
    });
     
     
