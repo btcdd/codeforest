@@ -2,16 +2,15 @@ package com.btcdd.codeforest.config.linux.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Executors;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -31,8 +30,23 @@ public class ChatController {
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 
+		boolean pandan = false;
+		
+		
+		
+		JSONParser parser = new JSONParser();
+		JSONObject obj = null;
 		try {
-			if("{}".equals(data)) {
+		   obj = (JSONObject) parser.parse(data);
+		} catch (Exception e) {
+		   e.printStackTrace();
+		}      
+		pandan = (Boolean) obj.get("execPandan");
+		String language = (String) obj.get("language");
+		String code = (String) obj.get("code");
+		
+		try {
+			if("java".equals(language)) {
 //				process = Runtime.getRuntime().exec("cmd");
 //				process = Runtime.getRuntime().exec("java Test");
 				process = Runtime.getRuntime().exec("java -cp . Test");
