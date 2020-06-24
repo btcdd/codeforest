@@ -30,6 +30,8 @@ public class ChatController {
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 
+		
+		
 		boolean pandan = false;
 		
 		JSONParser parser = new JSONParser();
