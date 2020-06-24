@@ -57,31 +57,8 @@ public class ChatController {
 			e.printStackTrace();
 		}		
 		
-		try {
-		RunJava rj = new RunJava();
-		try {
-			file = new File("Test.java");
-			bufferWriter = new BufferedWriter(new FileWriter(file, false));
-			
-			bufferWriter.write(code);
-			bufferWriter.flush(); 
-		} catch(Exception e) {
-			e.printStackTrace();
-			System.exit(1);
-		} finally {
-			try {
-				bufferWriter.close();
-				file = null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(1);;
-			}
-		}
-		errorResult = rj.execCompile();
-		process = Runtime.getRuntime().exec("java -cp . Test");
-		
-		/*
 		pandan = (Boolean) obj.get("execPandan");
+		try {
 			if(pandan) {
 				if("c".equals(language)) {
 					RunC rc = new RunC();
@@ -120,8 +97,8 @@ public class ChatController {
 					errorResult = rcs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
 				} else if("java".equals(language)) {
-//					rj.createFileAsSource(code);
 					RunJava rj = new RunJava();
+//					rj.createFileAsSource(code);
 					try {
 						file = new File("Test.java");
 						bufferWriter = new BufferedWriter(new FileWriter(file, false));
@@ -164,8 +141,6 @@ public class ChatController {
 					return chatMessage;
 				}
 			}
-			
-			*/
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
 			InputStream stdout = process.getInputStream();
