@@ -23,7 +23,7 @@ var FullHours = FullendTimeSplit[1];
 var FullHoursSplit = FullHours.split(":");
 
 var tempKey = ${tempKey};
-var slide = function Slide(str) {
+var slide = function Slide(str){
 	$("#" + str).slideDown(500);
 	$("#" + str).delay(2000).slideUp(500);
 };

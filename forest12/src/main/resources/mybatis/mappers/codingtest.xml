@@ -158,5 +158,12 @@
 		]]>
 	</select>	
 
+	<select id="findByProblemNo" parameterType="hashmap" resultType="savevo">
+			<![CDATA[
+			select *
+			from save
+			where user_no = #{authUserNo} and problem_no = #{problemNo}
+			]]>
+	</select>
 		
 </mapper>

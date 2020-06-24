@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.btcdd.codeforest.linux.TrainingLinux;
-import com.btcdd.codeforest.service.CodeTreeService;
+
 import com.btcdd.codeforest.service.CodingTestService;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
@@ -104,11 +104,43 @@ public class CodingTestController {
 	
 	@Auth
 	@RequestMapping(value="/auth/{problemNo}", method=RequestMethod.GET)
-	public String Auth(@PathVariable("problemNo") Long problemNo,Model model) {
-		model.addAttribute("problemNo",problemNo);
+	public String Auth(@PathVariable("problemNo") Long problemNo,Model model,HttpSession session) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		
 		ProblemVo problemVo = testService.selectProblemOne(problemNo);
-		model.addAttribute("problemVo",problemVo);
+		List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
+		
+
+		
+		boolean exist = testService.existSaveNo(authUser.getNo(),problemNo);
+		
+		if(exist==true) {
+			System.out.println("바로 코드미러로");
+			
+			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
+			//태성 코드
+			SaveVo saveVo = testService.findSaveVo(saveNo);
+			List<SavePathVo> savePathList = testService.findSavePathList(saveVo.getNo());
+			List<CodeVo> codeList = testService.findCodeList(savePathList.get(0).getNo());
+			for(int i = 1; i < savePathList.size(); i++) {
+				codeList.addAll(testService.findCodeList(savePathList.get(i).getNo()));
+			}
+			model.addAttribute("problemVo",problemVo);
+			model.addAttribute("subProblemList",subProblemList);
+			model.addAttribute("saveVo", saveVo);
+			model.addAttribute("savePathList", savePathList);
+			model.addAttribute("codeList", codeList);			
+			
+			
+			return "codingtest/code-mirror";
+		}
+
+		model.addAttribute("problemNo",problemNo);
 		model.addAttribute("tempKey",problemVo.getPassword());
+		model.addAttribute("problemVo",problemVo);
+		
 		return "codingtest/auth";
 	}
 	@Auth
@@ -119,6 +151,7 @@ public class CodingTestController {
 			@RequestParam("tempKey") String tempKey,
 			HttpSession session,
 			Model model) {
+		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
 		ProblemVo problemVo = testService.selectProblemOne(problemNo);
@@ -127,24 +160,29 @@ public class CodingTestController {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			
-			Long[] subProblemNoArray = new Long[subProblemList.size()];
-			System.out.println("subProblemList.size()>>>"+subProblemList.size());
-			for(int i = 0; i < subProblemList.size(); i++) {
-				System.out.println("subProblemList.get(i)>>>>>>"+subProblemList.get(i).getNo());
-				subProblemNoArray[i] = subProblemList.get(i).getNo();
-			}
-			
-			
-			
+	
 			//관우-유진 코드
 			/////////////////////////////////////////////////////////////////////////////////////
-			testService.insertSaveProblemNo(authUser.getNo(), problemNo);
-			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
+			Long[] subProblemNoArray = new Long[subProblemList.size()];
+			for(int i = 0; i < subProblemList.size(); i++) {
+				subProblemNoArray[i] = subProblemList.get(i).getNo();
+				System.out.println("subProblemNoArray[i]>>>>"+subProblemNoArray[i]);
+			}
 			
+			testService.insertSaveProblemNo(authUser.getNo(), problemNo);
+			
+			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
+
+			
+			//여기는 들어갈때 딱 한번만 되도록 한다
 			testService.insertSavePath(subProblemNoArray, saveNo, authUser.getNo(), problemNo);
+			
 			testService.insertCode(saveNo);
 			
 			trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);
+			
+			/////////////////////////////////////////////////////////////////////////////////////
+			
 			//태성 코드
 			SaveVo saveVo = testService.findSaveVo(saveNo);
 			List<SavePathVo> savePathList = testService.findSavePathList(saveVo.getNo());
@@ -158,14 +196,12 @@ public class CodingTestController {
 			model.addAttribute("saveVo", saveVo);
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);
-			
-			System.out.println("problemVo>>>"+problemVo);
-			System.out.println("subProblemList>>>"+subProblemList); // codetree에서 subProblemList에 해당
-			
-			return "codingtest/code-mirror"; //이동
 
+			return "codingtest/code-mirror"; //이동
 		}
-		return "codingtest/auth";
+		
+		
+		return "codingtest/";
 	}	
 //	@PostMapping("/auth/{userEmail}/{problemNo}")
 //	public JsonResult auth(@PathVariable("userEmail") String userEmail, @PathVariable("problemNo") Long problemNo,
