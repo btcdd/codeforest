@@ -651,6 +651,7 @@ $(function() {
  	
  	$(document).on("dblclick", ".file", function() {		
  		tempFile = $(this);
+ 		console.log("dblclick tempFile>>>>>>>",tempFile);
  		var language = $(this).data("language");
  		var fileName = $(this).data("file-name");
  		var packagePath = $(this).data("package-path");
