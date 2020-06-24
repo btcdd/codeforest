@@ -64,10 +64,10 @@ function onConnected() {
 
     execPandan = true;
     var chatMessage = {
-            language:$(".lang option:selected").val(),
+          language:$(".lang option:selected").val(),
           code:code,
           execPandan: execPandan,
-            type: 'CHAT'
+          type: 'CHAT'
         };
     execPandan = false;
     // Tell your username to the server
@@ -89,6 +89,9 @@ function sendMessage(event, res) {
    
     var messageContent = res;
     var chatMessage = {
+		language:$(".lang option:selected").val(),
+        code:code,
+        execPandan: execPandan,
         content: messageContent,
         type: 'CHAT'
     };

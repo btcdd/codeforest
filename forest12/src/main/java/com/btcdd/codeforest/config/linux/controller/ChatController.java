@@ -30,6 +30,7 @@ public class ChatController {
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 
+		boolean startPandan = false;
 		
 		
 		boolean pandan = false;
@@ -45,11 +46,13 @@ public class ChatController {
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
 		
+		System.out.println("-------------------obj : " + obj);
+		
 		try {
 			if("java".equals(language)) {
 //				process = Runtime.getRuntime().exec("cmd");
-//				process = Runtime.getRuntime().exec("java Test");
-				process = Runtime.getRuntime().exec("java -cp . Test");
+				process = Runtime.getRuntime().exec("test.exe");
+//				process = Runtime.getRuntime().exec("java -cp . Test");
 				readBuffer.setLength(0);
 			}
 			OutputStream stdin = process.getOutputStream();
