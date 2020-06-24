@@ -2,14 +2,11 @@ package com.btcdd.codeforest.config.linux.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Executors;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -19,6 +16,12 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 import com.btcdd.codeforest.model.ChatMessage;
+import com.btcdd.codeforest.runlanguage.RunC;
+import com.btcdd.codeforest.runlanguage.RunCpp;
+import com.btcdd.codeforest.runlanguage.RunCs;
+import com.btcdd.codeforest.runlanguage.RunJava;
+import com.btcdd.codeforest.runlanguage.RunJs;
+import com.btcdd.codeforest.runlanguage.RunPy;
 
 @Controller
 public class ChatController {
@@ -29,14 +32,62 @@ public class ChatController {
 
 	@MessageMapping("/chat")
 	@SendTo("/topic/public")
-	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-
+	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, String language
+								,String code) {
+		String errorResult = "";
+		
 		try {
 			if("{}".equals(data)) {
-//				process = Runtime.getRuntime().exec("cmd");
-//				process = Runtime.getRuntime().exec("java Test");
-				process = Runtime.getRuntime().exec("java -cp . Test");
+				switch(language) {
+				case "c":
+					RunC rc = new RunC();
+					rc.createFileAsSource(code);
+					errorResult = rc.execCompile();
+					rc.execCommand();
+					
+					break;
+				case "cpp": 
+					RunCpp rcpp = new RunCpp();
+					rcpp.createFileAsSource(code);
+					errorResult = rcpp.execCompile();
+					rcpp.execCommand();
+					
+					break;
+				case "cs": 
+					RunCs rcs = new RunCs();
+					rcs.createFileAsSource(code);
+					errorResult = rcs.execCompile();
+					rcs.execCommand();
+					
+					break;
+				case "java": 
+					RunJava rj = new RunJava();
+					rj.createFileAsSource(code);
+					errorResult = rj.execCompile();
+					rj.execCommand();
+					
+					break;
+				case "js": 
+					RunJs rjs = new RunJs();
+					rjs.createFileAsSource(code);
+					errorResult = rjs.execCompile();
+					rjs.execCommand();
+					
+					break;
+				case "py": 
+					RunPy rpy = new RunPy();
+					rpy.createFileAsSource(code);
+					errorResult = rpy.execCompile();
+					rpy.execCommand();
+					
+					break;
+				}
 				readBuffer.setLength(0);
+				if(!("".equals(errorResult))) {
+					chatMessage.setContent(errorResult);
+					
+					return chatMessage;
+				}
 			}
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();

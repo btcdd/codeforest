@@ -37,15 +37,22 @@
 var result = '';
 var resultText;
 var tmp = '';
+var lang = '';
+var code = '';
 
 //채팅 시작하기
 function connect(event) {
     // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
     var socket = new SockJS('${pageContext.request.contextPath }/ws');
+    
+    code = $('#code').val();
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
-
-    stompClient.connect({"data":"data"}, onConnected, onError);
+    stompClient.connect({
+    			"data":"data",
+    			"language":lang,
+    			"code":code
+    			}, onConnected, onError);
     
     event.preventDefault();
 }
@@ -91,28 +98,7 @@ function onMessageReceived(payload) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(function() {
-	
 	
    $(window).scroll(function() {
         if ($(this).scrollTop() > 500) {
@@ -169,7 +155,7 @@ $(function() {
    });
    
    $('.lang').change(function() {
-      var lang = $(".lang option:selected").val();
+      lang = $(".lang option:selected").val();
       var face = '';
       
       if(lang === 'c') {
