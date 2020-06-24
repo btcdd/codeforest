@@ -637,7 +637,8 @@ $(function() {
 				lineNumbers : true,
 				mode : 'text/x-java',
 				theme : theme,
-				matchBrackets : true
+				matchBrackets : true,
+				readOnly : true
 			});			
 			editorArray[editorArrayIndex++]=editor;
 			console.log("editor : " + editor);
@@ -799,9 +800,7 @@ $(function() {
  	var compileResult1 = "";
  	var compileResult2 = "";
  	
- 	$(document).on("click","#Run",function(){
- 		$("#Save").trigger("click");
- 		
+ 	$(document).on("click","#Run",function(){ 		
  		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
@@ -1164,9 +1163,7 @@ window.onload = function() {
         <ul>
           <li><a>File</a>
             <ul class="sub-menu">
-              <li>Save</li>
-              <li>Run</li>
-              <li>Submit</li>              
+              <li>Run</li>           
             </ul>
           </li>
           <li><a>Run</a>
@@ -1188,18 +1185,6 @@ window.onload = function() {
               <li>Font-Size</li>              
             </ul>
           </li>          
-<!--           <li><a>Mobile Apps</a>
-            <ul class="sub-menu">
-              <li><a>Cordova/PhoneGap</a></li>
-              <li><a>Ionic Framework</a></li>
-            </ul>
-          </li>
-          <li><a>Video</a>
-            <ul class="sub-menu">
-              <li><a>After Effects</a></li>
-              <li><a>Adobe Premiere Pro</a></li>
-            </ul>
-          </li> -->
         </ul>
       </div> 
                
@@ -1268,9 +1253,7 @@ window.onload = function() {
               </div>
               
 			  <div class="buttons">
-		         	<button class="action-button shadow animate" id="Save" class="Save">Save</button>	
 		           	<button class="action-button shadow animate" id="Run" class="Run">Run</button>
-		           	<button class="action-button shadow animate" id="Submit" class="Submit">Submit</button>
 		      </div>
           </div> 
   
