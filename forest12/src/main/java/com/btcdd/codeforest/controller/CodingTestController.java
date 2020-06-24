@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.btcdd.codeforest.linux.TrainingLinux;
 import com.btcdd.codeforest.service.CodeTreeService;
 import com.btcdd.codeforest.service.CodingTestService;
+import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
+import com.btcdd.codeforest.vo.SavePathVo;
+import com.btcdd.codeforest.vo.SaveVo;
 import com.btcdd.codeforest.vo.SubProblemVo;
 import com.btcdd.codeforest.vo.UserVo;
 import com.btcdd.security.Auth;
@@ -29,9 +33,9 @@ public class CodingTestController {
 
 	@Autowired
 	private CodingTestService testService;
-	@Autowired
-	private CodeTreeService codeTreeService;
-
+	
+	private TrainingLinux trainingLinux = new TrainingLinux();
+	
 	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String training(Model model) {
@@ -122,9 +126,41 @@ public class CodingTestController {
 		if(problemVo.getState().equals("y") && problemVo.getPassword().equals(tempKey)) {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
+			
+			Long[] subProblemNoArray = new Long[subProblemList.size()];
+			System.out.println("subProblemList.size()>>>"+subProblemList.size());
+			for(int i = 0; i < subProblemList.size(); i++) {
+				System.out.println("subProblemList.get(i)>>>>>>"+subProblemList.get(i).getNo());
+				subProblemNoArray[i] = subProblemList.get(i).getNo();
+			}
+			
+			
+			
+			//관우-유진 코드
+			/////////////////////////////////////////////////////////////////////////////////////
+			testService.insertSaveProblemNo(authUser.getNo(), problemNo);
+			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
+			
+			testService.insertSavePath(subProblemNoArray, saveNo, authUser.getNo(), problemNo);
+			testService.insertCode(saveNo);
+			
+			trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);
+			//태성 코드
+			SaveVo saveVo = testService.findSaveVo(saveNo);
+			List<SavePathVo> savePathList = testService.findSavePathList(saveVo.getNo());
+			List<CodeVo> codeList = testService.findCodeList(savePathList.get(0).getNo());
+			for(int i = 1; i < savePathList.size(); i++) {
+				codeList.addAll(testService.findCodeList(savePathList.get(i).getNo()));
+			}
+			/////////////////////////////////////////////////////////////////////////////////////
 			model.addAttribute("problemVo",problemVo);
 			model.addAttribute("subProblemList",subProblemList);
-			System.out.println("subProblemList>>>"+subProblemList);
+			model.addAttribute("saveVo", saveVo);
+			model.addAttribute("savePathList", savePathList);
+			model.addAttribute("codeList", codeList);
+			
+			System.out.println("problemVo>>>"+problemVo);
+			System.out.println("subProblemList>>>"+subProblemList); // codetree에서 subProblemList에 해당
 			
 			
 			
@@ -133,6 +169,7 @@ public class CodingTestController {
 			
 			
 			return "codingtest/code-mirror"; //이동
+
 		}
 		return "codingtest/auth";
 	}	

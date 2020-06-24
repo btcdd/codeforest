@@ -1,9 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Bigshot+One&family=Noto+Sans+KR:wght@900&family=Pacifico&family=Roboto:wght@300&display=swap');
+
+html {
+	background-color: #FAFAFA
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #FAFAFA;
+	font-family: Roboto,Helvetica Neue,sans-serif;
+}
+
 .container {
     width: 80%;
     height: 90vh;
     margin: auto;
-    margin-top: 50px;
-    margin-bottom: 10%;
+    margin-top: 9em;
+/*     margin-bottom: 10%; */
 }
 
 .statistics {
@@ -66,7 +79,7 @@ textarea {
     height: 60%;
 }
 
-select {
+.theme {
     width: 155px;
     height: 35px;
     padding: .3em .3em;
@@ -78,4 +91,37 @@ select {
     border-radius: 0px;
     display: block;
     margin-bottom: 10px;
+}
+
+.language {
+    width: 155px;
+    height: 35px;
+    padding: .3em .3em;
+    font-family: inherit;
+    font-size: 1em;
+    background: no-repeat 95% 50%;
+    background-color: #fff;
+    border: 1px solid #999;
+    border-radius: 0px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#footer {
+	float: left;
+	width: 100%;
+	margin-top : 30px;
+}
+
+.footer {
+    display: flow-root;
+	margin: auto;
+	padding: 60px 0;
+	left: 0;
+	bottom: 0;
+	width: 61%;
+    background-color: #fAFAFA;
+	color: #3C3C3C;
+	text-align: center;
+	border-top: 1px solid #BFBFBf
 }

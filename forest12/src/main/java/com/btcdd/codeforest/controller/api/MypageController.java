@@ -1,11 +1,13 @@
 package com.btcdd.codeforest.controller.api;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.btcdd.codeforest.dto.JsonResult;
+import com.btcdd.codeforest.service.CodeTreeService;
 import com.btcdd.codeforest.service.MypageService;
+import com.btcdd.codeforest.vo.CodeVo;
+import com.btcdd.codeforest.vo.SavePathVo;
+import com.btcdd.codeforest.vo.SaveVo;
 import com.btcdd.codeforest.vo.SubProblemVo;
 import com.btcdd.codeforest.vo.SubmitVo;
 import com.btcdd.codeforest.vo.UserVo;
@@ -26,6 +32,9 @@ public class MypageController {
 
 	@Autowired
 	private MypageService mypageService;
+	
+	@Autowired
+	private CodeTreeService codeTreeService;
 
 	@Auth
 	@PostMapping(value = "/account/nickname")
@@ -106,4 +115,16 @@ public class MypageController {
 	
 		return JsonResult.success(map);
 	}
+	
+	@Auth
+	@PostMapping(value="/codemirror")// Code Tree에서 리스트 창 띄울때
+	public JsonResult codemirror(Long problemNo, Long userNo) {
+		System.out.println("problemNo : " + problemNo);
+		System.out.println("userNo : " + userNo);
+		Long saveNo = mypageService.findSaveNoByProblemNoAndUserNo(problemNo, userNo);
+		Map<String, Object> map = new HashMap<>();
+		map.put("saveNo",saveNo);				
+		return JsonResult.success(map);
+	}
+
 }

@@ -24,16 +24,16 @@ $(function() {
 
 
 <div class="accordion">
-  <h1 class="accordion__title">${saveVo.title }</h1>
+  <h1 class="accordion__title">${saveVo.problemNo }. ${saveVo.title }</h1>
   <c:forEach items='${subProblemList }' var='subproblemvo' varStatus='status'>
 	  <h2 class="accordion__items">문제 0${status.index + 1}</h2>
 	  <div class="accordion__content">
 	    <h3 class="accordion__content__caption">문제 내용</h3>
-	    <p class="accordion__content__txt">${subproblemvo.contents }</p>
+	    <div class="accordion__content__txt">${subproblemvo.contents }</div>
 	    <h3 class="accordion__content__caption">예제 입력</h3>
-	    <p class="accordion__content__txt">${subproblemvo.examInput }</p>
+	    <pre class="accordion__content__txt">${subproblemvo.examInput }</pre>
 	    <h3 class="accordion__content__caption">예제 출력</h3>
-	    <p class="accordion__content__txt">${subproblemvo.examOutput }</p>
+	    <pre class="accordion__content__txt">${subproblemvo.examOutput }</pre>
 	  </div>
   </c:forEach>
 
