@@ -34,6 +34,7 @@ public class ChatController {
 		
 		
 		
+		
 		JSONParser parser = new JSONParser();
 		JSONObject obj = null;
 		try {
