@@ -76,7 +76,6 @@ public class RunJava {
 	
 	public String execCompile() {
 		try {
-			process = Runtime.getRuntime().exec("cmd");
 			process = Runtime.getRuntime().exec("javac -cp . Test.java");
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
