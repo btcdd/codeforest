@@ -61,38 +61,17 @@ public class ChatController {
 			if(pandan) {
 				if("c".equals(language)) {
 					RunC rc = new RunC();
-//					rc.createFileAsSource();
-					try {
-						file = new File("test.c");
-						bufferWriter = new BufferedWriter(new FileWriter(file, false));
-						
-						bufferWriter.write(code);
-						bufferWriter.flush(); 
-					} catch(Exception e) {
-						e.printStackTrace();
-						System.exit(1);
-					} finally {
-						try {
-							bufferWriter.close();
-							file = null;
-						} catch (IOException e) {
-							e.printStackTrace();
-							System.exit(1);;
-						}
-					}
-					Thread.sleep(1000);
+					rc.createFileAsSource(code);
 					errorResult = rc.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s ./test.exe");
 				} else if("cpp".equals(language)) {
 					RunCpp rcpp = new RunCpp();
 					rcpp.createFileAsSource(code);
-					Thread.sleep(1000);
 					errorResult = rcpp.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s ./cppTest.exe");
 				} else if("cs".equals(language)) {
 					RunCs rcs = new RunCs();
 					rcs.createFileAsSource(code);
-					Thread.sleep(1000);
 					errorResult = rcs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
 				} else if("java".equals(language)) {
@@ -103,13 +82,11 @@ public class ChatController {
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs();
 					rjs.createFileAsSource(code);
-					Thread.sleep(1000);
 					errorResult = rjs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s node test.js");
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy();
 					rpy.createFileAsSource(code);
-					Thread.sleep(1000);
 					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s python3 testPy.py");
 				}

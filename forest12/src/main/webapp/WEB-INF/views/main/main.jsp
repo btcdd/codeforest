@@ -51,8 +51,7 @@ function connect(event) {
    
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
-    stompClient.connect({
-    			}, onConnected, onError);
+    stompClient.connect({}, onConnected, onError);
     
     event.preventDefault();
 }
@@ -90,6 +89,9 @@ function sendMessage(event, res) {
     var messageContent = res;
     var chatMessage = {
         content: messageContent,
+        language:$(".lang option:selected").val(),
+		code:code,
+		execPandan: execPandan,
         type: 'CHAT'
     };
     stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
@@ -97,8 +99,6 @@ function sendMessage(event, res) {
 }
 
 function onMessageReceived(payload) {
-	
-	console.log('dd22222:', execPandan);
 	
     var message = JSON.parse(payload.body);
     
