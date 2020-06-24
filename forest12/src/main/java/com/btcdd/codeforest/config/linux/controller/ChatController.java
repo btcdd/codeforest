@@ -57,9 +57,8 @@ public class ChatController {
 			e.printStackTrace();
 		}		
 		
-		
+		try {
 		RunJava rj = new RunJava();
-//		rj.createFileAsSource(code);
 		try {
 			file = new File("Test.java");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
@@ -85,7 +84,6 @@ public class ChatController {
 		
 		/*
 		pandan = (Boolean) obj.get("execPandan");
-		try {
 			if(pandan) {
 				if("c".equals(language)) {
 					RunC rc = new RunC();
@@ -124,8 +122,8 @@ public class ChatController {
 					errorResult = rcs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
 				} else if("java".equals(language)) {
-					RunJava rj = new RunJava();
 //					rj.createFileAsSource(code);
+					RunJava rj = new RunJava();
 					try {
 						file = new File("Test.java");
 						bufferWriter = new BufferedWriter(new FileWriter(file, false));
@@ -161,7 +159,6 @@ public class ChatController {
 					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s python3 testPy.py");
 				}
-				
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
@@ -169,10 +166,13 @@ public class ChatController {
 					return chatMessage;
 				}
 			}
-	*/
+			
+			*/
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
 			InputStream stdout = process.getInputStream();
+
+			StringBuffer readBuffer2 = new StringBuffer();
 
 			// 출력 stream을 BufferedReader로 받아서 라인 변경이 있을 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().execute(() -> {
