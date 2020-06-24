@@ -120,11 +120,13 @@ public class CodingTestController {
 	
 	@Auth
 	@PostMapping("/fileInsert")
-	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, HttpSession session) {
+	public JsonResult fileInsert(String savePathNo,String language,String fileName,Long subProblemNo, HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-
+		
+		Long savePathNo2 = Long.parseLong(savePathNo);
+		
 		Long problemNo = codetreeService.findProblemNo(subProblemNo);
-		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
+		boolean exist = codetreeService.existFile(fileName,savePathNo2); //false면 존재하지 않고 true면 존재한다
 		
 		System.out.println("exist>>>>"+exist);
 		
@@ -132,12 +134,12 @@ public class CodingTestController {
 				
 		if(!exist) {
 			System.out.println("기존 존재하지 않는다");
-			codetreeService.insertFile(savePathNo,language,fileName);
+			codetreeService.insertFile(savePathNo2,language,fileName);
 			
 			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
 			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
 			
-			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
+			Long codeNo = codetreeService.findCodeNo(savePathNo2,fileName);
 			System.out.println("codeNo>>"+codeNo);
 			map.put("fileName", fileName);
 			map.put("savePathNo", savePathNo);

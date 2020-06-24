@@ -349,6 +349,7 @@ $(function() {
 			$(".userfile-menu").hide();
 			if(e.which == 3){
 				//tempFile = $(this);
+				console.log("folder   $(this)>>>>>",$(this));
 				savePathNo = $(this).data("no");
 	 			subProblemNo = $(this).data("no2");
 	 		    //Get window size:
@@ -398,6 +399,7 @@ $(function() {
 		$(document).on('mousedown','.userFile',function(e){
 			$(".contextmenu").hide();
 			if(e.which == 3){
+				console.log("userFile   $(this)>>>>>",$(this));
 				//tempFile = $(this);
 				codeNo = $(this).data("no");
 				prevFileName = $(this).data("file-name");
