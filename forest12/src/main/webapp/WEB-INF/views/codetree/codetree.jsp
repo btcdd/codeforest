@@ -38,7 +38,8 @@
 
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/goldenlayout.min.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
+<link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
+<%-- <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css" /> --%>
 
 <script>
 
@@ -71,122 +72,159 @@ var fileFetchList = function(){
 };
 
 
-
 var currentEditor = null;
+
+var editorArray = new Array();
+var editorArrayIndex = 0;
+
+
 
 $(function() {
 	fileFetchList();
 	
-////////////////// code-mirror /////////////////////////////
-   var save = false;
-   $(".codeTest").submit(function(event) {
-      event.preventDefault();
-      var lang = $("select option:selected").val();
-      
-      var code = currentEditor.getValue();
+////////////////// code-mirror /////////////////////////////   
 
-      $.ajax({
-         url: '${pageContext.request.contextPath }/compile/' + lang,
-         async: true,
-         type: 'post',
-         dataType: 'json',
-         data: {code:code},
-         success: function(response){
-            if(response.result != "success") {
-               console.error(response.message);
-               return;
-            }
-            if(response.data[1] != "") {
-               console.log("data[1]\n" + response.data[1]);
-               $("#result").val(response.data[1]);
-            } else {
-               console.log("data[0]\n" + response.data[0]);
-               $('#result').val(response.data[0]);
-            }
-         
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }
-      });
-   });
    
-//    var code = $('.CodeMirror')[0];
-//    var editor = CodeMirror.fromTextArea(code, {
-//    		lineNumbers: true,
-//    		mode: 'text/x-java',
-//    		theme: 'panda-syntax',
-//    		matchBrackets: true
-//    });
-   
+   var theme = 'panda-syntax';
    $('.theme').click(function() {
-	   var theme = $(".theme option:selected").val();
-	   currentEditor.setOption("theme", theme);
-	   
+	   theme = $(".theme option:selected").val();
+	   if(currentEditor != null) {
+// 		   currentEditor.setOption("theme", theme);
+		   for (var i = 0; i < editorArray.length; i++ ) {
+			   editorArray[i].setOption("theme", theme);
+			}
+	   }	   
+	   var backgroundColor = null;
+	   if(theme == "abcdef") {
+		   backgroundColor = "#0F0F0F";
+	   }
+	   if(theme == "blackboard") {
+		   backgroundColor = "#0C1021";
+	   }
+	   if(theme == "dracula") {
+		   backgroundColor = "#282A36";
+	   }
+	   if(theme == "moxer") {
+		   backgroundColor = "#090A0F";
+	   }
+	   if(theme == "panda-syntax") {
+		   backgroundColor = "#292A2B";
+	   }
+	   if(theme == "duotone-light") {
+		   backgroundColor = "#FAF8F5";
+	   }
+	   if(theme == "eclipse") {
+		   backgroundColor = "#FFFFFF";
+	   }
+	   if(theme == "neat") {
+		   backgroundColor = "#FFFFFF";
+	   }
+	   if(theme == "ttcn") {
+		   backgroundColor = "#FFFFFF";
+	   }
+	   if(theme == "solarized") {
+		   backgroundColor = "#FFFFFF";
+	   }
 	   // 터미널 색 변경
-	   $(".window .terminal").css('background-color', $(".cm-s-" + theme).css("background-color"));
+// 	   $(".window .terminal").css('background-color', $(".cm-s-" + theme).css("background-color"));
+	   $(".window .terminal").css('background-color', backgroundColor);
+	   $(".ui__sidebar").css('background-color', backgroundColor);
+	  
 	   if($('.theme option:selected').parent().attr('label') == "white") {
 		   $(".window .terminal").css('color', "#000000");
 		   $(".window .terminal .prompt").css('color', "#004000");
 		   $(".window .terminal .path").css('color', "#1f0d98");
+		   $(".folder--open").css('color', "#000000");
+		   $(".folder").css('color', "#000000");
+		   $(".ui__sidebar").css('color', "#2c2c2c");
+		   
+		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css");
+		   
+		   $(".accordion").css("background-color", "#F3F3F3");
+		   
+		   $(".accordion__title").css("background-color", "#F3F3F3");
+		   $(".accordion__title").css("border-bottom", "#f3f3f3");
+		   $(".accordion__title").css("color", "#414141");
+		   
+		   $(".navigator").css("background-color", "#F3F3F3");
+		   $(".navigator").css("background ", "#F3F3F3");
+		   
+		   $(".accordion__items").css("background-color", "#E2E2E2");
+		   $(".accordion__items").css("border-bottom", "2px solid #CDCDCD");
+		   $(".accordion__items").css("color", "#414141");
+		   $(".accordion__items").css("box-shadow", "0 0 10px rgba(150, 150, 150, 1)");
+		   
+		   $(".accordion__items:nth-of-type(even)").css("background-color", "#D8D8D8");
+		   
+		   $(".accordion__content").css("background-color", "#fff");
+		   $(".accordion__content").css("border-bottom", "2px solid #D8D8D8");
+		   
+		   $(".accordion__content__caption").css("color", "#414141");
+		   
+		   $(".accordion__content__txt").css("color", "#414141");
+		   
+		   $(".accordion__items.active ").css("background-color", "#CDCDCD");
+		   
+		   $(".accordion__items:hover").css("background-color", " #CDCDCD");
+		   
+		   $(".resizer[data-resizer-type=H]").css("background", "#bebebe");
+		   $(".resizer[data-resizer-type=V]").css("background", "#bebebe");
+		   
+		   $(".box").css("background", "");
+		   $(".box").css("background", "#bebebe");
+		   
+		   $(".dropdown").removeClass("dropdown-dark");
 	   }
 	   else {
 		   $(".window .terminal").css('color', "#FFFFFF");
 		   $(".prompt").css('color', "#bde371");
 		   $(".path").css('color', "#5ed7ff");
+		   $(".folder--open").css('color', "#FFFFFF");
+		   $(".folder").css('color', "#FFFFFF");
+		   $(".ui__sidebar").css('color', "#FFFFFF");
+		   
+		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css");
+		   
+		   $(".accordion").css("background-color", "#18202a");
+		   
+		   $(".accordion__title").css("background-color", "#253141");
+		   $(".accordion__title").css("border-bottom", "#11161d");
+		   $(".accordion__title").css("color", "#fff");
+		   
+		   $(".navigator").css("background-color", "#253141");
+		   $(".navigator").css("background ", "#253141");
+		   
+		   $(".accordion__items").css("background-color", "#18202a");
+		   $(".accordion__items").css("border-bottom", "2px solid #090c10");
+		   $(".accordion__items").css("color", "#fff");
+		   $(".accordion__items").css("box-shadow", "");
+		   
+		   $(".accordion__items:nth-of-type(even)").css("background-color", "#0d1117");
+		   
+		   $(".accordion__content").css("background-color", "#18202a");
+		   $(".accordion__content").css("border-bottom", "");
+		   
+		   $(".accordion__content__caption").css("color", "#ffe");
+		   
+		   $(".accordion__content__txt").css("color", "#D0CECE");
+		   
+		   $(".accordion__items.active ").css("background-color", "#000");
+		   
+		   $(".accordion__items:hover").css("background-color", " #000");
+		   
+		   $(".resizer[data-resizer-type=H]").css("background", "");
+		   $(".resizer[data-resizer-type=V]").css("background", "");
+		   $(".resizer[data-resizer-type=H]").css("background", "linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% transparent; cursor: col-resize");
+		   $(".resizer[data-resizer-type=V]").css("background", "linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% transparent; cursor: col-resize");
+		   
+		   $(".box").css("background", "linear-gradient(45deg, #1D1F20, #2F3031) repeat scroll 0% 0% transparent !important");
+		   
+		   $(".dropdown").addClass("dropdown-dark");
 	   }
    });
    
    $('.lang').change(function() {
 	  
-	   var lang = $(".lang option:selected").val();
-	   var face = '';
-	   
-	   if(lang === 'c') {
-		   face = '#include <stdio.h>\n\n' + 
-			   'int main() {\n' + 
-			   	'\tprintf("Hello CodeForest!\\n");\n\n' + 
-			   	'\treturn 0;\n' + 
-			   '}';
-	   } else if(lang === 'cpp') {
-		   face = '#include <iostream>\n\n' + 
-			   		'using namespace std;\n\n' + 
-			   'int main()\n' + 
-			   '{\n' + 
-			       '\tcout << "Hello CodeForest!" << endl;\n\n' + 
-			       '\treturn 0;\n' + 
-			   '}';
-	   } else if(lang === 'cs') {
-		   face = 'using System;\n\n' + 
-			   		'class HelloWorld {\n\n' + 
-			     	'\tstatic void Main() {\n' +  
-			       '\t\tConsole.WriteLine("Hello CodeForest");\n' + 
-			     '\t}\n' + 
-			   '}';
-	   } else if(lang === 'java') {
-		   face = '/*\n' + 
-	   		"* 기본 언어 : 'JAVA'\n" + 
-		   "* 기본 테마 : 'panda-syntax'\n" + 
-		   '*/\n' + 
-		  'public class Test{\n' + 
-		  		'\tpublic static void main(String[] args) {\n' + 
-		      		'\t\tSystem.out.println("Hello CodeForest!");\n' + 
-		      '\t}\n' + 
-		  '}\n';
-	   } else if(lang === 'js') {
-		   face = 'var str = "Hello CodeForest";\n\n' + 
-		   			'console.log(str);';
-	   } else if(lang === 'py') {
-		   face = 'print("Hello World")';
-	   }
-	   
-	   currentEditor.setValue(face);
-	   
-	   
-	   
-	   ////////////////////////////////////////////////////////////////////
-	   ////////////////////////////
-	   ///////////////////////////////////해야할곳////
 	   
  	   $(".file-tree__subtree").remove();
 	   fileFetchList();
@@ -216,7 +254,7 @@ $(function() {
  	        t.addClass("folder--open");
  	        tree.addClass("file-tree__item--open");
  	    }
-
+ 
  	    // Close all siblings
  	    /*
  	    tree
@@ -244,9 +282,7 @@ $(function() {
 		$(".CodeMirror").css("font-size", fontSize);
 	});
 	
- 	
- 	
- 	
+
  	
 ////////////////파일 추가/////////////////////
  	
@@ -259,13 +295,16 @@ $(function() {
  	var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
  	$(".userfile-menu").append(str2);
  	
+ 	
+ 	
+ 	
 
 	$(document).on('mouseenter','#folder',function() {
 		console.log("hi");
 		$(document).on('mousedown','#folder',function(e) {
 			$(".userfile-menu").hide();
 			if(e.which == 3){
-				tempFile = $(this);
+				//tempFile = $(this);
 				savePathNo = $(this).data("no");
 	 			subProblemNo = $(this).data("no2");
 	 		    //Get window size:
@@ -308,22 +347,14 @@ $(function() {
 	 		    }).show();
 	 		    //Prevent browser default contextmenu.
 	 		    return false;					
-				
-				
-			}
-			
-		
+			}		
 		});
 
 		
 		$(document).on('mousedown','.userFile',function(e){
-			
-
-			
 			$(".contextmenu").hide();
-			
 			if(e.which == 3){
-				tempFile = $(this);
+				//tempFile = $(this);
 				codeNo = $(this).data("no");
 				prevFileName = $(this).data("file-name");
 	 		    //Get window size:
@@ -495,10 +526,13 @@ $(function() {
 			close:function(){}
  	}); 	
  	
- 	
+ 	var layoutId = null;
+ 	var tempLayout = null;
+
  	$(document).on("click", "#userfile-update", function() {
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
+ 		codeNo = fileNo;
  		$('<div> <input type="text" style="z-index:10000" class="fileName-update" placeholder='+'.'+lang+'></div>')
 		    .attr("title","파일 수정")
 		    .dialog({
@@ -526,7 +560,14 @@ $(function() {
 								'prevFileName':prevFileName
 							},
 							success: function(response) {
-											
+				
+								 	layoutId = "layout-"+codeNo;
+									tempLayout = root.getItemsById(layoutId)[0];
+	
+									if(tempLayout != null) {
+										tempLayout.setTitle(fileName);
+									}
+								
  								if(response.data.result == 'no'){
 									alert("이미 파일이 존재합니다.");//메시지 처리 필요
 									return;
@@ -534,6 +575,8 @@ $(function() {
 								$(".file-tree__subtree").remove();
 
 								fileFetchList(); 
+								
+								
 								
 							},
 							error: function(xhr, status, e) {
@@ -556,36 +599,52 @@ $(function() {
  	// 파일을 더블클릭 하면...
  	var tempFile = null;
  	var fileNo = null
+ 	var root = null;
+	var HashMap = new Map();
+ 	var fileMap = new Map();
+	
+ 	var SavedCode = new Map();
+ 	
  	$(document).on("dblclick", ".file", function() {		
  		tempFile = $(this);
  		var language = $(this).data("language");
  		var fileName = $(this).data("file-name");
  		var packagePath = $(this).data("package-path");
  		fileNo = $(this).data("no");
- 		console.log($("#cm"+fileNo).length);
+ 		
+ 	
+ 		
  		if($("#cm"+fileNo).length < 1) { // 켜진 창이 중복되서 안켜지도록 함
-	 		var root = myLayout.root.contentItems[0] || myLayout.root;
-	
+ 			
+ 			
+ 	 		fileMap.set(fileNo+"", tempFile);
+ 	 		console.log($("#cm"+fileNo).length);
+ 			
+	 		root = myLayout.root.contentItems[0] || myLayout.root;
+			
 			root.addChild({
 				type : "component",
 				componentName : "newTab",
 				title : fileName,
-				id : "layout"+fileNo
+				id : "layout-"+fileNo
 			});
+			 
+			
+			
 			var code = $('#cm'+fileNo+' > .CodeMirror')[0];		
 			
 			var editor = CodeMirror.fromTextArea(code, {
 				lineNumbers : true,
 				mode : 'text/x-java',
-				theme : 'panda-syntax',
+				theme : theme,
 				matchBrackets : true
-			});	
-			
+			});			
+			editorArray[editorArrayIndex++]=editor;
 			console.log("editor : " + editor);
 			currentEditor = editor;
-	 		
-	 		
-	 		$.ajax({
+			HashMap.set("editor"+fileNo, editor);
+			
+			$.ajax({
 				url: '${pageContext.servletContext.contextPath }/api/codetree/find-code',
 				async: true,
 				type: 'post',
@@ -595,21 +654,147 @@ $(function() {
 					'fileName' : fileName,
 					'packagePath' : packagePath
 				},
-				success: function(response) {
-					currentEditor.setValue(response.data);				
+				success: function(response) {	   				   
+				   if(response.data != "") {
+					currentEditor.setValue(response.data);
+				   }
+				   else {
+					   var face = '';
+					   if(fileName.split(".")[0] == "Test") {
+						   if(language === 'c') {
+							   face = '#include <stdio.h>\n\n' + 
+								   'int main() {\n' + 
+								   	'\tprintf("Hello CodeForest!\\n");\n\n' + 
+								   	'\treturn 0;\n' + 
+								   '}';
+						   } else if(language === 'cpp') {
+							   face = '#include <iostream>\n\n' + 
+								   		'using namespace std;\n\n' + 
+								   'int main()\n' + 
+								   '{\n' + 
+								       '\tcout << "Hello CodeForest!" << endl;\n\n' + 
+								       '\treturn 0;\n' + 
+								   '}';
+						   } else if(language === 'cs') {
+							   face = 'using System;\n\n' + 
+								   		'class HelloWorld {\n\n' + 
+								     	'\tstatic void Main() {\n' +  
+								       '\t\tConsole.WriteLine("Hello CodeForest");\n' + 
+								     '\t}\n' + 
+								   '}';
+						   } else if(language === 'java') {
+							   face = '/*\n' + 
+						   		"* 기본 언어 : 'JAVA'\n" + 
+							   "* 기본 테마 : 'panda-syntax'\n" + 
+							   '*/\n' + 
+							  'public class Test{\n' + 
+							  		'\tpublic static void main(String[] args) {\n' + 
+							      		'\t\tSystem.out.println("Hello CodeForest!");\n' + 
+							      '\t}\n' + 
+							  '}\n';
+						   } else if(language === 'js') {
+							   face = 'var str = "Hello CodeForest";\n\n' + 
+							   			'console.log(str);';
+						   } else if(language === 'py') {
+							   face = 'print("Hello World")';
+						   }
+					   }
+					   if(currentEditor != null) {
+						   currentEditor.setValue(face);
+					   }	
+				   }
 					console.log("code : " + response.data);
+					SavedCode.set(fileNo+"",response.data);
 				},
 				error: function(xhr, status, e) {
 					console.error(status + ":" + e);
 				}							
 			});
+			
+			
+	
  		}
  		else {
-//  			$("lm_tab").
-//  			$(".lm_item_container").hide();
-//  			$("#cm"+fileNo).parent().show();
+ 			
+ 			layoutId = "layout-"+fileNo;
+ 			tempFile = fileMap.get(fileNo+"");
+			tempLayout = root.getItemsById(layoutId)[0];
+			 
+			console.log("tempLayout",tempLayout);
+ 			root.setActiveContentItem(tempLayout);	
+ 			   
+ 			currentEditor = HashMap.get("editor"+fileNo);
+ 			
+ 			console.log("map>>>",HashMap.get("editor"+fileNo));
  		}
+ 		
+ 		
  	});
+	$(document).on("mousedown", ".lm_title", function() {
+
+		console.log("title>>>",$(this));
+		console.log("getActiveContentItem()>>",root.getActiveContentItem());
+		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id);
+		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id.split("-")[0]);
+		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id.split("-")[1]);
+		var tabFileNo = root.getActiveContentItem().config.id.split("-")[1];
+		fileNo = tabFileNo;
+ 		tempFile = fileMap.get(tabFileNo+"");
+		$(this).parent().attr("id", "tab"+tabFileNo); //dom 분리시 작업 코드 진행중
+ 		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
+ 		currentEditor = HashMap.get("editor"+tabFileNo);
+		
+ 		
+ 		     
+	});
+	
+	$(document).on("click", ".CodeMirror-scroll", function(e) {
+		console.log("root>>>>>>>>>>",root);
+		console.log("클릭한곳:", $(this));
+		console.log("this.parent()>>",$(this).parent());
+		console.log("this.parent().parent>>",$(this).parent().parent().attr("id"));
+		console.log("this.parent().parent>>",$(this).parent().parent().attr("id").split("cm"));
+ 		var cmNo = $(this).parent().parent().attr("id").split("cm")[1];
+ 		fileNo = cmNo;
+ 		tempFile = fileMap.get(cmNo+"");
+ 		currentEditor = HashMap.get("editor"+cmNo);
+ 		
+
+	});
+	
+	
+	////////////////키보드 입력//////////////////////////// 	
+	$(document).keydown(function(event) {
+	    if (event.ctrlKey || event.metaKey) {
+	        switch (String.fromCharCode(event.which).toLowerCase()) {
+	        case 's':
+	            event.preventDefault();
+	            $("#Save").trigger("click");
+	            break;
+	        } 
+	     }
+    });
+ 	 
+	$(document).on("propertychange change keyup paste", function(e){
+
+		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update"){
+			if(currentEditor.getValue() != SavedCode.get(fileNo+"")){
+				layoutId = "layout-"+fileNo;
+				tempFile = fileMap.get(fileNo+"");
+				tempLayout = root.getItemsById(layoutId)[0];
+				tempLayout.setTitle("*"+tempFile.data("fileName"));
+			}else{
+				layoutId = "layout-"+fileNo;
+				tempFile = fileMap.get(fileNo+"");
+				tempLayout = root.getItemsById(layoutId)[0];
+				tempLayout.setTitle(tempFile.data("fileName"));
+			}			
+		}
+
+		
+	}); 
+	
+	
 
  	var compileResult1 = "";
  	var compileResult2 = "";
@@ -617,7 +802,7 @@ $(function() {
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
  		
- 		$(this).addClass( "onclic", 250, validate);
+ 		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
  		$("#Run").blur();
@@ -658,21 +843,19 @@ $(function() {
 			}							
 		}); 		
  	});
- 	 function validate() {
-  	    setTimeout(function() {
-  	      $( "#Run" ).removeClass( "onclic" );
-  	      $( "#Run" ).addClass( "validate", 450, callback );
-  	    }, 2250 );
-  	  }
-  	    function callback() {
-  	      setTimeout(function() {
-  	        $( "#Run" ).removeClass( "validate" );
-  	      }, 1250 );
-  	    }
- 	 
+
  	
   	    
   	$(document).on("click","#Save",function(){
+  		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
+  		
+  		$(this).addClass("SaveClick");	
+  		setTimeout(function(){
+  			$("#Save").removeClass("SaveClick");
+  			$("#Save").addClass("Save");
+  		},100);
+  		
+  		
   		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
   		var problemNo = "${saveVo.problemNo }";
   		
@@ -690,7 +873,12 @@ $(function() {
 				'problemNo' : problemNo
 			},
 			success: function(response) {
+				SavedCode.set(fileNo+"", currentEditor.getValue());
 				console.log("ok");
+				layoutId = "layout-"+fileNo;
+				tempFile = fileMap.get(fileNo+"");
+				tempLayout = root.getItemsById(layoutId)[0];
+				tempLayout.setTitle(tempFile.data("fileName"));
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
@@ -700,7 +888,49 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
-   		$("#Save").trigger("click");
+   		$("#Run").trigger("click");
+   		var problemNo = "${saveVo.problemNo }";
+   		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
+   		
+   		setTimeout(function(){
+
+   	   		var problemNo = "${saveVo.problemNo }";
+   	 		$.ajax({
+   				url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
+   				async: true,
+   				type: 'post',
+   				dataType:'json',
+   				data: {
+   					'language' : tempFile.data("language"),
+   					'fileName' : tempFile.data("file-name"),
+   					'packagePath' : tempFile.data("package-path"),
+   					'subProblemNo':tempFile.data("subproblem-no"),
+   					'codeValue' : currentEditor.getValue(),
+   					'problemNo' : problemNo,
+   					'compileResult1':compileResult1,
+   					'compileResult2':compileResult2
+   				},
+   				success: function(response) {
+   					var compileResult = response.data.compileResult;
+   					var compileError = response.data.compileError;
+   					console.log("compileResult>>>>",compileResult);
+   					console.log("compileError>>>>",compileError);
+   					if(compileError == true) {
+   						alert("컴파일 오류입니다.");
+   						return;
+   					} else if(compileResult == true) {
+   						alert("정답입니다.");
+   						return;
+   					} else {
+   						alert("오답입니다.");
+   					}
+   				},
+   				error: function(xhr, status, e) {
+   					console.error(status + ":" + e);
+   				}							
+   			});   			
+   			
+   		},1500);
 /* 		var subProblemNo = tempFile.data("subproblem-no");
   		var result = new Array();
    		<c:forEach items="${subProblemList}" var="info">
@@ -716,40 +946,7 @@ $(function() {
    			}
    		} */
    		
-   		var problemNo = "${saveVo.problemNo }";
- 		$.ajax({
-			url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
-			async: true,
-			type: 'post',
-			dataType:'json',
-			data: {
-				'language' : tempFile.data("language"),
-				'fileName' : tempFile.data("file-name"),
-				'packagePath' : tempFile.data("package-path"),
-				'subProblemNo':tempFile.data("subproblem-no"),
-				'codeValue' : currentEditor.getValue(),
-				'problemNo' : problemNo,
-				'compileResult1':compileResult1,
-				'compileResult2':compileResult2
-			},
-			success: function(response) {
-				var compileResult = response.data.compileResult;
-				var compileError = response.data.compileError;
-				 
-				if(compileError == true) {
-					alert("컴파일 오류입니다.");
-					return;
-				} else if(compileResult == true) {
-					alert("정답입니다.");
-					return;
-				} else {
-					alert("오답입니다.");
-				}
-			},
-			error: function(xhr, status, e) {
-				console.error(status + ":" + e);
-			}							
-		});
+
    		
  	});    	
 
@@ -757,15 +954,18 @@ $(function() {
  	
  	//////////////////////////// golden layout /////////////////////////////	
 	var config = {
-    content: [
-	      {
-	        type: 'stack',
-	      	isClosable: false,
-	        content: [
-	        ]
-	    }]
+ 		settings: {
+ 			selectionEnabled: true
+ 		},
+	    content: [
+		      {
+		        type: 'stack',
+		      	isClosable: false,
+		        content: [
+		        ]
+		    }]
 	};
-	
+	 
 	var myLayout = new GoldenLayout(config, $('#gl-cover'));
 
 	myLayout.registerComponent("newTab", function(container) {
@@ -785,18 +985,25 @@ $(function() {
 	var glCm3 = document.getElementsByClassName("lm_items")[0];
 	glCm3.style = "";
 	
-	var glCm4 = document.getElementsByClassName("lm_item_container")[0];
-	glCm4.style = "";
+// 	var glCm4 = document.getElementsByClassName("lm_item_container")[0];
+// 	glCm4.style = "";
 	
-	var glCm5 = document.getElementsByClassName("lm_content")[0];
-	glCm5.style = "";
+// 	var glCm5 = document.getElementsByClassName("lm_content")[0];
+// 	glCm5.style = "";
  	
  	
  	
- 	
+ 	 
 	
-	
- 	
+	$(document).on("click",".sub-menu > li:first-child",function(){
+		$("#Save").trigger("click");
+	});
+	$(document).on("click",".sub-menu > li + li",function(){
+		$("#Run").trigger("click");
+	});
+	$(document).on("click",".sub-menu > li:last-child",function(){
+		$("#Submit").trigger("click");
+	});
 ////// function 끝부분 	
 });
 
@@ -950,19 +1157,38 @@ window.onload = function() {
 
 <nav role="navigation" class='main-nav'>
     <div class="main-nav-wrapper">
-      <div class="logo">
-        
+      <div class="header-logo">
+        Code Forest
       </div>
-      <div class="menu-cool-container">
+       <div class="menu-cool-container">
         <ul>
-          <li><a>Home</a></li>
-          <li><a>Web Apps</a>
+          <li><a>File</a>
             <ul class="sub-menu">
-              <li><a>AngularJS</a></li>
-              <li><a>ActionScript</a></li>
+              <li>Save</li>
+              <li>Run</li>
+              <li>Submit</li>              
             </ul>
           </li>
-          <li><a>Mobile Apps</a>
+          <li><a>Run</a>
+            <ul class="sub-menu">
+              <li>Run</li>            
+            </ul>
+          </li>
+          <li>
+          	<a>Search</a>
+          	<ul class="sub-menu">
+              <li>Search</li>            
+            </ul>
+          </li>
+          <li>
+          	<a>Setting</a>
+          	<ul class="sub-menu">
+              <li>Language</li>
+              <li>Theme</li>
+              <li>Font-Size</li>              
+            </ul>
+          </li>          
+<!--           <li><a>Mobile Apps</a>
             <ul class="sub-menu">
               <li><a>Cordova/PhoneGap</a></li>
               <li><a>Ionic Framework</a></li>
@@ -973,10 +1199,10 @@ window.onload = function() {
               <li><a>After Effects</a></li>
               <li><a>Adobe Premiere Pro</a></li>
             </ul>
-          </li>
-
+          </li> -->
         </ul>
-      </div>
+      </div> 
+               
     </div>
  </nav>
 
@@ -994,8 +1220,9 @@ window.onload = function() {
 	  <div class="frame vertical" id="code-mirror">
 
 		  <div class='navigator'>
-              <div class='language-selector'>
-                <select class="lang" name="lang">
+
+              <div class='language-selector dropdown dropdown-dark'>
+                <select class="lang dropdown-select" name="lang">
                     <option value="c">C</option>
                     <option value="cpp">C++</option>
                     <option value="cs">C#</option>
@@ -1004,8 +1231,9 @@ window.onload = function() {
                     <option value="py">Python</option>
                 </select>
               </div>
-              <div class='theme-selector'>
-                <select class="theme" name="theme">
+              
+              <div class='theme-selector dropdown dropdown-dark'>
+                <select class="theme dropdown-select" name="theme">
                 	<optgroup label="black">
                     <option value="abcdef">abcdef</option>
                     <option value="blackboard">blackboard</option>
@@ -1022,8 +1250,9 @@ window.onload = function() {
                   </optgroup>
                 </select>
               </div>
-              <div class='font-size'>
-                  <select class="size" id="font-size" name="size">
+              
+              <div class='font-size dropdown dropdown-dark'>
+                  <select class="size dropdown-select" id="font-size" name="size">
                     <option value="10px">10px</option>
                     <option value="12px">12px</option>
                     <option value="15px">15px</option>
@@ -1037,13 +1266,14 @@ window.onload = function() {
                     <option value="35px">35px</option>
                 </select>
               </div>
-              <div>
-              	<button id="Save">Save</button>
-              	<button id="Run" class="Run"></button>
-              	<button id="Submit">제출</button>
-              </div>
+              
+			  <div class="buttons">
+		         	<button class="action-button shadow animate" id="Save" class="Save">Save</button>	
+		           	<button class="action-button shadow animate" id="Run" class="Run">Run</button>
+		           	<button class="action-button shadow animate" id="Submit" class="Submit">Submit</button>
+		      </div>
           </div> 
-
+  
 	    <div class="frame horizontal" id="file-codemirror-cover">	    
 	      <div id="box_2" class="box" style="display:flex;flex-direction:column">
 
