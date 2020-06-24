@@ -99,6 +99,24 @@ public class ChatController {
 				} else if("java".equals(language)) {
 					RunJava rj = new RunJava();
 					rj.createFileAsSource(code);
+					try {
+						file = new File("Test.java");
+						bufferWriter = new BufferedWriter(new FileWriter(file, false));
+						
+						bufferWriter.write(code);
+						bufferWriter.flush(); 
+					} catch(Exception e) {
+						e.printStackTrace();
+						System.exit(1);
+					} finally {
+						try {
+							bufferWriter.close();
+							file = null;
+						} catch (IOException e) {
+							e.printStackTrace();
+							System.exit(1);;
+						}
+					}
 					Thread.sleep(1000);
 					errorResult = rj.execCompile();
 					Thread.sleep(1000);
