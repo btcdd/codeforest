@@ -91,11 +91,11 @@ public class ChatController {
 					process = Runtime.getRuntime().exec("python3 testPy.py");
 				}
 				readBuffer.setLength(0);
-				if(!("".equals(errorResult))) {
-					chatMessage.setContent(errorResult);
-					
-					return chatMessage;
-				}
+//				if(!("".equals(errorResult))) {
+//					chatMessage.setContent(errorResult);
+//					
+//					return chatMessage;
+//				}
 			}
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
