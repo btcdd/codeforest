@@ -283,3 +283,11 @@ input[type=text] {
   width: 200px;
 }
 
+.check-box {
+	padding : 10px 10px 5px 10px;
+}
+
+.check-box label {
+	padding : 10px 80px 5px 10px;
+}
+

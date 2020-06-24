@@ -23,6 +23,7 @@ function onKeyDown() {
 		originList(page, kwd);
 	}
 }
+
 var page = '1';
 var kwd = '';
 var originList = function(page, kwd) {
