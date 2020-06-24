@@ -87,4 +87,8 @@ public class MypageRepository {
 	public void privacyChange(Map<String, Object> map) {
 		sqlSession.update("mypage.privacyChange", map);
 	}
+
+	public Long findSaveNoByProblemNoAndUserNo(Map<String, Object> map) {
+		return sqlSession.selectOne("mypage.findSaveNoByProblemNoAndUserNo", map);
+	}
 }

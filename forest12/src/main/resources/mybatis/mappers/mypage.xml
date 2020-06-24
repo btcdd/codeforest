@@ -68,7 +68,7 @@
 	
 	<select id="problemSolveList" parameterType="long" resultType="submitVo">
 		<![CDATA[
-			select u.email as email, u.name as name, u.nickname as nickname, s.lang as lang, s.solve_time as solveTime, tc.attempt as tryCount
+			select u.email as email, u.name as name, u.nickname as nickname, s.lang as lang, s.solve_time as solveTime, tc.attempt as tryCount, u.no as userNo
 			from submit s, user u, problem p, sub_problem sp, try_count tc
 			where u.no = s.user_no && p.no = sp.problem_no && s.subproblem_no = sp.no && p.no = #{no } && s.no = tc.submit_no
 			group by u.email
@@ -135,5 +135,13 @@
  			 where no = #{authUserNo }
 		]]>
 	</update>
+	
+	<select id="findSaveNoByProblemNoAndUserNo" parameterType="map" resultType="long">
+		<![CDATA[
+			select no
+			from save
+			where user_no = #{userNo } and problem_no = #{problemNo }
+		]]>
+	</select>
 	
 </mapper>
