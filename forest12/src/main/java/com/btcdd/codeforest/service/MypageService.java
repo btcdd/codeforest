@@ -116,4 +116,13 @@ public class MypageService {
 		
 		mypageRepository.privacyChange(map);
 	}
+
+	public Long findSaveNoByProblemNoAndUserNo(Long problemNo, Long userNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("problemNo",problemNo);
+		map.put("userNo",userNo);
+		return mypageRepository.findSaveNoByProblemNoAndUserNo(map);
+	}
+
+	
 }
