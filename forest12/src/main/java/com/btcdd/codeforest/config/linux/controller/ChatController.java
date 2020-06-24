@@ -72,7 +72,6 @@ public class ChatController {
 					errorResult = rc.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s ./test.exe");
 					
-					break;
 				case "cpp": 
 					RunCpp rcpp = new RunCpp();
 					rcpp.createFileAsSource(code);
@@ -80,7 +79,6 @@ public class ChatController {
 					errorResult = rcpp.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s ./cppTest.exe");
 					
-					break;
 				case "cs": 
 					RunCs rcs = new RunCs();
 					rcs.createFileAsSource(code);
@@ -88,7 +86,6 @@ public class ChatController {
 					errorResult = rcs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
 					
-					break;
 				case "java": 
 					RunJava rj = new RunJava();
 					rj.createFileAsSource(code);
@@ -96,7 +93,6 @@ public class ChatController {
 					errorResult = rj.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s java -cp . Test");
 					
-					break;
 				case "js": 
 					RunJs rjs = new RunJs();
 					rjs.createFileAsSource(code);
@@ -104,7 +100,6 @@ public class ChatController {
 					errorResult = rjs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s node test.js");
 					
-					break;
 				case "py": 
 					RunPy rpy = new RunPy();
 					rpy.createFileAsSource(code);
@@ -112,7 +107,6 @@ public class ChatController {
 					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s python3 testPy.py");
 					
-					break;
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
