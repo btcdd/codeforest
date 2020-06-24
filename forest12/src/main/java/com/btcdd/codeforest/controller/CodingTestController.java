@@ -133,6 +133,11 @@ public class CodingTestController {
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);			
 			
+			System.out.println("problemVo>>>>"+problemVo);
+			System.out.println("subProblemList>>>>"+subProblemList);
+			System.out.println("saveVo>>>>"+saveVo);
+			System.out.println("savePathList>>>>"+savePathList);
+			System.out.println("codeList>>>>"+codeList);
 			
 			return "codingtest/code-mirror";
 		}
@@ -197,6 +202,16 @@ public class CodingTestController {
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);
 
+			
+			System.out.println("problemVo>>>>"+problemVo);
+			System.out.println("subProblemList>>>>"+subProblemList);
+			System.out.println("saveVo>>>>"+saveVo);
+			System.out.println("savePathList>>>>"+savePathList);
+			System.out.println("codeList>>>>"+codeList);
+						
+			
+			
+			
 			return "codingtest/code-mirror"; //이동
 		}
 		
