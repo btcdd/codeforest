@@ -144,4 +144,12 @@
 		]]>
 	</select>
 	
+	<select id="findWriterByProblemNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select u.no as no
+			from problem p, user u
+			where p.user_no = u.no and p.no = #{problemNo }
+		]]>
+	</select>
+	
 </mapper>

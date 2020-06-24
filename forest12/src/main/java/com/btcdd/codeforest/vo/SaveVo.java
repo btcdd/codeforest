@@ -7,9 +7,27 @@ public class SaveVo {
 	String title;
 	String kind;
 	String nickname;
+	String userName;
+	String userEmail;
 
 	public Long getNo() {
 		return no;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public void setNo(Long no) {
@@ -59,7 +77,9 @@ public class SaveVo {
 	@Override
 	public String toString() {
 		return "SaveVo [no=" + no + ", userNo=" + userNo + ", problemNo=" + problemNo + ", title=" + title + ", kind="
-				+ kind + ", nickname=" + nickname + "]";
+				+ kind + ", nickname=" + nickname + ", userName=" + userName + ", userEmail=" + userEmail + "]";
 	}
+
+
 
 }

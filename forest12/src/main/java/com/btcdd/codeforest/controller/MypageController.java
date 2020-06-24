@@ -70,21 +70,18 @@ public class MypageController {
 		}
 		List<SubProblemVo> subProblemList = codeTreeService.findSubProblemList(saveVo.getProblemNo());
 		
-//		UserVo authUser = (UserVo)session.getAttribute("authUser");
-//		if(authUser.getNo() != saveVo.getUserNo()) {
-//			return "redirect:/main-in";
-//		}
+		UserVo writer = mypageService.findWriterByProblemNo(saveVo.getProblemNo());
+		
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser.getNo() != writer.getNo()) {
+			return "redirect:/main";
+		}
 		
 		model.addAttribute("saveVo", saveVo);
 		model.addAttribute("savePathList", savePathList);
 		model.addAttribute("codeList", codeList);
 		model.addAttribute("subProblemList", subProblemList);
-		
-		System.out.println("saveVo : " + saveVo);
-		System.out.println("savePathList : " + savePathList);
-		System.out.println("codeList : " + codeList);
-		System.out.println("subProblemList : " + subProblemList);
-		
+
 		return "mypage/codetree";
 	}
 	

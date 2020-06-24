@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/codetree.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 
@@ -299,116 +299,116 @@ $(function() {
  	
  	
 
-	$(document).on('mouseenter','#folder',function() {
-		console.log("hi");
-		$(document).on('mousedown','#folder',function(e) {
-			$(".userfile-menu").hide();
-			if(e.which == 3){
-				//tempFile = $(this);
-				savePathNo = $(this).data("no");
-	 			subProblemNo = $(this).data("no2");
-	 		    //Get window size:
-	 		    var winWidth = $(document).width();
-	 		    var winHeight = $(document).height();
-	 		    //Get pointer position:
-	 		    var posX = e.pageX;
-	 		    var posY = e.pageY;
-	 		    //Get contextmenu size:
-	 		    var menuWidth = $(".contextmenu").width();
-	 		    var menuHeight = $(".contextmenu").height();
-	 		    //Security margin:
-	 		    var secMargin = 10;
-	 		    //Prevent page overflow:
-	 		    if(posX + menuWidth + secMargin >= winWidth
-	 		    && posY + menuHeight + secMargin >= winHeight){
-	 		      //Case 1: right-bottom overflow:
-	 		      posLeft = posX - menuWidth - secMargin + "px";
-	 		      posTop = posY - menuHeight - secMargin + "px";
-	 		    }
-	 		    else if(posX + menuWidth + secMargin >= winWidth){
-	 		      //Case 2: right overflow:
-	 		      posLeft = posX - menuWidth - secMargin + "px";
-	 		      posTop = posY + secMargin + "px";
-	 		    }
-	 		    else if(posY + menuHeight + secMargin >= winHeight){
-	 		      //Case 3: bottom overflow:
-	 		      posLeft = posX + secMargin + "px";
-	 		      posTop = posY - menuHeight - secMargin + "px";
-	 		    }
-	 		    else {
-	 		      //Case 4: default values:
-	 		      posLeft = posX + secMargin + "px";
-	 		      posTop = posY + secMargin + "px";
-	 		    };
-	 		    //Display contextmenu:
-	 		    $(".contextmenu").css({
-	 		      "left": posLeft,
-	 		      "top": posTop
-	 		    }).show();
-	 		    //Prevent browser default contextmenu.
-	 		    return false;					
-			}		
-		});
+// 	$(document).on('mouseenter','#folder',function() {
+// 		console.log("hi");
+// 		$(document).on('mousedown','#folder',function(e) {
+// 			$(".userfile-menu").hide();
+// 			if(e.which == 3){
+// 				//tempFile = $(this);
+// 				savePathNo = $(this).data("no");
+// 	 			subProblemNo = $(this).data("no2");
+// 	 		    //Get window size:
+// 	 		    var winWidth = $(document).width();
+// 	 		    var winHeight = $(document).height();
+// 	 		    //Get pointer position:
+// 	 		    var posX = e.pageX;
+// 	 		    var posY = e.pageY;
+// 	 		    //Get contextmenu size:
+// 	 		    var menuWidth = $(".contextmenu").width();
+// 	 		    var menuHeight = $(".contextmenu").height();
+// 	 		    //Security margin:
+// 	 		    var secMargin = 10;
+// 	 		    //Prevent page overflow:
+// 	 		    if(posX + menuWidth + secMargin >= winWidth
+// 	 		    && posY + menuHeight + secMargin >= winHeight){
+// 	 		      //Case 1: right-bottom overflow:
+// 	 		      posLeft = posX - menuWidth - secMargin + "px";
+// 	 		      posTop = posY - menuHeight - secMargin + "px";
+// 	 		    }
+// 	 		    else if(posX + menuWidth + secMargin >= winWidth){
+// 	 		      //Case 2: right overflow:
+// 	 		      posLeft = posX - menuWidth - secMargin + "px";
+// 	 		      posTop = posY + secMargin + "px";
+// 	 		    }
+// 	 		    else if(posY + menuHeight + secMargin >= winHeight){
+// 	 		      //Case 3: bottom overflow:
+// 	 		      posLeft = posX + secMargin + "px";
+// 	 		      posTop = posY - menuHeight - secMargin + "px";
+// 	 		    }
+// 	 		    else {
+// 	 		      //Case 4: default values:
+// 	 		      posLeft = posX + secMargin + "px";
+// 	 		      posTop = posY + secMargin + "px";
+// 	 		    };
+// 	 		    //Display contextmenu:
+// 	 		    $(".contextmenu").css({
+// 	 		      "left": posLeft,
+// 	 		      "top": posTop
+// 	 		    }).show();
+// 	 		    //Prevent browser default contextmenu.
+// 	 		    return false;					
+// 			}		
+// 		});
 
 		
-		$(document).on('mousedown','.userFile',function(e){
-			$(".contextmenu").hide();
-			if(e.which == 3){
-				//tempFile = $(this);
-				codeNo = $(this).data("no");
-				prevFileName = $(this).data("file-name");
-	 		    //Get window size:
-	 		    var winWidth = $(document).width();
-	 		    var winHeight = $(document).height();
-	 		    //Get pointer position:
-	 		    var posX = e.pageX;
-	 		    var posY = e.pageY;
-	 		    //Get contextmenu size:
-	 		    var menuWidth = $(".userfile-menu").width();
-	 		    var menuHeight = $(".userfile-menu").height();
-	 		    //Security margin:
-	 		    var secMargin = 10;
-	 		    //Prevent page overflow:
-	 		    if(posX + menuWidth + secMargin >= winWidth
-	 		    && posY + menuHeight + secMargin >= winHeight){
-	 		      //Case 1: right-bottom overflow:
-	 		      posLeft = posX - menuWidth - secMargin + "px";
-	 		      posTop = posY - menuHeight - secMargin + "px";
-	 		    }
-	 		    else if(posX + menuWidth + secMargin >= winWidth){
-	 		      //Case 2: right overflow:
-	 		      posLeft = posX - menuWidth - secMargin + "px";
-	 		      posTop = posY + secMargin + "px";
-	 		    }
-	 		    else if(posY + menuHeight + secMargin >= winHeight){
-	 		      //Case 3: bottom overflow:
-	 		      posLeft = posX + secMargin + "px";
-	 		      posTop = posY - menuHeight - secMargin + "px";
-	 		    }
-	 		    else {
-	 		      //Case 4: default values:
-	 		      posLeft = posX + secMargin + "px";
-	 		      posTop = posY + secMargin + "px";
-	 		    };
-	 		    //Display contextmenu:
-	 		    $(".userfile-menu").css({
-	 		      "left": posLeft,
-	 		      "top": posTop
-	 		    }).show();
-	 		    //Prevent browser default contextmenu.
-	 		    return false;				
-			}			
-		});
+// 		$(document).on('mousedown','.userFile',function(e){
+// 			$(".contextmenu").hide();
+// 			if(e.which == 3){
+// 				//tempFile = $(this);
+// 				codeNo = $(this).data("no");
+// 				prevFileName = $(this).data("file-name");
+// 	 		    //Get window size:
+// 	 		    var winWidth = $(document).width();
+// 	 		    var winHeight = $(document).height();
+// 	 		    //Get pointer position:
+// 	 		    var posX = e.pageX;
+// 	 		    var posY = e.pageY;
+// 	 		    //Get contextmenu size:
+// 	 		    var menuWidth = $(".userfile-menu").width();
+// 	 		    var menuHeight = $(".userfile-menu").height();
+// 	 		    //Security margin:
+// 	 		    var secMargin = 10;
+// 	 		    //Prevent page overflow:
+// 	 		    if(posX + menuWidth + secMargin >= winWidth
+// 	 		    && posY + menuHeight + secMargin >= winHeight){
+// 	 		      //Case 1: right-bottom overflow:
+// 	 		      posLeft = posX - menuWidth - secMargin + "px";
+// 	 		      posTop = posY - menuHeight - secMargin + "px";
+// 	 		    }
+// 	 		    else if(posX + menuWidth + secMargin >= winWidth){
+// 	 		      //Case 2: right overflow:
+// 	 		      posLeft = posX - menuWidth - secMargin + "px";
+// 	 		      posTop = posY + secMargin + "px";
+// 	 		    }
+// 	 		    else if(posY + menuHeight + secMargin >= winHeight){
+// 	 		      //Case 3: bottom overflow:
+// 	 		      posLeft = posX + secMargin + "px";
+// 	 		      posTop = posY - menuHeight - secMargin + "px";
+// 	 		    }
+// 	 		    else {
+// 	 		      //Case 4: default values:
+// 	 		      posLeft = posX + secMargin + "px";
+// 	 		      posTop = posY + secMargin + "px";
+// 	 		    };
+// 	 		    //Display contextmenu:
+// 	 		    $(".userfile-menu").css({
+// 	 		      "left": posLeft,
+// 	 		      "top": posTop
+// 	 		    }).show();
+// 	 		    //Prevent browser default contextmenu.
+// 	 		    return false;				
+// 			}			
+// 		});
 		
 		
 		
-	}).on('mouseleave','.ui__sidebar',function(){
-		console.log("bye");
-	}).on('contextmenu','.ui__sidebar',function(){
-		return false;
-	}).on('userfile-menu','.ui__sidebar',function(){
-		return false;
-	});
+// 	}).on('mouseleave','.ui__sidebar',function(){
+// 		console.log("bye");
+// 	}).on('contextmenu','.ui__sidebar',function(){
+// 		return false;
+// 	}).on('userfile-menu','.ui__sidebar',function(){
+// 		return false;
+// 	});
 	
  	
  	//Hide contextmenu:
@@ -637,7 +637,8 @@ $(function() {
 				lineNumbers : true,
 				mode : 'text/x-java',
 				theme : theme,
-				matchBrackets : true
+				matchBrackets : true,
+				readOnly : true
 			});			
 			editorArray[editorArrayIndex++]=editor;
 			console.log("editor : " + editor);
@@ -799,9 +800,7 @@ $(function() {
  	var compileResult1 = "";
  	var compileResult2 = "";
  	
- 	$(document).on("click","#Run",function(){
- 		$("#Save").trigger("click");
- 		
+ 	$(document).on("click","#Run",function(){ 		
  		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
@@ -1164,9 +1163,7 @@ window.onload = function() {
         <ul>
           <li><a>File</a>
             <ul class="sub-menu">
-              <li>Save</li>
-              <li>Run</li>
-              <li>Submit</li>              
+              <li>Run</li>           
             </ul>
           </li>
           <li><a>Run</a>
@@ -1188,21 +1185,12 @@ window.onload = function() {
               <li>Font-Size</li>              
             </ul>
           </li>          
-<!--           <li><a>Mobile Apps</a>
-            <ul class="sub-menu">
-              <li><a>Cordova/PhoneGap</a></li>
-              <li><a>Ionic Framework</a></li>
-            </ul>
-          </li>
-          <li><a>Video</a>
-            <ul class="sub-menu">
-              <li><a>After Effects</a></li>
-              <li><a>Adobe Premiere Pro</a></li>
-            </ul>
-          </li> -->
         </ul>
       </div> 
-               
+      
+      <div>
+      	${saveVo.userName }(${saveVo.userEmail })님의 코드입니다
+      </div>
     </div>
  </nav>
 
@@ -1268,9 +1256,7 @@ window.onload = function() {
               </div>
               
 			  <div class="buttons">
-		         	<button class="action-button shadow animate" id="Save" class="Save">Save</button>	
 		           	<button class="action-button shadow animate" id="Run" class="Run">Run</button>
-		           	<button class="action-button shadow animate" id="Submit" class="Submit">Submit</button>
 		      </div>
           </div> 
   
