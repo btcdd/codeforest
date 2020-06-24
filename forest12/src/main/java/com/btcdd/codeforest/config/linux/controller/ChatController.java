@@ -42,6 +42,7 @@ public class ChatController {
 				case "c":
 					RunC rc = new RunC();
 					rc.createFileAsSource(code);
+					Thread.sleep(1000);
 					errorResult = rc.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s ./test.exe");
 					
@@ -49,6 +50,7 @@ public class ChatController {
 				case "cpp": 
 					RunCpp rcpp = new RunCpp();
 					rcpp.createFileAsSource(code);
+					Thread.sleep(1000);
 					errorResult = rcpp.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s ./cppTest.exe");
 					
@@ -56,6 +58,7 @@ public class ChatController {
 				case "cs": 
 					RunCs rcs = new RunCs();
 					rcs.createFileAsSource(code);
+					Thread.sleep(1000);
 					errorResult = rcs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
 					
@@ -63,6 +66,7 @@ public class ChatController {
 				case "java": 
 					RunJava rj = new RunJava();
 					rj.createFileAsSource(code);
+					Thread.sleep(1000);
 					errorResult = rj.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s java -cp . Test");
 					
@@ -70,6 +74,7 @@ public class ChatController {
 				case "js": 
 					RunJs rjs = new RunJs();
 					rjs.createFileAsSource(code);
+					Thread.sleep(1000);
 					errorResult = rjs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s node test.js");
 					
@@ -77,6 +82,7 @@ public class ChatController {
 				case "py": 
 					RunPy rpy = new RunPy();
 					rpy.createFileAsSource(code);
+					Thread.sleep(1000);
 					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s python3 testPy.py");
 					
