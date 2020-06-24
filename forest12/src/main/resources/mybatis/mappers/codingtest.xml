@@ -87,4 +87,76 @@
 		]]>
 	</select>	
 		
+		
+		
+	<insert id="insertSaveProblemNo" parameterType="map">
+		insert
+		into save
+		values (null, #{userNo }, #{problemNo })
+	</insert>		
+		
+	<select id="findSaveNo" parameterType="long" resultType="long">
+		<![CDATA[
+			  select no
+			    from save 
+			   where problem_no = #{problemNo }
+			     and user_no = #{authUserNo }
+		]]>
+	</select>		
+
+	<insert id="insertSavePath" parameterType="hashmap">
+		insert into save_path
+		values
+		<foreach collection="subProblemNoArray" item="item"
+			separator=",">
+			(null, ${item}, ${saveNo}, concat('/userDirectory/user',
+			${authUserNo }, '/prob', ${problemNo }, '/subProb', ${item }))
+		</foreach>
+	</insert>		
+		
+	<select id="findSavePathNo" parameterType="long"
+		resultType="savepathvo">
+		<![CDATA[
+			  select no, sub_problem_no as subProblemNo, save_no as saveNo, package_path as packagePath
+			    from save_path
+			   where save_no = #{saveNo }
+		]]>
+	</select>		
+
+	<insert id="insertSubProblemFaceCode" parameterType="map">
+		insert 
+		  into code(no, save_path_no, language, file_name)
+		values
+		<foreach collection="savePathVoList" item="item" separator=",">
+			<foreach collection="langArray" item="lang" separator=",">
+				(null, ${item.no}, '${lang}', concat('Test.','${lang}'))
+			</foreach>
+		</foreach>
+	</insert>
+
+	<select id="findSaveVo" parameterType="long" resultType="savevo">
+		<![CDATA[
+			select s.no as no, s.user_no as userNo, s.problem_no as problemNo, p.title as title, k.name as kind, u.nickname as nickname 
+			  from save s, user u, problem p, kind k
+			 where s.no = #{saveNo } and s.user_no = u.no and s.problem_no = p.no and p.kind_no = k.no
+		]]>
+	</select>
+
+	<select id="findSavePathList" parameterType="long" resultType="savepathvo">
+		<![CDATA[
+			select no, sub_problem_no as subProblemNo, save_no as saveNo, package_path as packagePath
+			  from save_path
+			 where save_no = #{saveNo }
+		]]>
+	</select>
+	
+	<select id="findCodeList" parameterType="long" resultType="codevo">
+		<![CDATA[
+			select c.no as no, c.save_path_no as savePathNo, c.language as language, c.file_name as fileName, sp.sub_problem_no as subProblemNo
+			  from code c, save_path sp
+			 where c.save_path_no = #{savePathNo } and c.save_path_no = sp.no order by c.file_name;
+		]]>
+	</select>	
+
+		
 </mapper>
