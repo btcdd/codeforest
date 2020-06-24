@@ -85,7 +85,7 @@ function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     
     var prevText = resultText.val();
-    resultText.val(prevText + '\n' + message.content);
+    resultText.val(prevText + message.content);
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
@@ -227,14 +227,11 @@ $(function() {
     	}
     	if (key.keyCode == 13) {
     		cursorPandan = false;
-    		console.log($(this).val().substring(prevCursor-1).replace("\n", ""));
     		
 	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
 	        
-	        if (key.keyCode == 13) {
-	           sendMessage(event, result);
-	           result = '';
-	        }
+	        sendMessage(event, result);
+	        result = '';
     	}
     	
    });
