@@ -56,7 +56,6 @@ public class MypageController {
 	@Auth
 	@RequestMapping(value="/problem", method=RequestMethod.GET)
 	public String problem() {
-		
 		return "mypage/problem";
 	}
 	

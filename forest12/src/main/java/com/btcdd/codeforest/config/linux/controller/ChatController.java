@@ -3,15 +3,17 @@ package com.btcdd.codeforest.config.linux.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.ParseException;
 import java.util.concurrent.Executors;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -19,10 +21,22 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 import com.btcdd.codeforest.model.ChatMessage;
+import com.btcdd.codeforest.runlanguage.RunC;
+import com.btcdd.codeforest.runlanguage.RunCpp;
+import com.btcdd.codeforest.runlanguage.RunCs;
+import com.btcdd.codeforest.runlanguage.RunJava;
+import com.btcdd.codeforest.runlanguage.RunJs;
+import com.btcdd.codeforest.runlanguage.RunPy;
 
 @Controller
 public class ChatController {
-
+	
+	private StringBuffer buffer;
+	private BufferedReader bufferedReader;
+	
+	private File file;
+	private BufferedWriter bufferWriter;
+	
 	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
 	private StringBuffer readBuffer2 = new StringBuffer();
@@ -30,13 +44,58 @@ public class ChatController {
 	@MessageMapping("/chat")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-
+		String errorResult = "";
+		Boolean pandan = false;
+		
+		JSONParser parser = new JSONParser();
+		JSONObject obj = null;
 		try {
-			if("{}".equals(data)) {
-//				process = Runtime.getRuntime().exec("cmd");
-//				process = Runtime.getRuntime().exec("java Test");
-				process = Runtime.getRuntime().exec("java -cp . Test");
+			obj = (JSONObject) parser.parse(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		pandan = (Boolean) obj.get("execPandan");
+		String language = (String) obj.get("language");
+		String code = (String) obj.get("code");
+		try {
+			if(pandan) {
+				if("c".equals(language)) {
+					RunC rc = new RunC();
+					rc.createFileAsSource(code);
+					errorResult = rc.execCompile();
+					process = Runtime.getRuntime().exec("./test.exe");
+				} else if("cpp".equals(language)) {
+					RunCpp rcpp = new RunCpp();
+					rcpp.createFileAsSource(code);
+					errorResult = rcpp.execCompile();
+					process = Runtime.getRuntime().exec("./cppTest.exe");
+				} else if("cs".equals(language)) {
+					RunCs rcs = new RunCs();
+					rcs.createFileAsSource(code);
+					errorResult = rcs.execCompile();
+					process = Runtime.getRuntime().exec("mono testCs.exe");
+				} else if("java".equals(language)) {
+					RunJava rj = new RunJava();
+					rj.createFileAsSource(code);
+					errorResult = rj.execCompile();
+					process = Runtime.getRuntime().exec("java -cp . Test");
+				} else if("js".equals(language)) {
+					RunJs rjs = new RunJs();
+					rjs.createFileAsSource(code);
+					errorResult = rjs.execCompile();
+					process = Runtime.getRuntime().exec("node test.js");
+				} else if("py".equals(language)) {
+					RunPy rpy = new RunPy();
+					rpy.createFileAsSource(code);
+					errorResult = rpy.execCompile();
+					process = Runtime.getRuntime().exec("python3 testPy.py");
+				}
 				readBuffer.setLength(0);
+//				if(!("".equals(errorResult))) {
+//					chatMessage.setContent(errorResult);
+//					
+//					return chatMessage;
+//				}
 			}
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
@@ -50,6 +109,7 @@ public class ChatController {
 //					BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
 					int c = 0;
+					readBuffer.setLength(0);
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);

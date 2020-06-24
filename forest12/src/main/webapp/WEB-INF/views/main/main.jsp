@@ -37,15 +37,21 @@
 var result = '';
 var resultText;
 var tmp = '';
+var lang;
+var code;
+var editor;
+var execPandan;
 
 //채팅 시작하기
 function connect(event) {
-    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+	code = editor.getValue();
+	
+	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
     var socket = new SockJS('${pageContext.request.contextPath }/ws');
+   
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
-
-    stompClient.connect({"data":"data"}, onConnected, onError);
+    stompClient.connect({}, onConnected, onError);
     
     event.preventDefault();
 }
@@ -55,11 +61,19 @@ function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
+    execPandan = true;
+    var chatMessage = {
+            language:$(".lang option:selected").val(),
+    		code:code,
+    		execPandan: execPandan,
+            type: 'CHAT'
+        };
+    execPandan = false;
     // Tell your username to the server
     stompClient.send("/app/chat",
         {},
-        JSON.stringify({})
-    )
+        JSON.stringify(chatMessage)
+    );
 }
 
 
@@ -73,15 +87,19 @@ function sendMessage(event, res) {
 	tmp = res;
 	
     var messageContent = res;
-        var chatMessage = {
-            content: messageContent,
-            type: 'CHAT'
-        };
-        stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
+    var chatMessage = {
+        content: messageContent,
+        language:$(".lang option:selected").val(),
+		code:code,
+		execPandan: execPandan,
+        type: 'CHAT'
+    };
+    stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
 function onMessageReceived(payload) {
+	
     var message = JSON.parse(payload.body);
     
     var prevText = resultText.val();
@@ -91,28 +109,7 @@ function onMessageReceived(payload) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(function() {
-	
 	
    $(window).scroll(function() {
         if ($(this).scrollTop() > 500) {
@@ -155,7 +152,7 @@ $(function() {
 //    $('.codeTest').on('submit',function(e)
    
    var code = $('.CodeMirror')[0];
-   var editor = CodeMirror.fromTextArea(code, {
+   editor = CodeMirror.fromTextArea(code, {
          lineNumbers: true,
          mode: 'text/x-java',
          theme: 'duotone-light',
@@ -169,7 +166,8 @@ $(function() {
    });
    
    $('.lang').change(function() {
-      var lang = $(".lang option:selected").val();
+      lang = $(".lang option:selected").val();
+      
       var face = '';
       
       if(lang === 'c') {
@@ -211,6 +209,7 @@ $(function() {
       }
       
       editor.setValue(face);
+      $('#code').val(editor.getValue());
    });
    
     $('.CodeMirror').addClass('code');

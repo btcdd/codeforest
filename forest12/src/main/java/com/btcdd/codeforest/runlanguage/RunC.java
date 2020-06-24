@@ -70,17 +70,7 @@ public class RunC {
 	
 	public String execCommand() {
 		try {
-			process = Runtime.getRuntime().exec(runClass());
-			
-			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			String line = null;
-			readBuffer = new StringBuffer();
-			
-			while((line = bufferedReader.readLine()) != null) {
-				readBuffer.append(line);
-				readBuffer.append("\n");
-			}
-			return readBuffer.toString();
+			process = Runtime.getRuntime().exec("timeout 2s ./test.exe");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

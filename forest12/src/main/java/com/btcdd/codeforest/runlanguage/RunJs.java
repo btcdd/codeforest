@@ -71,16 +71,6 @@ public class RunJs {
 	   public String execCommand() {
 	      try {
 	         process = Runtime.getRuntime().exec(runClass());
-	         
-	         bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-	         String line = null;
-	         readBuffer = new StringBuffer();
-	         
-	         while((line = bufferedReader.readLine()) != null) {
-	            readBuffer.append(line);
-	            readBuffer.append("\n");
-	         }
-	         return readBuffer.toString();
 	      } catch(Exception e) {
 	         e.printStackTrace();
 	      }

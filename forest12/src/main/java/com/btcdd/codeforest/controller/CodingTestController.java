@@ -162,6 +162,12 @@ public class CodingTestController {
 			System.out.println("problemVo>>>"+problemVo);
 			System.out.println("subProblemList>>>"+subProblemList); // codetree에서 subProblemList에 해당
 			
+			
+			
+			
+			
+			
+			
 			return "codingtest/code-mirror"; //이동
 
 		}
