@@ -156,7 +156,7 @@ public class CodingTestController {
 			@RequestParam("tempKey") String tempKey,
 			HttpSession session,
 			Model model) {
-		
+		 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
 		ProblemVo problemVo = testService.selectProblemOne(problemNo);
