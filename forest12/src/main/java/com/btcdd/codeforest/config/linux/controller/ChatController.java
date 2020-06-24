@@ -57,6 +57,33 @@ public class ChatController {
 			e.printStackTrace();
 		}		
 		
+		
+		RunJava rj = new RunJava();
+//		rj.createFileAsSource(code);
+		try {
+			file = new File("Test.java");
+			bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			
+			bufferWriter.write(code);
+			bufferWriter.flush(); 
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		} finally {
+			try {
+				bufferWriter.close();
+				file = null;
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);;
+			}
+		}
+		Thread.sleep(1000);
+		errorResult = rj.execCompile();
+		Thread.sleep(1000);
+		process = Runtime.getRuntime().exec("timeout 2s java -cp . Test");
+		
+		/*
 		pandan = (Boolean) obj.get("execPandan");
 		try {
 			if(pandan) {
@@ -134,6 +161,7 @@ public class ChatController {
 					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s python3 testPy.py");
 				}
+				
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
@@ -141,11 +169,10 @@ public class ChatController {
 					return chatMessage;
 				}
 			}
+	*/
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
 			InputStream stdout = process.getInputStream();
-
-			StringBuffer readBuffer2 = new StringBuffer();
 
 			// 출력 stream을 BufferedReader로 받아서 라인 변경이 있을 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().execute(() -> {
