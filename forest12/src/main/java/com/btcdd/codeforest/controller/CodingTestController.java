@@ -126,6 +126,12 @@ public class CodingTestController {
 			model.addAttribute("subProblemList",subProblemList);
 			System.out.println("subProblemList>>>"+subProblemList);
 			
+			
+			
+			
+			
+			
+			
 			return "codingtest/code-mirror"; //이동
 		}
 		return "codingtest/auth";

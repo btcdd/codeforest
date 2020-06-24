@@ -9,8 +9,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
 import java.util.concurrent.Executors;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -44,9 +47,19 @@ public class ChatController {
 		String errorResult = "";
 		String language = chatMessage.getLanguage();
 		String code = chatMessage.getCode();
+		Boolean pandan = false;
 		
+		JSONParser parser = new JSONParser();
+		JSONObject obj = null;
 		try {
-			if("{}".equals(data)) {
+			obj = (JSONObject) parser.parse(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+		pandan = (Boolean) obj.get("execPandan");
+		try {
+			if(pandan) {
 				switch(language) {
 				case "c":
 					RunC rc = new RunC();

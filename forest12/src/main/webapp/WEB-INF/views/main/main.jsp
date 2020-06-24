@@ -40,6 +40,7 @@ var tmp = '';
 var lang;
 var code;
 var editor;
+var execPandan = false;
 
 //채팅 시작하기
 function connect(event) {
@@ -51,7 +52,6 @@ function connect(event) {
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
     stompClient.connect({
-    			"data":"data"
     			}, onConnected, onError);
     
     event.preventDefault();
@@ -62,11 +62,14 @@ function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
+    execPandan = true;
     var chatMessage = {
             language:lang,
     		code:code,
+    		execPandan: execPandan,
             type: 'CHAT'
         };
+    execPandan = false;
     // Tell your username to the server
     stompClient.send("/app/chat",
         {},
