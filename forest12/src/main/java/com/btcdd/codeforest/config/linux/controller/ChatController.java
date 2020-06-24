@@ -98,7 +98,7 @@ public class ChatController {
 					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
 				} else if("java".equals(language)) {
 					RunJava rj = new RunJava();
-					rj.createFileAsSource(code);
+//					rj.createFileAsSource(code);
 					try {
 						file = new File("Test.java");
 						bufferWriter = new BufferedWriter(new FileWriter(file, false));
