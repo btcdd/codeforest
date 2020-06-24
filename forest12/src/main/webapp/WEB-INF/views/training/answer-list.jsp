@@ -10,7 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Code Forest</title>
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/answer-list.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 
@@ -157,6 +158,17 @@ $(function() {
 <body>
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="container">
+	    <div>
+	       <select class="language" name="language">
+	           <option value="all-language" selected="selected">모든 언어</option>	       	
+	           <option value="c">C</option>
+	           <option value="cpp">C++</option>
+	           <option value="cs">C#</option>
+	           <option value="java">JAVA</option>
+	           <option value="js">Java Script</option>
+	           <option value="py">Python</option>
+	       </select>
+       </div>
        <div class="statistics">
            <table class="type09">
                <thead>
@@ -204,17 +216,7 @@ $(function() {
                </tbody>
            </table>
        </div>
-       	<div>
-	       <select class="language" name="language">
-	           <option value="all-language" selected="selected">모든 언어</option>	       	
-	           <option value="c">C</option>
-	           <option value="cpp">C++</option>
-	           <option value="cs">C#</option>
-	           <option value="java">JAVA</option>
-	           <option value="js">Java Script</option>
-	           <option value="py">Python</option>
-	       </select>
-      </div>
+       
        <div class="correct-person-list">
            <table class="type09" id="answer-user">
                <thead>
@@ -258,5 +260,6 @@ $(function() {
 	       <textarea name="code" class="CodeMirror" id="code"></textarea>
       </div>
    </div>
+   <c:import url="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>
