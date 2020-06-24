@@ -1,9 +1,15 @@
-/*
-* 기본 언어 : 'JAVA'
-* 기본 테마 : 'panda-syntax'
-*/
+
+
+import java.util.*;
+
 public class Test{
    public static void main(String[] args) {
-      System.out.println("Hello CodeForest!");
+     Scanner scan = new Scanner(System.in);
+     System.out.println("asdf");
+     while(true) {
+       System.out.println("ddd3~");
+       	String hi = scan.nextLine();
+     	 System.out.println("Hello CodeForest!" + hi);
+     }
    }
 }
