@@ -11,6 +11,7 @@
 				 and p.kind_no = k.no
 				 and (title like '%${keyword}%' or nickname like '%${keyword}%')
 				 and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+				 and p.state = 'y'
 			order by p.reg_date desc
 			limit #{displayPost}, #{postNum}
 		]]>
@@ -27,6 +28,7 @@
 				and (title like '%${keyword}%' or nickname like '%${keyword}%')
                 and p.kind_no = 6
                 and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+                and p.state = 'y'
 		]]>
 
 		<if test="size != 0">
@@ -79,6 +81,7 @@
 			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
 			   and p.level_no = 6
 			   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+			   and p.state = 'y'
 		]]>
 
 		<if test="size != 0">
@@ -144,13 +147,12 @@
 		]]>
 		<foreach collection="subProblemList" item="item" separator=",">
 			<![CDATA[
-				(null, "${item.title }", "${item.contents }", "${item.examInput }", "${item.examOutput }", ${problemNo },'y')
+				(null, "${item.title }", '${item.contents }', "${item.examInput }", "${item.examOutput }", ${problemNo },'y')
 			]]>
 		</foreach>
 	</insert>
 
-	<insert id="modify" parameterType="hashmap"
-		useGeneratedKeys="true" keyProperty="id">
+	<insert id="modify" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id">
 		<![CDATA[
 			insert 
 			  into sub_problem (no, title, contents, exam_input, exam_output, problem_no, state)
@@ -171,7 +173,7 @@
 				]]>
 			</if>
 			<![CDATA[
-				, "${item.title }", "${item.contents }", "${item.examInput }", "${item.examOutput }", #{problemNo },"y")
+				, "${item.title }", '${item.contents }', "${item.examInput }", "${item.examOutput }", #{problemNo },"y")
 			]]>
 		</foreach>
 		<![CDATA[
@@ -246,6 +248,7 @@
 				and (title like '%${keyword}%' or nickname like '%${keyword}%')
                 and p.kind_no = 6
                 and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+                and p.state = 'y'
 		]]>
 
 		<if test="size != 0">
@@ -294,6 +297,7 @@
 			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
 			   and p.level_no = 6
 			   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+			   and p.state = 'y'
 		]]>
 
 		<if test="size != 0">

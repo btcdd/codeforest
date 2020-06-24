@@ -1,7 +1,123 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Bigshot+One&family=Pacifico&family=Roboto:wght@300&display=swap')
+	;
+
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #fafafa;
+}
+
+.make-coding-test-problem-info {
+	font-family: 'Raleway', Arial, sans-serif;
+	font-weight: 500;
+	margin-left: 2em;
+}
+
+.codingtest-div {
+    background-color: #fff;
+    width: 75%;
+    margin-left: 1em;
+    padding: 1em 1em;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0 0 15px rgba(130,130,130,0.3);
+}
+
+.codingtest {
+	margin-right: 1em;
+}
+
+.password {
+    margin-top: 1em;
+    border-top: 1px solid #ebebeb;
+    padding-top: 1em;
+}
+
+.password-title, .privacy-check-title, .start-date-title, .end-date-title {
+    font-weight: bold;
+    color: #4D4D4D;
+    margin-bottom: 1em;
+}
+
+.password-input-div {
+	
+}
+
+.password-input {
+    outline: none;
+    border: 1px solid #bebebe;
+    height: 1.5em;
+    border-radius: 0.5rem;
+    padding: 0.5em 0.5em;
+    font-size: 1em;
+    font-family: 'Raleway', Arial, sans-serif;
+	font-weight: 500;
+    box-shadow: inset 0 0 5px rgba(130,130,130,0.2);
+}
+
+.privacy {
+	border-top: 1px solid #ebebeb;
+    margin-top: 1em;
+    padding-top: 1em;
+}
+
+.privacy-check-radio {
+	margin-left: 1.5em;
+}
+
+.date {
+	border-top: 1px solid #ebebeb;
+    margin-top: 1em;
+    padding-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.start-date {
+	float: left;
+    width: 45%;
+    margin-right: 5%;
+}
+
+.end-date {
+
+}
+
+.input-date {
+	height: 2em;
+    background-color: #F0F0F0;
+    border: none;
+    outline: none;
+    padding: 1em;
+    font-size: 1.1em;
+}
+
+.division {
+	margin-left: 1em;
+    margin-top: 2em;
+}
+
+.division-radio-title-div {
+	font-weight: bold;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #bebebe;
+    width: 76%;
+}
+
+.division-radio-title {
+	padding-left: 0.5em;
+}
+	
+select {
+    width: 75px;
+    height: 35px;
+    font-family: inherit;
+    font-size: 1em;
+    background: no-repeat 95% 50%;
+    background-color: #fff;
+    border: 1px solid #999;
+    border-radius: 0px;
+    margin: auto;
 }
 
 .regist {
@@ -11,25 +127,10 @@ body {
 	width: 80%;
 }
 
-.private {
-	float: left;
-}
-
 .password {
-	margin-left: 100px;
+	margin-top: 1em;
 }
 
-.start-date {
-	float: left;
-}
-
-.end-date {
-	margin-left: 220px;
-}
-
-.division {
-	float: left;
-}
 
 .language-select {
 	margin-left: 120px;
@@ -52,7 +153,7 @@ body {
 
 .content {
 	width: 100%;
-    height: 250px;
+    height: 1000px;
     outline: none;
     border: none;
     background-color: #fafafa;
@@ -71,14 +172,13 @@ body {
 
 .ex-input {
 	float: left;
-    width: 45.5%;
+    width: 47.5%;
 }
 
 #ex-input-text, #ex-output-text {
 	margin-left: 0;
     width: 100%;
     height: 220px;
-    background-color: #fff;
     font-size: 1em;
     color: #2C2C2E;
     outline: none;
@@ -86,6 +186,7 @@ body {
     background-color: #fafafa;
     font-family: arial;
     margin-top: 0.8em;
+    resize: none;
 }
 
 #ex-input-text::placeholder, #ex-output-text::placeholder{
@@ -99,9 +200,9 @@ body {
 }
 
 .ex-output {
-	margin-left: 4%;
+	margin-left: 5%;
     float: left;
-    width: 50.3%;
+    width: 47.5%;
 }
 
 #answer-code-text {
@@ -161,9 +262,11 @@ td {
 
 /* Style the tab */
 .tab {
-	float: left;
-    width: 6%;
+    float: left;
+    width: 4%;
+    margin-left: -4em;
     height: 100%;
+    margin-top: 1.1em;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -189,10 +292,10 @@ td {
 /* Style the tab content */
 .tabcontent {
 	float: left;
-	padding: 0 2% 0 2%;
-	width: 70%;
-	height: 700px;
-	margin-bottom: 5em;
+    padding: 0 2% 0 1%;
+    width: 78%;
+    height: 700px;
+    margin-bottom: 15em;
 }
 
 ul {
@@ -201,14 +304,21 @@ ul {
 }
 
 .tablinks {
-	padding: 20px;
-	background-color: #E7E7E7;
-	border: 1px solid #bbb;
-	cursor: pointer;
+	padding: 17px 9px;
+    cursor: pointer;
+    border: 1px solid #bebebe;
+    text-align: center;
+    border-radius: 0.5rem 0 0 0.5rem;
 }
 
 .tablinks:hover {
-	background-color: #c4b5af;
+	background-color: #ebebeb;
+}
+
+.hover-tablinks {
+	width: 100px;
+    margin-left: -2.4em;
+    border-radius: 0.5rem 0 0 0.5rem;
 }
 
 #addSubProblem {
@@ -221,6 +331,8 @@ ul {
 
 #addSubProblem:hover {
 	background-color: #e3e3e3;
+    border-radius: 0.7rem 0 0 0.7rem;
+    text-align: center;
 }
 
 .title {
@@ -243,7 +355,7 @@ ul {
 }
 
 #btn-cancel {
-	background-color: #fafafa;
+    background-color: #fafafa;
     text-decoration: none;
     font-size: 1em;
     padding: 10px 20px 10px 20px;
@@ -251,7 +363,7 @@ ul {
     border: 1px solid #828282;
     border-radius: 20px;
     transition: all 0.1s;
-    margin-left: 5%;
+    margin-left: 4.3em;
     color: #828282;
 }
 
@@ -273,28 +385,19 @@ li[name=selected] {
 }
 
 .delete {
-	margin-left: 20px;
+	margin-left: 8px;
 }
 
 img {
-	width: 24%;
-	height: 15%;
+	width: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
 }
 
 img:hover {
-	background: #f00;
 }
 
-.privacy {
-	margin: 10px 10;
-}
-
-.privacy-check {
-	margin: 10px 0;
-	border: 1px #bbb dashed;
-	width: 500px;
-	padding-bottom: 10px;
-}
 
 .tab-ul {
 	margin-top: -1.3px;
@@ -312,7 +415,7 @@ img:hover {
 	padding: 60px 0;
 	left: 0;
 	bottom: 0;
-	width: 74%;
+	width: 61.5%;
     background-color: #fAFAFA;
 	color: #3C3C3C;
 	text-align: center;
@@ -340,8 +443,23 @@ img:hover {
 
 .sub-prob-content {
 	margin-top: 1.5em;
+    height: 455px;
+}
+
+.cke_1 {
+	height: 442px;
+}
+
+.cke_contents {
+	height: 400px;
 }
 
 .content::placeholder {
 	color: #bebebe;
+}
+
+.problem-img {
+	margin-right: 5px;
+    margin-left: 9px;
+    color: #244c1e;
 }

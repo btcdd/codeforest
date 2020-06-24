@@ -61,6 +61,8 @@ body {
 }
 
 .menu-user {
+	font-family: 'Raleway', Arial, sans-serif;
+	font-weight: 500;
 	float: right;
 	font-size: 1em;
 	margin-top: 2px;
@@ -69,18 +71,39 @@ body {
 
 .menu-item {
 	float: left;
-	margin-right: 10px;
-	padding: 8px 10px;
-	line-height: 25.2px;
+    margin-top: 3px;
+    margin-right: 1em;
+    padding: 5px 15px;
+    line-height: 25.2px;
+    text-align: center;
+}
+
+.menu-item-user {
+	float: left;
+    margin-top: 3px;
+    margin-right: 1em;
+    padding: 5px 15px;
+    line-height: 25.2px;
+    text-align: center;
+}
+
+.menu-item:hover {
+	background-color: rgba(255,255,255,0.2);
+	color: #fff;
+    border-radius: 0.5rem;
+}
+
+.menu-item:hover .menu-item-child {
+	color: #fff;
 }
 
 .menu-user a {
 	text-decoration: none;
-	color: #fff;
+    color: #E0E0E0;
 }
 
 .menu-user a:visited {
-	color: #fff;
+	color: #E0E0E0;
 }
 
 .menu-user a:hover {
@@ -207,4 +230,8 @@ body {
 
 .header-menu a:hover:after, .header-menu .current a:after {
 	max-width: 100%;
+}
+
+.account-icon {
+    padding-left: 0.5em;
 }

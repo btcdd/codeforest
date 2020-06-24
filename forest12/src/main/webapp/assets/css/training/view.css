@@ -159,7 +159,6 @@ body {
 }
 
 .pro p {
-	display: inline;
 	margin-right: 30px;
 }
 
@@ -169,6 +168,11 @@ body {
     word-spacing: 200%;
     margin: 1.5em 3em;
     color: #454545;
+    font-family: consolas;
+}
+
+.explain a {
+	color: #00f;
 }
 
 .pro button {
@@ -208,12 +212,14 @@ fieldset {
 
 .input-content {
 	padding-bottom: 20px;
-	padding: 10px
+	padding: 10px;
+	font-family: consolas;
 }
 
 .result-content {
 	padding-bottom: 20px;
-	padding: 10px
+	padding: 10px;
+	font-family: consolas;
 }
 
 button#modify {
@@ -392,7 +398,6 @@ button#modify {
 }
 
 pre {
-    font-family: consolas;
     margin: 0;
     padding: 0;
 }

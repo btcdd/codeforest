@@ -187,11 +187,11 @@ public class CodeTreeService {
 	}
 //  추가한 부분
 	public boolean submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, boolean compileResult) {
-		String answer = "";
+		String answer = "n";
 		
-		if(compileResult) {
+		if((compileResult+"").equals("true")) {  
 			answer = "y";
-		} else {
+		}else{
 			answer = "n";
 		}
 		
@@ -199,6 +199,7 @@ public class CodeTreeService {
 		
 		
 		if(submitVo == null) {
+//			return 1==1;
 			return codetreeRepository.submitSubProblem(authUserNo,subProblemNo,codeValue,language, answer) == 1;
 		} else {
 			return codetreeRepository.updateSubProblem(submitVo.getNo(), codeValue, answer) == 1;
@@ -222,6 +223,8 @@ public class CodeTreeService {
 		}
 		
 	}
+
+
 
 	
 

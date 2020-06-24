@@ -66,6 +66,7 @@ var changeNickname = function(nickname) {
               console.error(response.message);
               return;
            }
+           $('.auth-user').text(response.data);
         },
         error: function(xhr, status, e) {
            console.error(status + ":" + e);
@@ -215,7 +216,6 @@ $(function() {
             "변경": function() {
             	changeNickname($('#nickname').val());
             	$(this).dialog("close");
-            	window.location = "${pageContext.request.contextPath }/mypage/account";
             },
             "취소": function() {
                 $(this).dialog("close");
@@ -377,7 +377,7 @@ $(function() {
            <form>
                <fieldset class="nickname-fieldset">
                    <label for="name">사용자 이름</label>
-                   <input type="text" name="nickname" id="nickname" value="${authUser.nickname }" class="nickname-input">
+                   <input type="text" name="nickname" id="nickname" value="${authUser.nickname }" class="nickname-input" autocomplete="off">
                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
                </fieldset>
            </form>

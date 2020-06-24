@@ -16,32 +16,6 @@ body {
     margin-left: 38em;
 }
 
-.menu-item {
-	float: left;
-	margin: 3px 10px 0 0;
-	padding: 8px 10px;
-}
-
-.menu-user {
-	float: right;
-	font-size: 1em;
-	margin-top: 2px;
-}
-
-.menu-user a {
-	text-decoration: none;
-	color: #fff;
-}
-
-.menu-user a:visited {
-	color: #fff;
-}
-
-.menu-user a:hover {
-	text-decoration: none;
-	color: #fff
-}
-
 ul {
 	list-style: none;
     width: 100%;

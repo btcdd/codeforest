@@ -41,10 +41,16 @@ var problemAdd = function() {
 			+ '<div class="ex-output-title">출력 예제</div>'
 			+ '<textarea id="ex-output-text" name="subProblemList[' + index + '].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off"></textarea>'
 			+ '</div>'
-			+ '<div class="answer-code' + index + '">'
-			+ '</div></div>';
+			+ '</div>';
 
 	buttonStr = '<li id="' + index + '" class="tablinks">' + (index + 1) + '<span class="delete" style="display: none" ><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
+}
+
+var setStyle = function(index2) {
+	setTimeout(function() {
+		var ckeContents2 = document.getElementsByClassName("cke_contents")[index2];
+		ckeContents2.style = "height: 400px";
+	}, 50);
 }
 
 $(function() {
@@ -58,17 +64,22 @@ $(function() {
 		$(".prob" + (index - 1)).after(str);
 		$('.prob' + (index - 1)).hide();
 		
+		// 추가된 문제에 CKEditor 적용
+		CKEDITOR.replace('prob-content-text' + index);
+		
 		$('li[name=selected]').removeAttr('name');
 		$('#' + index).attr('name', 'selected');
-
-		// 추가된 문제에 CKEditor 적용
-// 		CKEDITOR.replace('prob-content-text' + index);
-
+		$('#' + index).trigger('click');
+		
 		$('#' + index).hover(function() {
 			$(this).children().show();
+			$(this).addClass('hover-tablinks');
 		}, function() {
-			$(this).children().eq(1).hide();
+			$(this).children().hide();
+			$(this).removeClass('hover-tablinks');
 		});
+		
+		setStyle(index);
 		
 		index++;
 	});
@@ -85,25 +96,18 @@ $(function() {
 		$('.prob' + (ind)).show();
 	});
 
-	// CKEDITOR.replace('contents');
-
 	// 코딩테스트 체크박스를 체크하면, 비밀번호와 시작 일자, 마감 일자를 설정할 수 있는 칸이 나타난다.
 	$('.codingtest').click(function() {
 		if ($(this).prop("checked")) {
-			var passwordStr = '<div class="password">비밀번호 <input class="password-input" type="password" name="password" required></div>';
-			var privacyStr = '<div class="privacy-check"><p>코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요</p> 공개여부 <input type="checkbox" name="privacy"></div>';
-			var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local" name="startTime" required></div>';
-			var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local" name="endTime" required></div>';
+			var passwordStr = '<div class="password"><div class="password-title">코딩 테스트 입력 코드</div><div class="password-input-div"><input class="password-input" type="text" name="password" required></div></div>';
+			var privacyStr = '<div class="privacy"><div class="privacy-check-title">문제 공개 여부</div><div><input type="radio" name="privacy" value="hi" checked="checked">공개<input class="privacy-check-radio" type="radio" name="privacy" value="on">비공개</div></div>';
+			var startDateStr = '<div class="date"><div class="start-date"><div class="start-date-title">시작 일자</div><input class="input-date" type="datetime-local" name="startTime" required></div><div class="end-date"><div class="end-date-title">종료 일자</div><input class="input-date" type="datetime-local" name="endTime" required></div></div>';
 
-			$(".privateAndPassword").append(passwordStr);
-			$(".privacy").append(privacyStr);
-			$(".date").append(startDateStr);
-			$(".date").append(endDateStr);
+			$(".privateAndPassword").append(passwordStr).append(privacyStr).append(startDateStr);
 		} else {
 			$(".privateAndPassword .password").remove();
-			$(".privacy-check").remove();
-			$(".date .start-date").remove();
-			$(".date .end-date").remove();
+			$(".privacy").remove();
+			$(".date").remove();
 		}
 	});
 
@@ -120,19 +124,21 @@ $(function() {
 		for(var i = 0; i < index; i++) {
 			if(!($('#' + i).attr('id'))) {
 				for(var j = i + 1; j < index; j++) {
-					$('#' + j).text('문제 ' + j.toString());
-					$('#' + j).append('<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span>');
-					$('.prob' + j + ' h3').text('문제 ' + j.toString());
+					$('#' + j).text(j.toString());
+					$('#' + j).append('<span class="delete" style="display:none"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span>');
 					
 					// li id 설정
 					$('#' + j).attr('id', (j-1).toString());
 					// prob class 설정
 					$('.prob' + j).attr('class', 'prob' + (j-1).toString());
+					$('#prob-content-text' + j).attr('id', 'prob-content-text' + (j-1).toString());
 				}
 			}
 		}
 		
 		index--;
+		
+		$('#' + (index-1)).trigger('click');
 	});
 	
 	$('#fake-submit').click(function() {
@@ -148,15 +154,25 @@ $(function() {
 	
 	$('#0').hover(function() {
 		$(this).children().show();
+		$(this).addClass('hover-tablinks');
 	}, function() {
-		$(this).children().eq(1).hide();
+		$(this).children().hide();
+		$(this).removeClass('hover-tablinks');
 	});
 	
+	CKEDITOR.replace('prob-content-text0');
 });
+
+window.onload = function(){
+	setTimeout(function() {
+		var ckeContents = document.getElementsByClassName("cke_contents")[0];
+		ckeContents.style = "height: 400px";
+	}, 50);
+};
 
 function captureReturnKey(e) { 
     if(e.keyCode==13 && e.srcElement.type != 'textarea') 
-    return false; 
+    return false;
 }
 
 </script>
@@ -166,34 +182,23 @@ function captureReturnKey(e) {
 	<form method="post"
 		action="${pageContext.servletContext.contextPath }/training/write" onkeydown="return captureReturnKey(event)">
 		<div class="regist">
+			<pre class="make-coding-test-problem-info"><i class="fas fa-info-circle info"></i>  새로운 코딩 테스트 문제를 만들기 위해서는 아래의 체크 버튼을 눌러주세요</pre>
 			<div class="codingtest-div">
 				<div class="privateAndPassword">
 					<div class="private">
-						<input class="codingtest" type="checkbox">코딩테스트
+						<input class="codingtest" type="checkbox">새 코딩 테스트 만들기
 					</div>
-					<!-- <div class="password">비밀번호 <input type="password"></div> -->
-				</div>
-				<div class="privacy">
-					<!-- 코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요<div class="privacy">공개여부 <input type="checkbox" name="privacy" required></div> -->
-				</div>
-				<div class="date">
-					<!-- <div class="start-date">시작일자 <input type="datetime-local"></div> -->
-					<!-- <div class="end-date">마감일자 <input type="datetime-local"></div> -->
 				</div>
 			</div>
 
-			<div class="divisionAndLanguage">
-				<div class="division">
-					분류 <select name="kindNo">
-							<option value="5" selected="selected">기타</option>
-							<option value="1">기업</option>
-							<option value="2">개인</option>
-							<option value="3">학원</option>
-							<option value="4">학교</option>
-					</select>
-				</div>
+			<div class="division">
+				<div class="division-radio-title-div"><span class="division-radio-title">분류</span></div>
+				<input name="kindNo" value="5" type="radio" checked="checked"/>기타
+				<input name="kindNo" value="1" type="radio" />기업
+				<input name="kindNo" value="2" type="radio" />개인
+				<input name="kindNo" value="3" type="radio" />학원
+				<input name="kindNo" value="4" type="radio" />학교
 			</div>
-			<br />
 			<div class="title">
 				<input id="title-text" type="text" name="title" placeholder="문제집 제목을 입력하세요" autocomplete="off"/>
 				<a id="btn-cancel"
@@ -204,14 +209,12 @@ function captureReturnKey(e) {
 			<br />
 
 			<div class="write-container">
-				<div class="tab">
-					<ul class="tab-ul">
-						<li id="0" class="tablinks" name="selected">1<span class="delete" style="display: none"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>
-						<li id="addSubProblem">+</li>
-					</ul>
-					
-				</div>
-
+			<div class="tab">
+				<ul class="tab-ul">
+					<li id="0" class="tablinks" name="selected">1<span class="delete" style="display: none"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>
+					<li id="addSubProblem">+</li>
+				</ul>
+			</div>
 				<div id="problem" class="tabcontent">
 					<div class="prob0">
 						<div class="sub-title">

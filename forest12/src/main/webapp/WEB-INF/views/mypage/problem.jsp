@@ -18,10 +18,18 @@
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/table2excel.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script>
+function onKeyDown() {
+	if(event.keyCode == 13) {
+		var kwd = $('#kwd').val();
+		originList('1', kwd);
+		$('span b').trigger('click');
+	}
+}
+
 var page = '1';
 var endPageTrueNum;
 
-var originList = function(page2) {
+var originList = function(page2, keyword) {
 	
    $.ajax({
       url: '${pageContext.request.contextPath }/api/mypage/problem',
@@ -31,6 +39,7 @@ var originList = function(page2) {
       traditional: true,
       data: {
          'page': page2,
+         'keyword': keyword
       },
       success: function(response){
          if(response.result != "success"){
@@ -39,7 +48,11 @@ var originList = function(page2) {
          }
          map = response.data;
          
-         endPageTrueNum = parseInt(map.count / 10 + 1);
+         if(map.count / 10 % 1 == 0) {
+        	 endPageTrueNum = map.count / 10;
+         } else {
+	         endPageTrueNum = parseInt(map.count / 10 + 1);
+         }
         
          fetchList();
       },
@@ -86,13 +99,19 @@ var fetchList = function() {
 	   if(map.list[i].startTime <= getTimeStamp() && map.list[i].endTime >= getTimeStamp()) {
 		   codingTestStr = '<td><button class="blinking" id="modify-btn" style="padding: 2px 9px; background-color: #fc9303; border: 1px solid #fc9303; outline: none; cursor: default" >진행중</button></a></td>';
 		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
+		   titleStr = map.list[i].title;
+	   } else if(map.list[i].startTime > getTimeStamp()) {
+		   titleStr = map.list[i].title + '<span class="blinking" id="expected" style="color: #fff; background-color: #3e91b5; border: 1px solid #3e91b5; border-radius: 0.5rem; padding: 0 1em; margin-left: 1em; font-size: 0.8em; margin-top: 2px;outline: none; cursor: default" >예정</span>';
+		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
+		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
 	   } else {
+		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
 		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
 	   }
        str += '<tr class="list-contents" id="list-contents" data-no="' + map.list[i].no + '">' + 
                 '<td><a data-no="' + map.list[i].no + '">' + map.list[i].no + '</a></td>' + 
-                  '<td class="problem-title" data-no="' + map.list[i].no + '" style="text-align: left">' + map.list[i].title + '</td>' + 
+                  '<td class="problem-title" data-no="' + map.list[i].no + '" style="text-align: left">' + titleStr + '</td>' + 
                   '<td>' + map.list[i].hit + '</td>' + 
                   '<td>' + map.list[i].recommend + '</td>' + 
                   codingTestStr + 
@@ -145,12 +164,13 @@ var nextRemove = function() {
 
 $(function() {
 	
-	originList('1');
+	originList('1', '');
 	
 	$(document).on("click", ".page", function() {
 	      page = $(this).attr('id');
 	      
-	      originList(page);
+	      var kwd = $('#kwd').val();
+		  originList(page, kwd);
 	      nextRemove();
 	   });
 	   
@@ -159,7 +179,8 @@ $(function() {
 	      var prevNo = parseInt(page) - 1;
 	      page = String(prevNo);
 	      
-	      originList(page);
+	      var kwd = $('#kwd').val();
+		  originList(page, kwd);
 	      nextRemove();
 	   });
 	   
@@ -168,7 +189,8 @@ $(function() {
 	      var prevNo = parseInt(page) + 1;
 	      page = String(prevNo);
 	      
-	      originList(page);
+	      var kwd = $('#kwd').val();
+		  originList(page, kwd);
 	      nextRemove();
 	   });
 	
@@ -221,7 +243,7 @@ $(function() {
 		autoOpen: false,
 		resizable: false,
 		height: 600,
-		width: 1200,
+		width: 1040,
 		modal: true,
 		buttons: {
 			"다운로드": function() {		
@@ -298,7 +320,7 @@ $(function() {
 	});
 	
 	// ------------------------------------------- 서브 문제 출력 -------------------------------------------------------
-	$(".problem-title").on('click', function() { 
+	$(document).on('click', ".problem-title", function() { 
     	var no = $(this).data('no');
     	
     	if($("." + no).css('display') == 'none') {
@@ -315,12 +337,18 @@ $(function() {
 				if(response.data.length == 0) {
 					return;
 				}
-				var tr = "";				
+				var tr = "";
+				deleteStr = "";
+				
+				var expected = $(".problem-title[data-no='" + no + "']").children().attr('id');
 				for(var i in response.data) {
-					tr += '<tr id="sub-problem' + response.data[i].no + '"><td class="sub-problem-padding1">' + response.data[i].no +'</td>' + 
-						'<td class="sub-problem-padding2">' + response.data[i].title + '</td>' + 
-						'<td><i data-no="' + response.data[i].no + '" type="button" alt="delete" class="sp-delete fas fa-minus-circle"></i></td></tr>'
-
+					if(expected == "expected") {
+						deleteStr = '<td><i data-no="' + response.data[i].no + '" type="button" alt="delete" class="sp-delete fas fa-minus-circle"></i></td>';
+					} else {
+						deleteStr = '<td></td>';
+					}
+					tr += '<tr id="sub-problem' + response.data[i].no + '"><td class="sub-problem-padding1"># ' + response.data[i].no +'</td>' + 
+						'<td class="sub-problem-padding2">' + response.data[i].title + '</td>' + deleteStr + '</tr>'
 				}			
 				$("." + no + " .sub-problem-tbody").append(tr);
 				$("." + no).toggle();
@@ -377,6 +405,11 @@ $(function() {
 		dialogSpDelete.dialog('open');
 	});
 	
+	$('#search').on('click', function() {
+		var kwd = $('#kwd').val();
+		originList('1', kwd);
+		$('span b').trigger('click');
+	});
 });
 </script>
     
@@ -387,6 +420,10 @@ $(function() {
         <div class="quizlist">
             <div class="line">
                 <h4>문제 관리</h4>
+            </div>
+            <div class="search">
+                <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();" autoComplete="off">
+                <input type="button" id="search" value="검색" >
             </div>
             <br>
             <table class="quiz-table">
@@ -443,7 +480,7 @@ $(function() {
           <label><input class="box-component" type="checkbox" name="problem-list-table" value="lang" checked>언어</label>
           <label><input class="box-component" type="checkbox" name="problem-list-table" value="solve-time" checked>해결시간</label>
        </div>
-       <table class="problem-list-table">
+       <table class="problem-list-table rtable">
           <tr>
                <th id="name">이름</th>
                 <th id="email">이메일</th>
