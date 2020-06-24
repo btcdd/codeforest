@@ -27,6 +27,7 @@ import com.btcdd.codeforest.runlanguage.RunCs;
 import com.btcdd.codeforest.runlanguage.RunJava;
 import com.btcdd.codeforest.runlanguage.RunJs;
 import com.btcdd.codeforest.runlanguage.RunPy;
+import com.btcdd.codeforest.vo.SubmitVo;
 
 @Controller
 public class ChatController {
@@ -59,6 +60,7 @@ public class ChatController {
 		String code = (String) obj.get("code");
 		try {
 			if(pandan) {
+//				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
 					RunC rc = new RunC();
 					rc.createFileAsSource(code);
@@ -91,11 +93,11 @@ public class ChatController {
 					process = Runtime.getRuntime().exec("python3 testPy.py");
 				}
 				readBuffer.setLength(0);
-//				if(!("".equals(errorResult))) {
-//					chatMessage.setContent(errorResult);
-//					
-//					return chatMessage;
-//				}
+				if(!("".equals(errorResult))) {
+					chatMessage.setContent(errorResult);
+					
+					return chatMessage;
+				}
 			}
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
@@ -114,6 +116,8 @@ public class ChatController {
 						char line = (char) c;
 						readBuffer.append(line);
 					}
+					System.out.println("sdf");
+					
 					reader.reset();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -150,7 +154,6 @@ public class ChatController {
 							input += "\n";
 							readBuffer2.append(input);
 							System.out.println("readBuffer2:" + readBuffer2.toString());
-							chatMessage.setSender(readBuffer2.toString());
 							writer.write(input);
 							writer.flush();
 							readBuffer.setLength(0);
