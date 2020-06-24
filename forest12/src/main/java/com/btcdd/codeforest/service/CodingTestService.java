@@ -89,4 +89,11 @@ public class CodingTestService {
 	public List<CodeVo> findCodeList(Long savePathNo) {
 		return testRepository.findCodeList(savePathNo);
 	}
+
+	public boolean existSaveNo(Long authUserNo, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("authUserNo", authUserNo);
+		map.put("problemNo", problemNo);
+		return testRepository.findByProblemNo(map) != null;
+	}
 }
