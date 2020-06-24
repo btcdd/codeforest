@@ -49,7 +49,7 @@ public class ChatController {
 		System.out.println("-------------------obj : " + obj);
 		
 		try {
-			if("java".equals(language)) {
+			if("c".equals(language)) {
 //				process = Runtime.getRuntime().exec("cmd");
 				process = Runtime.getRuntime().exec("./test.exe");
 //				process = Runtime.getRuntime().exec("java -cp . Test");
