@@ -64,7 +64,7 @@ function onConnected() {
 
     execPandan = true;
     var chatMessage = {
-            language:lang,
+            language:$(".lang option:selected").val(),
     		code:code,
     		execPandan: execPandan,
             type: 'CHAT'
@@ -84,8 +84,6 @@ function onError(error) {
 }
 
 function sendMessage(event, res) {
-	
-	console.log('dd:', execPandan);
 	
 	tmp = res;
 	
@@ -169,6 +167,7 @@ $(function() {
    
    $('.lang').change(function() {
       lang = $(".lang option:selected").val();
+      
       var face = '';
       
       if(lang === 'c') {
