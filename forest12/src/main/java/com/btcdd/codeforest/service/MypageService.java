@@ -124,5 +124,9 @@ public class MypageService {
 		return mypageRepository.findSaveNoByProblemNoAndUserNo(map);
 	}
 
+	public UserVo findWriterByProblemNo(Long problemNo) {
+		return mypageRepository.findWriterByProblemNo(problemNo);
+	}
+
 	
 }

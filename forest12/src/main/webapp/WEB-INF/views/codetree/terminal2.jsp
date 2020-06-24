@@ -2,8 +2,8 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:200' rel='stylesheet' type='text/css'>
 
 <script>
-var email = '${authUser.email}';
-var nickname = '${authUser.nickname}';
+var email = '${saveVo.userEmail}';
+var nickname = '${saveVo.nickname}';
 
 $(document).ready(function() {
 	"use strict";

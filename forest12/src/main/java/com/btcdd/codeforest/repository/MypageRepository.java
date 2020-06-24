@@ -91,4 +91,8 @@ public class MypageRepository {
 	public Long findSaveNoByProblemNoAndUserNo(Map<String, Object> map) {
 		return sqlSession.selectOne("mypage.findSaveNoByProblemNoAndUserNo", map);
 	}
+
+	public UserVo findWriterByProblemNo(Long problemNo) {
+		return sqlSession.selectOne("mypage.findWriterByProblemNo", problemNo);
+	}
 }
