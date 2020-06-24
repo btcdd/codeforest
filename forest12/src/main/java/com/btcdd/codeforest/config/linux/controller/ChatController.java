@@ -86,6 +86,8 @@ public class ChatController {
 					errorResult = rc.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s ./test.exe");
 					
+					break;
+					
 				case "cpp": 
 					RunCpp rcpp = new RunCpp();
 					rcpp.createFileAsSource(code);
