@@ -40,10 +40,9 @@ public class ChatController {
 
 	@MessageMapping("/chat")
 	@SendTo("/topic/public")
-	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, String language
-								,String code) {
+	public ChatMessage addUser(String data, String language
+			,String code, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		String errorResult = "";
-		System.out.println("code:" + code);
 		
 		try {
 			if("{}".equals(data)) {

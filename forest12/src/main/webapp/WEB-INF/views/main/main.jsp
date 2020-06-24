@@ -62,12 +62,16 @@ function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
+    var chatMessage = {
+            language:lang,
+    		code:code,
+            type: 'CHAT'
+        };
     // Tell your username to the server
     stompClient.send("/app/chat",
-        {"language":lang,
-		"code":code},
-        JSON.stringify({})
-    )
+        {},
+        JSON.stringify(chatMessage)
+    );
 }
 
 
