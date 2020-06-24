@@ -70,7 +70,7 @@ public class RunC {
 	
 	public String execCommand() {
 		try {
-			process = Runtime.getRuntime().exec(runClass());
+			process = Runtime.getRuntime().exec("timeout 2s ./test.exe");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

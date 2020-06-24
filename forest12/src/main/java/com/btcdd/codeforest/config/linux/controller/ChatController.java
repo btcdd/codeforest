@@ -43,42 +43,42 @@ public class ChatController {
 					RunC rc = new RunC();
 					rc.createFileAsSource(code);
 					errorResult = rc.execCompile();
-					rc.execCommand();
+					process = Runtime.getRuntime().exec("timeout 2s ./test.exe");
 					
 					break;
 				case "cpp": 
 					RunCpp rcpp = new RunCpp();
 					rcpp.createFileAsSource(code);
 					errorResult = rcpp.execCompile();
-					rcpp.execCommand();
+					process = Runtime.getRuntime().exec("timeout 2s ./cppTest.exe");
 					
 					break;
 				case "cs": 
 					RunCs rcs = new RunCs();
 					rcs.createFileAsSource(code);
 					errorResult = rcs.execCompile();
-					rcs.execCommand();
+					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
 					
 					break;
 				case "java": 
 					RunJava rj = new RunJava();
 					rj.createFileAsSource(code);
 					errorResult = rj.execCompile();
-					rj.execCommand();
+					process = Runtime.getRuntime().exec("timeout 2s java -cp . Test");
 					
 					break;
 				case "js": 
 					RunJs rjs = new RunJs();
 					rjs.createFileAsSource(code);
 					errorResult = rjs.execCompile();
-					rjs.execCommand();
+					process = Runtime.getRuntime().exec("timeout 2s node test.js");
 					
 					break;
 				case "py": 
 					RunPy rpy = new RunPy();
 					rpy.createFileAsSource(code);
 					errorResult = rpy.execCompile();
-					rpy.execCommand();
+					process = Runtime.getRuntime().exec("timeout 2s python3 testPy.py");
 					
 					break;
 				}
