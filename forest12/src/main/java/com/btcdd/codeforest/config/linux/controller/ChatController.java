@@ -132,6 +132,7 @@ public class ChatController {
 //					BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
 					int c = 0;
+					readBuffer.setLength(0);
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
