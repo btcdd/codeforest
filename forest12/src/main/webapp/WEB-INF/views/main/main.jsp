@@ -217,14 +217,26 @@ $(function() {
     
     resultText = $('#result');
     
-    $('#result').keydown(event, function(key) {
-       var keyCode = typeof key.which === "number" ? key.which : key.keyCode;
-       result += String.fromCharCode(keyCode);	
-       
-       if (key.keyCode == 13) {
-          sendMessage(event, result);
-          result = '';
-       }
+    var prevCursor = 0;
+    var cursorPandan = false;
+    $('#result').keyup(event, function(key) {
+    	
+    	if(cursorPandan == false) {
+	    	prevCursor = $(this).prop('selectionStart') - 1;
+	    	cursorPandan = true;
+    	}
+    	if (key.keyCode == 13) {
+    		cursorPandan = false;
+    		console.log($(this).val().substring(prevCursor-1).replace("\n", ""));
+    		
+	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        
+	        if (key.keyCode == 13) {
+	           sendMessage(event, result);
+	           result = '';
+	        }
+    	}
+    	
    });
     
     
