@@ -45,8 +45,6 @@ public class ChatController {
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		String errorResult = "";
-		String language = chatMessage.getLanguage();
-		String code = chatMessage.getCode();
 		Boolean pandan = false;
 		
 		JSONParser parser = new JSONParser();
@@ -58,6 +56,8 @@ public class ChatController {
 		}		
 		
 		pandan = (Boolean) obj.get("execPandan");
+		String language = (String) obj.get("language");
+		String code = (String) obj.get("code");
 		try {
 			if(pandan) {
 				if("c".equals(language)) {
@@ -117,9 +117,7 @@ public class ChatController {
 							System.exit(1);;
 						}
 					}
-					Thread.sleep(1000);
 					errorResult = rj.execCompile();
-					Thread.sleep(1000);
 					process = Runtime.getRuntime().exec("java -cp . Test");
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs();
