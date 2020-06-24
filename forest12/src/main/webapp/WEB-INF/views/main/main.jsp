@@ -220,7 +220,6 @@ $(function() {
     var prevCursor = 0;
     var cursorPandan = false;
     $('#result').keyup(event, function(key) {
-    	console.log($(this).prop('selectionStart'));
     	
     	if(cursorPandan == false) {
 	    	prevCursor = $(this).prop('selectionStart') - 1;
@@ -228,8 +227,6 @@ $(function() {
     	}
     	if (key.keyCode == 13) {
     		cursorPandan = false;
-    		console.log($(this).val().substring(prevCursor-1).replace("\n", ""));
-    		console.log('커서 위치:' , $(this).prop('selectionStart'));
     		
 	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
 	        
