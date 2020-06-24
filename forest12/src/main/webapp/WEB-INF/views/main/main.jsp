@@ -85,6 +85,8 @@ function onError(error) {
 
 function sendMessage(event, res) {
 	
+	console.log('dd:', execPandan);
+	
 	tmp = res;
 	
     var messageContent = res;
@@ -97,6 +99,9 @@ function sendMessage(event, res) {
 }
 
 function onMessageReceived(payload) {
+	
+	console.log('dd22222:', execPandan);
+	
     var message = JSON.parse(payload.body);
     
     var prevText = resultText.val();
