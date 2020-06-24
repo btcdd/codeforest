@@ -1238,7 +1238,7 @@ window.onload = function() {
                   </optgroup>
                 </select>
               </div>
-              
+               
               <div class='font-size dropdown dropdown-dark'>
                   <select class="size dropdown-select" id="font-size" name="size">
                     <option value="10px">10px</option>
