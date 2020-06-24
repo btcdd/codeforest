@@ -1,15 +1,9 @@
-import java.util.*;
-
+/*
+* 기본 언어 : 'JAVA'
+* 기본 테마 : 'panda-syntax'
+*/
 public class Test{
-	public static void main(String[] args) {
-		System.out.println("code");
-		Scanner scan = new Scanner(System.in);
-		while(true) {
-			String line = scan.nextLine();
-			System.out.println("line:" + line);
-			if("1".equals(line)) {
-				break;
-			}
-		}
-	}
+   public static void main(String[] args) {
+      System.out.println("Hello CodeForest!");
+   }
 }

@@ -268,10 +268,12 @@ $(function() {
 		}
 	});
 	
+	var problemNo = null;
 	$(document).on('click', '.list', function(event) {
 		event.preventDefault();
 		
-		var no = $(this).data('no');		
+		var no = $(this).data('no');	
+		problemNo = no;
 		var title = $(this).data('title');
 		$('#hidden-title').val(title);
 		
@@ -285,7 +287,8 @@ $(function() {
 				var table = "";
 				for(var i in response.data) {
 					table += "<tbody id='tbody'>" +
-							"<tr><td id='name'>" + response.data[i].name + "</td>" +
+							"<tr><td class='discard' id='go-codetree'>" + "<i class='fas fa-laptop-code' data-no='" + response.data[i].userNo + "'></i>" + "</td>" +
+							"<td id='name'>" + response.data[i].name + "</td>" +
 							"<td id='email'>" + response.data[i].email + "</td>" + 
 							"<td id='nickname'>" + response.data[i].nickname + "</td>" +
 							"<td id='try-count'>" + response.data[i].tryCount + "</td>" + 
@@ -410,6 +413,32 @@ $(function() {
 		originList('1', kwd);
 		$('span b').trigger('click');
 	});
+	
+	//------------------------ 코드보러가기 ------------------------------
+	$(document).on("click",".fa-laptop-code",function(){			
+		var userNo = $(this).data('no');
+		$.ajax({
+	          url:'${pageContext.request.contextPath }/api/mypage/codemirror/',
+	          async:false,
+	          type:'post',
+	          dataType:'json',
+	          data : {
+	        	  'problemNo':problemNo,
+	        	  'userNo' : userNo
+	        	  },
+	          success:function(response){
+ 				 var codetreeURL = '${pageContext.request.contextPath }/mypage/codemirror/' + response.data.saveNo
+			     window.open(codetreeURL,'_blank');  
+	          },
+	          error: function(xhr, status, e) {
+	             console.error(status + ":" + e);
+	          }
+	       }); 
+		
+	});
+	
+	
+//------------------------------------------- 끝부분	
 });
 </script>
     
@@ -482,6 +511,7 @@ $(function() {
        </div>
        <table class="problem-list-table rtable">
           <tr>
+          		<th class="discard" id="go-codetree">코드보기</th>
                <th id="name">이름</th>
                 <th id="email">이메일</th>
                 <th id="nickname">닉네임</th>
