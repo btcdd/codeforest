@@ -3,21 +3,32 @@ package com.btcdd.codeforest.controller.api;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.btcdd.codeforest.dto.JsonResult;
+import com.btcdd.codeforest.linux.CodeTreeLinux;
 import com.btcdd.codeforest.service.CodeTreeService;
 import com.btcdd.codeforest.service.CodingTestService;
-import com.btcdd.codeforest.service.TrainingService;
+import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
+import com.btcdd.codeforest.vo.SavePathVo;
+import com.btcdd.codeforest.vo.SaveVo;
+import com.btcdd.codeforest.vo.SubProblemVo;
+import com.btcdd.codeforest.vo.SubmitVo;
 import com.btcdd.codeforest.vo.UserVo;
+import com.btcdd.security.Auth;
 
 @RestController("TestController")
 @RequestMapping("/api/codingtest")
@@ -26,11 +37,12 @@ public class CodingTestController {
 	@Autowired
 	private CodingTestService testService;
 
-	@Autowired
-	private TrainingService trainingService;
+	CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
 	
-	@Autowired
-	private CodeTreeService codeTreeService;
+	
+	
+	@Autowired 
+	private CodeTreeService codetreeService;	
 	
 	UserVo _authUser = null;
 	
@@ -96,148 +108,227 @@ public class CodingTestController {
 
 		return JsonResult.success(map);
 	}
-}
-
-
-
-
-/*
-// react 코딩테스트 로그인폼경로 
-@PostMapping("/auth/{userEmail}/{problemNo}")
-public JsonResult auth(@PathVariable("userEmail") String userEmail, @PathVariable("problemNo") Long problemNo,
-		@RequestBody Map<String, Object> user) {
 	
-	// 관우 코드
-	////////////////////////////
-			
-	UserVo authUser = testService.findUserByEmail(userEmail);
-	_authUser = authUser;
-			
-	///////////////
 	
-	Map<String, Object> map = new HashMap<>();
-	JSONParser parser = new JSONParser();
-	JSONObject obj = null;
-	try {
-		obj = (JSONObject) parser.parse((String) user.get("body"));
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
-	System.out.println("obj>>>" + obj);
-	String userName = (String) obj.get("name");
-	String userBirth = (String) obj.get("birth");
-	if (userBirth.equals("") || userName.equals("")) {
-		map.put("result", "empty");
-		return JsonResult.success(map);
-	}
-	String tempKey = (String) obj.get("tempKey");
-	boolean exist = trainingService.existUser(userEmail); // 유저가 있는지 체크
-	ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
-	if (problemVo == null || problemVo.getState().equals("n")) {
-		System.out.println(
-				"http://localhost:9999/?userEmail=2sang@gmail.com&problemNo=123123134 처럼 직접 경로타고 번호 아무렇게나 쓰고 올경우");
-		map.put("result", "delete");
-		return JsonResult.success(map);
-	}
-	// 유저가 존재하는데 상태가 n이면 삭제 상태
-	if (exist && problemVo.getPassword().equals(tempKey)) { // 인증키가 맞고 유저가 존재한다면
-		trainingService.insertUserInfo(userName, userBirth, userEmail);
-		codeTreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo);
+	
+	
+	
+	
+	
+	
+	
+	
+	@Auth
+	@PostMapping("/fileInsert")
+	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, HttpSession session) {
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+
+		Long problemNo = codetreeService.findProblemNo(subProblemNo);
+		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		
-		map.put("result", "ok");
+		System.out.println("exist>>>>"+exist);
+		
+		Map<String,Object> map = new HashMap<>();
+				
+		if(!exist) {
+			System.out.println("기존 존재하지 않는다");
+			codetreeService.insertFile(savePathNo,language,fileName);
+			
+			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
+			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
+			
+			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
+			System.out.println("codeNo>>"+codeNo);
+			map.put("fileName", fileName);
+			map.put("savePathNo", savePathNo);
+			map.put("codeNo",codeNo);
+		}else {
+			System.out.println("기존파일이 존재한다");
+			map.put("result", "no");
+		}
+		
 		return JsonResult.success(map);
+	}	
+	
+	@Auth
+	@DeleteMapping("/fileDelete/{codeNo}")
+	public JsonResult deleteFile(@PathVariable("codeNo") Long codeNo) {
+		CodeVo codeVo = codetreeService.findSavePathNoAndFileName(codeNo);
+		boolean result = codetreeService.deleteFile(codeNo);
+		
+		SavePathVo savePathVo = codetreeService.findSavePathVo(codeVo.getSavePathNo());
+		
+
+		CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
+		codeTreeLinux.deleteCode(savePathVo.getPackagePath(), codeVo.getLanguage(), codeVo.getFileName());
+
+
+		return JsonResult.success(result ? codeNo : -1);
+	}	
+
+	@Auth
+	@PostMapping("/fileUpdate")
+	public JsonResult fileUpdate(Long savePathNo,Long codeNo,String fileName,Long subProblemNo,String prevFileName) {
+		System.out.println("savePathNo>>"+savePathNo);
+		System.out.println("codeNo>>"+codeNo);
+		System.out.println("fileName>>"+fileName);
+		System.out.println("prevFileName"+prevFileName);
+		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
+		Map<String,Object> map = new HashMap<>();
+		
+		if(!exist) {
+			System.out.println("기존 존재하지 않는다");
+			codetreeService.updateFile(codeNo,fileName);
+			// 여기!!
+		}else {
+			System.out.println("기존파일이 존재한다");
+			map.put("result", "no");
+		}
+
+		return JsonResult.success(map);
+	}		
+	
+	
+	
+	@Auth
+	@PostMapping("/file-list")
+	public JsonResult fileList(Long saveNo, String language) {
+		SaveVo saveVo = codetreeService.findSaveVo(saveNo);
+		List<SavePathVo> savePathList = codetreeService.findSavePathList(saveVo.getNo());
+		List<CodeVo> codeList = codetreeService.findCodeList(savePathList.get(0).getNo());
+		for(int i = 1; i < savePathList.size(); i++) {
+			codeList.addAll(codetreeService.findCodeList(savePathList.get(i).getNo()));
+		}
+
+		
+		Iterator<CodeVo> iterator = codeList.iterator();
+		while(iterator.hasNext()) {
+			CodeVo it = iterator.next();
+			if(!it.getLanguage().equals(language)) {
+				iterator.remove();
+			}
+		}
+		System.out.println(">>>>123123>>>>>>>>>>>>>>>>>>"+codeList);
+		List<SubProblemVo> subProblemList = codetreeService.findSubProblemList(saveVo.getProblemNo());
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("saveVo", saveVo);
+		map.put("savePathList", savePathList);
+		map.put("codeList", codeList);
+		map.put("subProblemList", subProblemList);
+		
+		return JsonResult.success(map);
+	}	
+
+	
+
+	@Auth
+	@PostMapping("/find-code")
+	public JsonResult findCode(String language, String packagePath, String fileName) {
+		// 여기야 여기!
+		CodeTreeLinux codetreeLinux = new CodeTreeLinux();
+		String code = codetreeLinux.findCode(packagePath, language, fileName);
+		return JsonResult.success(code);
 	}
-	map.put("result", "no");
-	return JsonResult.success(map);
-}	
-// 인증번호가 통과하고 나서 들어가지는 경로 - container
-@PostMapping("/mylist/{userEmail}/{problemNo}")
-public JsonResult mylist(@PathVariable("userEmail") String userEmail,
-		@PathVariable("problemNo") Long problemNo) {
 	
-	
+	@Auth
+	@PostMapping("/run")
+	public JsonResult Run(String language, String packagePath, String fileName,Long subProblemNo,String codeValue, Long problemNo,
+							HttpSession session) {
+		// 관우 유진 코드
+		/////////////////////
 		Map<String, Object> map = new HashMap<>();
 		
+		switch(language) {
+		case "c": 
+			map = codeTreeLinux.cCompile(fileName, packagePath, language);
+			break;
+		case "cpp": 
+			map = codeTreeLinux.cppCompile(fileName, packagePath, language);
+			break;
+		case "cs": 
+			map = codeTreeLinux.csCompile(fileName, packagePath, language);
+			break;
+		case "java": 
+			map = codeTreeLinux.javaCompile(fileName, packagePath, language);
+			break;
+		case "js": 
+			map = codeTreeLinux.jsCompile(fileName, packagePath, language);
+			break;
+		case "py": 
+			map = codeTreeLinux.pyCompile(fileName, packagePath, language);
+			break;
+		}
 		
-		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
-		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
+		//////////////////////
 		
-		System.out.println("problemVo>>>>"+problemVo);
-		System.out.println("list>>>>"+list);
-		map.put("problemVo", problemVo);
-		map.put("list", list);
+		return JsonResult.success(map);
+	}
 	
-		//////////////////////////////////
+	@Auth
+	@PostMapping("/save")
+	public JsonResult Save(String language, String fileName, String packagePath,Long subProblemNo,String codeValue, Long problemNo) {
+		//db에 저장 필요
+		
 		// 관우 유진 코드
-		// 아직 쓸모없음
-//		Long saveNo = trainingService.selectSaveNo(_authUser.getNo(), problemVo.getNo());
-//
-//		List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
-//		Long[] savePathNoArray = new Long[savePathVoList.size()];
-//		for (int i = 0; i < savePathVoList.size(); i++) {
-//			savePathNoArray[i] = savePathVoList.get(i).getNo();
-//		}
-//		List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
-//		map.put("savePathVoList", savePathVoList);
-//		map.put("codeVoList", codeVoList);
-		///////////////////////////////
-	return JsonResult.success(map);
-}	
-//리액트에서 파일 추가 경로
-@PostMapping("/fileInsert/{userEmail}/{problemNo}/{subProblemNo}")
-public JsonResult fileInsert(@PathVariable("userEmail") String userEmail,
-		@PathVariable("problemNo") Long problemNo,
-		@PathVariable("subProblemNo") Long subProblemNo,
-		@RequestBody Map<String, Object> file) {
+		//////////
+		codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
+		
+		//////////
+		return JsonResult.success(null);
+	}
+	@Auth
+	@PostMapping("/submit")
+	public JsonResult Submit(String language, String fileName, String packagePath,
+			Long subProblemNo,String codeValue, Long problemNo,
+			String compileResult1, String compileResult2,HttpSession session) {
+		
+		UserVo authUser = (UserVo)session.getAttribute("authUser");	
+		
+		String examOutput = codetreeService.getExamOutput(subProblemNo);
+		
+		boolean compileResult = false;
+		boolean compileError = false;
+ 		
+		Map<String, Object> map = new HashMap<>();
+
+		if(compileResult2 == null || compileResult2.equals("")) {
+			if(compileResult1.equals(examOutput)) {
+				compileResult = true;
+			}
+		} else {
+			compileError = true;
+		}
+		 
+		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
+		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+		
+		map.put("compileResult", compileResult);
+		map.put("compileError", compileError);
+		
+		
+		
+		return JsonResult.success(map);
+	}			
 	
-	Map<String, Object> map = new HashMap<>();
-	JSONParser parser = new JSONParser();
-	JSONObject obj = null;
 	
-	try {
-		obj = (JSONObject) parser.parse((String) file.get("body"));
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}		
-	String fileName = (String) obj.get("fileName");
-	System.out.println("fileName"+fileName);
 	
-	System.out.println("problemNo >>>>> "+problemNo);
-	System.out.println("subProblemNo >>>>> "+subProblemNo);
-	System.out.println("fileName>>>>> " + fileName);
 	
-	UserVo authUser = testService.findUserByEmail(userEmail);
 	
-//	codeTreeService.saveUserCodeAndProblems(authUserNo, subProblemNo, savePathVoList, codeVoList)
 	
-//	List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
-//	Long[] savePathNoArray = new Long[savePathVoList.size()];
-//	for(int i = 0; i < savePathVoList.size(); i++) {
-//	savePathNoArray[i] = savePathVoList.get(i).getNo();
-//	}
-//	List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
-//	map.put("savePathVoList",savePathVoList);
-//	map.put("codeVoList",codeVoList);
-	return JsonResult.success(null);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
-//리액트에서 파일 삭제
-@PostMapping("/fileDelete/{userEmail}/{problemNo}/{subProblemNo}")
-public JsonResult fileDelete(@PathVariable("userEmail") String userEmail,
-		@PathVariable("problemNo") Long problemNo,
-		@PathVariable("subProblemNo") Long subProblemNo,
-		@RequestBody Map<String, Object> file) {
-	
-	Map<String, Object> map = new HashMap<>();
-	JSONParser parser = new JSONParser();
-	JSONObject obj = null;
-	try {
-		obj = (JSONObject) parser.parse((String) file.get("body"));
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}		
-	String fileName = (String) obj.get("fileName");
-	System.out.println("fileName"+fileName);
-	
-	return JsonResult.success(null);
-}
-*/
+
+
+
+
