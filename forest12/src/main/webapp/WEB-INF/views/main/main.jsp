@@ -146,7 +146,7 @@ $(function() {
 //    $('.codeTest').on('submit',function(e)
    
    var code = $('.CodeMirror')[0];
-   var editor = CodeMirror.fromTextArea(code, {
+   editor = CodeMirror.fromTextArea(code, {
          lineNumbers: true,
          mode: 'text/x-java',
          theme: 'duotone-light',
