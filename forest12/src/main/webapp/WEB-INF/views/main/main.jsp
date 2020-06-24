@@ -200,6 +200,7 @@ $(function() {
       }
       
       editor.setValue(face);
+      $('#code').val(face);
    });
    
     $('.CodeMirror').addClass('code');
