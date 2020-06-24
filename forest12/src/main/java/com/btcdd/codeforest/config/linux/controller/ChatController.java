@@ -51,7 +51,7 @@ public class ChatController {
 		try {
 			if("java".equals(language)) {
 //				process = Runtime.getRuntime().exec("cmd");
-				process = Runtime.getRuntime().exec("test.exe");
+				process = Runtime.getRuntime().exec("./test.exe");
 //				process = Runtime.getRuntime().exec("java -cp . Test");
 				readBuffer.setLength(0);
 			}
