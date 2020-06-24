@@ -104,7 +104,7 @@ public class ChatController {
 			StringBuffer readBuffer2 = new StringBuffer();
 
 			// 출력 stream을 BufferedReader로 받아서 라인 변경이 있을 경우 console 화면에 출력시킨다.
-			Executors.newCachedThreadPool().execute(() -> {
+			Executors.newCachedThreadPool().submit(() -> {
 				try {
 //					BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
@@ -122,7 +122,7 @@ public class ChatController {
 			});
 			
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
-			Executors.newCachedThreadPool().execute(() -> {
+			Executors.newCachedThreadPool().submit(() -> {
 				try {
 //					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
@@ -137,7 +137,7 @@ public class ChatController {
 			});
 
 			// 입력 stream을 BufferedWriter로 받아서 콘솔로부터 받은 입력을 Process 클래스로 실행시킨다.
-			Executors.newCachedThreadPool().execute(() -> {
+			Executors.newCachedThreadPool().submit(() -> {
 				try {
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
