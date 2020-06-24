@@ -110,7 +110,7 @@ public class CodingTestController {
 		
 		
 		ProblemVo problemVo = testService.selectProblemOne(problemNo);
-		List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
+		
 		
 
 		
@@ -118,7 +118,7 @@ public class CodingTestController {
 		
 		if(exist==true) {
 			System.out.println("바로 코드미러로");
-			
+			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
 			//태성 코드
 			SaveVo saveVo = testService.findSaveVo(saveNo);
