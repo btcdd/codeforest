@@ -51,7 +51,7 @@ var fileFetchList = function(){
 	   var saveNo = "${saveVo.no }";
 	   var lang = $("select option:selected").val();
 	   $.ajax({
-	         url: '${pageContext.request.contextPath }/api/codetree/file-list',
+	         url: '${pageContext.request.contextPath }/api/codingtest/file-list',
 	         async: true,
 	         type: 'post',
 	         dataType: 'json',
@@ -485,7 +485,7 @@ $(function() {
 					fileName = filename2;
 					
 					$.ajax({
-						url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
+						url: '${pageContext.servletContext.contextPath }/api/codingtest/fileInsert',
 						async: true,
 						type: 'post',
 						dataType: 'json',
@@ -536,7 +536,7 @@ $(function() {
 			buttons:{
 				"삭제":function(){
 					$.ajax({
-						url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
+						url: '${pageContext.servletContext.contextPath }/api/codingtest/fileDelete/'+codeNo,
 						async: true,
 						type: 'delete',
 						dataType:'json',
@@ -592,7 +592,7 @@ $(function() {
 						fileName = filename2;
 						console.log("fileName>>>>>>>>>>>>>>>>>",fileName);
 						$.ajax({
-							url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
+							url: '${pageContext.servletContext.contextPath }/api/codingtest/fileUpdate',
 							async: true,
 							type: 'post',
 							dataType: 'json',
@@ -689,7 +689,7 @@ $(function() {
 			HashMap.set("editor"+fileNo, editor);
 			
 			$.ajax({
-				url: '${pageContext.servletContext.contextPath }/api/codetree/find-code',
+				url: '${pageContext.servletContext.contextPath }/api/codingtest/find-code',
 				async: true,
 				type: 'post',
 				dataType:'json',
@@ -851,7 +851,7 @@ $(function() {
  		var problemNo = "${saveVo.problemNo }";
  		$("#Run").blur();
  		$.ajax({
-			url: '${pageContext.servletContext.contextPath }/api/codetree/run',
+			url: '${pageContext.servletContext.contextPath }/api/codingtest/run',
 			async: true,
 			type: 'post',
 			dataType:'json',
@@ -904,7 +904,7 @@ $(function() {
   		var problemNo = "${saveVo.problemNo }";
   		
  		$.ajax({
-			url: '${pageContext.servletContext.contextPath }/api/codetree/save',
+			url: '${pageContext.servletContext.contextPath }/api/codingtest/save',
 			async: true,
 			type: 'post',
 			dataType:'json',
@@ -940,7 +940,7 @@ $(function() {
 
    	   		var problemNo = "${saveVo.problemNo }";
    	 		$.ajax({
-   				url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
+   				url: '${pageContext.servletContext.contextPath }/api/codingtest/submit',
    				async: true,
    				type: 'post',
    				dataType:'json',
