@@ -654,3 +654,7 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
     height: 100%;
 }
 
+.countdown{
+	float:right;
+	margin-right:2%;
+}

@@ -119,9 +119,10 @@ $(function() {
 	   	console.log("min>>",min);
 	   	var sec = diff;
 	   	console.log("sec>>",sec);
-    	$(".countdown table td:first").text(hours+"시");
-		$(".countdown table td+td").text(min+"분");
-		$(".countdown table td:last").text(sec+"초"); 
+	   	$(".countdown table td:first").text("남은 시간  ");
+    	$(".countdown table td+td").text("[ "+hours+"시");
+		$(".countdown table td+td+td").text(min+"분");
+		$(".countdown table td:last").text(sec+"초"+" ]"); 
 
 	},1000);	
 	
@@ -1248,6 +1249,7 @@ window.onload = function() {
       <div class="countdown">
 			<table>
 				<tr>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
