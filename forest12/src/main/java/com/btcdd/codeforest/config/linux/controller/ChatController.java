@@ -43,6 +43,7 @@ public class ChatController {
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, String language
 								,String code) {
 		String errorResult = "";
+		System.out.println("code:" + code);
 		
 		try {
 			if("{}".equals(data)) {

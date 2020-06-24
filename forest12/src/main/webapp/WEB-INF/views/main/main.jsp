@@ -42,19 +42,16 @@ var code;
 
 //채팅 시작하기
 function connect(event) {
-	 console.log('언어:', lang);
-	  code = $('#code').val();
+	console.log('언어:', lang);
+	code = $('#code').val();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
     var socket = new SockJS('${pageContext.request.contextPath }/ws');
-    
    
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
     stompClient.connect({
-    			"data":"data",
-    			"language":lang,
-    			"code":code
+    			"data":"data"
     			}, onConnected, onError);
     
     event.preventDefault();
@@ -67,7 +64,8 @@ function onConnected() {
 
     // Tell your username to the server
     stompClient.send("/app/chat",
-        {},
+        {"language":lang,
+		"code":code},
         JSON.stringify({})
     )
 }
@@ -83,11 +81,12 @@ function sendMessage(event, res) {
 	tmp = res;
 	
     var messageContent = res;
-        var chatMessage = {
-            content: messageContent,
-            type: 'CHAT'
-        };
-        stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
+    var chatMessage = {
+        content: messageContent,
+        type: 'CHAT'
+    };
+    stompClient.send("/app/chat", {"language":lang,
+		"code":code}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
