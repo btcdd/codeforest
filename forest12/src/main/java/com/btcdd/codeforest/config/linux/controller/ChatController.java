@@ -54,7 +54,6 @@ public class ChatController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		
 		pandan = (Boolean) obj.get("execPandan");
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
@@ -98,25 +97,7 @@ public class ChatController {
 					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
 				} else if("java".equals(language)) {
 					RunJava rj = new RunJava();
-//					rj.createFileAsSource(code);
-					try {
-						file = new File("Test.java");
-						bufferWriter = new BufferedWriter(new FileWriter(file, false));
-						
-						bufferWriter.write(code);
-						bufferWriter.flush(); 
-					} catch(Exception e) {
-						e.printStackTrace();
-						System.exit(1);
-					} finally {
-						try {
-							bufferWriter.close();
-							file = null;
-						} catch (IOException e) {
-							e.printStackTrace();
-							System.exit(1);;
-						}
-					}
+					rj.createFileAsSource(code);
 					errorResult = rj.execCompile();
 					process = Runtime.getRuntime().exec("java -cp . Test");
 				} else if("js".equals(language)) {
