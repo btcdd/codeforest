@@ -80,7 +80,7 @@ public class ChatController {
 		Thread.sleep(1000);
 		errorResult = rj.execCompile();
 		Thread.sleep(1000);
-		process = Runtime.getRuntime().exec("timeout 2s java -cp . Test");
+		process = Runtime.getRuntime().exec("java -cp . Test");
 		
 		/*
 		pandan = (Boolean) obj.get("execPandan");
