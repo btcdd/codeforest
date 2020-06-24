@@ -33,33 +33,45 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 <script>
-
 var result = '';
 var resultText;
 var tmp = '';
+var lang;
+var code;
+var editor;
+vat execPandan;
 
 //채팅 시작하기
 function connect(event) {
-    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+    code = editor.getValue();
+	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
     var socket = new SockJS('${pageContext.request.contextPath }/ws');
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
 
-    stompClient.connect({"data":"data"}, onConnected, onError);
+    stompClient.connect({}, onConnected, onError);
     
     event.preventDefault();
 }
-
 
 function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
+    execPandan = true;
+    var chatMessage = {
+    		language: $('.lang option:selected').val(),
+    		code:code,
+    		execPandan: exexPandan,
+    		type: 'CHAT'
+    };
+    execPandan = false;
+    
     // Tell your username to the server
     stompClient.send("/app/chat",
         {},
-        JSON.stringify({})
-    )
+        JSON.stringify(chatMessage)
+    );
 }
 
 
@@ -89,27 +101,6 @@ function onMessageReceived(payload) {
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 $(function() {
 	
