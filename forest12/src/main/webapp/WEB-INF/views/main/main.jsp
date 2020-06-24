@@ -40,7 +40,7 @@ var tmp = '';
 var lang;
 var code;
 var editor;
-var execPandan = false;
+var execPandan;
 
 //채팅 시작하기
 function connect(event) {
