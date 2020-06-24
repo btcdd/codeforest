@@ -77,9 +77,7 @@ public class ChatController {
 				System.exit(1);;
 			}
 		}
-		Thread.sleep(1000);
 		errorResult = rj.execCompile();
-		Thread.sleep(1000);
 		process = Runtime.getRuntime().exec("java -cp . Test");
 		
 		/*
