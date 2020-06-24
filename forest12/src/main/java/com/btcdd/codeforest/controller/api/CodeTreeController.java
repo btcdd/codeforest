@@ -73,8 +73,8 @@ public class CodeTreeController {
 			System.out.println("기존 존재하지 않는다");
 			codetreeService.insertFile(savePathNo,language,fileName);
 			
-//			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
-//			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
+			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
+			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
 			
 			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
 			System.out.println("codeNo>>"+codeNo);
@@ -98,8 +98,8 @@ public class CodeTreeController {
 		SavePathVo savePathVo = codetreeService.findSavePathVo(codeVo.getSavePathNo());
 		
 
-//		CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
-//		codeTreeLinux.deleteCode(savePathVo.getPackagePath(), codeVo.getLanguage(), codeVo.getFileName());
+		CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
+		codeTreeLinux.deleteCode(savePathVo.getPackagePath(), codeVo.getLanguage(), codeVo.getFileName());
 
 
 		return JsonResult.success(result ? codeNo : -1);
@@ -138,10 +138,7 @@ public class CodeTreeController {
 		for(int i = 1; i < savePathList.size(); i++) {
 			codeList.addAll(codetreeService.findCodeList(savePathList.get(i).getNo()));
 		}
-//		List<CodeVo> codeList_copy = codeList;
-//		for(int i = 0; i < codeList_copy.size();i++) {
-//			
-//		}
+
 		
 		Iterator<CodeVo> iterator = codeList.iterator();
 		while(iterator.hasNext()) {
