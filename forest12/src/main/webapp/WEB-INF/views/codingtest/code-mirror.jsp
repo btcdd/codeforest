@@ -77,10 +77,53 @@ var currentEditor = null;
 var editorArray = new Array();
 var editorArrayIndex = 0;
 
-
+var endTime = "${problemVo.endTime}";
+var years=0;
+var days=0;
+var hours=0;
+var min=0;
+var sec=0;
 
 $(function() {
 	fileFetchList();
+	
+	
+	var timer = setInterval(function(){
+		var diff = (Date.parse(new Date(endTime)) - Date.parse(new Date())) / 1000; 
+		if(diff <0){
+			alert("시험 종료");
+			clearInterval(timer);
+			return;
+		}
+		
+	 	if (diff >= (365.25 * 86400)) { // 365.25 * 24 * 60 * 60
+	     	years = Math.floor(diff / (365.25 * 86400));
+	     	diff -= years * 365.25 * 86400;
+	  	}
+		console.log("years>>",years);
+		
+	   	if (diff >= 86400) { // 24 * 60 * 60
+	   		days = Math.floor(diff / 86400);
+	   		diff -= days * 86400;	
+	   	}
+	   	console.log("days>>",days);
+	   	if (diff >= 3600) { // 60 * 60   
+	     	hours = Math.floor(diff / 3600);
+	     	diff -= hours * 3600;
+	   	}
+	   	console.log("hours>>",hours);
+	   	if (diff >= 60) {
+	    	min = Math.floor(diff / 60);
+	     	diff -= min * 60;
+	   	}
+	   	console.log("min>>",min);
+	   	var sec = diff;
+	   	console.log("sec>>",sec);
+    	$(".countdown table td:first").text(hours+"시");
+		$(".countdown table td+td").text(min+"분");
+		$(".countdown table td:last").text(sec+"초"); 
+
+	},1000);	
 	
 ////////////////// code-mirror /////////////////////////////   
 
@@ -1202,7 +1245,15 @@ window.onload = function() {
           </li> -->
         </ul>
       </div> 
-               
+      <div class="countdown">
+			<table>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>	      
+      </div>         
     </div>
  </nav>
 
