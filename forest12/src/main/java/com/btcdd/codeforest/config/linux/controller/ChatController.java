@@ -94,35 +94,35 @@ public class ChatController {
 					Thread.sleep(1000);
 					errorResult = rcpp.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s ./cppTest.exe");
-					
+					break;
 				case "cs": 
 					RunCs rcs = new RunCs();
 					rcs.createFileAsSource(code);
 					Thread.sleep(1000);
 					errorResult = rcs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s mono testCs.exe");
-					
+					break;
 				case "java": 
 					RunJava rj = new RunJava();
 					rj.createFileAsSource(code);
 					Thread.sleep(1000);
 					errorResult = rj.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s java -cp . Test");
-					
+					break;
 				case "js": 
 					RunJs rjs = new RunJs();
 					rjs.createFileAsSource(code);
 					Thread.sleep(1000);
 					errorResult = rjs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s node test.js");
-					
+					break;
 				case "py": 
 					RunPy rpy = new RunPy();
 					rpy.createFileAsSource(code);
 					Thread.sleep(1000);
 					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 2s python3 testPy.py");
-					
+					break;
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
