@@ -32,9 +32,6 @@ public class ChatController {
 
 		boolean pandan = false;
 		
-		
-		
-		
 		JSONParser parser = new JSONParser();
 		JSONObject obj = null;
 		try {
