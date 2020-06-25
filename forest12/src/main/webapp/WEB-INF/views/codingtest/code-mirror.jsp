@@ -578,7 +578,7 @@ $(function() {
  	$(document).on("click", "#userfile-update", function() {
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
- 		codeNo = fileNo;
+ 		/* codeNo = fileNo; */
  		$('<div> <input type="text" style="z-index:10000" class="fileName-update" placeholder='+'.'+lang+'></div>')
 		    .attr("title","파일 수정")
 		    .dialog({
@@ -655,7 +655,7 @@ $(function() {
  	
  	// 파일을 더블클릭 하면...
  	var tempFile = null;
- 	var fileNo = null
+ 	var fileNo = null;
  	var root = null;
 	var HashMap = new Map();
  	var fileMap = new Map();
