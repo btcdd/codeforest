@@ -946,7 +946,8 @@ $(function() {
    		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
-   		
+   		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
+   		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
@@ -966,12 +967,9 @@ $(function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
-   					console.log("codeValue",response.data.codeValue);
-   					
+   										
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;
-   					console.log("compileResult>>>>",compileResult);
-   					console.log("compileError>>>>",compileError);
    					if(compileError == true) {
    						alert("컴파일 오류입니다.");
    						return;

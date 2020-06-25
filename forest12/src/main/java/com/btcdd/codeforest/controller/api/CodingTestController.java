@@ -292,7 +292,8 @@ public class CodingTestController {
 		boolean compileError = false;
  		
 		Map<String, Object> map = new HashMap<>();
-
+		
+		
 		if(compileResult2 == null || compileResult2.equals("")) {
 			if(compileResult1.equals(examOutput)) {
 				compileResult = true;
@@ -300,7 +301,7 @@ public class CodingTestController {
 		} else {
 			compileError = true;
 		}
-		map.put("codeValue", codeValue);
+
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가

@@ -227,7 +227,7 @@
 	
 	<insert id="submitSubProblem" parameterType="hashmap">
 		<![CDATA[
-			insert into submit values(null, #{codeValue}, answer = #{answer}, #{subProblemNo}, #{authUserNo}, null, #{language})
+			insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, null, #{language})
 		]]>		
 	</insert>
 	

@@ -117,7 +117,7 @@ public class CodingTestController {
 		boolean exist = testService.existSaveNo(authUser.getNo(),problemNo);
 		
 		if(exist==true) {
-			System.out.println("바로 코드미러로");
+			System.out.println("바로 코드미러로"); 
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
 			//태성 코드
