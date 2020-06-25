@@ -311,6 +311,7 @@ public class CodingTestController {
 					compileResult = true;
 				}else {
 					compileResult = false;
+					break;
 				}
 				
 			}				
