@@ -65,7 +65,7 @@ public class ChatController {
 					RunC rc = new RunC();
 					rc.createFileAsSource(code);
 					errorResult = rc.execCompile();
-					process = Runtime.getRuntime().exec("./test.exe");
+					
 				} else if("cpp".equals(language)) {
 					RunCpp rcpp = new RunCpp();
 					rcpp.createFileAsSource(code);
@@ -99,14 +99,15 @@ public class ChatController {
 					return chatMessage;
 				}
 			}
+			
+			
+			
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
 			InputStream stdout = process.getInputStream();
 
 			StringBuffer readBuffer2 = new StringBuffer();
 
-			
-			
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
@@ -131,6 +132,7 @@ public class ChatController {
 					if(input == null) {
 						return;
 					}
+
 					if (!("".equals(input)) || input != null) {
 						try {
 							input += "\n";
@@ -149,34 +151,40 @@ public class ChatController {
 			});
 			
 			// 출력 stream을 BufferedReader로 받아서 라인 변경이 있을 경우 console 화면에 출력시킨다.
-						Executors.newCachedThreadPool().submit(() -> {
-							try {
+				Executors.newCachedThreadPool().submit(() -> {
+					try {
 //								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
-								
-								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
-								int c = 0;
-								readBuffer.setLength(0);
-								while ((c = reader.read()) != -1) {
-									char line = (char) c;
-									readBuffer.append(line);
-								}
-								System.out.println("sdf");
-								
-								reader.reset();
-							} catch (Exception e) {
-								e.printStackTrace();
-							} finally {
-							}
-						});
+								InputStreamReader is = new InputStreamReader(stdout, "utf-8");
+//						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
+						
+//								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
+						int c = 0;
+						readBuffer.setLength(0);
+						while ((c = is.read()) != -1) {
+							char line = (char) c;
+							System.out.println(":" + line);
+							readBuffer.append(line);
+						}
+						System.out.println("sdf");
+						
+						//reader.reset();
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+					}
+				});
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} 
 
 		try {
 			Thread.sleep(1000);
-		} catch (InterruptedException e) {
+			process = Runtime.getRuntime().exec("./test.exe");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 
 		chatMessage.setContent(readBuffer.toString());
 		
