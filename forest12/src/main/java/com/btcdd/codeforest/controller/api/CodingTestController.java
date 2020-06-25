@@ -309,6 +309,8 @@ public class CodingTestController {
 				map.put("BooleanEquals4",tempString1.equalsIgnoreCase(tempString2));
 				if(tempString1.contentEquals(tempString2)) {
 					compileResult = true;
+				}else {
+					compileResult = false;
 				}
 				
 			}				
