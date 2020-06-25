@@ -86,12 +86,10 @@ public class ChatController {
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs();
 					rjs.createFileAsSource(code);
-					errorResult = rjs.execCompile();
 					process = Runtime.getRuntime().exec("node test.js");
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy();
 					rpy.createFileAsSource(code);
-					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("python3 testPy.py");
 				}
 				readBuffer.setLength(0);
@@ -102,8 +100,6 @@ public class ChatController {
 				}
 			}
 			
-			
-			
 			OutputStream stdin = process.getOutputStream();
 			InputStream stderr = process.getErrorStream();
 			InputStream stdout = process.getInputStream();
@@ -113,6 +109,7 @@ public class ChatController {
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
+					System.out.println("1");
 //					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
 					int c = 0;
@@ -128,6 +125,7 @@ public class ChatController {
 			// 입력 stream을 BufferedWriter로 받아서 콘솔로부터 받은 입력을 Process 클래스로 실행시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
+					System.out.println("2");
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
 					// 지술이형 코드!!
@@ -139,7 +137,6 @@ public class ChatController {
 						try {
 							input += "\n";
 							readBuffer2.append(input);
-							System.out.println("readBuffer2:" + readBuffer2.toString());
 							writer.write(input);
 							writer.flush();
 							readBuffer.setLength(0);
@@ -155,6 +152,7 @@ public class ChatController {
 			// 출력 stream을 BufferedReader로 받아서 라인 변경이 있을 경우 console 화면에 출력시킨다.
 				Executors.newCachedThreadPool().submit(() -> {
 					try {
+						System.out.println("3");
 //								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
 								InputStreamReader is = new InputStreamReader(stdout, "utf-8");
 //						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
@@ -166,8 +164,6 @@ public class ChatController {
 							char line = (char) c;
 							readBuffer.append(line);
 						}
-						System.out.println("sdf");
-						
 						//reader.reset();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -179,12 +175,10 @@ public class ChatController {
 		} 
 
 		try {
-			Thread.sleep(20);
+			Thread.sleep(94);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 
 		chatMessage.setContent(readBuffer.toString());
 		

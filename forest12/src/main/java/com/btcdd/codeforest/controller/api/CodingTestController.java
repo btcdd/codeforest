@@ -308,8 +308,6 @@ public class CodingTestController {
 		map.put("compileResult", compileResult);
 		map.put("compileError", compileError);
 		
-		
-		
 		return JsonResult.success(map);
 	}			
 	

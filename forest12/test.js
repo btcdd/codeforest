@@ -1,3 +1,12 @@
-var str = "Hello CodeForest";
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-console.log(str);
+rl.on("line", function(line) {
+  console.log("hello !", line);
+  rl.close();
+}).on("close", function() {
+  process.exit();
+});
