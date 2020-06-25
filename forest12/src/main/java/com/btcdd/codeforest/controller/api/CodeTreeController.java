@@ -230,14 +230,28 @@ public class CodeTreeController {
 		boolean compileError = false;
  		
 		Map<String, Object> map = new HashMap<>();
+		
+		String[] examOutputSplit = examOutput.split("\n");
+		String[] compileResult1Split =compileResult1.split("\n");
+		
 
+		
+		
 		if(compileResult2 == null || compileResult2.equals("")) {
-			if(compileResult1.equals(examOutput)) {
-				compileResult = true;
-			}
+			for(int i=0;i<examOutputSplit.length;i++) {
+				String tempString1 = examOutputSplit[i];
+				String tempString2 = compileResult1Split[i];
+				if(tempString1.contentEquals(tempString2)) {
+					compileResult = true;
+				}else {
+					compileResult = false;
+				}
+			}				
+				
 		} else {
 			compileError = true;
 		}
+		
 		 
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
