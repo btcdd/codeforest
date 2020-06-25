@@ -241,10 +241,6 @@ public class CodeTreeController {
 			for(int i=0;i<examOutputSplit.length;i++) {
 				String tempString1 = examOutputSplit[i];
 				String tempString2 = compileResult1Split[i];
-				map.put("BooleanEquals",tempString1==tempString2);
-				map.put("BooleanEquals2",tempString1.equals(tempString2));
-				map.put("BooleanEquals3",tempString1.contentEquals(tempString2));
-				map.put("BooleanEquals4",tempString1.equalsIgnoreCase(tempString2));
 				if(tempString1.contentEquals(tempString2)) {
 					compileResult = true;
 				}else {
