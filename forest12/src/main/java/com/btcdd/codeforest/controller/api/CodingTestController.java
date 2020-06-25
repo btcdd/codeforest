@@ -302,14 +302,14 @@ public class CodingTestController {
 		if(compileResult2 == null || compileResult2.equals("")) {
 			//examOutputSplit.length : 3
 			for(int i=0;i<examOutputSplit.length;i++) {
-				map.put("examOutputSplitIndex",examOutputSplit[i]);
-				map.put("examOutputSplitLength",examOutputSplit.length);
-				map.put("BooleanEquals",examOutputSplit[i].equals(compileResult1Split[i]));
+				map.put("examOutputSplitIndex",examOutputSplit[i]);//*
+				map.put("examOutputSplitLength",examOutputSplit.length);//3
+				map.put("BooleanEquals",(examOutputSplit[i]+"").equals(compileResult1Split[i]+""));//false
 				if(examOutputSplit[i].equals(compileResult1Split[i]) == false) {
 					break;
 				}
 				if(i == examOutputSplit.length-1) {
-					map.put("result","이까지왔다!!");
+					map.put("result","이까지왔다!!");//여기 안옴
 					compileResult = true;
 				}				
 			}				
