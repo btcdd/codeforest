@@ -80,7 +80,6 @@ public class ChatController {
 					RunJava rj = new RunJava(time);
 					rj.createFileAsSource(code);
 					errorResult = rj.execCompile();
-					
 					process = Runtime.getRuntime().exec("java -cp /mainCompile/java" + time + "/ Test");
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs(time);
