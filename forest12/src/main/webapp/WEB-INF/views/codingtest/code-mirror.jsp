@@ -343,7 +343,7 @@ $(function() {
  	
  	
 
-	$(document).on('mouseenter','#folder',function() {
+	$(document).on('mouseenter','.ui__sidebar',function() {
 		console.log("hi");
 		$(document).on('mousedown','#folder',function(e) {
 			$(".userfile-menu").hide();
