@@ -803,7 +803,8 @@ $(function() {
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
- 		
+		layoutId = "layout-"+fileNo;
+		tempLayout = root.getItemsById(layoutId)[0]; 		
  		     
 	});
 	
