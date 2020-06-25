@@ -231,8 +231,8 @@ public class CodeTreeController {
  		
 		Map<String, Object> map = new HashMap<>();
 		
-		String[] examOutputSplit = examOutput.split("\r\n");
-		String[] compileResult1Split =compileResult1.split("\r\n");
+		String[] examOutputSplit = examOutput.split("\n");
+		String[] compileResult1Split =compileResult1.split("\n");
 		
 		if(examOutputSplit.length != compileResult1Split.length) {
 			compileResult = false;
@@ -243,7 +243,6 @@ public class CodeTreeController {
 				for(int i = 0; i < examOutputSplit.length; i++) {
 					if(!(examOutputSplit[i].toString()).equals(compileResult1Split[i].toString())) {
 						compileResult = false;
-						break;
 					}
 				}
 			}
