@@ -1338,7 +1338,7 @@ window.onload = function() {
 	      	<c:import url="/WEB-INF/views/codetree/terminal2.jsp"></c:import>
 	      </div>
 	  </div>
-	  
+	   
 	</div>
 	
 			<div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
