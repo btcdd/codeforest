@@ -18,19 +18,25 @@ public class RunC {
 	private BufferedWriter bufferWriter;
 	
 	private final String FILENAME = "test.c";
+	private final Long TIME = System.currentTimeMillis();
+	private Long time;
+	
+	public RunC(Long time) {
+		this.time = time;
+	}
 	
 	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("gcc -o test.exe fakeTest.c");
+		buffer.append("gcc -o test" + time + ".exe fakeTest" + time + ".c");
 				
 		return buffer.toString();
 	}
 	
 	public void createFileAsSourceTrue(String source) {
 		try {
-			file = new File("mainCompile/" + "gwanwoo.c");
+			file = new File("mainCompile/test" + time + ".c");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -51,8 +57,8 @@ public class RunC {
 	
 	public void createFileAsSourceFake(String source) {
 		try {
-			file = new File("fakeTest.c");
-			bufferWriter = new BufferedWriter(new FileWriter("mainCompile/" + file, false));
+			file = new File("mainCompile/fakeTest" + time + ".c");
+			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			String fakeSource = "";
 			String[] split = source.split("\n");

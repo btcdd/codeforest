@@ -18,19 +18,24 @@ public class RunJs {
 	   private BufferedWriter bufferWriter;
 	   
 	   private final String FILENAME = "test.js";
+	   private Long time;
+	   
+	   public RunJs(Long time) {
+		   this.time = time;
+	   }
 	   
 	   public String inputSource() {
 	      
 	      buffer = new StringBuffer();
 	      
-	      buffer.append("node test.js");
+	      buffer.append("node test" + time + ".js");
 	      
 	      return buffer.toString();
 	   }
 	   
 	   public void createFileAsSource(String source) {
 	      try {
-	         file = new File(FILENAME);
+	         file = new File("mainCompile/test" + time + ".js");
 	         bufferWriter = new BufferedWriter(new FileWriter(file, false));
 	         
 	         bufferWriter.write(source);

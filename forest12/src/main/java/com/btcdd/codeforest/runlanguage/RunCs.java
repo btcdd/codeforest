@@ -17,20 +17,24 @@ public class RunCs {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "testCs.cs";
+	private Long time;
+	
+	public RunCs(Long time) {
+		this.time = time;
+	}
 	
 	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("mcs testCs.cs");
+		buffer.append("mcs testCs" + time + ".cs");
 		
 		return buffer.toString();
 	}
 	
 	public void createFileAsSource(String source) {
 		try {
-			file = new File(FILENAME);
+			file = new File("mainCompile/testCs" + time + ".cs");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);

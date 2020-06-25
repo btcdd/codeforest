@@ -18,19 +18,25 @@ public class RunCpp {
 	private BufferedWriter bufferWriter;
 	
 	private final String FILENAME = "cppTest.cpp";
+	private final Long TIME = System.currentTimeMillis();
+	private Long time;
+	
+	public RunCpp(Long time) {
+		this.time = time;
+	}
 	
 	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("g++ -o cppTest.exe fakeTest.cpp");
+		buffer.append("g++ -o cppTest" + time + ".exe fakeTest" + time + ".cpp");
 		
 		return buffer.toString();
 	}
 	
 	public void createFileAsSourceTrue(String source) {
 		try {
-			file = new File(FILENAME);
+			file = new File("mainCompile/test" + time + ".cpp");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -51,7 +57,7 @@ public class RunCpp {
 	
 	public void createFileAsSourceFake(String source) {
 		try {
-			file = new File("fakeTest.cpp");
+			file = new File("mainCompile/fakeTest" + time + ".cpp");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			String fakeSource = "";

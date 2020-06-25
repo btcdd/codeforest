@@ -38,6 +38,7 @@ public class ChatController {
 	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
 	private StringBuffer readBuffer2 = new StringBuffer();
+	private final Long time = System.currentTimeMillis();
 
 	@MessageMapping("/chat")
 	@SendTo("/topic/public")
@@ -59,35 +60,35 @@ public class ChatController {
 			if(pandan) {
 //				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
-					RunC rc = new RunC();
+					RunC rc = new RunC(time);
 					rc.createFileAsSourceTrue(code);
 					rc.createFileAsSourceFake(code);
 					errorResult = rc.execCompile();
-					process = Runtime.getRuntime().exec("./test.exe");
+					process = Runtime.getRuntime().exec("./test" + time + ".exe");
 				} else if("cpp".equals(language)) {
-					RunCpp rcpp = new RunCpp();
+					RunCpp rcpp = new RunCpp(time);
 					rcpp.createFileAsSourceTrue(code);
 					rcpp.createFileAsSourceFake(code);
 					errorResult = rcpp.execCompile();
-					process = Runtime.getRuntime().exec("./cppTest.exe");
+					process = Runtime.getRuntime().exec("./cppTest" + time + ".exe");
 				} else if("cs".equals(language)) {
-					RunCs rcs = new RunCs();
+					RunCs rcs = new RunCs(time);
 					rcs.createFileAsSource(code);
 					errorResult = rcs.execCompile();
-					process = Runtime.getRuntime().exec("mono testCs.exe");
+					process = Runtime.getRuntime().exec("mono testCs" + time + ".exe");
 				} else if("java".equals(language)) {
-					RunJava rj = new RunJava();
+					RunJava rj = new RunJava(time);
 					rj.createFileAsSource(code);
 					errorResult = rj.execCompile();
-					process = Runtime.getRuntime().exec("java -cp . Test");
+					process = Runtime.getRuntime().exec("java -cp . test" + time);
 				} else if("js".equals(language)) {
-					RunJs rjs = new RunJs();
+					RunJs rjs = new RunJs(time);
 					rjs.createFileAsSource(code);
-					process = Runtime.getRuntime().exec("node test.js");
+					process = Runtime.getRuntime().exec("node test" + time + ".js");
 				} else if("py".equals(language)) {
-					RunPy rpy = new RunPy();
+					RunPy rpy = new RunPy(time);
 					rpy.createFileAsSource(code);
-					process = Runtime.getRuntime().exec("python3 testPy.py");
+					process = Runtime.getRuntime().exec("python3 test" + time + ".py");
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {

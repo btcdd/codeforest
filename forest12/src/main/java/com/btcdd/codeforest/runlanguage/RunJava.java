@@ -28,34 +28,18 @@ public class RunJava {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "Test.java";
+	private final Long TIME = System.currentTimeMillis();
 	
 	private String content = "";
+	private Long time;
+	
+	public RunJava(Long time) {
+		this.time = time;
+	}
 	
 	public void createFileAsSource(String source) {
 		try {
-			file = new File(FILENAME);
-			bufferWriter = new BufferedWriter(new FileWriter(file, false));
-			
-			bufferWriter.write(source);
-			bufferWriter.flush();
-		} catch(Exception e) {
-			e.printStackTrace();
-			System.exit(1);
-		} finally {
-			try {
-				bufferWriter.close();
-				file = null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
-		}
-	}
-	
-	public void createFileAsSource(String source, String fileName) {
-		try {
-			file = new File(fileName);
+			file = new File("mainCompile/test" + time + ".java");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -76,7 +60,7 @@ public class RunJava {
 	
 	public String execCompile() {
 		try {
-			process = Runtime.getRuntime().exec("javac -cp . Test.java");
+			process = Runtime.getRuntime().exec("javac -cp . test" + time + ".java");
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
