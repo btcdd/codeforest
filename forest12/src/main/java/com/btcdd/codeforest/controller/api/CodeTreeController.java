@@ -234,9 +234,8 @@ public class CodeTreeController {
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] compileResult1Split =compileResult1.split("\n");
 		
-		boolean[] check =  new boolean[examOutputSplit.length];
-		map.put("length1", examOutputSplit.length);
-		map.put("length2", compileResult1Split.length);
+//		boolean[] check =  new boolean[examOutputSplit.length];
+
 		if(compileResult2 == null || compileResult2.equals("")) {
 			for(int i=0;i<examOutputSplit.length;i++) {
 				String tempString1 = examOutputSplit[i];
@@ -250,6 +249,7 @@ public class CodeTreeController {
 //					check[i] = true;
 				}else {
 					compileResult = false;
+					
 //					check[i] = false;
 				}
 			}
