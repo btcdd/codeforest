@@ -53,7 +53,7 @@ public class TrainingController {
 		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
-		System.out.println("dd:" + problemVo.getKindNo());
+		System.out.println("problemVo:" + problemVo);
 		
 		trainingService.insert(subProblemList, problemVo, authUser.getNo());
 
