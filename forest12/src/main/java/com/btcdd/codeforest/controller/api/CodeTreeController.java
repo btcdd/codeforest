@@ -241,7 +241,7 @@ public class CodeTreeController {
 			if(compileResult2 == null || compileResult2.equals("")) {
 				compileResult = true;
 				for(int i = 0; i < examOutputSplit.length; i++) {
-					if(!(examOutputSplit[i].toString()).equals(compileResult1Split[i].toString())) {
+					if((examOutputSplit[i]).equals(compileResult1Split[i]) == false) {
 						compileResult = false;
 					}
 				}
