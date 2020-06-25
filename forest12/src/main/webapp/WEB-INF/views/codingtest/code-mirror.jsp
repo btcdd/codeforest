@@ -610,6 +610,7 @@ $(function() {
 								
 							 	if(root != null){
 							 		console.log("root가 있을경우 해당");
+							 		console.log("codeNo>>>>>>>>>>>",codeNo);
 									layoutId = "layout-"+codeNo;
 									tempLayout = root.getItemsById(layoutId)[0];
 									 
@@ -803,8 +804,7 @@ $(function() {
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
-		layoutId = "layout-"+fileNo;
-		tempLayout = root.getItemsById(layoutId)[0]; 		
+		
  		     
 	});
 	
