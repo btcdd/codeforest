@@ -1188,7 +1188,7 @@ window.onload = function() {
         </ul>
       </div> 
       
-      <div>
+      <div class="user-description">
       	${saveVo.userName }(${saveVo.userEmail })님의 코드입니다
       </div>
     </div>

@@ -161,7 +161,7 @@
 		]]>
 	</insert>
 
-	<select id="findByFileName" parameterType="string" resultType="codevo">
+	<select id="findByFileName" parameterType="map" resultType="codevo">
 		<![CDATA[
 			select 
 				*
