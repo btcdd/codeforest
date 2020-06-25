@@ -213,13 +213,13 @@ public class CodeTreeService {
 	}
 	
 	public boolean increaseAttemptCount(Long submitNo) {
-		boolean exist = codetreeRepository.existAttempt(submitNo) != null;//false면 존재하지 않고 true면 존재한다
-		if(!exist) {//기존에 존재하지 않는다면
-			//시도는 1로 삽입
-			return codetreeRepository.insertAttempt(submitNo) == 1;
-		}else {
+		boolean exist = codetreeRepository.existAttempt(submitNo) != null;
+		if(exist==true) {
 			//기존에 존재하면 시도 update
 			return codetreeRepository.updateAttempt(submitNo)==1;
+		}else {
+			//시도는 1로 삽입
+			return codetreeRepository.insertAttempt(submitNo) == 1;
 		}
 		
 	}
