@@ -64,31 +64,31 @@ public class ChatController {
 					rc.createFileAsSourceTrue(code);
 					rc.createFileAsSourceFake(code);
 					errorResult = rc.execCompile();
-					process = Runtime.getRuntime().exec("/mainCompile/c" + time + "/Test.exe");
+					process = Runtime.getRuntime().exec("timeout 120s /mainCompile/c" + time + "/Test.exe");
 				} else if("cpp".equals(language)) {
 					RunCpp rcpp = new RunCpp(time);
 					rcpp.createFileAsSourceTrue(code);
 					rcpp.createFileAsSourceFake(code);
 					errorResult = rcpp.execCompile();
-					process = Runtime.getRuntime().exec("/mainCompile/cpp" + time + "/Test.exe");
+					process = Runtime.getRuntime().exec("timeout 120s /mainCompile/cpp" + time + "/Test.exe");
 				} else if("cs".equals(language)) {
 					RunCs rcs = new RunCs(time);
 					rcs.createFileAsSource(code);
 					errorResult = rcs.execCompile();
-					process = Runtime.getRuntime().exec("mono /mainCompile/cs" + time + "/Test.exe");
+					process = Runtime.getRuntime().exec("timeout 120s 1mono /mainCompile/cs" + time + "/Test.exe");
 				} else if("java".equals(language)) {
 					RunJava rj = new RunJava(time);
 					rj.createFileAsSource(code);
 					errorResult = rj.execCompile();
-					process = Runtime.getRuntime().exec("java -cp /mainCompile/java" + time + "/ Test");
+					process = Runtime.getRuntime().exec("timeout 120s java -cp /mainCompile/java" + time + "/ Test");
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs(time);
 					rjs.createFileAsSource(code);
-					process = Runtime.getRuntime().exec("node /mainCompile/js" + time + "/Test.js");
+					process = Runtime.getRuntime().exec("timeout 120s node /mainCompile/js" + time + "/Test.js");
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy(time);
 					rpy.createFileAsSource(code);
-					process = Runtime.getRuntime().exec("python3 /mainCompile/py" + time + "/Test.py");
+					process = Runtime.getRuntime().exec("timeout 120s python3 /mainCompile/py" + time + "/Test.py");
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
