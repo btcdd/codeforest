@@ -34,7 +34,7 @@ public class RunCpp {
 	
 	public void createFileAsSourceTrue(String source) {
 		try {
-			file = new File("mainCompile/test" + time + ".cpp");
+			file = new File("mainCompile/fakeCppTest" + time + ".cpp");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
