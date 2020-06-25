@@ -609,7 +609,7 @@ $(function() {
 							success: function(response) {
 								
 								layoutId = "layout-"+codeNo;
-								console.log("layoutId>>>>>>>>>>>",layoutId);
+							
 								
 							 	if(root != null){
 							 		console.log("root가 있을경우 해당");
@@ -619,14 +619,7 @@ $(function() {
 									}
 							 	}
 								
-/* 								layoutId = "layout-"+codeNo;
-								tempLayout = root.getItemsById(layoutId)[0];
- 								if(tempLayout != null) {
-									
-									tempLayout.setTitle(fileName);
 
-								} */
- 						
  								if(response.data.result == 'no'){
 									alert("이미 파일이 존재합니다.");//메시지 처리 필요
 									return;
