@@ -967,7 +967,7 @@ $(function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
-   					
+   					console.log("response.data.result>>>",response.data.result);
    					console.log("response.data.examOutputSplit>>>",response.data.examOutputSplit);
    					console.log("response.data.compileResult1Split>>>",response.data.compileResult1Split);
    					   					
