@@ -78,6 +78,90 @@ var editorArray = new Array();
 var editorArrayIndex = 0;
 
 
+var saveFunction = function() {
+	console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
+		
+		$("#Save").addClass("SaveClick");	
+		setTimeout(function(){
+			$("#Save").removeClass("SaveClick");
+			$("#Save").addClass("Save");
+		},100);
+		
+		
+		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
+		var problemNo = "${saveVo.problemNo }";
+		
+		$.ajax({
+		url: '${pageContext.servletContext.contextPath }/api/codetree/save',
+		async: true,
+		type: 'post',
+		dataType:'json',
+		data: {
+			'language' : tempFile.data("language"),
+			'fileName' : tempFile.data("file-name"),
+			'packagePath' : tempFile.data("package-path"),
+			'subProblemNo':tempFile.data("subproblem-no"),
+			'codeValue' : currentEditor.getValue(),
+			'problemNo' : problemNo
+		},
+		success: function(response) {
+			SavedCode.set(fileNo+"", currentEditor.getValue());
+			console.log("ok");
+			layoutId = "layout-"+fileNo;
+			tempFile = fileMap.get(fileNo+"");
+			console.log("SAVE tempFile>>>>>>>>>",tempFile);
+			tempLayout = root.getItemsById(layoutId)[0];
+			tempLayout.setTitle(tempFile.data("fileName"));
+		},
+		error: function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}							
+	}); 		
+};
+
+var runFunction = function() {
+	saveFunction();
+	console.log("editor.getValue()>>>>>>",currentEditor.getValue());
+		var problemNo = "${saveVo.problemNo }";
+		$("#Run").blur();
+		$.ajax({
+		url: '${pageContext.servletContext.contextPath }/api/codetree/run',
+		async: true,
+		type: 'post',
+		dataType:'json',
+		data: {
+			'language' : tempFile.data("language"),
+			'fileName' : tempFile.data("file-name"),
+			'packagePath' : tempFile.data("package-path"),
+			'subProblemNo':tempFile.data("subproblem-no"),
+			'codeValue' : currentEditor.getValue(),
+			'problemNo' : problemNo
+		},
+		success: function(response) {
+			
+			console.log("ok");
+			
+			console.log(response.data.result);
+			compileResult1 = response.data.result[0];
+			compileResult2 = response.data.result[1];
+			
+			if(response.data.result[1] == "") {
+				$(".terminal").append("<p>"+response.data.result[0]+"</p>");
+			}
+			else {
+				$(".terminal").append("<p>"+response.data.result[1]+"</p>");
+				
+			}
+			$(".terminal").append("<span class=\"prompt\">-></span> ");
+			$(".terminal").append("<span class=\"path\">~</span> ");
+			$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+		},
+		error: function(xhr, status, e) {
+			console.error(status + ":" + e);
+		}							
+	}); 		
+};
+
 
 $(function() {
 	fileFetchList();
@@ -893,7 +977,8 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
-   		$("#Run").trigger("click");
+//    		$("#Run").trigger("click");
+		runFunction();
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
    		
