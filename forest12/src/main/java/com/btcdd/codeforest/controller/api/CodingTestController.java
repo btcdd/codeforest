@@ -300,7 +300,6 @@ public class CodingTestController {
 		
 		
 		if(compileResult2 == null || compileResult2.equals("")) {
-			//examOutputSplit.length : 3
 			for(int i=0;i<examOutputSplit.length;i++) {
 				String tempString1 = examOutputSplit[i];
 				String tempString2 = compileResult1Split[i];
@@ -308,42 +307,13 @@ public class CodingTestController {
 				map.put("BooleanEquals2",tempString1.equals(tempString2));
 				map.put("BooleanEquals3",tempString1.contentEquals(tempString2));
 				map.put("BooleanEquals4",tempString1.equalsIgnoreCase(tempString2));
-				
-				
-//				if(tempString1.equals(tempString2)) {
-//					compileResult = true;
-//				}else {
-//					compileResult = false;
-//					break;
-//				}
-				
-//				if(!tempString1.equals(tempString2)) {
-//					break;
-//				}
-//				if(i == examOutputSplit.length-1) {
-//					compileResult = true;
-//				}
-				
-//				if(examOutputSplit[i].equals(compileResult1Split[i]) == false) {
-//					break;
-//				}
-//				if(i == examOutputSplit.length-1) {
-//					map.put("result","이까지왔다!!");//여기 안옴
-//					compileResult = true;
-//				}				
-			}				
-			
 
-			
+			}				
+				
 		} else {
 			compileError = true;
 		}
-		map.put("examOutputSplit", examOutputSplit);
-		map.put("compileResult1Split", compileResult1Split);
 		
-		map.put("compileResult1", compileResult1);
-		map.put("compileResult2", compileResult2);
-		map.put("examOutput", examOutput);
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가

@@ -973,19 +973,7 @@ $(function() {
    					console.log("response.data.BooleanEquals4>>>",response.data.BooleanEquals4);
    					
    					console.log("response.data.BooleanEquals>>>",response.data.BooleanEquals);
-   					console.log("response.data.result>>>",response.data.result);
-   					
-   					
-   					
-   					console.log("response.data.examOutputSplit>>>",response.data.examOutputSplit);
-   					console.log("response.data.compileResult1Split>>>",response.data.compileResult1Split);   					
 
-   					console.log("typeof response.data.examOutputSplit>>>",typeof response.data.examOutputSplit);
-   					console.log("typeof response.data.compileResult1Split>>>",typeof response.data.compileResult1Split);
-   					
-   					console.log("response.data.examOutput>>>",response.data.examOutput);
-   					console.log("response.data.compileResult1>>>",response.data.compileResult1);
-   					console.log("response.data.compileResult2>>>",response.data.compileResult2);
    					
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;
