@@ -100,25 +100,25 @@ $(function() {
 	     	years = Math.floor(diff / (365.25 * 86400));
 	     	diff -= years * 365.25 * 86400;
 	  	}
-		console.log("years>>",years);
+		
 		
 	   	if (diff >= 86400) { // 24 * 60 * 60
 	   		days = Math.floor(diff / 86400);
 	   		diff -= days * 86400;	
 	   	}
-	   	console.log("days>>",days);
+	   	
 	   	if (diff >= 3600) { // 60 * 60   
 	     	hours = Math.floor(diff / 3600);
 	     	diff -= hours * 3600;
 	   	}
-	   	console.log("hours>>",hours);
+	   	
 	   	if (diff >= 60) {
 	    	min = Math.floor(diff / 60);
 	     	diff -= min * 60;
 	   	}
-	   	console.log("min>>",min);
+	   	
 	   	var sec = diff;
-	   	console.log("sec>>",sec);
+	   	
 	   	$(".countdown table td:first").text("남은 시간  ");
     	$(".countdown table td+td").text("[ "+hours+"시");
 		$(".countdown table td+td+td").text(min+"분");
