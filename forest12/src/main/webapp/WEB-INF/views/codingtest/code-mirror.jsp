@@ -883,10 +883,10 @@ $(function() {
 				compileResult2 = response.data.result[1];
 				
 				if(response.data.result[1] == "") {
-					$(".terminal").append("<p>"+response.data.result[0]+"</p>");
+					$(".terminal").append("<pre>"+response.data.result[0]+"</pre>");
 				}
 				else {
-					$(".terminal").append("<p>"+response.data.result[1]+"</p>");
+					$(".terminal").append("<pre>"+response.data.result[1]+"</pre>");
 					
 				}
 				$(".terminal").append("<span class=\"prompt\">-></span> ");
@@ -967,7 +967,14 @@ $(function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
-   										
+   					
+   					console.log("response.data.BooleanEquals2>>>",response.data.BooleanEquals2);
+   					console.log("response.data.BooleanEquals3>>>",response.data.BooleanEquals3);
+   					console.log("response.data.BooleanEquals4>>>",response.data.BooleanEquals4);
+   					
+   					console.log("response.data.BooleanEquals>>>",response.data.BooleanEquals);
+
+   					
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;
    					if(compileError == true) {
