@@ -176,7 +176,9 @@ public class ChatController {
 
 		} catch (Throwable e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			chatMessage.setContent("프로그램이 종료되었습니다");
+		}
 
 		try {
 			Thread.sleep(94);
