@@ -60,7 +60,7 @@ public class ChatController {
 		String code = (String) obj.get("code");
 		try {
 			if(pandan) {
-				process = Runtime.getRuntime().exec("cmd");
+//				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
 					RunC rc = new RunC();
 					rc.createFileAsSourceTrue(code);
@@ -110,8 +110,8 @@ public class ChatController {
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
 					System.out.println("1");
-					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
-//					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
+//					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
+					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
 					int c = 0;
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
@@ -154,8 +154,8 @@ public class ChatController {
 					try {
 						System.out.println("3");
 //								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
-//								InputStreamReader is = new InputStreamReader(stdout, "utf-8");
-						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
+								InputStreamReader is = new InputStreamReader(stdout, "utf-8");
+//						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
 						
 //								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
 						int c = 0;
