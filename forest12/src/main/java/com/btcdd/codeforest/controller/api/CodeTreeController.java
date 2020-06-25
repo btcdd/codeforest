@@ -247,15 +247,15 @@ public class CodeTreeController {
 					compileResult = false;
 				}
 			}				
-				
+			codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
+			SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+			codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가				
 		} else {
 			compileError = true;
 		}
 		
 		 
-		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
-		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
-		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+
 		
 		map.put("compileResult", compileResult);
 		map.put("compileError", compileError);
