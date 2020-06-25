@@ -173,7 +173,7 @@ public class ChatController {
 		}
 
 		try {
-			Thread.sleep(150);
+			Thread.sleep(200);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
