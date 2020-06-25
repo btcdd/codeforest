@@ -179,6 +179,8 @@ public class CodingTestController {
 		
 		if(!exist) {
 			map.put("result", "okokokokokokokokokok");
+			map.put("codeNo",codeNo);
+			map.put("fileName",fileName);
 			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);
 			// 여기!!

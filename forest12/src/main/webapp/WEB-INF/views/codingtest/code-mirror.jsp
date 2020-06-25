@@ -608,6 +608,8 @@ $(function() {
 							success: function(response) {
 								
 								console.log("response.data.result>>>>>",response.data.result);
+								console.log("response.data.codeNo>>>>>",response.data.codeNo);
+								console.log("response.data.fileName>>>>>",response.data.fileName);
 							 	if(codeNo != null){
 									layoutId = "layout-"+codeNo;
 									tempLayout = root.getItemsById(layoutId)[0];
