@@ -916,7 +916,8 @@ $(function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
-   					console.log("response.data.check>>>",response.data.length);
+   					console.log("response.data.length1>>>",response.data.length1);
+   					console.log("response.data.length2>>>",response.data.length2);
    					/* console.log("response.data.check>>>",response.data.check); */
    					
    					
