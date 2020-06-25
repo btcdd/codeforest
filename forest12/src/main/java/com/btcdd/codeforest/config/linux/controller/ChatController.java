@@ -3,13 +3,11 @@ package com.btcdd.codeforest.config.linux.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.text.ParseException;
 import java.util.concurrent.Executors;
 
 import org.json.simple.JSONObject;
@@ -27,7 +25,6 @@ import com.btcdd.codeforest.runlanguage.RunCs;
 import com.btcdd.codeforest.runlanguage.RunJava;
 import com.btcdd.codeforest.runlanguage.RunJs;
 import com.btcdd.codeforest.runlanguage.RunPy;
-import com.btcdd.codeforest.vo.SubmitVo;
 
 @Controller
 public class ChatController {
@@ -109,7 +106,6 @@ public class ChatController {
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-					System.out.println("1");
 //					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
 					int c = 0;
@@ -119,13 +115,18 @@ public class ChatController {
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
+				} finally {
+					try {
+						stderr.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 
 			// 입력 stream을 BufferedWriter로 받아서 콘솔로부터 받은 입력을 Process 클래스로 실행시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-					System.out.println("2");
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
 					// 지술이형 코드!!
@@ -146,30 +147,39 @@ public class ChatController {
 					}
 				} catch (Exception e) {
 				} finally {
+					try {
+						stdin.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 			
 			// 출력 stream을 BufferedReader로 받아서 라인 변경이 있을 경우 console 화면에 출력시킨다.
-				Executors.newCachedThreadPool().submit(() -> {
-					try {
-						System.out.println("3");
+			Executors.newCachedThreadPool().submit(() -> {
+				try {
 //								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
-								InputStreamReader is = new InputStreamReader(stdout, "utf-8");
+							InputStreamReader is = new InputStreamReader(stdout, "utf-8");
 //						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
-						
+					
 //								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
-						int c = 0;
-						readBuffer.setLength(0);
-						while ((c = is.read()) != -1) {
-							char line = (char) c;
-							readBuffer.append(line);
-						}
-						//reader.reset();
-					} catch (Exception e) {
-						e.printStackTrace();
-					} finally {
+					int c = 0;
+					readBuffer.setLength(0);
+					while ((c = is.read()) != -1) {
+						char line = (char) c;
+						readBuffer.append(line);
 					}
-				});
+					//reader.reset();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						stdout.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			});
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} 
