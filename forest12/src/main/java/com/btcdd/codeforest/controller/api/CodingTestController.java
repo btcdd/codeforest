@@ -304,17 +304,24 @@ public class CodingTestController {
 //				compileResult = true;
 //			}
 			for(int i=0;i<examOutputSplit.length;i++) {
-				map.put("result", "들어왔다!!!!");
-				if(!(examOutputSplit[i]+"").equals(compileResult1Split[i]+"")) {
+				
+				if(examOutputSplit[i]!=compileResult1Split[i]) {
 					compileResult = false;
-					map.put("result", "여기가 왔다!!!!!!!!");
 					break;
 				}
-				if(i == examOutputSplit.length-1) {
-					compileResult = true;
-					map.put("result", "여기가 왔다왔다왔다!!!!!!!!!!!");
-				}
-			}					
+//			
+//				
+//				if(!(examOutputSplit[i]+"").equals(compileResult1Split[i]+"")) {
+//					compileResult = false;
+//				
+//					break;
+//				}
+//				if(i == examOutputSplit.length-1) {
+//					compileResult = true;
+//					map.put("result", "여기가 왔다왔다왔다!!!!!!!!!!!");
+//				}
+			}				
+			compileResult = true;
 		} else {
 			compileError = true;
 		}
