@@ -172,7 +172,7 @@ public class ChatController {
 					}
 				});
 
-//				Executors.newCachedThreadPool().shutdown();
+				Executors.newCachedThreadPool().shutdown();
 
 		} catch (Throwable e) {
 			e.printStackTrace();
