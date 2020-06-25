@@ -968,6 +968,10 @@ $(function() {
    				},
    				success: function(response) {
    					
+   					
+   					console.log("response.data.tempString1>>>",response.data.tempString1);
+   					console.log("response.data.tempString2>>>",response.data.tempString2);
+   					
    					console.log("response.data.BooleanEquals>>>",response.data.BooleanEquals);
    					console.log("response.data.result>>>",response.data.result);
    					

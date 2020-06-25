@@ -304,8 +304,8 @@ public class CodingTestController {
 			for(int i=0;i<examOutputSplit.length;i++) {
 				String tempString1 = examOutputSplit[i];
 				String tempString2 = compileResult1Split[i];
-				
-				map.put("BooleanEquals",tempString1.equals(tempString2));
+				map.put("tempString1",tempString1);
+				map.put("tempString2",tempString2);
 				if(examOutputSplit[i].equals(compileResult1Split[i]) == false) {
 					break;
 				}
