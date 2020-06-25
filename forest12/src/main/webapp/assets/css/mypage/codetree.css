@@ -197,6 +197,7 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
   width: 100%;
   height: 100%;
   z-index: 2;
+  display: flex;
 }
 
 .logo img {
@@ -224,7 +225,12 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
   position: relative;
 }
 
-
+.user-description {
+	margin-top : 5px;
+	float: left;
+	width: 60%;
+	text-align: center;
+}
 
 
 
