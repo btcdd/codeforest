@@ -606,7 +606,8 @@ $(function() {
 								'prevFileName':prevFileName
 							},
 							success: function(response) {
-
+								
+								console.log("response.data.result>>>>>",response.data.result);
 							 	if(codeNo != null){
 									layoutId = "layout-"+codeNo;
 									tempLayout = root.getItemsById(layoutId)[0];

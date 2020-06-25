@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -168,7 +169,7 @@ public class CodingTestController {
 
 	@Auth
 	@PostMapping("/fileUpdate")
-	public JsonResult fileUpdate(Long savePathNo,Long codeNo,String fileName,Long subProblemNo,String prevFileName) {
+	public JsonResult fileUpdate(Long savePathNo,Long codeNo,String fileName,Long subProblemNo,String prevFileName,Model model) {
 		System.out.println("savePathNo>>"+savePathNo);
 		System.out.println("codeNo>>"+codeNo);
 		System.out.println("fileName>>"+fileName);
@@ -177,6 +178,7 @@ public class CodingTestController {
 		Map<String,Object> map = new HashMap<>();
 		
 		if(!exist) {
+			map.put("result", "okokokokokokokokokok");
 			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);
 			// 여기!!
@@ -184,7 +186,7 @@ public class CodingTestController {
 			System.out.println("기존파일이 존재한다");
 			map.put("result", "no");
 		}
-
+		
 		return JsonResult.success(map);
 	}		
 	
