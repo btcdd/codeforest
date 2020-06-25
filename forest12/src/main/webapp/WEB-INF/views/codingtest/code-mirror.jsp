@@ -607,14 +607,13 @@ $(function() {
 							},
 							success: function(response) {
 								
-								console.log("response.data.result>>>>>",response.data.result);
-								console.log("response.data.codeNo>>>>>",response.data.codeNo);
-								console.log("response.data.fileName>>>>>",response.data.fileName);
-							 	if(codeNo != null){
-									layoutId = "layout-"+codeNo;
+								
+							 	if(root != null){
+							 		console.log("root가 있을경우 해당");
+									/* layoutId = "layout-"+codeNo;
 									tempLayout = root.getItemsById(layoutId)[0];
 									
-									tempLayout.setTitle(fileName);	
+									tempLayout.setTitle(fileName); */	
 							 	}
 								
 /* 								layoutId = "layout-"+codeNo;
