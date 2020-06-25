@@ -60,7 +60,7 @@ public class RunJava {
 	
 	public String execCompile() {
 		try {
-			process = Runtime.getRuntime().exec("javac -cp /mainCompile/test" + time + ".java");
+			process = Runtime.getRuntime().exec("javac -cp /mainCompile/ mainCompile/test" + time + ".java ");
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
