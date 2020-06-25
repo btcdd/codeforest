@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.python.core.StderrWrapper;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -42,6 +43,11 @@ public class ChatController {
 	@MessageMapping("/chat")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+		
+		OutputStream stdin = null;
+		InputStream stderr = null;
+		InputStream stdout = null;
+		
 		String errorResult = "";
 		Boolean pandan = false;
 		
@@ -97,9 +103,10 @@ public class ChatController {
 				}
 			}
 			
-			OutputStream stdin = process.getOutputStream();
-			InputStream stderr = process.getErrorStream();
-			InputStream stdout = process.getInputStream();
+			stdin = process.getOutputStream();
+			stderr = process.getErrorStream();
+			stdout = process.getInputStream();
+			
 
 			StringBuffer readBuffer2 = new StringBuffer();
 
@@ -116,11 +123,6 @@ public class ChatController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
-					try {
-						stderr.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 				}
 			});
 
@@ -147,11 +149,6 @@ public class ChatController {
 					}
 				} catch (Exception e) {
 				} finally {
-					try {
-						stdin.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 				}
 			});
 			
@@ -173,16 +170,19 @@ public class ChatController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					try {
-						stdout.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 				}
 			});
 		} catch (Throwable e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			try {
+				stdin.close();
+				stderr.close();
+				stdout.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		try {
 			Thread.sleep(94);
