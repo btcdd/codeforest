@@ -315,6 +315,9 @@ public class CodingTestController {
 		} else {
 			compileError = true;
 		}
+		map.put("examOutputSplit", examOutputSplit);
+		map.put("compileResult1Split", compileResult1Split);
+		
 		map.put("compileResult1", compileResult1);
 		map.put("compileResult2", compileResult2);
 		map.put("examOutput", examOutput);
