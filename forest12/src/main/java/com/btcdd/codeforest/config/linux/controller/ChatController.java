@@ -149,14 +149,14 @@ public class ChatController {
 			// 출력 stream을 BufferedReader로 받아서 라인 변경이 있을 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-//								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
-							InputStreamReader is = new InputStreamReader(stdout, "utf-8");
+//						BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
+//						InputStreamReader is = new InputStreamReader(stdout, "utf-8");
 //						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
 					
-//								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
+						BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
 					int c = 0;
 					readBuffer.setLength(0);
-					while ((c = is.read()) != -1) {
+					while ((c = reader.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
 					}
