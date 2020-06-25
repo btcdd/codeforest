@@ -86,12 +86,10 @@ public class ChatController {
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs();
 					rjs.createFileAsSource(code);
-//					errorResult = rjs.execCompile();
 					process = Runtime.getRuntime().exec("node test.js");
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy();
 					rpy.createFileAsSource(code);
-					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("python3 testPy.py");
 				}
 				readBuffer.setLength(0);
