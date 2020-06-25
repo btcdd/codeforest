@@ -34,7 +34,10 @@ public class RunPy {
 	
 	public void createFileAsSource(String source) {
 		try {
-			file = new File("mainCompile/test" + time + ".py");
+			process = Runtime.getRuntime().exec("mkdir /mainCompile/py" + time);
+			
+			Thread.sleep(100);
+			file = new File("mainCompile/py" + time + "/Test.py");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);

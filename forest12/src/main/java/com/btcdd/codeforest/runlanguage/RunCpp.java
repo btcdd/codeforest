@@ -27,14 +27,17 @@ public class RunCpp {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("g++ -o /mainCompile/cppTest" + time + ".exe mainCompile/fakeCppTest" + time + ".cpp");
+		buffer.append("g++ -o /mainCompile/cpp" + time + "/Test.exe mainCompile/cpp" + time + "/fakeTest.cpp");
 		
 		return buffer.toString();
 	}
 	
 	public void createFileAsSourceTrue(String source) {
 		try {
-			file = new File("mainCompile/fakeCppTest" + time + ".cpp");
+			process = Runtime.getRuntime().exec("mkdir /mainCompile/cpp" + time);
+			
+			Thread.sleep(100);
+			file = new File("mainCompile/cpp" + time + "/Test.cpp");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -55,7 +58,7 @@ public class RunCpp {
 	
 	public void createFileAsSourceFake(String source) {
 		try {
-			file = new File("mainCompile/fakeTest" + time + ".cpp");
+			file = new File("mainCompile/cpp" + time + "/fakeTest.cpp");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			String fakeSource = "";

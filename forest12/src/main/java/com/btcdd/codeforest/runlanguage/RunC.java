@@ -29,13 +29,17 @@ public class RunC {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("gcc -o /mainCompile/test" + time + ".exe mainCompile/fakeTest" + time + ".c");
+		buffer.append("gcc -o /mainCompile/c" + time + "/Test.exe mainCompile/c" + time + "/fakeTest" + time + ".c");
 		return buffer.toString();
 	}
 	
 	public void createFileAsSourceTrue(String source) {
 		try {
-			file = new File("mainCompile/test" + time + ".c");
+			process = Runtime.getRuntime().exec("mkdir /mainCompile/c" + time);
+			
+			Thread.sleep(100);
+			
+			file = new File("mainCompile/c" + time + "/Test.c");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -56,7 +60,7 @@ public class RunC {
 	
 	public void createFileAsSourceFake(String source) {
 		try {
-			file = new File("mainCompile/fakeTest" + time + ".c");
+			file = new File("mainCompile/c" + time + "/fakeTest.c");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			String fakeSource = "";

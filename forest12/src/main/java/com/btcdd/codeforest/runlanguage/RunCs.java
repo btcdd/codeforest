@@ -27,14 +27,18 @@ public class RunCs {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("mcs /mainCompile/testCs" + time + ".cs");
+		buffer.append("mcs /mainCompile/cs" + time + "/Test.cs");
 		
 		return buffer.toString();
 	}
 	
 	public void createFileAsSource(String source) {
 		try {
-			file = new File("mainCompile/testCs" + time + ".cs");
+			process = Runtime.getRuntime().exec("mkdir /mainCompile/cs" + time);
+			
+			Thread.sleep(100);
+			
+			file = new File("mainCompile/cs" + time + "/Test.cs");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
