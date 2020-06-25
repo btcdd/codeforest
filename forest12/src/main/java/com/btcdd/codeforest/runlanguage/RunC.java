@@ -30,8 +30,8 @@ public class RunC {
 	
 	public void createFileAsSourceTrue(String source) {
 		try {
-			file = new File(FILENAME);
-			bufferWriter = new BufferedWriter(new FileWriter("mainCompile/" + file, false));
+			file = new File("mainCompile/" + "gwanwoo.c");
+			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
 			bufferWriter.flush(); 
