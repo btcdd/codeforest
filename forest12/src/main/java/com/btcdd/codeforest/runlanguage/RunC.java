@@ -31,7 +31,7 @@ public class RunC {
 	public void createFileAsSourceTrue(String source) {
 		try {
 			file = new File(FILENAME);
-			bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			bufferWriter = new BufferedWriter(new FileWriter("mainCompile/" + file, false));
 			
 			bufferWriter.write(source);
 			bufferWriter.flush(); 
@@ -52,7 +52,7 @@ public class RunC {
 	public void createFileAsSourceFake(String source) {
 		try {
 			file = new File("fakeTest.c");
-			bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			bufferWriter = new BufferedWriter(new FileWriter("mainCompile/" + file, false));
 			
 			String fakeSource = "";
 			String[] split = source.split("\n");
