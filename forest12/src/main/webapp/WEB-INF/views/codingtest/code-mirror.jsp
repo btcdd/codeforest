@@ -612,7 +612,7 @@ $(function() {
 							 		console.log("root가 있을경우 해당");
 									layoutId = "layout-"+codeNo;
 									tempLayout = root.getItemsById(layoutId)[0];
-									
+									 
 									tempLayout.setTitle(fileName);	
 							 	}else{
 							 		console.log("root가 없다");
