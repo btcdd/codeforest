@@ -23,12 +23,12 @@ public class RunC {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("gcc -o test.exe test.c");
+		buffer.append("gcc -o test.exe fakeTest.c");
 				
 		return buffer.toString();
 	}
 	
-	public void createFileAsSource(String source) {
+	public void createFileAsSourceTrue(String source) {
 		try {
 			file = new File(FILENAME);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
@@ -44,7 +44,37 @@ public class RunC {
 				file = null;
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.exit(1);;
+				System.exit(1);
+			}
+		}
+	}
+	
+	public void createFileAsSourceFake(String source) {
+		try {
+			file = new File("fakeTest.c");
+			bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			
+			String fakeSource = "";
+			String[] split = source.split("\n");
+			for(int i = 0; i < split.length; i++) {
+				if(split[i].contains("scanf") || split[i].contains("gets") || split[i].contains("fgets")) {
+					split[i] = "fflush(stdout);\n" + split[i] + "\n";
+				}
+				fakeSource += split[i] + "\n";
+			}
+			
+			bufferWriter.write(fakeSource);
+			bufferWriter.flush(); 
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		} finally {
+			try {
+				bufferWriter.close();
+				file = null;
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
 			}
 		}
 	}

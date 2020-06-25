@@ -60,15 +60,17 @@ public class ChatController {
 		String code = (String) obj.get("code");
 		try {
 			if(pandan) {
-				process = Runtime.getRuntime().exec("cmd");
+//				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
 					RunC rc = new RunC();
-					rc.createFileAsSource(code);
+					rc.createFileAsSourceTrue(code);
+					rc.createFileAsSourceFake(code);
 					errorResult = rc.execCompile();
 					process = Runtime.getRuntime().exec("./test.exe");
 				} else if("cpp".equals(language)) {
 					RunCpp rcpp = new RunCpp();
-					rcpp.createFileAsSource(code);
+					rcpp.createFileAsSourceTrue(code);
+					rcpp.createFileAsSourceFake(code);
 					errorResult = rcpp.execCompile();
 					process = Runtime.getRuntime().exec("./cppTest.exe");
 				} else if("cs".equals(language)) {
@@ -111,8 +113,8 @@ public class ChatController {
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
-//					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
+//					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
+					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
 					int c = 0;
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
@@ -154,15 +156,14 @@ public class ChatController {
 				Executors.newCachedThreadPool().submit(() -> {
 					try {
 //								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
-//								InputStreamReader is = new InputStreamReader(stdout, "utf-8");
-						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
+								InputStreamReader is = new InputStreamReader(stdout, "utf-8");
+//						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
 						
 //								BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
 						int c = 0;
 						readBuffer.setLength(0);
 						while ((c = is.read()) != -1) {
 							char line = (char) c;
-							System.out.println(":" + line);
 							readBuffer.append(line);
 						}
 						System.out.println("sdf");
@@ -178,7 +179,7 @@ public class ChatController {
 		} 
 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(20);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

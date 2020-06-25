@@ -23,17 +23,47 @@ public class RunCpp {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("g++ -o cppTest.exe cppTest.cpp");
+		buffer.append("g++ -o cppTest.exe fakeTest.cpp");
 		
 		return buffer.toString();
 	}
 	
-	public void createFileAsSource(String source) {
+	public void createFileAsSourceTrue(String source) {
 		try {
 			file = new File(FILENAME);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
+			bufferWriter.flush();
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		} finally {
+			try {
+				bufferWriter.close();
+				file = null;
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);;
+			}
+		}
+	}
+	
+	public void createFileAsSourceFake(String source) {
+		try {
+			file = new File("fakeTest.cpp");
+			bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			
+			String fakeSource = "";
+			String[] split = source.split("\n");
+			for(int i = 0; i < split.length; i++) {
+				if(split[i].contains("scanf") || split[i].contains("cin") || split[i].contains("cin.get") || split[i].contains("cin.getline")) {
+					split[i] = "fflush(stdout);\n" + split[i] + "\n";
+				}
+				fakeSource += split[i] + "\n";
+			}
+			
+			bufferWriter.write(fakeSource);
 			bufferWriter.flush();
 		} catch(Exception e) {
 			e.printStackTrace();
