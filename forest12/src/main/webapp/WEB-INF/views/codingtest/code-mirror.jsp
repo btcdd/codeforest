@@ -967,8 +967,7 @@ $(function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
-   					console.log("response.data.examOutputSplitIndex>>>",response.data.examOutputSplitIndex);
-   					console.log("response.data.examOutputSplitLength>>>",response.data.examOutputSplitLength);
+   					
    					console.log("response.data.BooleanEquals>>>",response.data.BooleanEquals);
    					console.log("response.data.result>>>",response.data.result);
    					
