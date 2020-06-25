@@ -304,18 +304,18 @@ public class CodingTestController {
 			for(int i=0;i<examOutputSplit.length;i++) {
 				String tempString1 = examOutputSplit[i];
 				String tempString2 = compileResult1Split[i];
-				map.put("BooleanEquals",tempString1==tempString2);
-				map.put("BooleanEquals2",tempString1.equals(tempString2));
-				map.put("BooleanEquals3",tempString1.contentEquals(tempString2));
-				map.put("BooleanEquals4",tempString1.equalsIgnoreCase(tempString2));
+				map.put("BooleanEquals",tempString1+""==tempString2+"");
+				map.put("BooleanEquals2",tempString1+"".equals(tempString2+""));
+				map.put("BooleanEquals3",tempString1+"".contentEquals(tempString2+""));
+				map.put("BooleanEquals4",tempString1+"".equalsIgnoreCase(tempString2+""));
 				
-				if(examOutputSplit[i].equals(compileResult1Split[i]) == false) {
-					break;
-				}
-				if(i == examOutputSplit.length-1) {
-					map.put("result","이까지왔다!!");//여기 안옴
-					compileResult = true;
-				}				
+//				if(examOutputSplit[i].equals(compileResult1Split[i]) == false) {
+//					break;
+//				}
+//				if(i == examOutputSplit.length-1) {
+//					map.put("result","이까지왔다!!");//여기 안옴
+//					compileResult = true;
+//				}				
 			}				
 			
 
