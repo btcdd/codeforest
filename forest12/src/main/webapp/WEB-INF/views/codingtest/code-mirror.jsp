@@ -769,10 +769,7 @@ $(function() {
 					console.error(status + ":" + e);
 				}							
 			});
-			
- 			layoutId = "layout-"+fileNo;
- 			tempFile = fileMap.get(fileNo+"");
-			tempLayout = root.getItemsById(layoutId)[0];			
+					
 	
  		}
  		else {
@@ -805,6 +802,10 @@ $(function() {
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
+
+		layoutId = "layout-"+fileNo;
+ 		tempFile = fileMap.get(fileNo+"");
+		tempLayout = root.getItemsById(layoutId)[0];	 		
  		
  		     
 	});
