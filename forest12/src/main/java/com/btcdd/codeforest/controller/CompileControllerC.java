@@ -20,7 +20,7 @@ public class CompileControllerC {
 	@ResponseBody
 	@PostMapping("/c")
 	public JsonResult compileC(@RequestParam String code) {
-		rtt.createFileAsSource(code);
+		rtt.createFileAsSourceTrue(code);
 		rtt.execCompile();
 		String result = rtt.execCommand();
 		
