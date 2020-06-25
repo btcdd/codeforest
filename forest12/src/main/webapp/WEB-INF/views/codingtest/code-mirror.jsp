@@ -804,7 +804,7 @@ $(function() {
 		
 
 		layoutId = "layout-"+fileNo;
- 		tempFile = fileMap.get(fileNo+"");
+ 		
 		tempLayout = root.getItemsById(layoutId)[0];	 		
  		
  		     
