@@ -920,11 +920,11 @@ $(function() {
    					 /* console.log("response.data.check>>>",response.data.check); */
    					
    					
-   					console.log("response.data.BooleanEquals2>>>",response.data.BooleanEquals2);
-   					console.log("response.data.BooleanEquals3>>>",response.data.BooleanEquals3);
-   					console.log("response.data.BooleanEquals4>>>",response.data.BooleanEquals4);
+//    					console.log("response.data.BooleanEquals2>>>",response.data.BooleanEquals2);
+//    					console.log("response.data.BooleanEquals3>>>",response.data.BooleanEquals3);
+//    					console.log("response.data.BooleanEquals4>>>",response.data.BooleanEquals4);
    					
-   					console.log("response.data.BooleanEquals>>>",response.data.BooleanEquals);   					
+//    					console.log("response.data.BooleanEquals>>>",response.data.BooleanEquals);   					
    					
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;
