@@ -307,7 +307,10 @@ public class CodingTestController {
 				map.put("BooleanEquals2",tempString1.equals(tempString2));
 				map.put("BooleanEquals3",tempString1.contentEquals(tempString2));
 				map.put("BooleanEquals4",tempString1.equalsIgnoreCase(tempString2));
-
+				if(tempString1.contentEquals(tempString2)) {
+					compileResult = true;
+				}
+				
 			}				
 				
 		} else {
