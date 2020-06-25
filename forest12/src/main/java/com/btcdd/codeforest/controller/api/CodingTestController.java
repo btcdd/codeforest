@@ -293,11 +293,25 @@ public class CodingTestController {
  		
 		Map<String, Object> map = new HashMap<>();
 		
+		String[] examOutputSplit = examOutput.split("\n");
+		String[] compileResult1Split =compileResult1.split("\n");
+		
+
+		
 		
 		if(compileResult2 == null || compileResult2.equals("")) {
-			if(compileResult1.equals(examOutput)) {
-				compileResult = true;
-			}
+//			if(compileResult1.equals(examOutput)) {
+//				compileResult = true;
+//			}
+			for(int i=0;i<examOutputSplit.length;i++) {
+				if(!examOutputSplit[i].equals(compileResult1Split[i])) {
+					compileResult = false;
+					break;
+				}
+				if(i == examOutputSplit.length-1) {
+					compileResult = true;
+				}
+			}					
 		} else {
 			compileError = true;
 		}
