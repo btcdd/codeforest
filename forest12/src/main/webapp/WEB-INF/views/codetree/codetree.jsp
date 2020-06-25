@@ -79,7 +79,7 @@ var editorArrayIndex = 0;
 
 
 var saveFunction = function() {
-	console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
+
 		
 		$("#Save").addClass("SaveClick");	
 		setTimeout(function(){
@@ -121,7 +121,7 @@ var saveFunction = function() {
 
 var runFunction = function() {
 	saveFunction();
-	console.log("editor.getValue()>>>>>>",currentEditor.getValue());
+
 		var problemNo = "${saveVo.problemNo }";
 		$("#Run").blur();
 		$.ajax({
