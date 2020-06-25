@@ -881,6 +881,7 @@ $(function() {
 				console.log("ok");
 				layoutId = "layout-"+fileNo;
 				tempFile = fileMap.get(fileNo+"");
+				console.log("SAVE tempFile>>>>>>>>>",tempFile);
 				tempLayout = root.getItemsById(layoutId)[0];
 				tempLayout.setTitle(tempFile.data("fileName"));
 			},
