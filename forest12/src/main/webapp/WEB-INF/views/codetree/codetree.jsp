@@ -299,7 +299,7 @@ $(function() {
  	
  	
 
-	$(document).on('mouseenter','#folder',function() {
+	$(document).on('mouseenter','.ui__sidebar',function() {
 		console.log("hi");
 		$(document).on('mousedown','#folder',function(e) {
 			$(".userfile-menu").hide();
@@ -532,7 +532,7 @@ $(function() {
  	$(document).on("click", "#userfile-update", function() {
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
- 		codeNo = fileNo;
+ 		/* codeNo = fileNo; */
  		$('<div> <input type="text" style="z-index:10000" class="fileName-update" placeholder='+'.'+lang+'></div>')
 		    .attr("title","파일 수정")
 		    .dialog({
@@ -561,12 +561,16 @@ $(function() {
 							},
 							success: function(response) {
 				
-								 	layoutId = "layout-"+codeNo;
-									tempLayout = root.getItemsById(layoutId)[0];
-	
-									if(tempLayout != null) {
+								layoutId = "layout-"+codeNo;
+							
+								
+							 	if(root != null){
+							 		console.log("root가 있을경우 해당");
+							 		tempLayout = root.getItemsById(layoutId)[0]; 
+									if(tempLayout != null){
 										tempLayout.setTitle(fileName);
 									}
+							 	}
 								
  								if(response.data.result == 'no'){
 									alert("이미 파일이 존재합니다.");//메시지 처리 필요
@@ -598,7 +602,7 @@ $(function() {
  	
  	// 파일을 더블클릭 하면...
  	var tempFile = null;
- 	var fileNo = null
+ 	var fileNo = null;
  	var root = null;
 	var HashMap = new Map();
  	var fileMap = new Map();

@@ -110,7 +110,7 @@ public class CodingTestController {
 		
 		
 		ProblemVo problemVo = testService.selectProblemOne(problemNo);
-		List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
+		
 		
 
 		
@@ -118,7 +118,7 @@ public class CodingTestController {
 		
 		if(exist==true) {
 			System.out.println("바로 코드미러로");
-			
+			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
 			//태성 코드
 			SaveVo saveVo = testService.findSaveVo(saveNo);
@@ -133,6 +133,11 @@ public class CodingTestController {
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);			
 			
+			System.out.println("problemVo>>>>"+problemVo);
+			System.out.println("subProblemList>>>>"+subProblemList);
+			System.out.println("saveVo>>>>"+saveVo);
+			System.out.println("savePathList>>>>"+savePathList);
+			System.out.println("codeList>>>>"+codeList);
 			
 			return "codingtest/code-mirror";
 		}
@@ -151,7 +156,7 @@ public class CodingTestController {
 			@RequestParam("tempKey") String tempKey,
 			HttpSession session,
 			Model model) {
-		
+		 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
 		ProblemVo problemVo = testService.selectProblemOne(problemNo);
@@ -197,6 +202,16 @@ public class CodingTestController {
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);
 
+			
+			System.out.println("problemVo>>>>"+problemVo);
+			System.out.println("subProblemList>>>>"+subProblemList);
+			System.out.println("saveVo>>>>"+saveVo);
+			System.out.println("savePathList>>>>"+savePathList);
+			System.out.println("codeList>>>>"+codeList);
+						
+			
+			
+			
 			return "codingtest/code-mirror"; //이동
 		}
 		

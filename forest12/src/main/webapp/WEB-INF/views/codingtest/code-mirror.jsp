@@ -51,7 +51,7 @@ var fileFetchList = function(){
 	   var saveNo = "${saveVo.no }";
 	   var lang = $("select option:selected").val();
 	   $.ajax({
-	         url: '${pageContext.request.contextPath }/api/codetree/file-list',
+	         url: '${pageContext.request.contextPath }/api/codingtest/file-list',
 	         async: true,
 	         type: 'post',
 	         dataType: 'json',
@@ -343,12 +343,13 @@ $(function() {
  	
  	
 
-	$(document).on('mouseenter','#folder',function() {
+	$(document).on('mouseenter','.ui__sidebar',function() {
 		console.log("hi");
 		$(document).on('mousedown','#folder',function(e) {
 			$(".userfile-menu").hide();
 			if(e.which == 3){
 				//tempFile = $(this);
+				console.log("folder   $(this)>>>>>",$(this));
 				savePathNo = $(this).data("no");
 	 			subProblemNo = $(this).data("no2");
 	 		    //Get window size:
@@ -397,7 +398,9 @@ $(function() {
 		
 		$(document).on('mousedown','.userFile',function(e){
 			$(".contextmenu").hide();
-			if(e.which == 3){
+			if(e.which == 3){				
+				
+				console.log("userFile   $(this)>>>>>",$(this));
 				//tempFile = $(this);
 				codeNo = $(this).data("no");
 				prevFileName = $(this).data("file-name");
@@ -485,7 +488,7 @@ $(function() {
 					fileName = filename2;
 					
 					$.ajax({
-						url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
+						url: '${pageContext.servletContext.contextPath }/api/codingtest/fileInsert',
 						async: true,
 						type: 'post',
 						dataType: 'json',
@@ -536,7 +539,7 @@ $(function() {
 			buttons:{
 				"삭제":function(){
 					$.ajax({
-						url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
+						url: '${pageContext.servletContext.contextPath }/api/codingtest/fileDelete/'+codeNo,
 						async: true,
 						type: 'delete',
 						dataType:'json',
@@ -576,7 +579,7 @@ $(function() {
  	$(document).on("click", "#userfile-update", function() {
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
- 		codeNo = fileNo;
+ 		/* codeNo = fileNo; */
  		$('<div> <input type="text" style="z-index:10000" class="fileName-update" placeholder='+'.'+lang+'></div>')
 		    .attr("title","파일 수정")
 		    .dialog({
@@ -592,7 +595,7 @@ $(function() {
 						fileName = filename2;
 						console.log("fileName>>>>>>>>>>>>>>>>>",fileName);
 						$.ajax({
-							url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
+							url: '${pageContext.servletContext.contextPath }/api/codingtest/fileUpdate',
 							async: true,
 							type: 'post',
 							dataType: 'json',
@@ -604,14 +607,19 @@ $(function() {
 								'prevFileName':prevFileName
 							},
 							success: function(response) {
-				
-								 	layoutId = "layout-"+codeNo;
-									tempLayout = root.getItemsById(layoutId)[0];
-	
-									if(tempLayout != null) {
+								
+								layoutId = "layout-"+codeNo;
+							
+								
+							 	if(root != null){
+							 		console.log("root가 있을경우 해당");
+							 		tempLayout = root.getItemsById(layoutId)[0]; 
+									if(tempLayout != null){
 										tempLayout.setTitle(fileName);
 									}
+							 	}
 								
+
  								if(response.data.result == 'no'){
 									alert("이미 파일이 존재합니다.");//메시지 처리 필요
 									return;
@@ -642,7 +650,7 @@ $(function() {
  	
  	// 파일을 더블클릭 하면...
  	var tempFile = null;
- 	var fileNo = null
+ 	var fileNo = null;
  	var root = null;
 	var HashMap = new Map();
  	var fileMap = new Map();
@@ -651,6 +659,7 @@ $(function() {
  	
  	$(document).on("dblclick", ".file", function() {		
  		tempFile = $(this);
+ 		console.log("dblclick tempFile>>>>>>>",tempFile);
  		var language = $(this).data("language");
  		var fileName = $(this).data("file-name");
  		var packagePath = $(this).data("package-path");
@@ -689,7 +698,7 @@ $(function() {
 			HashMap.set("editor"+fileNo, editor);
 			
 			$.ajax({
-				url: '${pageContext.servletContext.contextPath }/api/codetree/find-code',
+				url: '${pageContext.servletContext.contextPath }/api/codingtest/find-code',
 				async: true,
 				type: 'post',
 				dataType:'json',
@@ -789,6 +798,8 @@ $(function() {
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
  		
+		  
+					
  		     
 	});
 	
@@ -851,7 +862,7 @@ $(function() {
  		var problemNo = "${saveVo.problemNo }";
  		$("#Run").blur();
  		$.ajax({
-			url: '${pageContext.servletContext.contextPath }/api/codetree/run',
+			url: '${pageContext.servletContext.contextPath }/api/codingtest/run',
 			async: true,
 			type: 'post',
 			dataType:'json',
@@ -904,7 +915,7 @@ $(function() {
   		var problemNo = "${saveVo.problemNo }";
   		
  		$.ajax({
-			url: '${pageContext.servletContext.contextPath }/api/codetree/save',
+			url: '${pageContext.servletContext.contextPath }/api/codingtest/save',
 			async: true,
 			type: 'post',
 			dataType:'json',
@@ -940,7 +951,7 @@ $(function() {
 
    	   		var problemNo = "${saveVo.problemNo }";
    	 		$.ajax({
-   				url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
+   				url: '${pageContext.servletContext.contextPath }/api/codingtest/submit',
    				async: true,
    				type: 'post',
    				dataType:'json',
