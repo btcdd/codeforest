@@ -234,6 +234,8 @@ public class CodeTreeController {
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] compileResult1Split =compileResult1.split("\n");
 		
+		int pandan = 1;
+		
 //		boolean[] check =  new boolean[examOutputSplit.length];
 
 		if(compileResult2 == null || compileResult2.equals("")) {
@@ -249,7 +251,7 @@ public class CodeTreeController {
 //					check[i] = true;
 				}else {
 					compileResult = false;
-					
+					pandan = 0;
 //					check[i] = false;
 				}
 			}
@@ -259,6 +261,13 @@ public class CodeTreeController {
 //				}
 //			}
 //			map.put("check", check);
+			
+			if(pandan == 0) {
+				compileResult = false;
+			}
+			else {
+				compileResult = true;
+			}
 			codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 			SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 			codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가				
