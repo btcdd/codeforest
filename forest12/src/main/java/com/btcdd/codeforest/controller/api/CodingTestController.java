@@ -304,7 +304,7 @@ public class CodingTestController {
 			for(int i=0;i<examOutputSplit.length;i++) {
 				map.put("examOutputSplitIndex",examOutputSplit[i]);//*
 				map.put("examOutputSplitLength",examOutputSplit.length);//3
-				map.put("BooleanEquals",(examOutputSplit[i]+"").equals(compileResult1Split[i]+""));//false
+				map.put("BooleanEquals",examOutputSplit[i]==compileResult1Split[i]);//false
 				if(examOutputSplit[i].equals(compileResult1Split[i]) == false) {
 					break;
 				}
