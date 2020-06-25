@@ -304,7 +304,7 @@ public class CodingTestController {
 //				compileResult = true;
 //			}
 			for(int i=0;i<examOutputSplit.length;i++) {
-				if(!examOutputSplit[i].equals(compileResult1Split[i])) {
+				if(!(examOutputSplit[i]+"").equals(compileResult1Split[i]+"")) {
 					compileResult = false;
 					break;
 				}
