@@ -247,10 +247,10 @@ public class CodeTreeController {
 				map.put("BooleanEquals3",tempString1.contentEquals(tempString2));
 				map.put("BooleanEquals4",tempString1.equalsIgnoreCase(tempString2));
 				if(tempString1.equals(tempString2)) {
-					compileResult = true;
+//					compileResult = true;
 //					check[i] = true;
 				}else {
-					compileResult = false;
+//					compileResult = false;
 					pandan = 0;
 //					check[i] = false;
 				}
@@ -268,6 +268,7 @@ public class CodeTreeController {
 			else {
 				compileResult = true;
 			}
+			map.put("compileResult", compileResult);
 			codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 			SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 			codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가				
@@ -278,7 +279,7 @@ public class CodeTreeController {
 		 
 
 		
-		map.put("compileResult", compileResult);
+		
 		map.put("compileError", compileError);
 		
 		
