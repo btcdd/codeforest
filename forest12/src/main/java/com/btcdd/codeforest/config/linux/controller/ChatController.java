@@ -70,7 +70,7 @@ public class ChatController {
 					rcpp.createFileAsSourceTrue(code);
 					rcpp.createFileAsSourceFake(code);
 					errorResult = rcpp.execCompile();
-					process = Runtime.getRuntime().exec("./cppTest" + time + ".exe");
+					process = Runtime.getRuntime().exec("/mainCompile/cppTest" + time + ".exe");
 				} else if("cs".equals(language)) {
 					RunCs rcs = new RunCs(time);
 					rcs.createFileAsSource(code);

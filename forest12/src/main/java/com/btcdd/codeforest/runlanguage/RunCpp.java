@@ -27,7 +27,7 @@ public class RunCpp {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("g++ -o cppTest" + time + ".exe fakeTest" + time + ".cpp");
+		buffer.append("g++ -o /mainCompile/cppTest" + time + ".exe mainCompile/fakeCppTest" + time + ".cpp");
 		
 		return buffer.toString();
 	}
