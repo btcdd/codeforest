@@ -69,7 +69,8 @@ public class ChatController {
 					process = Runtime.getRuntime().exec("./test.exe");
 				} else if("cpp".equals(language)) {
 					RunCpp rcpp = new RunCpp();
-					rcpp.createFileAsSource(code);
+					rcpp.createFileAsSourceTrue(code);
+					rcpp.createFileAsSourceFake(code);
 					errorResult = rcpp.execCompile();
 					process = Runtime.getRuntime().exec("./cppTest.exe");
 				} else if("cs".equals(language)) {
