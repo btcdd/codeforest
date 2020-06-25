@@ -80,15 +80,15 @@ public class ChatController {
 					RunJava rj = new RunJava(time);
 					rj.createFileAsSource(code);
 					errorResult = rj.execCompile();
-					process = Runtime.getRuntime().exec("java -cp . test" + time);
+					process = Runtime.getRuntime().exec("java -cp /mainCompile/test" + time);
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs(time);
 					rjs.createFileAsSource(code);
-					process = Runtime.getRuntime().exec("node test" + time + ".js");
+					process = Runtime.getRuntime().exec("node /mainCompile/test" + time + ".js");
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy(time);
 					rpy.createFileAsSource(code);
-					process = Runtime.getRuntime().exec("python3 test" + time + ".py");
+					process = Runtime.getRuntime().exec("python3 /mainCompile/test" + time + ".py");
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
