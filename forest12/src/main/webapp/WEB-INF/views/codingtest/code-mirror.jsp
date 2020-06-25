@@ -398,7 +398,8 @@ $(function() {
 		
 		$(document).on('mousedown','.userFile',function(e){
 			$(".contextmenu").hide();
-			if(e.which == 3){
+			if(e.which == 3){				
+				
 				console.log("userFile   $(this)>>>>>",$(this));
 				//tempFile = $(this);
 				codeNo = $(this).data("no");
@@ -607,18 +608,15 @@ $(function() {
 							},
 							success: function(response) {
 								
-								
+								layoutId = "layout-"+codeNo;
+								console.log("layoutId>>>>>>>>>>>",layoutId);
 								
 							 	if(root != null){
 							 		console.log("root가 있을경우 해당");
-									layoutId = "layout-"+codeNo;
-									console.log("layoutId>>>>>>>>>>>",layoutId);
-									tempLayout = root.getItemsById(layoutId)[0];
-									
-									console.log("tempLayout>>>>>>>>>>>",tempLayout); 
-									tempLayout.setTitle(fileName);	
-							 	}else{
-							 		console.log("root가 없다");
+							 		tempLayout = root.getItemsById(layoutId)[0]; 
+									if(tempLayout != null){
+										tempLayout.setTitle(fileName);
+									}
 							 	}
 								
 /* 								layoutId = "layout-"+codeNo;
@@ -806,8 +804,7 @@ $(function() {
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
- 		layoutId = "layout-"+codeNo;
-		tempLayout = root.getItemsById(layoutId)[0];
+ 		
 		  
 					
  		     
