@@ -249,6 +249,7 @@ public class CodeTreeController {
 					compileResult = true;
 				}else {
 					compileResult = false;
+					break;
 				}
 			}				
 			codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
