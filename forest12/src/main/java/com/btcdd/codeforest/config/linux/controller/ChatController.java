@@ -163,7 +163,6 @@ public class ChatController {
 						readBuffer.setLength(0);
 						while ((c = is.read()) != -1) {
 							char line = (char) c;
-							System.out.println(":" + line);
 							readBuffer.append(line);
 						}
 						System.out.println("sdf");
@@ -179,7 +178,7 @@ public class ChatController {
 		} 
 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(20);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
