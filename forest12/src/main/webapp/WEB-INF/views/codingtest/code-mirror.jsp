@@ -946,7 +946,8 @@ $(function() {
    		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
-   		
+   		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
+   		console.log('tempFile.data("language")'>>>>>>>>>>>>>>>>>>>>>>>>,tempFile.data("language"));
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
