@@ -121,6 +121,7 @@ public class ChatController {
 					e.printStackTrace();
 				}
 			});
+			
 
 			// 입력 stream을 BufferedWriter로 받아서 콘솔로부터 받은 입력을 Process 클래스로 실행시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
@@ -170,6 +171,9 @@ public class ChatController {
 					} finally {
 					}
 				});
+
+//				Executors.newCachedThreadPool().shutdown();
+
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} 
