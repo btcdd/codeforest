@@ -263,10 +263,10 @@ $(function() {
                <tr>
                   <td style="float:left; width: 150px;">
                      <select class="lang" name="lang">
-                         <option value="c">C</option>
+                         <option value="c" selected="selected">C</option>
                          <option value="cpp">C++</option>
                          <option value="cs">C#</option>
-                         <option value="java" selected="selected">JAVA</option>
+                         <option value="java">JAVA</option>
                          <option value="js">JavaScript</option>
                          <option value="py">Python</option>
                      </select>
