@@ -966,6 +966,9 @@ $(function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
+   					console.log("subProblemNo",response.data.subProblemNo);
+   					console.log("codeValue",response.data.codeValue);
+   					console.log("language",response.data.language);
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;
    					console.log("compileResult>>>>",compileResult);
