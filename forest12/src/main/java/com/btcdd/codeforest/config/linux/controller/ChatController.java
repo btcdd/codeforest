@@ -43,11 +43,6 @@ public class ChatController {
 	@MessageMapping("/chat")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-		
-		OutputStream stdin = null;
-		InputStream stderr = null;
-		InputStream stdout = null;
-		
 		String errorResult = "";
 		Boolean pandan = false;
 		
@@ -103,10 +98,9 @@ public class ChatController {
 				}
 			}
 			
-			stdin = process.getOutputStream();
-			stderr = process.getErrorStream();
-			stdout = process.getInputStream();
-			
+			OutputStream stdin = process.getOutputStream();
+			InputStream stderr = process.getErrorStream();
+			InputStream stdout = process.getInputStream();
 
 			StringBuffer readBuffer2 = new StringBuffer();
 
@@ -175,13 +169,7 @@ public class ChatController {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				stdin.close();
-				stderr.close();
-				stdout.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
 		}
 
 		try {
