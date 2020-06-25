@@ -17,8 +17,6 @@ public class RunCpp {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "cppTest.cpp";
-	private final Long TIME = System.currentTimeMillis();
 	private Long time;
 	
 	public RunCpp(Long time) {
