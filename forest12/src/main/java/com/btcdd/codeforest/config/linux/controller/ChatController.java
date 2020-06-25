@@ -150,13 +150,13 @@ public class ChatController {
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
 //						BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "euc-kr"));
-//						InputStreamReader is = new InputStreamReader(stdout, "utf-8");
+						InputStreamReader is = new InputStreamReader(stdout, "utf-8");
 //						InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
 					
-						BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
+//						BufferedReader reader = new BufferedReader(new InputStreamReader(stdout, "utf-8"));
 					int c = 0;
 					readBuffer.setLength(0);
-					while ((c = reader.read()) != -1) {
+					while ((c = is.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
 					}
@@ -173,7 +173,7 @@ public class ChatController {
 		}
 
 		try {
-			Thread.sleep(200);
+			Thread.sleep(300);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
