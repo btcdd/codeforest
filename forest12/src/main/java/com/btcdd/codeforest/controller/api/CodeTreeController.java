@@ -234,8 +234,7 @@ public class CodeTreeController {
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] compileResult1Split =compileResult1.split("\n");
 		
-
-		 
+		boolean[] check =  new boolean[examOutputSplit.length];
 		
 		if(compileResult2 == null || compileResult2.equals("")) {
 			for(int i=0;i<examOutputSplit.length;i++) {
@@ -247,11 +246,17 @@ public class CodeTreeController {
 				map.put("BooleanEquals4",tempString1.equalsIgnoreCase(tempString2));
 				if(tempString1.equals(tempString2)) {
 					compileResult = true;
+					check[i] = true;
 				}else {
 					compileResult = false;
-					break;
+					check[i] = false;
 				}
-			}				
+			}
+			for(int k=0;k<check.length;k++) {
+				if(check[k] ==false) {
+					compileResult = false;
+				}
+			}
 			codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 			SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 			codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가				
