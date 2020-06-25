@@ -614,6 +614,7 @@ $(function() {
 									layoutId = "layout-"+codeNo;
 									console.log("layoutId>>>>>>>>>>>",layoutId);
 									tempLayout = root.getItemsById(layoutId)[0];
+									
 									console.log("tempLayout>>>>>>>>>>>",tempLayout); 
 									tempLayout.setTitle(fileName);	
 							 	}else{
@@ -805,9 +806,9 @@ $(function() {
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
-/* 		layoutId = "layout-"+codeNo;
+ 		layoutId = "layout-"+codeNo;
 		tempLayout = root.getItemsById(layoutId)[0];
-		  */
+		  
 					
  		     
 	});
