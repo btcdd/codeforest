@@ -967,10 +967,14 @@ $(function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
-   					
    					console.log("response.data.examOutputSplit>>>",response.data.examOutputSplit);
-   					console.log("response.data.compileResult1Split>>>",response.data.compileResult1Split);
-   					   					
+   					console.log("response.data.compileResult1Split>>>",response.data.compileResult1Split);   					
+   					console.log("response.data.examOutputSplit[0]>>>",response.data.examOutputSplit[0]);
+   					console.log("response.data.compileResult1Split[0]>>>",response.data.compileResult1Split[0]);
+   					console.log("response.data.examOutputSplit[1]>>>",response.data.examOutputSplit[1]);
+   					console.log("response.data.compileResult1Split[1]>>>",response.data.compileResult1Split[1]);
+   					console.log("response.data.examOutputSplit[2]>>>",response.data.examOutputSplit[2]);
+   					console.log("response.data.compileResult1Split[2]>>>",response.data.compileResult1Split[2]);
    					
    					console.log("response.data.examOutput>>>",response.data.examOutput);
    					console.log("response.data.compileResult1>>>",response.data.compileResult1);
