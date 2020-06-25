@@ -35,7 +35,7 @@ public class RunJava {
 		try {
 			process = Runtime.getRuntime().exec("mkdir /mainCompile/java" + time);
 			
-			Thread.sleep(200);
+			Thread.sleep(500);
 			
 			file = new File("mainCompile/java" + time + "/Test.java");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
