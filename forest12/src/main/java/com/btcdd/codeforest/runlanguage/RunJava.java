@@ -21,16 +21,10 @@ public class RunJava {
 	private StringBuffer buffer;
 	private Process process;
 	private BufferedReader bufferedReader;
-	private BufferedReader bufferedReader2;
-	private BufferedWriter bufferedWriter;
 	private StringBuffer readBuffer;
 	
 	private File file;
 	private BufferedWriter bufferWriter;
-	
-	private final Long TIME = System.currentTimeMillis();
-	
-	private String content = "";
 	private Long time;
 	
 	public RunJava(Long time) {
@@ -39,7 +33,9 @@ public class RunJava {
 	
 	public void createFileAsSource(String source) {
 		try {
-			file = new File("mainCompile/test" + time + ".java");
+			process = Runtime.getRuntime().exec("mkdir /mainCompile/java" + time);
+			
+			file = new File("mainCompile/java" + time + "/Test.java");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -60,7 +56,7 @@ public class RunJava {
 	
 	public String execCompile() {
 		try {
-			process = Runtime.getRuntime().exec("javac -cp /mainCompile/ mainCompile/test" + time + ".java ");
+			process = Runtime.getRuntime().exec("javac -cp /mainCompile/java" + time + "/ mainCompile/java" + time + "/Test.java ");
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
@@ -75,32 +71,5 @@ public class RunJava {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-//	public void runProcess() throws IOException {
-//	}
-	
-	public String execCommand() {
-			try {
-				process = Runtime.getRuntime().exec("java -cp . Test");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-	}
-	
-	public String writer(String content) {
-		this.content = content;
-		return content;
-	}
-	
-	
-	private String runClass() {
-		buffer = new StringBuffer();
-		
-		buffer.append("java -cp . Test");
-		
-		return buffer.toString();
 	}
 }
