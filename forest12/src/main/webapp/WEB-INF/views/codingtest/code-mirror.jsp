@@ -613,7 +613,7 @@ $(function() {
 									/* layoutId = "layout-"+codeNo;
 									tempLayout = root.getItemsById(layoutId)[0];
 									
-									tempLayout.setTitle(fileName); */	
+									tempLayout.setTitle(fileName); 
 							 	}else{
 							 		console.log("root가 없다");
 							 	} */
