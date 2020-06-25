@@ -57,7 +57,7 @@ public class RunC {
 			String fakeSource = "";
 			String[] split = source.split("\n");
 			for(int i = 0; i < split.length; i++) {
-				if(split[i].contains("scanf")) {
+				if(split[i].contains("scanf") || split[i].contains("gets") || split[i].contains("fgets")) {
 					split[i] = "fflush(stdout);\n" + split[i] + "\n";
 				}
 				fakeSource += split[i] + "\n";

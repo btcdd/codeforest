@@ -57,7 +57,7 @@ public class RunCpp {
 			String fakeSource = "";
 			String[] split = source.split("\n");
 			for(int i = 0; i < split.length; i++) {
-				if(split[i].contains("scanf")) {
+				if(split[i].contains("scanf") || split[i].contains("cin") || split[i].contains("cin.get") || split[i].contains("cin.getline")) {
 					split[i] = "fflush(stdout);\n" + split[i] + "\n";
 				}
 				fakeSource += split[i] + "\n";
