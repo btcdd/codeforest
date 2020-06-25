@@ -606,21 +606,21 @@ $(function() {
 								'prevFileName':prevFileName
 							},
 							success: function(response) {
-/* 
+
 							 	if(codeNo != null){
 									layoutId = "layout-"+codeNo;
 									tempLayout = root.getItemsById(layoutId)[0];
 									
 									tempLayout.setTitle(fileName);	
-							 	} */
+							 	}
 								
-								layoutId = "layout-"+codeNo;
+/* 								layoutId = "layout-"+codeNo;
 								tempLayout = root.getItemsById(layoutId)[0];
  								if(tempLayout != null) {
 									
 									tempLayout.setTitle(fileName);
 
-								}
+								} */
  						
  								if(response.data.result == 'no'){
 									alert("이미 파일이 존재합니다.");//메시지 처리 필요
