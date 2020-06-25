@@ -300,28 +300,17 @@ public class CodingTestController {
 		
 		
 		if(compileResult2 == null || compileResult2.equals("")) {
-//			if(compileResult1.equals(examOutput)) {
-//				compileResult = true;
-//			}
 			for(int i=0;i<examOutputSplit.length;i++) {
-				
-				if(examOutputSplit[i]!=compileResult1Split[i]) {
-					compileResult = false;
+				if(examOutputSplit[i].equals(compileResult1Split[i]) == false) {		
 					break;
 				}
-//			
-//				
-//				if(!(examOutputSplit[i]+"").equals(compileResult1Split[i]+"")) {
-//					compileResult = false;
-//				
-//					break;
-//				}
-//				if(i == examOutputSplit.length-1) {
-//					compileResult = true;
-//					map.put("result", "여기가 왔다왔다왔다!!!!!!!!!!!");
-//				}
+				if(i == examOutputSplit.length-1) {
+					compileResult = true;
+				}				
 			}				
-			compileResult = true;
+			
+
+			
 		} else {
 			compileError = true;
 		}
