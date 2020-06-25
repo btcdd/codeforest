@@ -883,10 +883,10 @@ $(function() {
 				compileResult2 = response.data.result[1];
 				
 				if(response.data.result[1] == "") {
-					$(".terminal").append("<p>"+response.data.result[0]+"</p>");
+					$(".terminal").append("<pre>"+response.data.result[0]+"</pre>");
 				}
 				else {
-					$(".terminal").append("<p>"+response.data.result[1]+"</p>");
+					$(".terminal").append("<pre>"+response.data.result[1]+"</pre>");
 					
 				}
 				$(".terminal").append("<span class=\"prompt\">-></span> ");
