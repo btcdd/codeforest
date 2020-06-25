@@ -78,6 +78,11 @@ var editorArray = new Array();
 var editorArrayIndex = 0;
 
 
+
+
+
+$(function() {
+	fileFetchList();
 var saveFunction = function() {
 
 		
@@ -161,11 +166,6 @@ var runFunction = function() {
 		}							
 	}); 		
 };
-
-
-$(function() {
-	fileFetchList();
-	
 ////////////////// code-mirror /////////////////////////////   
 
    
