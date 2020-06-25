@@ -607,24 +607,24 @@ $(function() {
 							},
 							success: function(response) {
 								
-								/* 
+								
 							 	if(root != null){
 							 		console.log("root가 있을경우 해당");
 									/* layoutId = "layout-"+codeNo;
 									tempLayout = root.getItemsById(layoutId)[0];
 									
-									tempLayout.setTitle(fileName); 
+									tempLayout.setTitle(fileName); */	
 							 	}else{
 							 		console.log("root가 없다");
-							 	} */
+							 	}
 								
- 								
-								
+/* 								layoutId = "layout-"+codeNo;
+								tempLayout = root.getItemsById(layoutId)[0];
  								if(tempLayout != null) {
- 									layoutId = "layout-"+codeNo;
- 									tempLayout = root.getItemsById(layoutId)[0];
+									
 									tempLayout.setTitle(fileName);
-								}
+
+								} */
  						
  								if(response.data.result == 'no'){
 									alert("이미 파일이 존재합니다.");//메시지 처리 필요
@@ -769,7 +769,8 @@ $(function() {
 					console.error(status + ":" + e);
 				}							
 			});
-					
+			
+			
 	
  		}
  		else {
@@ -802,7 +803,6 @@ $(function() {
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
-	
  		
  		     
 	});
