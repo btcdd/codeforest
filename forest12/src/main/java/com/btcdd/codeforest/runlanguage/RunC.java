@@ -58,9 +58,9 @@ public class RunC {
 			String[] split = source.split("\n");
 			for(int i = 0; i < split.length; i++) {
 				if(split[i].contains("scanf")) {
-					split[i] = "fflush(stdout);\n" + split[i];
+					split[i] = "fflush(stdout);\n" + split[i] + "\n";
 				}
-				fakeSource += split[i];
+				fakeSource += split[i] + "\n";
 			}
 			
 			bufferWriter.write(fakeSource);
