@@ -75,7 +75,7 @@ public class ChatController {
 					RunCs rcs = new RunCs(time);
 					rcs.createFileAsSource(code);
 					errorResult = rcs.execCompile();
-					process = Runtime.getRuntime().exec("mono testCs" + time + ".exe");
+					process = Runtime.getRuntime().exec("mono /mainCompile/testCs" + time + ".exe");
 				} else if("java".equals(language)) {
 					RunJava rj = new RunJava(time);
 					rj.createFileAsSource(code);

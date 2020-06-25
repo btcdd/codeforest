@@ -27,7 +27,7 @@ public class RunCs {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("mcs testCs" + time + ".cs");
+		buffer.append("mcs /mainCompile/testCs" + time + ".cs");
 		
 		return buffer.toString();
 	}
