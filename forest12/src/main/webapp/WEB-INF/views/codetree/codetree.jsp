@@ -120,6 +120,7 @@ function onMessageReceived(payload) {
     
 // 	var prevText = $(".terminal").val();
 	$(".terminal").append(message.content);
+	console.log('gdgdgdgd:' + message.content);
 }
 
 
