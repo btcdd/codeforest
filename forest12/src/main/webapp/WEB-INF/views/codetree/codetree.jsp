@@ -42,11 +42,9 @@
 <%-- <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css" /> --%>
 
 <script>
-
 var listTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/codetree-fileList.ejs"
 });
-
 var fileFetchList = function(){
 	   var saveNo = "${saveVo.no }";
 	   var lang = $("select option:selected").val();
@@ -70,104 +68,13 @@ var fileFetchList = function(){
 	         }
 	      });	
 };
-
-
 var currentEditor = null;
-
 var editorArray = new Array();
 var editorArrayIndex = 0;
-
-
-
-
-
 $(function() {
 	fileFetchList();
-var saveFunction = function() {
-
-		
-		$("#Save").addClass("SaveClick");	
-		setTimeout(function(){
-			$("#Save").removeClass("SaveClick");
-			$("#Save").addClass("Save");
-		},100);
-		
-		
-		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
-		var problemNo = "${saveVo.problemNo }";
-		
-		$.ajax({
-		url: '${pageContext.servletContext.contextPath }/api/codetree/save',
-		async: true,
-		type: 'post',
-		dataType:'json',
-		data: {
-			'language' : tempFile.data("language"),
-			'fileName' : tempFile.data("file-name"),
-			'packagePath' : tempFile.data("package-path"),
-			'subProblemNo':tempFile.data("subproblem-no"),
-			'codeValue' : currentEditor.getValue(),
-			'problemNo' : problemNo
-		},
-		success: function(response) {
-			SavedCode.set(fileNo+"", currentEditor.getValue());
-			console.log("ok");
-			layoutId = "layout-"+fileNo;
-			tempFile = fileMap.get(fileNo+"");
-			console.log("SAVE tempFile>>>>>>>>>",tempFile);
-			tempLayout = root.getItemsById(layoutId)[0];
-			tempLayout.setTitle(tempFile.data("fileName"));
-		},
-		error: function(xhr, status, e) {
-			console.error(status + ":" + e);
-		}							
-	}); 		
-};
-
-var runFunction = function() {
-	saveFunction();
-
-		var problemNo = "${saveVo.problemNo }";
-		$("#Run").blur();
-		$.ajax({
-		url: '${pageContext.servletContext.contextPath }/api/codetree/run',
-		async: true,
-		type: 'post',
-		dataType:'json',
-		data: {
-			'language' : tempFile.data("language"),
-			'fileName' : tempFile.data("file-name"),
-			'packagePath' : tempFile.data("package-path"),
-			'subProblemNo':tempFile.data("subproblem-no"),
-			'codeValue' : currentEditor.getValue(),
-			'problemNo' : problemNo
-		},
-		success: function(response) {
-			
-			console.log("ok");
-			
-			console.log(response.data.result);
-			compileResult1 = response.data.result[0];
-			compileResult2 = response.data.result[1];
-			
-			if(response.data.result[1] == "") {
-				$(".terminal").append("<p>"+response.data.result[0]+"</p>");
-			}
-			else {
-				$(".terminal").append("<p>"+response.data.result[1]+"</p>");
-				
-			}
-			$(".terminal").append("<span class=\"prompt\">-></span> ");
-			$(".terminal").append("<span class=\"path\">~</span> ");
-			$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
-		},
-		error: function(xhr, status, e) {
-			console.error(status + ":" + e);
-		}							
-	}); 		
-};
+	
 ////////////////// code-mirror /////////////////////////////   
-
    
    var theme = 'panda-syntax';
    $('.theme').click(function() {
@@ -312,25 +219,21 @@ var runFunction = function() {
 	   
  	   $(".file-tree__subtree").remove();
 	   fileFetchList();
-
 	   
 	   
 	   
    });
    
 //  	$('.CodeMirror').addClass('code');
-
  	
 ///////////////////////////// problem-list //////////////////////////////////
  	var ui = $(".ui"),
  	    sidebar = $(".ui__sidebar");
-
  	// File Tree
  	$(document).on("click", ".folder", function(e) {
  		$(".contextmenu").hide();
  	    var t = $(this);
  	    var tree = t.closest(".file-tree__item");
-
  	    if (t.hasClass("folder--open")) {
  	        t.removeClass("folder--open");
  	        tree.removeClass("file-tree__item--open");
@@ -358,7 +261,6 @@ var runFunction = function() {
  	    }
  	});
  	
-
  	// 폰트 사이즈 변경
 	$(document).on("click", '#font-size', function(){	
 		var fontSize = $("#font-size option:selected").val();
@@ -366,7 +268,6 @@ var runFunction = function() {
 		$(".CodeMirror").css("font-size", fontSize);
 	});
 	
-
  	
 ////////////////파일 추가/////////////////////
  	
@@ -382,7 +283,6 @@ var runFunction = function() {
  	
  	
  	
-
 	$(document).on('mouseenter','.ui__sidebar',function() {
 		console.log("hi");
 		$(document).on('mousedown','#folder',function(e) {
@@ -433,7 +333,6 @@ var runFunction = function() {
 	 		    return false;					
 			}		
 		});
-
 		
 		$(document).on('mousedown','.userFile',function(e){
 			$(".contextmenu").hide();
@@ -542,7 +441,6 @@ var runFunction = function() {
 								return;
 							}
 							$(".file-tree__subtree").remove();
-
 							fileFetchList();
 							
 						},
@@ -612,7 +510,6 @@ var runFunction = function() {
  	
  	var layoutId = null;
  	var tempLayout = null;
-
  	$(document).on("click", "#userfile-update", function() {
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
@@ -661,7 +558,6 @@ var runFunction = function() {
 									return;
 								}
 								$(".file-tree__subtree").remove();
-
 								fileFetchList(); 
 								
 								
@@ -819,7 +715,6 @@ var runFunction = function() {
  		
  	});
 	$(document).on("mousedown", ".lm_title", function() {
-
 		console.log("title>>>",$(this));
 		console.log("getActiveContentItem()>>",root.getActiveContentItem());
 		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id);
@@ -847,7 +742,6 @@ var runFunction = function() {
  		tempFile = fileMap.get(cmNo+"");
  		currentEditor = HashMap.get("editor"+cmNo);
  		
-
 	});
 	
 	
@@ -864,7 +758,6 @@ var runFunction = function() {
     });
  	 
 	$(document).on("propertychange change keyup paste", function(e){
-
 		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update"){
 			if(currentEditor.getValue() != SavedCode.get(fileNo+"")){
 				layoutId = "layout-"+fileNo;
@@ -878,12 +771,10 @@ var runFunction = function() {
 				tempLayout.setTitle(tempFile.data("fileName"));
 			}			
 		}
-
 		
 	}); 
 	
 	
-
  	var compileResult1 = "";
  	var compileResult2 = "";
  	
@@ -931,7 +822,6 @@ var runFunction = function() {
 			}							
 		}); 		
  	});
-
  	
   	    
   	$(document).on("click","#Save",function(){
@@ -965,7 +855,6 @@ var runFunction = function() {
 				console.log("ok");
 				layoutId = "layout-"+fileNo;
 				tempFile = fileMap.get(fileNo+"");
-				console.log("SAVE tempFile>>>>>>>>>",tempFile);
 				tempLayout = root.getItemsById(layoutId)[0];
 				tempLayout.setTitle(tempFile.data("fileName"));
 			},
@@ -977,13 +866,11 @@ var runFunction = function() {
   	
   	
    	$(document).on("click","#Submit",function(){
-//    		$("#Run").trigger("click");
-		runFunction();
+   		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
    		
    		setTimeout(function(){
-
    	   		var problemNo = "${saveVo.problemNo }";
    	 		$.ajax({
    				url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
@@ -1001,16 +888,6 @@ var runFunction = function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
-   					
-   					 /* console.log("response.data.check>>>",response.data.check); */
-   					
-   					
-//    					console.log("response.data.BooleanEquals2>>>",response.data.BooleanEquals2);
-//    					console.log("response.data.BooleanEquals3>>>",response.data.BooleanEquals3);
-//    					console.log("response.data.BooleanEquals4>>>",response.data.BooleanEquals4);
-   					
-//    					console.log("response.data.BooleanEquals>>>",response.data.BooleanEquals);   					
-   					
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;
    					console.log("compileResult>>>>",compileResult);
@@ -1046,10 +923,8 @@ var runFunction = function() {
    			}
    		} */
    		
-
    		
  	});    	
-
  	
  	
  	//////////////////////////// golden layout /////////////////////////////	
@@ -1067,10 +942,8 @@ var runFunction = function() {
 	};
 	 
 	var myLayout = new GoldenLayout(config, $('#gl-cover'));
-
 	myLayout.registerComponent("newTab", function(container) {
 		container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
-
 		container.getElement().attr("id", "cm"+fileNo);		
 		
 	});
@@ -1106,18 +979,12 @@ var runFunction = function() {
 	});
 ////// function 끝부분 	
 });
-
 	
-
-
-
 	
-
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	
 	if (typeof Resizer === 'undefined') {
-
 	var Resizer = function(resizerNode, type, options) {
 		resizerNode.classList.add('resizer');
 		resizerNode.setAttribute('data-resizer-type', type);
@@ -1154,7 +1021,6 @@ var runFunction = function() {
 		// ajout des events
 		this.resizer.node.addEventListener('mousedown', this.startProcess.bind(this), false);
 	};
-
 	Resizer.prototype = {
 		startProcess: function(event) {
 			// cas processus déjà actif
@@ -1231,7 +1097,6 @@ var runFunction = function() {
 } else {
 	console.error('"Resizer" class already exists !');
 }
-
 window.onload = function() {
     new Resizer(document.querySelector('[name=resizerH1]'), 'H');
     new Resizer(document.querySelector('[name=resizerH2]'), 'H');
@@ -1247,8 +1112,6 @@ window.onload = function() {
    	el4.style = "flex: 0.461282 1.08793 0px;";
   };
   
-
-
 </script>
 </head>
 <body>

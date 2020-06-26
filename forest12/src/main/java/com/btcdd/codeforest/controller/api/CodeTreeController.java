@@ -241,8 +241,17 @@ public class CodeTreeController {
 			if(compileResult2 == null || compileResult2.equals("")) {
 				compileResult = true;
 				for(int i = 0; i < examOutputSplit.length; i++) {
-					if((examOutputSplit[i]).equals(compileResult1Split[i]) == false) {
-						compileResult = false;
+					if(i == examOutputSplit.length-1) {
+						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
+							compileResult = false;
+							break;
+						}
+					}
+					else {
+						if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
+							compileResult = false;
+							break;
+						}
 					}
 				}
 			}
