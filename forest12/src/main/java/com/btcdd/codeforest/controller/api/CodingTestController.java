@@ -324,11 +324,11 @@ public class CodingTestController {
 		map.put("compileError", compileError);
 		
 		map.put("compileResult", compileResult);
-		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
+		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,userStartTime);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		
-		map.put("userStartTime",userStartTime);
+		
 		
 		return JsonResult.success(map);
 	}			

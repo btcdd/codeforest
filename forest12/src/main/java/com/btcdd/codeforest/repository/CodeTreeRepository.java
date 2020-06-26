@@ -1,5 +1,6 @@
 package com.btcdd.codeforest.repository;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.btcdd.codeforest.linux.CodeTreeLinux;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.SaveVo;
@@ -139,7 +139,19 @@ public class CodeTreeRepository {
 		map.put("codeValue", codeValue);
 		map.put("language", language);
 		map.put("answer", answer);
+		map.put("userStartTime", null);
 
+		return sqlSession.insert("codetree.submitSubProblem", map);
+	}	
+	
+	public int submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, String answer,Date userStartTime) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("authUserNo", authUserNo);
+		map.put("subProblemNo", subProblemNo);
+		map.put("codeValue", codeValue);
+		map.put("language", language);
+		map.put("answer", answer);
+		map.put("userStartTime", userStartTime);
 
 		return sqlSession.insert("codetree.submitSubProblem", map);
 	}
@@ -169,7 +181,16 @@ public class CodeTreeRepository {
 		map.put("submitNo", submitNo);
 		map.put("codeValue", codeValue);
 		map.put("answer", answer);
-
+		map.put("userStartTime", null);
+		
+		return sqlSession.update("codetree.updateSubProblem", map);
+	}	
+	public int updateSubProblem(Long submitNo,String codeValue, String answer,Date userStartTime) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("submitNo", submitNo);
+		map.put("codeValue", codeValue);
+		map.put("answer", answer);
+		map.put("userStartTime", userStartTime);
 		
 		return sqlSession.update("codetree.updateSubProblem", map);
 	}
