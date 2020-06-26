@@ -185,7 +185,7 @@ public class CodingTestController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+				 
 				//관우-유진 코드
 				/////////////////////////////////////////////////////////////////////////////////////				
 				Long[] subProblemNoArray = new Long[subProblemList.size()];
