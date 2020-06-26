@@ -286,6 +286,12 @@ $(function() {
 			success: function(response) {
 				var table = "";
 				for(var i in response.data) {
+					if(response.data[i].solveTime == null) {
+						response.data[i].solveTime = "";
+					}
+					if(response.data[i].name == null) {
+						response.data[i].name = "";
+					}
 					table += "<tbody id='tbody'>" +
 							"<tr><td class='discard' id='go-codetree'>" + "<i class='fas fa-laptop-code' data-no='" + response.data[i].userNo + "'></i>" + "</td>" +
 							"<td id='name'>" + response.data[i].name + "</td>" +

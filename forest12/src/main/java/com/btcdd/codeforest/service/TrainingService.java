@@ -1,6 +1,7 @@
 package com.btcdd.codeforest.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -457,5 +458,14 @@ public class TrainingService {
 	public List<Long> findSubProblemNo(Long problemNo) {
 		return trainingRepository.findSubProblemNo(problemNo);
 	}
+
+	public List<SavePathVo> findSavePathAndFileName(Long subProblemNo, Long userNo, String language) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("subProblemNo", subProblemNo);
+		map.put("userNo", userNo);
+		map.put("language", language);
+		return trainingRepository.findSavePathAndFileName(map);
+	}
+
 
 }

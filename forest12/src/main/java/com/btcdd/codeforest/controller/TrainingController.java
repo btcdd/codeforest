@@ -180,9 +180,12 @@ public class TrainingController {
 			@PathVariable("subProblemNo") Long subProblemNo,
 			Model model) {
 		
+		//문제 풀은 사람들의 정보가 필요함(공개여부가 y and 맞은 사람들만...)
+		
 		model.addAttribute("subProblemNo", subProblemNo);
 		model.addAttribute("index", index);
 		model.addAllAttributes(trainingService.selectAnswerList(subProblemNo));
+		
 		return "training/answer-list";
 	}
 }

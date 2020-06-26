@@ -30,12 +30,16 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/js/codemirror.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/mode/clike.js"></script>
 
+<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/goldenlayout.min.js"></script>
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
+<link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
+
 <script>
 var page = '1';
 var language = '';
 
 var originList = function(page, language) {
-	
+	var subProblemNo = '${subProblemNo}';
 	$.ajax({
 		url: '${pageContext.request.contextPath }/api/training/answerlist',
 		async: false,
@@ -45,7 +49,7 @@ var originList = function(page, language) {
 		data: {
 			'page': page,
 			'language': language,
-			'subProblemNo' : ${subProblemNo}
+			'subProblemNo' : subProblemNo
 		},
 		success: function(response){
 			if(response.result != "success"){
@@ -72,7 +76,7 @@ var fetchList = function() {
             '<td>' + map.list[i].nickname + '</td>' + 
             '<td>' + map.list[i].lang + '</td>' + 
             '<td>' + map.list[i].tryCnt + '</td>' + 
-            '<td class="' + i + '" id="showCode">코드 보기</td>' + 
+            '<td class="' + i + '" id="showCode" data-user-no="' + map.list[i].userNo + '" data-language="' + map.list[i].lang + '">코드 보기</td>' + 
             '<td id="hiddenCode' + i + '" style="display:none">' + map.list[i].code + '</td>' + 
          '</tr>';		
 	}
@@ -103,24 +107,65 @@ var fetchList = function() {
 }
 
 $(function() {
-   var code = $('.CodeMirror')[0];
-   var editor = CodeMirror.fromTextArea(code, {
-   		lineNumbers: true,
-   		mode: 'text/x-java',
-   		theme: 'panda-syntax',
-   		matchBrackets: true
-   });
+//    var code = $('.CodeMirror')[0];
+//    var editor = CodeMirror.fromTextArea(code, {
+//    		lineNumbers: true,
+//    		mode: 'text/x-java',
+//    		theme: 'panda-syntax',
+//    		matchBrackets: true
+//    });
    
    $('.theme').click(function() {
 	   var theme = $(".theme option:selected").val();
 	   
-	   editor.setOption("theme", theme);
+// 	   editor.setOption("theme", theme);
    });
    
+   
+   // 파일 열기
    $(document).on('click', '#showCode', function(event) {
-	  var index = $(this).attr("class");
-	  var code = $("#hiddenCode" + index).text();
-	  editor.setValue(code);
+// 	  var index = $(this).attr("class");
+// 	  var code = $("#hiddenCode" + index).text();
+// 	  editor.setValue(code);
+
+	  var userNo = $(this).data("user-no");
+	  var language = $(this).data("language");
+	  var subProblemNo = '${subProblemNo }';
+	  
+	  $.ajax({
+		url: '${pageContext.request.contextPath }/api/training/find-code',
+		async: true,
+		type: 'post',
+		dataType: 'json',
+		data: {
+			'userNo': userNo,
+			'subProblemNo' : subProblemNo,
+			'language' : language
+		},
+		success: function(response){
+			
+			for(var i = 0; i < response.data.fileNames.length; i++) {
+				consoele.log("fileNames : ", response.data.fileNames[i]);
+				consoele.log("codes : ", response.data.codes[i]);
+			}
+			
+// 			var root = myLayout.root.contentItems[0] || myLayout.root;
+			
+// 			root.addChild({
+// 				type : "component",
+// 				componentName : "newTab",
+// 				title : fileName,
+// 				id : "layout-"+fileNo
+// 			});
+			
+			
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
+		
+	  
    });
    
    // ---------------------------------------------------------------
@@ -150,6 +195,34 @@ $(function() {
 		language = $(".language option:selected").val();
 		originList(page, language);
 	});
+	
+	
+	
+	
+ 	//////////////////////////// golden layout /////////////////////////////	
+	var config = {
+ 		settings: {
+ 			selectionEnabled: true
+ 		},
+	    content: [
+		      {
+		        type: 'stack',
+		      	isClosable: false,
+		        content: [
+		        ]
+		    }]
+	};
+	 
+	var myLayout = new GoldenLayout(config, $('.code-mirror'));
+	myLayout.registerComponent("newTab", function(container) {
+		container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
+// 		container.getElement().attr("id", "cm"+fileNo);		
+		
+	});
+	
+	myLayout.init();
+	
+/////////////////// 끝부분	
 });
 
 </script>
@@ -256,8 +329,7 @@ $(function() {
 	           <option value="ttcn">ttcn</option>
 	           <option value="solarized">solarized</option>
 	         </optgroup>
-	       </select>
-	       <textarea name="code" class="CodeMirror" id="code"></textarea>
+	       </select>	       
       </div>
    </div>
    <c:import url="/WEB-INF/views/include/footer.jsp" />

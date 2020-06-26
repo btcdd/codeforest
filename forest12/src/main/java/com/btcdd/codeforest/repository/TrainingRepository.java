@@ -260,4 +260,8 @@ public class TrainingRepository {
 	public List<Long> findSubProblemNo(Long problemNo) {
 		return sqlSession.selectList("training.findSubProblemNo", problemNo);
 	}
+
+	public List<SavePathVo> findSavePathAndFileName(Map<String, Object> map) {
+		return sqlSession.selectList("training.findSavePathAndFileName", map);
+	}
 }

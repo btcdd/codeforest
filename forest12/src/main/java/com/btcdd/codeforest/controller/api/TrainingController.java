@@ -1,18 +1,22 @@
 package com.btcdd.codeforest.controller.api;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.btcdd.codeforest.dto.JsonResult;
+import com.btcdd.codeforest.linux.CodeTreeLinux;
 import com.btcdd.codeforest.linux.TrainingLinux;
 import com.btcdd.codeforest.service.TrainingService;
+import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.UserVo;
 
 @RestController("TrainingController")
@@ -24,6 +28,8 @@ public class TrainingController {
 	
 	private TrainingLinux trainingLinux = new TrainingLinux();
 
+	private CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
+	
 	@PostMapping(value = "/list")
 	public JsonResult originProblemList(String page, String kwd, String category, String[] checkValues) {
 
@@ -107,6 +113,33 @@ public class TrainingController {
 
 		return JsonResult.success(null);
 	}
+	
+	// 코드 보기 눌렀을 때 파일 찾아오기!
+	@PostMapping("/find-code")
+	public JsonResult findCode(Long subProblemNo, Long userNo, String language) {
+		
+		System.out.println("subProblemNo : " + subProblemNo);
+		System.out.println("userNo : " + userNo);
+		System.out.println("language : " + language);
+		
+		List<SavePathVo> list = trainingService.findSavePathAndFileName(subProblemNo, userNo, language);
+		List<String> fileNames = new ArrayList();
+		List<String> codes = new ArrayList();
+		Map<String, Object> map = new HashMap<>();
+		for(int i = 0; i < list.size(); i++) {
+//			map.put(list.get(i).getFileName(), codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
+//			map.put("file"+i, list.get(i).getFileName());
+//			map.put("code"+i, codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
+			fileNames.add(list.get(i).getFileName());
+			codes.add(codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
+		}
+		
+		map.put("fileNames", fileNames);	
+		map.put("codes", codes);
+		
+		return JsonResult.success(map);
+	}
+	
 }
 
 /*
