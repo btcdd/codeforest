@@ -139,7 +139,7 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 			
-			model.addAttribute("UserStartTime", "no");
+			model.addAttribute("UserStartTimeEnter",false);
 			
 			return "codingtest/code-mirror";
 		}
@@ -221,7 +221,7 @@ public class CodingTestController {
 			int sec = cal.get(Calendar.SECOND);
 			System.out.println("현재 시각은 " + year + "년도 " + month + "월 " + day + "일 " + hour + "시 " + min + "분 " + sec + "초입니다.");
 			
-
+			model.addAttribute("UserStartTimeEnter",true);
 			model.addAttribute("UserStartTimeYear",year);
 			model.addAttribute("UserStartTimeMonth",month);
 			model.addAttribute("UserStartTimeDay",day);

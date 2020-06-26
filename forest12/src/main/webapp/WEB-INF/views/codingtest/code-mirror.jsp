@@ -73,19 +73,21 @@ var fileFetchList = function(){
 
 
 
+if("${UserStartTimeEnter}"){
+	var userStartTimeYear = "${UserStartTimeYear}";
+	var userStartTimeMonth ="${UserStartTimeMonth}";
+	var userStartTimeDay ="${UserStartTimeDay}";
+	var userStartTimeHour ="${UserStartTimeHour}";
+	var userStartTimeMin ="${UserStartTimeMin}";
+	var userStartTimeSec = "${UserStartTimeSec}";
+	console.log("userStartTimeYear>>",userStartTimeYear);
+	console.log("userStartTimeMonth>>",userStartTimeMonth);
+	console.log("userStartTimeDay>>",userStartTimeDay);
+	console.log("userStartTimeHour>>",userStartTimeHour);
+	console.log("userStartTimeMin>>",userStartTimeMin);
+	console.log("userStartTimeSec>>",userStartTimeSec);
+}
 
-var userStartTimeYear = "${UserStartTimeYear}";
-var userStartTimeMonth ="${UserStartTimeMonth}";
-var userStartTimeDay ="${UserStartTimeDay}";
-var userStartTimeHour ="${UserStartTimeHour}";
-var userStartTimeMin ="${UserStartTimeMin}";
-var userStartTimeSec = "${UserStartTimeSec}";
-console.log("userStartTimeYear>>",userStartTimeYear);
-console.log("userStartTimeMonth>>",userStartTimeMonth);
-console.log("userStartTimeDay>>",userStartTimeDay);
-console.log("userStartTimeHour>>",userStartTimeHour);
-console.log("userStartTimeMin>>",userStartTimeMin);
-console.log("userStartTimeSec>>",userStartTimeSec);
 
 
 
