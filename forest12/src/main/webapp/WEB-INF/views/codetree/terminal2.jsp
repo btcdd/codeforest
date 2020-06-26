@@ -105,10 +105,6 @@ function appendCommand(str) {
 //	page. We also handle arrow keys for command history.
 */
 
-var prevCursor = 0;
-var cursorPandan = false;
-var result = '';
-
 $(document).keydown(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {
 		e = e || window.event;
@@ -147,15 +143,28 @@ $(document).keydown(function(e) {
 	}
 });
 
-$(document).keypress(function(e) {
+var prevCursor = 0;
+var cursorPandan = false;
+var result = '';
+
+$(document).keypress(e, function(key) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {		
 		// Make sure we get the right event
 		e = e || window.event;
-		var keyCode = typeof e.which === "number" ? e.which : e.keyCode;
+// 		var keyCode = typeof e.which === "number" ? e.which : e.keyCode;
 		
 	    if(cursorPandan == false) {
 	    	prevCursor = $(this).prop('selectionStart') - 1;
 	    	cursorPandan = true;
+    	}
+    	if (key.keyCode == 13) {
+    		cursorPandan = false;
+    		
+	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        
+	        sendMessage(event, result);
+	        result = '';
+	        return;
     	}
 		// Which key was pressed?
 		switch (keyCode) {

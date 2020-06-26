@@ -1116,8 +1116,6 @@ $(function() {
     var cursorPandan = false;
     $('.terminal').keyup(event, function(key) {
     	
-    	console.log('asdf');
-    	
     	if(cursorPandan == false) {
 	    	prevCursor = $(this).prop('selectionStart') - 1;
 	    	cursorPandan = true;
@@ -1130,7 +1128,6 @@ $(function() {
 	        sendMessage(event, result);
 	        result = '';
     	}
-    	
    });
 	
 	
