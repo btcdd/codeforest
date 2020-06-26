@@ -100,8 +100,6 @@ function onError(error) {
 
 function sendMessage(event, res) {
 	
-	console.log('res:', res);
-	
 	tmp = res;
 	
     var messageContent = res;
@@ -1112,18 +1110,19 @@ $(function() {
     var cursorPandan = false;
     $('.terminal').keyup(event, function(key) {
     	
-    	if(cursorPandan == false) {
-	    	prevCursor = $(this).prop('selectionStart') - 1;
-	    	cursorPandan = true;
-    	}
-    	if (key.keyCode == 13) {
-    		cursorPandan = false;
+    	console.log('ㅎㅇㅎㅇㅎㅇㅎㅇ');
+//     	if(cursorPandan == false) {
+// 	    	prevCursor = $(this).prop('selectionStart') - 1;
+// 	    	cursorPandan = true;
+//     	}
+//     	if (key.keyCode == 13) {
+//     		cursorPandan = false;
     		
-	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+// 	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
 	        
-	        sendMessage(event, result);
-	        result = '';
-    	}
+// 	        sendMessage(event, result);
+// 	        result = '';
+//     	}
     	
    });
 	
