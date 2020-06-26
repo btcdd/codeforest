@@ -289,7 +289,7 @@ public class CodingTestController {
 		Map<String, Object> map = new HashMap<>();
 		
 		SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date userStartTimeTransFormat;
+		Date userStartTimeTransFormat = null;
 		try {
 			userStartTimeTransFormat = TransFormat.parse(userStartTime);
 			map.put("userStartTimeTransFormat", userStartTimeTransFormat);

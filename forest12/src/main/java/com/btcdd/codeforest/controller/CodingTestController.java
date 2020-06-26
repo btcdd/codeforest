@@ -217,10 +217,8 @@ public class CodingTestController {
 						
 
 			
-			SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
-			Date time = new Date();
-			String userStartTime = format.format(time);
-			userTimeEnter.put("userStartTime", userStartTime);
+			
+			userTimeEnter.put("userStartTime", new Date());
 			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
 		
 			
