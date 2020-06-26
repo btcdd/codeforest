@@ -46,18 +46,12 @@
 
 <script>
 var code;
-
-
-
-
 var result;
 var tmp = '';
+var tempFile = null;
 var lang;
 var editor;
 var execPandan;
-
-
-
 
 //채팅 시작하기
 function connect(event) {
@@ -82,9 +76,11 @@ function onConnected() {
 
     execPandan = true;
     var chatMessage = {
-            language:$(".lang option:selected").val(),
-    		code:code,
+            language: tempFile.data("language"),
+    		code: code,
     		execPandan: execPandan,
+    		fileName: tempFile.data("file-name"),
+    		pakcagePath: tempFile.data("package-path"),
             type: 'CHAT'
         };
     execPandan = false;
@@ -688,7 +684,6 @@ $(function() {
  	
  	
  	// 파일을 더블클릭 하면...
- 	var tempFile = null;
  	var fileNo = null;
  	var root = null;
 	var HashMap = new Map();
@@ -1110,7 +1105,6 @@ $(function() {
     var cursorPandan = false;
     $('.terminal').keyup(event, function(key) {
     	
-    	console.log('ㅎㅇㅎㅇㅎㅇㅎㅇ');
 //     	if(cursorPandan == false) {
 // 	    	prevCursor = $(this).prop('selectionStart') - 1;
 // 	    	cursorPandan = true;

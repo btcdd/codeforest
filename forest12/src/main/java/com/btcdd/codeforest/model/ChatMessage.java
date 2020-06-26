@@ -4,48 +4,22 @@ public class ChatMessage {
 
     private MessageType type;
     private String content;
-    private String sender;
-    private String outputContent;
-    private String language;
-    private String code;
-
-    public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
+    
 	public MessageType getType() {
-        return type;
-    }
-
-    public void setType(MessageType type) {
-        this.type = type;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
+		return type;
+	}
+	public void setType(MessageType type) {
+		this.type = type;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	@Override
+	public String toString() {
+		return "ChatMessage [type=" + type + ", content=" + content + "]";
+	}
 }

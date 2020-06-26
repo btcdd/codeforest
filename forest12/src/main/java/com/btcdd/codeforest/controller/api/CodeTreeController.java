@@ -1,5 +1,6 @@
 package com.btcdd.codeforest.controller.api;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -211,6 +212,14 @@ public class CodeTreeController {
 		
 		// 관우 유진 코드
 		//////////
+		if("c".equals(language) || "cpp".equals(language)) {
+			try {
+				Runtime.getRuntime().exec("mkdir " + packagePath + "/" + language + "/Main");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			codeTreeLinux.createFileAsSourceFake(codeValue, packagePath + "/" + language + "/Main/" + fileName);
+		}
 		codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
 		
 		//////////
