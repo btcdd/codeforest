@@ -3,6 +3,7 @@ package com.btcdd.codeforest.config.linux.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,6 +44,15 @@ public class CodeTreeChatController {
 	@MessageMapping("/codetree")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+		
+		try {
+			process = Runtime.getRuntime().exec("mkdir hihihihihi");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}		
+		/*
+		
 		String errorResult = "";
 		Boolean pandan = false;
 		
@@ -180,6 +190,8 @@ public class CodeTreeChatController {
 			chatMessage.setContent(readBuffer.toString() + "\n프로그램이 종료되었습니다!");
 			return chatMessage;
 		}
+		*/
+		chatMessage.setContent("ㅎㅇㅎㅇㅎㅇㅎ~~~~~");
 		
 		return chatMessage;
 	}
