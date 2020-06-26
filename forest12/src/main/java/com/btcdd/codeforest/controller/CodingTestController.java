@@ -172,9 +172,9 @@ public class CodingTestController {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			
-			SaveVo saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
+			SaveVo saveVO = null;
 			
-			if(saveVO.getEnterTime() == null) {
+			if(saveVO == null) {
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				Date time = new Date();
 				String userStartTime = format.format(time);
@@ -194,7 +194,9 @@ public class CodingTestController {
 					System.out.println("subProblemNoArray[i]>>>>"+subProblemNoArray[i]);
 				}				
 				testService.insertSaveProblemNo(authUser.getNo(), problemNo,userStartTime2); //save에 저장 처음입장시간값 저장
-
+				
+				saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
+				
 				testService.insertSavePath(subProblemNoArray, saveVO.getNo(), authUser.getNo(), problemNo);
 				
 				testService.insertCode(saveVO.getNo());
