@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/terminal2.css">
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:200' rel='stylesheet' type='text/css'>
 
@@ -96,9 +94,8 @@ function clearCommand() {
          erase(command.length);
    }
 }
-var pp = false;
 function appendCommand(str) {
-   terminal.append("<span>" + str + "</span>");
+   terminal.append(str);
    command += str;
 }
 /*
@@ -120,7 +117,6 @@ $(document).keydown(function(e) {
       }
       // UP or DOWN
       if (keyCode === 38 || keyCode === 40) {
-    	  	e.preventDefault();
             // Move up or down the history
             if (keyCode === 38) {
                   // UP
@@ -145,7 +141,7 @@ $(document).keydown(function(e) {
       $('.window').scrollTop($('.window').prop('scrollHeight'));
    }
 });
-$(document).on('keypress',function(e) {
+$(document).keypress(function(e) {
    if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {      
       // Make sure we get the right event
       e = e || window.event;
@@ -169,7 +165,7 @@ $(document).on('keypress',function(e) {
                         break;
                   }
             default:
-                  {		
+                  {
                         appendCommand(String.fromCharCode(keyCode));
                   }
       }
@@ -185,16 +181,15 @@ terminal.append("Last login: " + date + " on ttys000\n"); displayPrompt();
 });
 </script>
 
-<textarea id="fake-input" style="display: none"></textarea>
 <div class="window" id="window">
       <div class="handle">
             <div class="buttons">
-                  <button class="close">
-                  </button>
-                  <button class="minimize">
-                  </button>
-                  <button class="maximize">
-                  </button>
+<!--                   <button class="close"> -->
+<!--                   </button> -->
+<!--                   <button class="minimize"> -->
+<!--                   </button> -->
+<!--                   <button class="maximize"> -->
+<!--                   </button> -->
             </div>
             <span class="title"></span>
       </div>

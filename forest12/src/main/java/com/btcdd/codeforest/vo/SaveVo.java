@@ -1,5 +1,7 @@
 package com.btcdd.codeforest.vo;
 
+import java.sql.Timestamp;
+
 public class SaveVo {
 	Long no;
 	Long userNo;
@@ -9,6 +11,15 @@ public class SaveVo {
 	String nickname;
 	String userName;
 	String userEmail;
+	private Timestamp enterTime;
+
+	public Timestamp getEnterTime() {
+		return enterTime;
+	}
+
+	public void setEnterTime(Timestamp enterTime) {
+		this.enterTime = enterTime;
+	}
 
 	public Long getNo() {
 		return no;
