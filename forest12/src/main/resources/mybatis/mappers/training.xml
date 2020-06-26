@@ -700,7 +700,7 @@
 
 	<select id="findSavePathAndFileName" parameterType="map" resultType="savepathvo">
 	<![CDATA[
-		  select *
+		  select sp.package_path as packagePath, c.file_name as fileName
 			from save s, save_path sp, code c
 			where s.no = sp.save_no
 				and sp.no = c.save_path_no
