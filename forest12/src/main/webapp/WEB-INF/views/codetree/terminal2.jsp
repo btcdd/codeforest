@@ -107,8 +107,9 @@ function appendCommand(str) {
 
 var prevCursor = 0;
 var cursorPandan = false;
-var result;
+var result = '';
 
+/*
 $(document).keydown(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {
 		e = e || window.event;
@@ -146,6 +147,7 @@ $(document).keydown(function(e) {
 		$('.window').scrollTop($('.window').prop('scrollHeight'));
 	}
 });
+*/
 
 $(document).keypress(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {		
