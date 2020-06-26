@@ -953,7 +953,7 @@ $(function() {
    		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
    		
    		console.log("Submit userStartTime>>",userStartTime);
-   		console.log("Date.parse(new Date(userStartTime))>>>",Date.parse(new Date(userStartTime)));
+   		
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
@@ -971,7 +971,7 @@ $(function() {
    					'problemNo' : problemNo,
    					'compileResult1':compileResult1,
    					'compileResult2':compileResult2,
-   					'solveTime':userStartTime
+   					'userStartTime':userStartTime
    				},
    				success: function(response) {
    					

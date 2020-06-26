@@ -283,7 +283,7 @@ public class CodingTestController {
 	@PostMapping("/submit")
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
-			String compileResult1, String compileResult2,Date userStartTime,HttpSession session) {
+			String compileResult1, String compileResult2,String userStartTime,HttpSession session) {
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
