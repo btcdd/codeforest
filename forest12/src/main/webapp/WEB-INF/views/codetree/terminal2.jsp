@@ -167,6 +167,7 @@ $(document).keypress(function(e) {
 	        return;
     	}
     	result += String.fromCharCode(keyCode);
+    	appendCommand(String.fromCharCode(keyCode));
 		// Which key was pressed?
 		switch (keyCode) {
 				// ENTER
@@ -194,7 +195,7 @@ $(document).keypress(function(e) {
 						}
 				default:
 						{
-								appendCommand(String.fromCharCode(keyCode));
+								
 						}
 		}
 		$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
