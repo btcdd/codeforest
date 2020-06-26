@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Code Forest</title>
-<link href="${pageContext.servletContext.contextPath }/assets/css/test/list.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/codingtest/list.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -81,17 +81,10 @@ $(function(){
 						<div class="state">진행</div>
 					</div>
 					<div class="test-mid">
-						<div class="title">${vo.title }</div>
+						<div class="title-div">${vo.title }</div>
 					</div>
 					<div class="test-bottom">
-						<div class="date">
-							<div>
-								<p class="start-time">시작</p>${vo.startTime }
-							</div>
-							<div>
-								<p class="end-time">마감</p>${vo.endTime }
-							</div>
-						</div>
+						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
 					</div>
 				</div>
 			</c:forEach>
@@ -130,7 +123,7 @@ $(function(){
 						<div class="state">마감</div>
 					</div>
 					<div class="test-mid">
-						<div class="title">${vo.title }</div>	
+						<div class="title-div">${vo.title }</div>	
 					</div>
 					<div class="test-bottom">
 						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
