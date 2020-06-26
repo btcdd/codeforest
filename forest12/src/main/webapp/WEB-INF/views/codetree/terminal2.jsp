@@ -164,7 +164,7 @@ $(document).keypress(function(e) {
 					    		
 						        result = $(this).val().substring(prevCursor-1).replace("\n", "");
 						        
-						        sendMessage(event, result);
+						        sendMessage(e, result);
 						        result = '';
 							    
 								terminal.append("\n");
