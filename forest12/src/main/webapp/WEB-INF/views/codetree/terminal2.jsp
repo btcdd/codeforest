@@ -104,6 +104,11 @@ function appendCommand(str) {
 //	prevent it from navigating to the previous
 //	page. We also handle arrow keys for command history.
 */
+
+var prevCursor = 0;
+var cursorPandan = false;
+var result;
+
 $(document).keydown(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {
 		e = e || window.event;
@@ -142,10 +147,6 @@ $(document).keydown(function(e) {
 	}
 });
 
-var prevCursor = 0;
-var cursorPandan = false;
-var result;
-
 $(document).keypress(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {		
 		// Make sure we get the right event
@@ -165,7 +166,6 @@ $(document).keypress(function(e) {
 				    		
 					        result = $('.terminal').val().substring(prevCursor-1).replace("\n", "");
 					        
-					        sendMessage(e, result);
 					        result = '';
 						    
 							terminal.append("\n");
@@ -184,6 +184,7 @@ $(document).keypress(function(e) {
 				default:
 						{
 								appendCommand(String.fromCharCode(keyCode));
+								sendMessage(e, String.fromCharCode(keyCode));
 						}
 		}
 		$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
