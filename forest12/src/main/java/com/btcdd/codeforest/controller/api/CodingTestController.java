@@ -286,14 +286,18 @@ public class CodingTestController {
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
 			String compileResult1, String compileResult2,String userStartTime,HttpSession session) {
+		Map<String, Object> map = new HashMap<>();
 		
 		SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date userStartTimeTransFormat = null;
+		Date userStartTimeTransFormat;
 		try {
 			userStartTimeTransFormat = TransFormat.parse(userStartTime);
+			map.put("userStartTimeTransFormat", userStartTimeTransFormat);
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
@@ -303,7 +307,7 @@ public class CodingTestController {
 		boolean compileResult = true;
 		boolean compileError = false;
  		
-		Map<String, Object> map = new HashMap<>();
+		
 		
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] compileResult1Split =compileResult1.split("\n");
@@ -339,7 +343,7 @@ public class CodingTestController {
 //		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 //		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		
-		map.put("userStartTimeTransFormat", userStartTimeTransFormat);
+		
 		
 		return JsonResult.success(map);
 	}			
