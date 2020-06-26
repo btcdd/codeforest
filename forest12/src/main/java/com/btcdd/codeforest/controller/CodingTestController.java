@@ -216,9 +216,11 @@ public class CodingTestController {
 			System.out.println("codeList>>>>"+codeList);
 						
 
+			SimpleDateFormat format = new SimpleDateFormat( "yyyyMMddHHmmss");
+			Date time = new Date();
+			String userStartTime = format.format(time);
 			
-			
-			userTimeEnter.put("userStartTime", new Date());
+			userTimeEnter.put("userStartTime", userStartTime);
 			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
 		
 			
