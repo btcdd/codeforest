@@ -185,15 +185,15 @@ public class CodeTreeRepository {
 		
 		return sqlSession.update("codetree.updateSubProblem", map);
 	}	
-//	public int updateSubProblem(Long submitNo,String codeValue, String answer,String solveTime) {
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("submitNo", submitNo);
-//		map.put("codeValue", codeValue);
-//		map.put("answer", answer);
-//		map.put("solveTime", solveTime);
-//		
-//		return sqlSession.update("codetree.updateSubProblem", map);
-//	}
+	public int updateSubProblem(Long submitNo,String codeValue, String answer,String solveTime) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("submitNo", submitNo);
+		map.put("codeValue", codeValue);
+		map.put("answer", answer);
+		map.put("solveTime", solveTime);
+		
+		return sqlSession.update("codetree.updateSubProblem", map);
+	}
 
 
 

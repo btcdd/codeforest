@@ -221,14 +221,11 @@ public class CodeTreeService {
 		
 		SubmitVo submitVo = codetreeRepository.findSubmitNoBySubProblem(authUserNo,subProblemNo,language);
 		
-//		if(submitVo == null) {
+		if(submitVo == null) {
 			return codetreeRepository.submitSubProblem(authUserNo,subProblemNo,codeValue,language,answer,solveTime) == 1;
-//		}		
-//		if(submitVo == null) {
-//			return codetreeRepository.submitSubProblem(authUserNo,subProblemNo,codeValue,language,answer,solveTime) == 1;
-//		} else {
-//			return codetreeRepository.updateSubProblem(submitVo.getNo(), codeValue, answer,solveTime) == 1;
-//		}
+		} else {
+			return codetreeRepository.updateSubProblem(submitVo.getNo(), codeValue, answer,solveTime) == 1;
+		}
 		
 		
 	}
