@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href="${pageContext.servletContext.contextPath }/assets/css/test/write.css"
+	href="${pageContext.servletContext.contextPath }/assets/css/codingtest/write.css"
 	rel="stylesheet" type="text/css">
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/training/header.css"
