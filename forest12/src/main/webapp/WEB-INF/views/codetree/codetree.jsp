@@ -43,6 +43,91 @@
 
 <script>
 
+var result = '';
+var resultText;
+var tmp = '';
+var lang;
+var code;
+var editor;
+var execPandan;
+
+//채팅 시작하기
+function connect(event) {
+	$('#result').val('프로그램이 시작되었습니다...\n');
+	
+	code = editor.getValue();
+	
+	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+    var socket = new SockJS('${pageContext.request.contextPath }/ws');
+   
+    // 전역 변수에 세션 설정
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected, onError);
+    
+    event.preventDefault();
+}
+
+
+function onConnected() {
+    // Subscribe to the Public Topic
+    stompClient.subscribe('/topic/public', onMessageReceived);
+
+    execPandan = true;
+    var chatMessage = {
+            language:$(".lang option:selected").val(),
+    		code:code,
+    		execPandan: execPandan,
+            type: 'CHAT'
+        };
+    execPandan = false;
+    // Tell your username to the server
+    stompClient.send("/app/codetree",
+        {},
+        JSON.stringify(chatMessage)
+    );
+}
+
+
+function onError(error) {
+//     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+//     connectingElement.style.color = 'red';
+}
+
+function sendMessage(event, res) {
+	
+	tmp = res;
+	
+    var messageContent = res;
+    var chatMessage = {
+        content: messageContent,
+        language:$(".lang option:selected").val(),
+		code:code,
+		execPandan: execPandan,
+        type: 'CHAT'
+    };
+    stompClient.send("/app/codetree", {}, JSON.stringify(chatMessage));
+    event.preventDefault();
+}
+
+function onMessageReceived(payload) {
+	
+    var message = JSON.parse(payload.body);
+    
+    var prevText = resultText.val();
+    resultText.val(prevText + message.content);
+    
+    $('#result').scrollTop($('#result').prop('scrollHeight'));
+}
+
+
+
+
+////////////////////////////////////////////
+
+
+
+
+
 var listTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/codetree-fileList.ejs"
 });
@@ -803,6 +888,11 @@ $(function() {
  	var compileResult1 = "";
  	var compileResult2 = "";
  	
+ 	
+ 	var d = document.querySelector('#Run');
+    d.addEventListener('click', connect, true);
+ 	
+    /*
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
  		
@@ -847,6 +937,7 @@ $(function() {
 			}							
 		}); 		
  	});
+    */
 
  	
   	    
