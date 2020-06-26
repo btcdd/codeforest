@@ -71,22 +71,26 @@ var fileFetchList = function(){
 	      });	
 };
 
-
-
+var userStartTimeYear = null;
+var userStartTimeMonth = null;
+var userStartTimeDay = null;
+var userStartTimeHour = null;
+var userStartTimeMin = null;
+var userStartTimeSec = null;
 if("${UserStartTimeEnter}"){
-	var userStartTimeYear = "${UserStartTimeYear}";
-	var userStartTimeMonth ="${UserStartTimeMonth}";
-	var userStartTimeDay ="${UserStartTimeDay}";
-	var userStartTimeHour ="${UserStartTimeHour}";
-	var userStartTimeMin ="${UserStartTimeMin}";
-	var userStartTimeSec = "${UserStartTimeSec}";
+	userStartTimeYear = "${UserStartTimeYear}";
+	userStartTimeMonth ="${UserStartTimeMonth}";
+	userStartTimeDay ="${UserStartTimeDay}";
+	userStartTimeHour ="${UserStartTimeHour}";
+	userStartTimeMin ="${UserStartTimeMin}";
+	userStartTimeSec = "${UserStartTimeSec}";
+}
 	console.log("userStartTimeYear>>",userStartTimeYear);
 	console.log("userStartTimeMonth>>",userStartTimeMonth);
 	console.log("userStartTimeDay>>",userStartTimeDay);
 	console.log("userStartTimeHour>>",userStartTimeHour);
 	console.log("userStartTimeMin>>",userStartTimeMin);
 	console.log("userStartTimeSec>>",userStartTimeSec);
-}
 
 
 
