@@ -75,7 +75,7 @@ public class ChatController {
 					RunCs rcs = new RunCs(time);
 					rcs.createFileAsSource(code);
 					errorResult = rcs.execCompile();
-					process = Runtime.getRuntime().exec("timeout 120s 1mono /mainCompile/cs" + time + "/Test.exe");
+					process = Runtime.getRuntime().exec("timeout 120s mono /mainCompile/cs" + time + "/Test.exe");
 				} else if("java".equals(language)) {
 					RunJava rj = new RunJava(time);
 					rj.createFileAsSource(code);
