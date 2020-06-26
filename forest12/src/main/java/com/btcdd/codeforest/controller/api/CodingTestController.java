@@ -307,8 +307,13 @@ public class CodingTestController {
 		}
 		
 		Long diff = userSubmitTime2.getTime() - userStartTimeTransFormat.getTime();
-		long sec = diff/1000;
+		long hours=0,min=0,sec;
+		sec = diff/1000;
+		min = sec / 60;
+		hours = min / 60;
 		map.put("diff", diff);
+		map.put("hours", hours);
+		map.put("min", min);
 		map.put("sec", sec);
 		
 		

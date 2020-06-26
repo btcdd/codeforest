@@ -975,6 +975,8 @@ $(function() {
    				},
    				success: function(response) {
    					console.log("response.data.diff>>>",response.data.diff);
+   					console.log("response.data.hours>>>",response.data.hours);
+   					console.log("response.data.min>>>",response.data.min);
    					console.log("response.data.sec>>>",response.data.sec);
    					
    					
