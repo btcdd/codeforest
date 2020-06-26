@@ -117,8 +117,8 @@ function onMessageReceived(payload) {
 	
     var message = JSON.parse(payload.body);
     
-	var prevText = currentEditor.getValue();
-	currentEditor.setValue(prevText + message.content);
+	var prevText = $(".terminal").val();
+	$(".terminal").append(prevText + message.content);
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
