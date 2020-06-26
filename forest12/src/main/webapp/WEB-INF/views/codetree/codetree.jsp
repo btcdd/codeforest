@@ -76,6 +76,8 @@ function connect(event) {
 function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
+    
+    console.log('asdfasdfasdfasdfasdf');
 
     execPandan = true;
     var chatMessage = {
@@ -116,8 +118,8 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     
-	var prevText = $(".terminal").val();
-	$(".terminal").append(prevText + message.content);
+// 	var prevText = $(".terminal").val();
+	$(".terminal").append(message.content);
 }
 
 

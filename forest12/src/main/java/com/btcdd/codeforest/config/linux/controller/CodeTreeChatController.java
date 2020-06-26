@@ -59,7 +59,6 @@ public class CodeTreeChatController {
 		String code = (String) obj.get("code");
 		String fileName = (String) obj.get("fileName");
 		String packagePath = (String) obj.get("packagePath");
-		String codetreePandan = "hi~~";
 		
 		try {
 			if(pandan) {
