@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/ckeditor/ckeditor.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <title>Code Forest</title>
@@ -111,36 +112,6 @@ $(function() {
 		}
 	});
 
-	$(document).on("click", ".delete", function() {
-		if(index == 1) {
-			alert('최소 1문제는 등록하셔야 합니다.');
-			return;
-		}
-		
-		var ind = $(this).parent().attr('id');
-		$("#" + ind).remove();
-		$('.prob' + ind).remove();
-		
-		for(var i = 0; i < index; i++) {
-			if(!($('#' + i).attr('id'))) {
-				for(var j = i + 1; j < index; j++) {
-					$('#' + j).text(j.toString());
-					$('#' + j).append('<span class="delete" style="display:none"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span>');
-					
-					// li id 설정
-					$('#' + j).attr('id', (j-1).toString());
-					// prob class 설정
-					$('.prob' + j).attr('class', 'prob' + (j-1).toString());
-					$('#prob-content-text' + j).attr('id', 'prob-content-text' + (j-1).toString());
-				}
-			}
-		}
-		
-		index--;
-		
-		$('#' + (index-1)).trigger('click');
-	});
-	
 	$('#fake-submit').click(function() {
 		event.preventDefault();
 		
@@ -161,6 +132,57 @@ $(function() {
 	});
 	
 	CKEDITOR.replace('prob-content-text0');
+	
+	var thisInd;
+	$(document).on("click", ".delete", function() {
+		event.preventDefault();
+		if(index == 1) {
+			alert('최소 1문제는 등록하셔야 합니다.');
+			return;
+		}
+		thisInd = $(this).parent().attr('id');
+		dialogDelete.dialog('open');
+	});
+
+	var dialogDelete = $("#dialog-delete").dialog({
+		autoOpen: false,
+		resizable: false,
+		height: "auto",
+		width: 400,
+		modal: true,
+		buttons: {
+			"삭제": function() {
+				console.log("id",thisInd);
+// 				var ind = $(this).parent().attr('id');
+				var ind = thisInd;
+				$("#" + ind).remove();
+				$('.prob' + ind).remove();
+				
+				for(var i = 0; i < index; i++) {
+					if(!($('#' + i).attr('id'))) {
+						for(var j = i + 1; j < index; j++) {
+							$('#' + j).text(j.toString());
+							$('#' + j).append('<span class="delete" style="display:none"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span>');
+							
+							// li id 설정
+							$('#' + j).attr('id', (j-1).toString());
+							// prob class 설정
+							$('.prob' + j).attr('class', 'prob' + (j-1).toString());
+							$('#prob-content-text' + j).attr('id', 'prob-content-text' + (j-1).toString());
+						}
+					}
+				}
+				index--;
+				
+				$('#' + (index-1)).trigger('click');
+				$(this).dialog('close');
+			},
+			"취소": function() {
+				$(this).dialog('close');
+			}
+		}
+	});
+	
 });
 
 window.onload = function(){
@@ -179,6 +201,17 @@ function captureReturnKey(e) {
 </head>
 <body>
 	<c:import url="/WEB-INF/views/include/main-header.jsp" />
+		<div id="dialog-delete" title="삭제" style="display: none">
+       <p>
+          <span class="ui-icon ui-icon-alert" style="float: left; margin: 12px 12px 20px 0;">   
+          </span>
+          해당 문제를 삭제하시겠습니까?
+       </p>
+       <form>
+          <input type="hidden" id="hidden-no" value="">
+          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+       </form>
+    </div>
 	<form method="post"
 		action="${pageContext.servletContext.contextPath }/training/write" onkeydown="return captureReturnKey(event)">
 		<div class="regist">
@@ -240,5 +273,6 @@ function captureReturnKey(e) {
 		</div>
 	</form>
 	<c:import url="/WEB-INF/views/include/footer.jsp" />
+
 </body>
 </html>
