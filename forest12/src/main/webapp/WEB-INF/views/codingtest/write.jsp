@@ -53,6 +53,31 @@ var setStyle = function(index2) {
 	}, 50);
 }
 
+function leadingZeros(n, digits) {
+	  var zero = '';
+	  n = n.toString();
+
+	  if (n.length < digits) {
+	    for (i = 0; i < digits - n.length; i++)
+	      zero += '0';
+	  }
+	  return zero + n;
+}
+
+function getTimeStamp() {
+	  var d = new Date();
+	  var s =
+	    leadingZeros(d.getFullYear(), 4) + '-' +
+	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+	    leadingZeros(d.getDate(), 2) + ' ' +
+
+	    leadingZeros(d.getHours(), 2) + ':' +
+	    leadingZeros(d.getMinutes(), 2) + ':' +
+	    leadingZeros(d.getSeconds(), 2);
+
+	  return s;
+}
+
 $(function() {
 	
 	$('#addSubProblem').click(function() {
@@ -153,6 +178,17 @@ $(function() {
 	});
 	
 	CKEDITOR.replace('prob-content-text0');
+	
+	$(document).on("focusout", ".input-date", function() {
+		var nowTime = getTimeStamp().substring(0, 10);
+		nowTime = nowTime + 'T';
+		nowTime = nowTime + getTimeStamp().substring(11, 16);
+		
+		if($(this).val() < nowTime) {
+			alert('시작 시간이 현재 시간보다 이전일 수 없습니다.');
+			$(this).val('');
+		}
+	});
 });
 
 window.onload = function(){
