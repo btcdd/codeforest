@@ -167,6 +167,8 @@ $(function() {
 					matchBrackets : true,
 					readOnly : true
 				});		
+				
+				editor.setValue(code);
 			}			
 			
 		},
