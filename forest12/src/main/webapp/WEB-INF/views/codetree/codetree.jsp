@@ -45,14 +45,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 <script>
+var code;
 
-var result = '';
-var resultText;
+
+
+
+var result;
 var tmp = '';
 var lang;
-var code;
 var editor;
 var execPandan;
+
+
+
 
 //채팅 시작하기
 function connect(event) {
@@ -90,13 +95,12 @@ function onConnected() {
     );
 }
 
-
 function onError(error) {
-//     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-//     connectingElement.style.color = 'red';
 }
 
 function sendMessage(event, res) {
+	
+	console.log('res:', res);
 	
 	tmp = res;
 	
@@ -113,14 +117,10 @@ function sendMessage(event, res) {
 }
 
 function onMessageReceived(payload) {
-	
-	
     var message = JSON.parse(payload.body);
     
 	var prevText = $(".terminal").val();
 	$(".terminal").append(prevText + message.content);
-    
-    $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
 
 
@@ -1103,6 +1103,33 @@ $(function() {
 	$(document).on("click",".sub-menu > li:last-child",function(){
 		$("#Submit").trigger("click");
 	});
+	
+	
+	
+	// 관우 유진
+	/////////////////////////
+	var prevCursor = 0;
+    var cursorPandan = false;
+    $('.terminal').keyup(event, function(key) {
+    	
+    	if(cursorPandan == false) {
+	    	prevCursor = $(this).prop('selectionStart') - 1;
+	    	cursorPandan = true;
+    	}
+    	if (key.keyCode == 13) {
+    		cursorPandan = false;
+    		
+	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        
+	        sendMessage(event, result);
+	        result = '';
+    	}
+    	
+   });
+	
+	
+	
+	
 ////// function 끝부분 	
 });
 

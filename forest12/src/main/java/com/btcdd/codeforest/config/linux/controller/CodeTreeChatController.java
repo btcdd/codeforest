@@ -45,14 +45,6 @@ public class CodeTreeChatController {
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
-		try {
-			process = Runtime.getRuntime().exec("mkdir hihihihihi");
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}		
-		/*
-		
 		String errorResult = "";
 		Boolean pandan = false;
 		
@@ -190,8 +182,6 @@ public class CodeTreeChatController {
 			chatMessage.setContent(readBuffer.toString() + "\n프로그램이 종료되었습니다!");
 			return chatMessage;
 		}
-		*/
-		chatMessage.setContent("ㅎㅇㅎㅇㅎㅇㅎ~~~~~");
 		
 		return chatMessage;
 	}
