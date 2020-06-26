@@ -48,7 +48,6 @@ body {
 
 .proceeding-box, .expected-box, .deadline-box {
 	width: 33.333%;
-	overflow-y: scroll;
 	height: 600px;
 	margin-bottom: 100px;
 }
@@ -63,18 +62,18 @@ body {
 }
 
 .test {
-    width: 350px;
+    width: 380px;
     height: 97px;
     border-radius: 10px;
     margin: 15px 20px;
-    padding: 8px 15px 15px 15px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    padding: 8px 10px 8px 10px;
+/*     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     cursor: pointer;
 }
 
 .test-top {
-	margin: 10px 10px 0 10px;
+	margin: 5px 5px 0 0px;
 	height: 30%;
 }
 .test-no {
@@ -127,34 +126,37 @@ body {
 }
 
 #priority1 {
-	background-color: #DDA159;
-	position: relative;
-	margin: auto auto 30px auto;
+    background-color: rgba(245,226,167,0.25);
+    position: relative;
+    margin: auto auto 30px auto;
+    border: 1px solid #f5e2a7;
 }
 #priority2 {
-	background-color: #FFE79D;
+	background-color: rgba(217,233,238,0.25);
 	position: relative;
 	margin: auto auto 30px auto;
+    border: 1px solid #d9e9ee;
 }
 #priority3 {
-	background-color: #E0E0E0;
+	background-color: rgba(224,224,224,0.25);
 	position: relative;
 	margin: auto auto 30px auto;
+    border: 1px solid #e0e0e0;
 }
 
 #priority1:hover {
 	z-index: 1;
-	background-color: #E6B882;
+	background-color: #f5e2a7;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 #priority2:hover {
 	z-index: 1;
-	background-color: #FFEDB6;
+	background-color: #d9e9ee;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 #priority3:hover {
 	z-index: 1;
-	background-color: #B6B6B6;
+	background-color: #e0e0e0;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
