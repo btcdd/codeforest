@@ -159,7 +159,7 @@ window.onload = function(){
 	setTimeout(function() {
 		var ckeContents = document.getElementsByClassName("cke_contents")[0];
 		ckeContents.style = "height: 400px";
-	}, 50);
+	}, 70);
 };
 
 function captureReturnKey(e) { 
