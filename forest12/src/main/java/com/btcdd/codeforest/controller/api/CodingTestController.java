@@ -288,13 +288,16 @@ public class CodingTestController {
 			String compileResult1, String compileResult2,String userStartTime,HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		
-		
-		
-		
-		
-		map.put("userStartTime", userStartTime);
-		
-		
+		SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date userStartTimeTransFormat = null;
+		try {
+			userStartTimeTransFormat = TransFormat.parse(userStartTime);
+			map.put("userStartTime", userStartTime);
+			map.put("userStartTimeTransFormat", userStartTimeTransFormat);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		

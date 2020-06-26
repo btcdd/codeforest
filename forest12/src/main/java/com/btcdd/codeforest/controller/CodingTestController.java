@@ -216,7 +216,7 @@ public class CodingTestController {
 			System.out.println("codeList>>>>"+codeList);
 						
 
-			SimpleDateFormat format = new SimpleDateFormat( "yyyyMMddHHmmss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			Date time = new Date();
 			String userStartTime = format.format(time);
 			
