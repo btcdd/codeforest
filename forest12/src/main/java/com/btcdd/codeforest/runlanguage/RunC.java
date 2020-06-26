@@ -29,7 +29,7 @@ public class RunC {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("gcc -o /mainCompile/c" + time + "/Test.exe mainCompile/c" + time + "/fakeTest" + time + ".c");
+		buffer.append("gcc -o /mainCompile/c" + time + "/Test.exe /mainCompile/c" + time + "/fakeTest.c");
 		return buffer.toString();
 	}
 	
