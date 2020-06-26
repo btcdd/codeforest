@@ -141,17 +141,32 @@ $(document).keydown(function(e) {
 		$('.window').scrollTop($('.window').prop('scrollHeight'));
 	}
 });
+
+var prevCursor = 0;
+var cursorPandan = false;
+var result;
+
 $(document).keypress(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {		
 		// Make sure we get the right event
 		e = e || window.event;
 		var keyCode = typeof e.which === "number" ? e.which : e.keyCode;
+	    if(cursorPandan == false) {
+	    	prevCursor = $(this).prop('selectionStart') - 1;
+	    	cursorPandan = true;
+    	}
 		// Which key was pressed?
 		switch (keyCode) {
 				// ENTER
 				case 13:
 						{
-								$(".terminal").append("<p>얄루얄루양룰양룽룽룽룽루</p>");
+					    		cursorPandan = false;
+					    		
+						        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+						        
+						        sendMessage(event, result);
+						        result = '';
+							    
 								terminal.append("\n");
 								processCommand();
 								displayPrompt();

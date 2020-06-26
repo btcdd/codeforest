@@ -46,7 +46,6 @@
 
 <script>
 var code;
-var result;
 var tmp = '';
 var tempFile = null;
 var lang;
@@ -1115,18 +1114,18 @@ $(function() {
     var cursorPandan = false;
     $('.terminal').keyup(event, function(key) {
     	
-//     	if(cursorPandan == false) {
-// 	    	prevCursor = $(this).prop('selectionStart') - 1;
-// 	    	cursorPandan = true;
-//     	}
-//     	if (key.keyCode == 13) {
-//     		cursorPandan = false;
+    	if(cursorPandan == false) {
+	    	prevCursor = $(this).prop('selectionStart') - 1;
+	    	cursorPandan = true;
+    	}
+    	if (key.keyCode == 13) {
+    		cursorPandan = false;
     		
-// 	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
 	        
-// 	        sendMessage(event, result);
-// 	        result = '';
-//     	}
+	        sendMessage(event, result);
+	        result = '';
+    	}
     	
    });
 	
