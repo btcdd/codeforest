@@ -36,6 +36,8 @@ public class CodingTestController {
 	
 	private TrainingLinux trainingLinux = new TrainingLinux();
 	
+	Map<String, Object> userTimeEnter = new HashMap<>();
+	
 	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String training(Model model) {
@@ -139,7 +141,14 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 			
-			model.addAttribute("UserStartTimeEnter",false);
+			
+			model.addAttribute("UserStartTimeYear",userTimeEnter.get("UserStartTimeYear"));
+			model.addAttribute("UserStartTimeMonth",userTimeEnter.get("UserStartTimeMonth"));
+			model.addAttribute("UserStartTimeDay",userTimeEnter.get("UserStartTimeDay"));
+			model.addAttribute("UserStartTimeHour",userTimeEnter.get("UserStartTimeHour"));
+			model.addAttribute("UserStartTimeMin",userTimeEnter.get("UserStartTimeMin"));
+			model.addAttribute("UserStartTimeSec",userTimeEnter.get("UserStartTimeSec"));
+			
 			
 			return "codingtest/code-mirror";
 		}
@@ -221,13 +230,25 @@ public class CodingTestController {
 			int sec = cal.get(Calendar.SECOND);
 			System.out.println("현재 시각은 " + year + "년도 " + month + "월 " + day + "일 " + hour + "시 " + min + "분 " + sec + "초입니다.");
 			
-			model.addAttribute("UserStartTimeEnter",true);
-			model.addAttribute("UserStartTimeYear",year);
-			model.addAttribute("UserStartTimeMonth",month);
-			model.addAttribute("UserStartTimeDay",day);
-			model.addAttribute("UserStartTimeHour",hour);
-			model.addAttribute("UserStartTimeMin",min);
-			model.addAttribute("UserStartTimeSec",sec);
+			
+			
+			
+			
+			userTimeEnter.put("UserStartTimeYear",year);
+			userTimeEnter.put("UserStartTimeMonth",month);
+			userTimeEnter.put("UserStartTimeDay",day);
+			userTimeEnter.put("UserStartTimeHour",hour);
+			userTimeEnter.put("UserStartTimeMin",min);
+			userTimeEnter.put("UserStartTimeSec",sec);
+			
+			
+			model.addAttribute("UserStartTimeYear",userTimeEnter.get("UserStartTimeYear"));
+			model.addAttribute("UserStartTimeMonth",userTimeEnter.get("UserStartTimeMonth"));
+			model.addAttribute("UserStartTimeDay",userTimeEnter.get("UserStartTimeDay"));
+			model.addAttribute("UserStartTimeHour",userTimeEnter.get("UserStartTimeHour"));
+			model.addAttribute("UserStartTimeMin",userTimeEnter.get("UserStartTimeMin"));
+			model.addAttribute("UserStartTimeSec",userTimeEnter.get("UserStartTimeSec"));
+			
 			
 			return "codingtest/code-mirror"; //이동
 		}

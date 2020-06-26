@@ -71,27 +71,21 @@ var fileFetchList = function(){
 	      });	
 };
 
-var TimeMap = new Map();
-if("${UserStartTimeEnter}"){
-	userStartTimeYear = "${UserStartTimeYear}";
-	userStartTimeMonth ="${UserStartTimeMonth}";
-	userStartTimeDay ="${UserStartTimeDay}";
-	userStartTimeHour ="${UserStartTimeHour}";
-	userStartTimeMin ="${UserStartTimeMin}";
-	userStartTimeSec = "${UserStartTimeSec}";
-	TimeMap.set("userStartTimeYear",userStartTimeYear);
-	TimeMap.set("userStartTimeMonth",userStartTimeMonth);
-	TimeMap.set("userStartTimeDay",userStartTimeDay);
-	TimeMap.set("userStartTimeHour",userStartTimeHour);
-	TimeMap.set("userStartTimeMin",userStartTimeMin);
-	TimeMap.set("userStartTimeSec",userStartTimeSec);
-}
-console.log("TimeMap.get()>>>",TimeMap.get("userStartTimeYear"));
-console.log("TimeMap.get()>>>",TimeMap.get("userStartTimeMonth"));
-console.log("TimeMap.get()>>>",TimeMap.get("userStartTimeDay"));
-console.log("TimeMap.get()>>>",TimeMap.get("userStartTimeHour"));
-console.log("TimeMap.get()>>>",TimeMap.get("userStartTimeMin"));
-console.log("TimeMap.get()>>>",TimeMap.get("userStartTimeSec"));
+
+var userStartTimeYear = "${UserStartTimeYear}";
+var userStartTimeMonth ="${UserStartTimeMonth}";
+var userStartTimeDay ="${UserStartTimeDay}";
+var userStartTimeHour ="${UserStartTimeHour}";
+var userStartTimeMin ="${UserStartTimeMin}";
+var userStartTimeSec = "${UserStartTimeSec}";
+
+console.log("userStartTimeYear>>>",userStartTimeYear);
+console.log("userStartTimeMonth>>>",userStartTimeMonth);
+console.log("userStartTimeDay>>>",userStartTimeDay);
+console.log("userStartTimeHour>>>",userStartTimeHour);
+console.log("userStartTimeMin>>>",userStartTimeMin);
+console.log("userStartTimeSec>>>",userStartTimeSec);
+
 
 
 
