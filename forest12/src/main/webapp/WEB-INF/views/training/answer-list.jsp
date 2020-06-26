@@ -123,6 +123,8 @@ $(function() {
    
    
    // 파일 열기
+   var fileIndex = null;
+   var root = null;
    $(document).on('click', '#showCode', function(event) {
 // 	  var index = $(this).attr("class");
 // 	  var code = $("#hiddenCode" + index).text();
@@ -144,20 +146,28 @@ $(function() {
 		},
 		success: function(response){
 			
+			root = myLayout.root.contentItems[0] || myLayout.root;
+			
 			for(var i = 0; i < response.data.fileNames.length; i++) {
 				console.log("fileNames : ", response.data.fileNames[i]);
 				console.log("codes : ", response.data.codes[i]);
-			}
-			
-// 			var root = myLayout.root.contentItems[0] || myLayout.root;
-			
-// 			root.addChild({
-// 				type : "component",
-// 				componentName : "newTab",
-// 				title : fileName,
-// 				id : "layout-"+fileNo
-// 			});
-			
+				fileIndex = i;
+				root.addChild({
+					type : "component",
+					componentName : "newTab",
+					title : response.data.fileNames[i],
+					id : "layout-" + fileIndex
+				});
+				var code = $('#cm'+ fileIndex +' > .CodeMirror')[0];		
+				
+				var editor = CodeMirror.fromTextArea(code, {
+					lineNumbers : true,
+					mode : 'text/x-java',
+					theme : theme,
+					matchBrackets : true,
+					readOnly : true
+				});		
+			}			
 			
 		},
 		error: function(xhr, status, e){
@@ -216,7 +226,7 @@ $(function() {
 	var myLayout = new GoldenLayout(config, $('.code-mirror'));
 	myLayout.registerComponent("newTab", function(container) {
 		container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
-// 		container.getElement().attr("id", "cm"+fileNo);		
+		container.getElement().attr("id", "cm" + fileIndex);		
 		
 	});
 	

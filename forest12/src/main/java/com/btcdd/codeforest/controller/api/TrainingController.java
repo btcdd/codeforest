@@ -118,10 +118,6 @@ public class TrainingController {
 	@PostMapping("/find-code")
 	public JsonResult findCode(Long subProblemNo, Long userNo, String language) {
 		
-		System.out.println("subProblemNo : " + subProblemNo);
-		System.out.println("userNo : " + userNo);
-		System.out.println("language : " + language);
-		
 		List<SavePathVo> list = trainingService.findSavePathAndFileName(subProblemNo, userNo, language);
 		List<String> fileNames = new ArrayList();
 		List<String> codes = new ArrayList();
