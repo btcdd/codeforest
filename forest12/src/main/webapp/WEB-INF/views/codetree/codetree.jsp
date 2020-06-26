@@ -53,7 +53,7 @@ var execPandan;
 
 //채팅 시작하기
 function connect(event) {
-	$('#result').val('프로그램이 시작되었습니다...\n');
+	$(".terminal").append('프로그램이 시작되었습니다...\n');
 	
 	code = editor.getValue();
 	
