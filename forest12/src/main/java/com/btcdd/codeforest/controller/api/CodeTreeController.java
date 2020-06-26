@@ -226,7 +226,7 @@ public class CodeTreeController {
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
 		
-		boolean compileResult = false;
+		boolean compileResult = true;
 		boolean compileError = false;
  		
 		Map<String, Object> map = new HashMap<>();
@@ -239,7 +239,6 @@ public class CodeTreeController {
 		}
 		else {
 			if(compileResult2 == null || compileResult2.equals("")) {
-				compileResult = true;
 				for(int i = 0; i < examOutputSplit.length; i++) {
 					if(i == examOutputSplit.length-1) {
 						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
@@ -265,49 +264,6 @@ public class CodeTreeController {
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
-
-		compileResult = false;
-		compileError = false;
-//		int pandan = 1;
-		
-//		boolean[] check =  new boolean[examOutputSplit.length];
-
-//		if(compileResult2 == null || compileResult2.equals("")) {
-//			for(int i=0;i<examOutputSplit.length;i++) {
-//				String tempString1 = examOutputSplit[i];
-//				String tempString2 = compileResult1Split[i];
-//				map.put("BooleanEquals",tempString1==tempString2);
-//				map.put("BooleanEquals2",tempString1.equals(tempString2));
-//				map.put("BooleanEquals3",tempString1.contentEquals(tempString2));
-//				map.put("BooleanEquals4",tempString1.equalsIgnoreCase(tempString2));
-//				if(tempString1.equals(tempString2)) {
-//					compileResult = true;
-//					check[i] = true;
-//				}else {
-//					compileResult = false;
-//					pandan = 0;
-//					check[i] = false;
-//				}
-//			}
-//			for(int k=0;k<check.length;k++) {
-//				if(check[k] ==false) {
-//					compileResult = false;
-//				}
-//			}
-//			map.put("check", check);
-//			
-//			if(pandan == 0) {
-//				compileResult = false;
-//			}
-//			else {
-//				compileResult = true;
-//			}
-//				
-//		} else {
-//			compileError = true;
-//		}
-//		
-		
 		
 		return JsonResult.success(map);
 	}		
