@@ -147,7 +147,7 @@ var prevCursor = 0;
 var cursorPandan = false;
 var result = '';
 
-$(document).keypress(e, function(key) {
+$(document).keypress(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {		
 		// Make sure we get the right event
 		e = e || window.event;
@@ -157,12 +157,12 @@ $(document).keypress(e, function(key) {
 	    	prevCursor = $(this).prop('selectionStart') - 1;
 	    	cursorPandan = true;
     	}
-    	if (key.keyCode == 13) {
+    	if (e.keyCode == 13) {
     		cursorPandan = false;
     		
 	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
 	        
-	        sendMessage(event, result);
+	        sendMessage(e, result);
 	        result = '';
 	        return;
     	}
