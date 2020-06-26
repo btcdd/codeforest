@@ -102,6 +102,8 @@ function sendMessage(event, res) {
 	
 	tmp = res;
 	
+	console.log('res:', res);
+	
     var messageContent = res;
     var chatMessage = {
         content: messageContent,
