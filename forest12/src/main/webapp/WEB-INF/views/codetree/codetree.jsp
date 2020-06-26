@@ -119,8 +119,7 @@ function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     
 // 	var prevText = $(".terminal").val();
-	$(".terminal").append(message.content);
-	console.log('gdgdgdgd:' + message.content);
+// 	$(".terminal").append(message.content);
 }
 
 
