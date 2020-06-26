@@ -288,17 +288,26 @@ public class CodingTestController {
 			String compileResult1, String compileResult2,String userStartTime,HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		
-		SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date userStartTimeTransFormat = null;
+		String userSubmitTime = null;
+		Date userSubmitTime2 = null;
+		
+		
+		
 		try {
-			userStartTimeTransFormat = TransFormat.parse(userStartTime);
-			map.put("userStartTime", userStartTime);
-			map.put("userStartTimeTransFormat", userStartTimeTransFormat);
+			SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			userStartTimeTransFormat = TransFormat.parse(userStartTime);//처음 들어온 사용자 시간
+			
+			Date SubmitTime = new Date();	
+			userSubmitTime = TransFormat.format(SubmitTime);
+			userSubmitTime2 = TransFormat.parse(userSubmitTime);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		Long solveTime = userSubmitTime2.getTime() - userStartTimeTransFormat.getTime();
+		map.put("solveTime", solveTime);
 		
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
@@ -341,9 +350,9 @@ public class CodingTestController {
 		map.put("compileError", compileError);
 		
 		map.put("compileResult", compileResult);
-		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,userStartTimeTransFormat);//정보 삽입
-		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
-		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+//		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,userStartTimeTransFormat);//정보 삽입
+//		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+//		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		
 		
 		

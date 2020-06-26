@@ -1,5 +1,6 @@
 package com.btcdd.codeforest.controller;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -216,7 +217,7 @@ public class CodingTestController {
 			System.out.println("codeList>>>>"+codeList);
 						
 
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			Date time = new Date();
 			String userStartTime = format.format(time);
 			
