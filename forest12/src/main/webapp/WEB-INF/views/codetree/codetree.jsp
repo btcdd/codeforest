@@ -42,11 +42,9 @@
 <%-- <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css" /> --%>
 
 <script>
-
 var listTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/codetree-fileList.ejs"
 });
-
 var fileFetchList = function(){
 	   var saveNo = "${saveVo.no }";
 	   var lang = $("select option:selected").val();
@@ -70,20 +68,13 @@ var fileFetchList = function(){
 	         }
 	      });	
 };
-
-
 var currentEditor = null;
-
 var editorArray = new Array();
 var editorArrayIndex = 0;
-
-
-
 $(function() {
 	fileFetchList();
 	
 ////////////////// code-mirror /////////////////////////////   
-
    
    var theme = 'panda-syntax';
    $('.theme').click(function() {
@@ -228,25 +219,21 @@ $(function() {
 	   
  	   $(".file-tree__subtree").remove();
 	   fileFetchList();
-
 	   
 	   
 	   
    });
    
 //  	$('.CodeMirror').addClass('code');
-
  	
 ///////////////////////////// problem-list //////////////////////////////////
  	var ui = $(".ui"),
  	    sidebar = $(".ui__sidebar");
-
  	// File Tree
  	$(document).on("click", ".folder", function(e) {
  		$(".contextmenu").hide();
  	    var t = $(this);
  	    var tree = t.closest(".file-tree__item");
-
  	    if (t.hasClass("folder--open")) {
  	        t.removeClass("folder--open");
  	        tree.removeClass("file-tree__item--open");
@@ -274,7 +261,6 @@ $(function() {
  	    }
  	});
  	
-
  	// 폰트 사이즈 변경
 	$(document).on("click", '#font-size', function(){	
 		var fontSize = $("#font-size option:selected").val();
@@ -282,7 +268,6 @@ $(function() {
 		$(".CodeMirror").css("font-size", fontSize);
 	});
 	
-
  	
 ////////////////파일 추가/////////////////////
  	
@@ -298,7 +283,6 @@ $(function() {
  	
  	
  	
-
 	$(document).on('mouseenter','.ui__sidebar',function() {
 		console.log("hi");
 		$(document).on('mousedown','#folder',function(e) {
@@ -349,7 +333,6 @@ $(function() {
 	 		    return false;					
 			}		
 		});
-
 		
 		$(document).on('mousedown','.userFile',function(e){
 			$(".contextmenu").hide();
@@ -458,7 +441,6 @@ $(function() {
 								return;
 							}
 							$(".file-tree__subtree").remove();
-
 							fileFetchList();
 							
 						},
@@ -528,7 +510,6 @@ $(function() {
  	
  	var layoutId = null;
  	var tempLayout = null;
-
  	$(document).on("click", "#userfile-update", function() {
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
@@ -577,7 +558,6 @@ $(function() {
 									return;
 								}
 								$(".file-tree__subtree").remove();
-
 								fileFetchList(); 
 								
 								
@@ -735,7 +715,6 @@ $(function() {
  		
  	});
 	$(document).on("mousedown", ".lm_title", function() {
-
 		console.log("title>>>",$(this));
 		console.log("getActiveContentItem()>>",root.getActiveContentItem());
 		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id);
@@ -763,7 +742,6 @@ $(function() {
  		tempFile = fileMap.get(cmNo+"");
  		currentEditor = HashMap.get("editor"+cmNo);
  		
-
 	});
 	
 	
@@ -780,7 +758,6 @@ $(function() {
     });
  	 
 	$(document).on("propertychange change keyup paste", function(e){
-
 		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update"){
 			if(currentEditor.getValue() != SavedCode.get(fileNo+"")){
 				layoutId = "layout-"+fileNo;
@@ -794,12 +771,10 @@ $(function() {
 				tempLayout.setTitle(tempFile.data("fileName"));
 			}			
 		}
-
 		
 	}); 
 	
 	
-
  	var compileResult1 = "";
  	var compileResult2 = "";
  	
@@ -847,7 +822,6 @@ $(function() {
 			}							
 		}); 		
  	});
-
  	
   	    
   	$(document).on("click","#Save",function(){
@@ -897,7 +871,6 @@ $(function() {
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
    		
    		setTimeout(function(){
-
    	   		var problemNo = "${saveVo.problemNo }";
    	 		$.ajax({
    				url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
@@ -950,10 +923,8 @@ $(function() {
    			}
    		} */
    		
-
    		
  	});    	
-
  	
  	
  	//////////////////////////// golden layout /////////////////////////////	
@@ -971,10 +942,8 @@ $(function() {
 	};
 	 
 	var myLayout = new GoldenLayout(config, $('#gl-cover'));
-
 	myLayout.registerComponent("newTab", function(container) {
 		container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
-
 		container.getElement().attr("id", "cm"+fileNo);		
 		
 	});
@@ -1010,18 +979,12 @@ $(function() {
 	});
 ////// function 끝부분 	
 });
-
 	
-
-
-
 	
-
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	
 	if (typeof Resizer === 'undefined') {
-
 	var Resizer = function(resizerNode, type, options) {
 		resizerNode.classList.add('resizer');
 		resizerNode.setAttribute('data-resizer-type', type);
@@ -1058,7 +1021,6 @@ $(function() {
 		// ajout des events
 		this.resizer.node.addEventListener('mousedown', this.startProcess.bind(this), false);
 	};
-
 	Resizer.prototype = {
 		startProcess: function(event) {
 			// cas processus déjà actif
@@ -1135,7 +1097,6 @@ $(function() {
 } else {
 	console.error('"Resizer" class already exists !');
 }
-
 window.onload = function() {
     new Resizer(document.querySelector('[name=resizerH1]'), 'H');
     new Resizer(document.querySelector('[name=resizerH2]'), 'H');
@@ -1151,8 +1112,6 @@ window.onload = function() {
    	el4.style = "flex: 0.461282 1.08793 0px;";
   };
   
-
-
 </script>
 </head>
 <body>
