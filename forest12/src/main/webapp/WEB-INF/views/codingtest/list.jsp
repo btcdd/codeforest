@@ -15,6 +15,9 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.js"></script>
 
 <script>
 
@@ -32,6 +35,16 @@ var list3 = new EJS({
 
 
 $(function(){
+	$(".proceeding-box").mCustomScrollbar({
+	    theme:"inset-3"
+	});
+	$(".expected-box").mCustomScrollbar({
+	    theme:"rounded-dark"
+	});
+	$(".deadline-box").mCustomScrollbar({
+	    theme:"rounded-dark"
+	});
+
 	$('#search').on("propertychange change keyup paste", function(){		
 		var keyword = $(this).val();
 		$.ajax({
@@ -61,6 +74,7 @@ $(function(){
 	});
 	
 });
+
 </script>
 <title>Code Forest</title>
 </head>
@@ -71,17 +85,17 @@ $(function(){
            <input type="text" id="search" placeholder="Search..">
         <button class="make-problem" onclick="location.href='${pageContext.servletContext.contextPath }/codingtest/write'">문제 작성</button>
         </div>
-		<div class="proceeding-box">
+		<div class="proceeding-box" >
 			<c:forEach items='${list1 }' var='vo' step='1' varStatus='status'>
 				<div class="test" data-no="${vo.no }" id="priority${vo.priority }" 
 				onclick="window.open('${pageContext.servletContext.contextPath }/codingtest/auth/${vo.no}','_blank'); " >
 					<div class="test-top">
-						<div class="test-no">${fn:length(list1) - status.index }</div>						
-						<div class="writer">${vo.nickname }</div>
+						<div class="title-div">${vo.title }</div>
 						<div class="state">진행</div>
 					</div>
 					<div class="test-mid">
-						<div class="title-div">${vo.title }</div>
+						<div class="test-no">${fn:length(list1) - status.index }</div>						
+						<div class="writer">${vo.nickname }</div>
 					</div>
 					<div class="test-bottom">
 						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
@@ -93,11 +107,6 @@ $(function(){
 			<c:forEach items='${list2 }' var='vo' step='1' varStatus='status'>
 				<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
 					<div class="test-top">
-						<div class="test-no">${fn:length(list2) - status.index }</div>						
-						<div class="writer">${vo.nickname }</div>
-						<div class="state">예정</div>
-					</div>
-					<div class="test-mid">
 						<div class="probtitle">${vo.title }</div>
 						<c:choose>
 							<c:when test="${dday[vo.no] eq 0 }">
@@ -107,6 +116,11 @@ $(function(){
 								<div class="d-day" data-no="${vo.no }">D${dday[vo.no] }</div>
 							</c:otherwise>
 						</c:choose>
+						<div class="state">예정</div>
+					</div>
+					<div class="test-mid">
+						<div class="test-no">${fn:length(list2) - status.index }</div>						
+						<div class="writer">${vo.nickname }</div>
 					</div>
 					<div class="test-bottom">
 						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
@@ -118,12 +132,12 @@ $(function(){
 			<c:forEach items='${list3 }' var='vo' step='1' varStatus='status'>
 				<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
 					<div class="test-top">
-						<div class="test-no">${fn:length(list3) - status.index }</div>						
-						<div class="writer">${vo.nickname }</div>
+						<div class="title-div">${vo.title }</div>	
 						<div class="state">마감</div>
 					</div>
 					<div class="test-mid">
-						<div class="title-div">${vo.title }</div>	
+						<div class="test-no">${fn:length(list3) - status.index }</div>						
+						<div class="writer">${vo.nickname }</div>
 					</div>
 					<div class="test-bottom">
 						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
