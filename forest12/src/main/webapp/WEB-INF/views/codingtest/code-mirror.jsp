@@ -73,19 +73,15 @@ var fileFetchList = function(){
 
 
 
-	var useryear = "${UserStartTime}.get('year')";
-	var userMonth = "${UserStartTime}.get('month')";
-	var userDay = "${UserStartTime}.get('day')";
-	var userHour = "${UserStartTime}.get('hour')";
-	var userMin = "${UserStartTime}.get('min')";
-	var userSec = "${UserStartTime}.get('sec')";
+	var UserStartTime = "${UserStartTime}";
 	
-	console.log("useryear>>>",useryear);
-	console.log("userMonth>>>",userMonth);
-	console.log("userDay>>>",userDay);
-	console.log("userHour>>>",userHour);
-	console.log("userMin>>>",userMin);
-	console.log("userSec>>>",userSec);
+	console.log("useryear>>>",UserStartTime.get("year"));
+	console.log("useryear>>>",UserStartTime.get("month"));
+	console.log("useryear>>>",UserStartTime.get("day"));
+	console.log("useryear>>>",UserStartTime.get("hour"));
+	console.log("useryear>>>",UserStartTime.get("min"));
+	console.log("useryear>>>",UserStartTime.get("sec"));
+
 
 
 
