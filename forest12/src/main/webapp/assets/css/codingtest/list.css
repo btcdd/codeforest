@@ -11,20 +11,23 @@ body {
 }
 
 .search {
-    margin: auto auto 50px auto;
+    margin: 17px auto 50px -92px;
     text-align: center;
 }
 #search {
-	background-size: 40px;
+	width: 30%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url(../../images/search.png);
+    background-size: 40px;
     background-position: 5px 1px;
     background-repeat: no-repeat;
-	background-image: url(../../images/search.png);
-	color: #999999;
-	margin: auto;
-	height: 50px;
-	font-size: large;
-	width: 400px;
-	padding: 0 20px 0 55px;
+    padding: 12px 20px 12px 55px;
+    color: #999999;
+    outline: none;
 }
 
 .make-problem {
@@ -61,7 +64,7 @@ body {
 
 .test {
     width: 350px;
-    height: 130px;
+    height: 97px;
     border-radius: 10px;
     margin: 15px 20px;
     padding: 8px 15px 15px 15px;
@@ -110,8 +113,8 @@ body {
 	width: 20%;
 	color: #000000;
 	font-weight: bolder;
-	font-size: x-large;
-	margin-top: -2%;
+	font-size: 21px;
+    margin-top: 9%;
 }
 
 .test-bottom {
@@ -182,3 +185,10 @@ body {
 	border-top: 1px solid #BFBFBf
 }
 
+.title-div {
+	float: left;
+    width: 77%;
+    margin-left: 3%;
+    font-weight: bolder;
+    font-size: large;
+}
