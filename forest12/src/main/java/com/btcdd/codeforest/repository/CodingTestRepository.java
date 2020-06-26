@@ -87,7 +87,7 @@ public class CodingTestRepository {
 		return sqlSession.selectList("codingtest.findCodeList", savePathNo);
 	}
 
-	public SaveVo findByProblemNo(Map<String, Object> map) {
+	public int findByProblemNo(Map<String, Object> map) {
 		return sqlSession.selectOne("codingtest.findByProblemNo", map);
 	}
 

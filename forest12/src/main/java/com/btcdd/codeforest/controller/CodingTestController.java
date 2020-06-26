@@ -117,9 +117,9 @@ public class CodingTestController {
 		
 
 		
-		boolean exist = testService.existSaveNo(authUser.getNo(),problemNo);
+		int existCount = testService.existSaveNo(authUser.getNo(),problemNo);
 		
-		if(exist==true) {
+		if(existCount >=1) {
 			System.out.println("바로 코드미러로"); 
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
