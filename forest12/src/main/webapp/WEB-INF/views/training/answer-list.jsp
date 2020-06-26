@@ -145,8 +145,8 @@ $(function() {
 		success: function(response){
 			
 			for(var i = 0; i < response.data.fileNames.length; i++) {
-				consoele.log("fileNames : ", response.data.fileNames[i]);
-				consoele.log("codes : ", response.data.codes[i]);
+				console.log("fileNames : ", response.data.fileNames[i]);
+				console.log("codes : ", response.data.codes[i]);
 			}
 			
 // 			var root = myLayout.root.contentItems[0] || myLayout.root;
