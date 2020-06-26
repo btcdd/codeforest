@@ -164,7 +164,8 @@ $(document).keypress(function(e) {
 						{
 				    		cursorPandan = false;
 				    		
-					        result = $('.terminal').val().substring(prevCursor-1).replace("\n", "");
+// 					        result = $('.terminal').val().substring(prevCursor-1).replace("\n", "");
+					        sendMessage(e, String.fromCharCode(keyCode));
 					        
 					        result = '';
 						    
@@ -183,8 +184,8 @@ $(document).keypress(function(e) {
 						}
 				default:
 						{
+								result += String.fromCharCode(keyCode);
 								appendCommand(String.fromCharCode(keyCode));
-								sendMessage(e, String.fromCharCode(keyCode));
 						}
 		}
 		$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
