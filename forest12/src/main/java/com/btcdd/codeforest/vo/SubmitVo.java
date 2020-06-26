@@ -1,7 +1,5 @@
 package com.btcdd.codeforest.vo;
 
-import java.sql.Timestamp;
-
 public class SubmitVo {
 	private Long no;
 	private String name;
