@@ -162,7 +162,7 @@ $(document).keypress(function(e) {
 						{
 					    		cursorPandan = false;
 					    		
-						        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+						        result = $('.terminal').val().substring(prevCursor-1).replace("\n", "");
 						        
 						        sendMessage(e, result);
 						        result = '';
