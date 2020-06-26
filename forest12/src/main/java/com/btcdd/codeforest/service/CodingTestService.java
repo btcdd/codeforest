@@ -90,7 +90,7 @@ public class CodingTestService {
 		return testRepository.findCodeList(savePathNo);
 	}
 
-	public int existSaveNo(Long authUserNo, Long problemNo) {
+	public Long existSaveNo(Long authUserNo, Long problemNo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("authUserNo", authUserNo);
 		map.put("problemNo", problemNo);
