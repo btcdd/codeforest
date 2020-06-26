@@ -210,7 +210,7 @@ public class CodeTreeService {
 	}	
 	
 	
-	public boolean submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, boolean compileResult,Date userStartTime) {
+	public boolean submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, boolean compileResult,String solveTime) {
 		String answer = "n";
 		
 		if((compileResult+"").equals("true")) {  
@@ -223,9 +223,9 @@ public class CodeTreeService {
 		
 		
 		if(submitVo == null) {
-			return codetreeRepository.submitSubProblem(authUserNo,subProblemNo,codeValue,language,answer,userStartTime) == 1;
+			return codetreeRepository.submitSubProblem(authUserNo,subProblemNo,codeValue,language,answer,solveTime) == 1;
 		} else {
-			return codetreeRepository.updateSubProblem(submitVo.getNo(), codeValue, answer,userStartTime) == 1;
+			return codetreeRepository.updateSubProblem(submitVo.getNo(), codeValue, answer,solveTime) == 1;
 		}
 		
 		

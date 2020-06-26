@@ -30,6 +30,7 @@ import com.btcdd.codeforest.vo.ProblemVo;
 import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.SaveVo;
 import com.btcdd.codeforest.vo.SubProblemVo;
+import com.btcdd.codeforest.vo.SubmitVo;
 import com.btcdd.codeforest.vo.UserVo;
 import com.btcdd.security.Auth;
 
@@ -318,13 +319,9 @@ public class CodingTestController {
 		}
 		sec = diff;
 		
-		map.put("diff", diff);
-		map.put("hours", hours);
-		map.put("min", min);
-		map.put("sec", sec);
 		
 		String solveTime = hours+"시"+min+"분"+sec+"초";
-		map.put("solveTime", solveTime);
+	
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
@@ -366,9 +363,9 @@ public class CodingTestController {
 		map.put("compileError", compileError);
 		
 		map.put("compileResult", compileResult);
-//		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,userStartTimeTransFormat);//정보 삽입
-//		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
-//		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
+		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		
 		
 		

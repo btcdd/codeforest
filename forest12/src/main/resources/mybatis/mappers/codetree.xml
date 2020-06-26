@@ -227,14 +227,14 @@
 	
 	<insert id="submitSubProblem" parameterType="hashmap">
 		<choose>
-			<when test="userStartTime == null">
+			<when test="solveTime == null">
 				<![CDATA[
 					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, null, #{language})
 				]]>				
 			</when>
 			<otherwise>
 				<![CDATA[
-					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, datediff(#{userStartTime},now()), #{language})
+					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, #{solveTime}, #{language})
 				]]>				
 			</otherwise>
 		</choose>
@@ -283,8 +283,8 @@
 		<set>
 			code = #{codeValue },
 			answer = #{answer },
-			<if test="userStartTime != null">
-			solve_time = datediff(#{userStartTime},now())
+			<if test="solveTime != null">
+			solve_time = #{solveTime}
 			</if>
 		</set>
 		where no = #{submitNo }
