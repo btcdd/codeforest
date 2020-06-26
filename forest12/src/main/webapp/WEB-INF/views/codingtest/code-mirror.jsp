@@ -72,7 +72,7 @@ var fileFetchList = function(){
 };
 
 var userStartTime = "${userStartTime}";
-console.log("typeof userStartTime>>>>",typeof userStartTime);
+
 
 
 var currentEditor = null;
@@ -952,9 +952,9 @@ $(function() {
    		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
    		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
    		
-   		var newUserStartTime = new Date(userStartTime);
-   		console.log("newUserStartTime>>",newUserStartTime);
-   		
+   		var solveTime = Date.parse(new Date())-Date.parse(new Date(userStartTime));
+   		console.log("solveTime",solveTime);
+   		console.log("typeof solveTime",typeof solveTime);
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
@@ -972,7 +972,7 @@ $(function() {
    					'problemNo' : problemNo,
    					'compileResult1':compileResult1,
    					'compileResult2':compileResult2,
-   					'userStartTime':newUserStartTime
+   					'solveTime':solveTime
    				},
    				success: function(response) {
    					
