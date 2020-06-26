@@ -104,25 +104,11 @@ function appendCommand(str) {
 //	prevent it from navigating to the previous
 //	page. We also handle arrow keys for command history.
 */
-
-var prevCursor = 0;
-var cursorPandan = false;
-var result;
-
+/*
 $(document).keydown(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {
 		e = e || window.event;
 		var keyCode = typeof e.which === "number" ? e.which : e.keyCode;
-		
-		if(cursorPandan == false) {
-	    	prevCursor = $(this).prop('selectionStart') - 1;
-	    	cursorPandan = true;
-    	}
-		
-		cursorPandan = false;
-		
-        result = $('.terminal').val().substring(prevCursor-1).replace("\n", "");
-		
 		// BACKSPACE
 		if (keyCode === 8 && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
 				e.preventDefault();
@@ -157,17 +143,29 @@ $(document).keydown(function(e) {
 	}
 });
 
+var prevCursor = 0;
+var cursorPandan = false;
+var result;
+
 $(document).keypress(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {		
 		// Make sure we get the right event
 		e = e || window.event;
 		var keyCode = typeof e.which === "number" ? e.which : e.keyCode;
-	    
+		
+	    if(cursorPandan == false) {
+	    	prevCursor = $(this).prop('selectionStart') - 1;
+	    	cursorPandan = true;
+    	}
 		// Which key was pressed?
 		switch (keyCode) {
 				// ENTER
 				case 13:
 						{
+					    		cursorPandan = false;
+					    		
+						        result = $('.terminal').val().substring(prevCursor-1).replace("\n", "");
+						        
 						        sendMessage(e, result);
 						        result = '';
 							    
@@ -192,6 +190,8 @@ $(document).keypress(function(e) {
 		$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
 	}
 });
+*/
+
 //Set the window title
 title.text(email +": ~ ("+nickname+")");
 //Get the date for our fake last-login
