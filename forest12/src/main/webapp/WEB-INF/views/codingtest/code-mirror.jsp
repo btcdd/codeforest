@@ -951,6 +951,10 @@ $(function() {
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
    		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
    		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
+   		
+   		var newUserStartTime = new Date(userStartTime);
+   		console.log("newUserStartTime>>",newUserStartTime);
+   		
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
@@ -968,7 +972,7 @@ $(function() {
    					'problemNo' : problemNo,
    					'compileResult1':compileResult1,
    					'compileResult2':compileResult2,
-   					'userStartTime':userStartTime
+   					'userStartTime':newUserStartTime
    				},
    				success: function(response) {
    					
