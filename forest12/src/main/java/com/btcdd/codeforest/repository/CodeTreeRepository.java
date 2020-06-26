@@ -144,7 +144,7 @@ public class CodeTreeRepository {
 		return sqlSession.insert("codetree.submitSubProblem", map);
 	}	
 	
-	public int submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, String answer,String userStartTime) {
+	public int submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, String answer,Date userStartTime) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("authUserNo", authUserNo);
 		map.put("subProblemNo", subProblemNo);
@@ -185,7 +185,7 @@ public class CodeTreeRepository {
 		
 		return sqlSession.update("codetree.updateSubProblem", map);
 	}	
-	public int updateSubProblem(Long submitNo,String codeValue, String answer,String userStartTime) {
+	public int updateSubProblem(Long submitNo,String codeValue, String answer,Date userStartTime) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("submitNo", submitNo);
 		map.put("codeValue", codeValue);

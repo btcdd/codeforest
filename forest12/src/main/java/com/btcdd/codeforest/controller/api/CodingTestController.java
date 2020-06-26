@@ -1,5 +1,7 @@
 package com.btcdd.codeforest.controller.api;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -285,6 +287,15 @@ public class CodingTestController {
 			Long subProblemNo,String codeValue, Long problemNo,
 			String compileResult1, String compileResult2,String userStartTime,HttpSession session) {
 		
+		SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date userStartTimeTransFormat = null;
+		try {
+			userStartTimeTransFormat = TransFormat.parse(userStartTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
@@ -324,11 +335,11 @@ public class CodingTestController {
 		map.put("compileError", compileError);
 		
 		map.put("compileResult", compileResult);
-		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,userStartTime);//정보 삽입
+		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,userStartTimeTransFormat);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		
-		
+		map.put("userStartTimeTransFormat", userStartTimeTransFormat);
 		
 		return JsonResult.success(map);
 	}			

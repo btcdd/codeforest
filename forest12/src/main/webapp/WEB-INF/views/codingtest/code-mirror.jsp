@@ -974,6 +974,7 @@ $(function() {
    					'userStartTime':userStartTime
    				},
    				success: function(response) {
+   					console.log("response.data.userStartTimeTransFormat>>>",response.data.userStartTimeTransFormat);
    					
    					
    					var compileResult = response.data.compileResult;

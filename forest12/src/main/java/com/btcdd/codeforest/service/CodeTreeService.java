@@ -210,7 +210,7 @@ public class CodeTreeService {
 	}	
 	
 	
-	public boolean submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, boolean compileResult,String userStartTime) {
+	public boolean submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, boolean compileResult,Date userStartTime) {
 		String answer = "n";
 		
 		if((compileResult+"").equals("true")) {  
