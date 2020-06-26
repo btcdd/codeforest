@@ -83,7 +83,7 @@ function onConnected() {
     		code: code,
     		execPandan: execPandan,
     		fileName: tempFile.data("file-name"),
-    		pakcagePath: tempFile.data("package-path"),
+    		packagePath: tempFile.data("package-path"),
             type: 'CHAT'
         };
     execPandan = false;

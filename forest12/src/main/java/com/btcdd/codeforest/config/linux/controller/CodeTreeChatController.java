@@ -57,8 +57,8 @@ public class CodeTreeChatController {
 		pandan = (Boolean) obj.get("execPandan");
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
-		String fileName = (String) obj.get("file-name");
-		String packagePath = (String) obj.get("package-path");
+		String fileName = (String) obj.get("fileName");
+		String packagePath = (String) obj.get("packagePath");
 		String codetreePandan = "hi~~";
 		
 		try {
