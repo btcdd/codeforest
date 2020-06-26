@@ -38,7 +38,6 @@ public class CodingTestController {
 	
 	private TrainingLinux trainingLinux = new TrainingLinux();
 	
-	Map<String, Object> userTimeEnter = new HashMap<>();
 	
 	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
@@ -143,8 +142,8 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 			
-			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
 			
+			model.addAttribute("userStartTime",session.getAttribute("userStartTime"));
 			
 			return "codingtest/code-mirror";
 		}
@@ -222,8 +221,9 @@ public class CodingTestController {
 			Date time = new Date();
 			String userStartTime = format.format(time);
 			
-			userTimeEnter.put("userStartTime", userStartTime);
-			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
+			session.setAttribute("userStartTime", userStartTime);
+			
+			model.addAttribute("userStartTime",session.getAttribute("userStartTime"));
 		
 			
 			
