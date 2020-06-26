@@ -226,9 +226,18 @@
 	</select>
 	
 	<insert id="submitSubProblem" parameterType="hashmap">
-		<![CDATA[
-			insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, null, #{language})
-		]]>		
+		<choose>
+			<when test="solveTime == null">
+				<![CDATA[
+					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, null, #{language})
+				]]>				
+			</when>
+			<otherwise>
+				<![CDATA[
+					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, #{solveTime}, #{language})
+				]]>				
+			</otherwise>
+		</choose>
 	</insert>
 	
 	<select id="findSubmitNoBySubProblem" parameterType="hashmap" resultType="submitvo">
@@ -270,12 +279,19 @@
 	</update>	
 	
 	<update id="updateSubProblem" parameterType="hashmap">
-		<![CDATA[
-			update submit 
-				set code = #{codeValue }, answer = #{answer }				
-			where no = #{submitNo }
-		]]>	
+		<choose>
+			<when test="solveTime == null">
+				update submit
+					set code = #{codeValue },answer = #{answer }
+				where no = #{submitNo }
+			</when>
+			<otherwise>
+				update submit
+					set code = #{codeValue },answer = #{answer },solve_time = #{solveTime}
+				where no = #{submitNo }				
+			</otherwise>
+		</choose>
 	</update>
-
 	
+
 </mapper>

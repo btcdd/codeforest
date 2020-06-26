@@ -1,5 +1,6 @@
 package com.btcdd.codeforest.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -186,6 +187,7 @@ public class CodeTreeService {
 		return codetreeRepository.getExamOutput(subProblemNo);
 	}
 //  추가한 부분
+	
 	public boolean submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, boolean compileResult) {
 		String answer = "n";
 		
@@ -202,6 +204,27 @@ public class CodeTreeService {
 			return codetreeRepository.submitSubProblem(authUserNo,subProblemNo,codeValue,language,answer) == 1;
 		} else {
 			return codetreeRepository.updateSubProblem(submitVo.getNo(), codeValue, answer) == 1;
+		}
+		
+		
+	}	
+	
+	
+	public boolean submitSubProblem(Long authUserNo, Long subProblemNo, String codeValue, String language, boolean compileResult,String solveTime) {
+		String answer = "n";
+		
+		if((compileResult+"").equals("true")) {  
+			answer = "y";
+		}else{
+			answer = "n";
+		}
+		
+		SubmitVo submitVo = codetreeRepository.findSubmitNoBySubProblem(authUserNo,subProblemNo,language);
+		
+		if(submitVo == null) {
+			return codetreeRepository.submitSubProblem(authUserNo,subProblemNo,codeValue,language,answer,solveTime) == 1;
+		} else {
+			return codetreeRepository.updateSubProblem(submitVo.getNo(), codeValue, answer,solveTime) == 1;
 		}
 		
 		

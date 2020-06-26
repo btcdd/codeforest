@@ -71,6 +71,9 @@ var fileFetchList = function(){
 	      });	
 };
 
+var userStartTime = "${userStartTime}";
+console.log("userStartTime>>>>",userStartTime);
+
 
 var currentEditor = null;
 
@@ -948,6 +951,9 @@ $(function() {
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
    		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
    		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
+   		
+   		console.log("Submit userStartTime>>",userStartTime);
+   		
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
@@ -964,9 +970,13 @@ $(function() {
    					'codeValue' : currentEditor.getValue(),
    					'problemNo' : problemNo,
    					'compileResult1':compileResult1,
-   					'compileResult2':compileResult2
+   					'compileResult2':compileResult2,
+   					'userStartTime':userStartTime
    				},
    				success: function(response) {
+   	
+   					
+   					console.log("response.data.solveTime>>>",response.data.solveTime);
    					
    					
    					var compileResult = response.data.compileResult;

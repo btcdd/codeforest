@@ -1,7 +1,10 @@
 package com.btcdd.codeforest.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.btcdd.codeforest.linux.TrainingLinux;
-
 import com.btcdd.codeforest.service.CodingTestService;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
@@ -35,6 +37,8 @@ public class CodingTestController {
 	private CodingTestService testService;
 	
 	private TrainingLinux trainingLinux = new TrainingLinux();
+	
+	Map<String, Object> userTimeEnter = new HashMap<>();
 	
 	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
@@ -109,14 +113,14 @@ public class CodingTestController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
 		
-		ProblemVo problemVo = testService.selectProblemOne(problemNo);
+		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나만 뽑혀야 하는데 여러개 뽑히는 오류 여기서 나는듯..
 		
 		
 
 		
-		boolean exist = testService.existSaveNo(authUser.getNo(),problemNo);
+		Long existCount = testService.existSaveNo(authUser.getNo(),problemNo);
 		
-		if(exist==true) {
+		if(existCount >=1) {
 			System.out.println("바로 코드미러로"); 
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
@@ -139,6 +143,9 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 			
+			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
+			
+			
 			return "codingtest/code-mirror";
 		}
 
@@ -159,8 +166,9 @@ public class CodingTestController {
 		 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-		ProblemVo problemVo = testService.selectProblemOne(problemNo);
-
+		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나 이상
+		
+		
 		if(problemVo.getState().equals("y") && problemVo.getPassword().equals(tempKey)) {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
@@ -209,7 +217,14 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 						
+
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			Date time = new Date();
+			String userStartTime = format.format(time);
 			
+			userTimeEnter.put("userStartTime", userStartTime);
+			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
+		
 			
 			
 			return "codingtest/code-mirror"; //이동
