@@ -163,12 +163,12 @@ $(function() {
 				var editor = CodeMirror.fromTextArea(code, {
 					lineNumbers : true,
 					mode : 'text/x-java',
-					theme : theme,
+					theme : 'panda-sysntax',
 					matchBrackets : true,
 					readOnly : true
 				});		
 				
-				editor.setValue(code);
+				editor.setValue(response.data.codes[i]);
 			}			
 			
 		},
