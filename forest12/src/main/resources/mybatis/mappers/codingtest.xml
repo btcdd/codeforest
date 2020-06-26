@@ -90,9 +90,11 @@
 		
 		
 	<insert id="insertSaveProblemNo" parameterType="map">
-		insert
-		into save
-		values (null, #{userNo }, #{problemNo }, null)
+		<![CDATA[		
+			insert
+			into save
+			values (null, #{userNo }, #{problemNo }, #{userStartTime})
+		]]>				
 	</insert>		
 		
 	<select id="findSaveNo" parameterType="long" resultType="long">
@@ -103,7 +105,14 @@
 			     and user_no = #{authUserNo }
 		]]>
 	</select>		
-
+	<select id="findSaveVoByProblemNo" parameterType="hashmap" resultType="savevo">
+		<![CDATA[
+			  select no,user_no as userNo,problem_no as problemNo,enter_time as enterTime
+			    from save 
+			   where problem_no = #{problemNo }
+			     and user_no = #{authUserNo }
+		]]>
+	</select>
 	<insert id="insertSavePath" parameterType="hashmap">
 		insert into save_path
 		values
@@ -165,5 +174,8 @@
 			where user_no = #{authUserNo} and problem_no = #{problemNo}
 			]]>
 	</select>
-		
+
+	
+
+
 </mapper>
