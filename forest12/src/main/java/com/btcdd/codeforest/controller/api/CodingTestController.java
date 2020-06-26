@@ -288,7 +288,7 @@ public class CodingTestController {
 			String compileResult1, String compileResult2,String userStartTime,HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		
-		SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date userStartTimeTransFormat = new Date();
 		try {
 			userStartTimeTransFormat = TransFormat.parse(userStartTime);
