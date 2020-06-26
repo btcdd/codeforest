@@ -72,13 +72,6 @@ var fileFetchList = function(){
 };
 
 var userStartTime = "${userStartTime}";
-var userStartTimeYear = "${UserStartTimeYear}";
-var userStartTimeMonth ="${UserStartTimeMonth}";
-var userStartTimeDay ="${UserStartTimeDay}";
-var userStartTimeHour ="${UserStartTimeHour}";
-var userStartTimeMin ="${UserStartTimeMin}";
-var userStartTimeSec = "${UserStartTimeSec}";
-console.log("userStartTime>>>",userStartTime);
 
 
 
@@ -974,10 +967,11 @@ $(function() {
    					'codeValue' : currentEditor.getValue(),
    					'problemNo' : problemNo,
    					'compileResult1':compileResult1,
-   					'compileResult2':compileResult2
+   					'compileResult2':compileResult2,
+   					'userStartTime':userStartTime
    				},
    				success: function(response) {
-   					
+   					console.log("response.data.userStartTime>>>>>>>",response.data.userStartTime);
    					
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;

@@ -144,13 +144,6 @@ public class CodingTestController {
 			
 			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
 			
-			model.addAttribute("UserStartTimeYear",userTimeEnter.get("UserStartTimeYear"));
-			model.addAttribute("UserStartTimeMonth",userTimeEnter.get("UserStartTimeMonth"));
-			model.addAttribute("UserStartTimeDay",userTimeEnter.get("UserStartTimeDay"));
-			model.addAttribute("UserStartTimeHour",userTimeEnter.get("UserStartTimeHour"));
-			model.addAttribute("UserStartTimeMin",userTimeEnter.get("UserStartTimeMin"));
-			model.addAttribute("UserStartTimeSec",userTimeEnter.get("UserStartTimeSec"));
-			
 			
 			return "codingtest/code-mirror";
 		}
@@ -222,36 +215,14 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 						
-			Calendar cal = Calendar.getInstance();
 
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH) + 1;
-			int day = cal.get(Calendar.DAY_OF_MONTH);
-			int hour = cal.get(Calendar.HOUR_OF_DAY);
-			int min = cal.get(Calendar.MINUTE);
-			int sec = cal.get(Calendar.SECOND);
-			System.out.println("현재 시각은 " + year + "년도 " + month + "월 " + day + "일 " + hour + "시 " + min + "분 " + sec + "초입니다.");
 			
 			SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
 			Date time = new Date();
 			String userStartTime = format.format(time);
-			
 			userTimeEnter.put("userStartTime", userStartTime);
-			
-			userTimeEnter.put("UserStartTimeYear",year);
-			userTimeEnter.put("UserStartTimeMonth",month);
-			userTimeEnter.put("UserStartTimeDay",day);
-			userTimeEnter.put("UserStartTimeHour",hour);
-			userTimeEnter.put("UserStartTimeMin",min);
-			userTimeEnter.put("UserStartTimeSec",sec);
-			
 			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
-			model.addAttribute("UserStartTimeYear",userTimeEnter.get("UserStartTimeYear"));
-			model.addAttribute("UserStartTimeMonth",userTimeEnter.get("UserStartTimeMonth"));
-			model.addAttribute("UserStartTimeDay",userTimeEnter.get("UserStartTimeDay"));
-			model.addAttribute("UserStartTimeHour",userTimeEnter.get("UserStartTimeHour"));
-			model.addAttribute("UserStartTimeMin",userTimeEnter.get("UserStartTimeMin"));
-			model.addAttribute("UserStartTimeSec",userTimeEnter.get("UserStartTimeSec"));
+		
 			
 			
 			return "codingtest/code-mirror"; //이동

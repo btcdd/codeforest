@@ -2,6 +2,7 @@ package com.btcdd.codeforest.controller.api;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -282,7 +283,7 @@ public class CodingTestController {
 	@PostMapping("/submit")
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
-			String compileResult1, String compileResult2,HttpSession session) {
+			String compileResult1, String compileResult2,Date userStartTime,HttpSession session) {
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
@@ -326,6 +327,8 @@ public class CodingTestController {
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+		
+		map.put("userStartTime",userStartTime);
 		
 		return JsonResult.success(map);
 	}			
