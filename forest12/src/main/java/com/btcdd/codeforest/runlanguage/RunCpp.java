@@ -105,6 +105,23 @@ public class RunCpp {
 		return null;
 	}
 	
+	public String execCompile(String codetreePandan) {
+		try {
+			process = Runtime.getRuntime().exec(inputSource());
+			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			String line = null;
+			readBuffer = new StringBuffer();
+			
+			while((line = bufferedReader.readLine()) != null) {
+				readBuffer.append(line);
+				readBuffer.append("\n");
+			}
+			return readBuffer.toString();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public String execCommand() {
 		try {

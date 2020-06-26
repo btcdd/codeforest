@@ -92,7 +92,7 @@
 	<insert id="insertSaveProblemNo" parameterType="map">
 		insert
 		into save
-		values (null, #{userNo }, #{problemNo })
+		values (null, #{userNo }, #{problemNo }, null)
 	</insert>		
 		
 	<select id="findSaveNo" parameterType="long" resultType="long">
