@@ -119,8 +119,11 @@ function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     
 	$(".terminal").append("<p>" + message.content + "</p>");
-	$(".terminal").append("<span class=\"prompt\">-></span> ");
-	$(".terminal").append("<span class=\"path\">~</span> ");
+	
+	if(message.programPandan) {
+		$(".terminal").append("<span class=\"prompt\">-></span> ");
+		$(".terminal").append("<span class=\"path\">~</span> ");
+	}
 	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
 }
 

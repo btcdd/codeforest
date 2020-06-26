@@ -173,6 +173,7 @@ public class CodeTreeChatController {
 		chatMessage.setContent(readBuffer.toString());
 		if(!process.isAlive()) {
 			chatMessage.setContent(readBuffer.toString() + "\n프로그램이 종료되었습니다!");
+			chatMessage.setProgramPandan(true);
 			return chatMessage;
 		}
 		
