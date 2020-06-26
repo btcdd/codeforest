@@ -172,9 +172,9 @@ public class CodingTestController {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			
-			SaveVo saveVO = null;
+			SaveVo saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
 			
-			if(saveVO == null) {
+			if(saveVO.getEnterTime() == null) {
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				Date time = new Date();
 				String userStartTime = format.format(time);
