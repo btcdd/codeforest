@@ -221,15 +221,13 @@ public class CodingTestController {
 			int sec = cal.get(Calendar.SECOND);
 			System.out.println("현재 시각은 " + year + "년도 " + month + "월 " + day + "일 " + hour + "시 " + min + "분 " + sec + "초입니다.");
 			
-			Map<String, Object> map = new HashMap<>(); 
-			map.put("year", year);
-			map.put("month", month);
-			map.put("day", day);
-			map.put("hour", hour);
-			map.put("min", min);
-			map.put("sec", sec);
-			model.addAttribute("UserStartTime",map);
-			
+
+			model.addAttribute("UserStartTimeYear",year);
+			model.addAttribute("UserStartTimeMonth",month);
+			model.addAttribute("UserStartTimeDay",day);
+			model.addAttribute("UserStartTimeHour",hour);
+			model.addAttribute("UserStartTimeMin",min);
+			model.addAttribute("UserStartTimeSec",sec);
 			
 			return "codingtest/code-mirror"; //이동
 		}
