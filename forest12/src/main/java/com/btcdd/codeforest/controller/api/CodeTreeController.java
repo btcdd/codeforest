@@ -215,7 +215,10 @@ public class CodeTreeController {
 		if("c".equals(language) || "cpp".equals(language)) {
 			try {
 				Runtime.getRuntime().exec("mkdir " + packagePath + "/" + language + "/Main");
-			} catch (IOException e) {
+				
+				Thread.sleep(100);
+				
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			codeTreeLinux.createFileAsSourceFake(codeValue, packagePath + "/" + language + "/Main/" + fileName);
