@@ -1109,31 +1109,7 @@ $(function() {
 	});
 	
 	
-	
-	// 관우 유진
-	/////////////////////////
-	var prevCursor = 0;
-    var cursorPandan = false;
-    $('.terminal').keyup(event, function(key) {
-    	
-    	if(cursorPandan == false) {
-	    	prevCursor = $(this).prop('selectionStart') - 1;
-	    	cursorPandan = true;
-    	}
-    	if (key.keyCode == 13) {
-    		cursorPandan = false;
-    		
-	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
-	        
-	        sendMessage(event, result);
-	        result = '';
-    	}
-   });
-	
-	
-	
-	
-////// function 끝부분 	
+////// function 끝부분
 });
 
 	

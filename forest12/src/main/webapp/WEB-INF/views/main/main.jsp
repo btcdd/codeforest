@@ -105,7 +105,7 @@ function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     
     var prevText = resultText.val();
-    resultText.val(prevText + message.content);
+    resultText.val("<div>" + prevText + message.content + "</div>");
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
