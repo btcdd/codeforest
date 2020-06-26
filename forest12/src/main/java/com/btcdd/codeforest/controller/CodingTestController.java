@@ -119,7 +119,7 @@ public class CodingTestController {
 		
 		Long existCount = testService.existSaveNo(authUser.getNo(),problemNo);
 		
-		if(existCount >=1) {
+		if(existCount >=1 && authUser != null) {
 			System.out.println("바로 코드미러로"); 
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
@@ -184,16 +184,18 @@ public class CodingTestController {
 			testService.insertSaveProblemNo(authUser.getNo(), problemNo);
 			
 			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
-
 			
-			//여기는 들어갈때 딱 한번만 되도록 한다
-			testService.insertSavePath(subProblemNoArray, saveNo, authUser.getNo(), problemNo);
 			
-			testService.insertCode(saveNo);
-			
-			trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);
-			
-			/////////////////////////////////////////////////////////////////////////////////////
+			if(!"ok".equals(session.getAttribute("firstEnter"))) {
+				//여기는 들어갈때 딱 한번만 되도록 한다
+				testService.insertSavePath(subProblemNoArray, saveNo, authUser.getNo(), problemNo);
+				
+				testService.insertCode(saveNo);
+				
+				trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);
+				/////////////////////////////////////////////////////////////////////////////////////	
+				session.setAttribute("firstEnter","ok");
+			}
 			
 			//태성 코드
 			SaveVo saveVo = testService.findSaveVo(saveNo);
