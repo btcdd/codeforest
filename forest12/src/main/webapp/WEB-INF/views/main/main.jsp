@@ -44,6 +44,8 @@ var execPandan;
 
 //채팅 시작하기
 function connect(event) {
+	$('#result').val('프로그램이 시작되었습니다...\n');
+	
 	code = editor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성

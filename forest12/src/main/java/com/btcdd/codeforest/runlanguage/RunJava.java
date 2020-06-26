@@ -21,41 +21,23 @@ public class RunJava {
 	private StringBuffer buffer;
 	private Process process;
 	private BufferedReader bufferedReader;
-	private BufferedReader bufferedReader2;
-	private BufferedWriter bufferedWriter;
 	private StringBuffer readBuffer;
 	
 	private File file;
 	private BufferedWriter bufferWriter;
+	private Long time;
 	
-	private final String FILENAME = "Test.java";
-	
-	private String content = "";
+	public RunJava(Long time) {
+		this.time = time;
+	}
 	
 	public void createFileAsSource(String source) {
 		try {
-			file = new File(FILENAME);
-			bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			process = Runtime.getRuntime().exec("mkdir /mainCompile/java" + time);
 			
-			bufferWriter.write(source);
-			bufferWriter.flush();
-		} catch(Exception e) {
-			e.printStackTrace();
-			System.exit(1);
-		} finally {
-			try {
-				bufferWriter.close();
-				file = null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
-		}
-	}
-	
-	public void createFileAsSource(String source, String fileName) {
-		try {
-			file = new File(fileName);
+			Thread.sleep(100);
+			
+			file = new File("mainCompile/java" + time + "/Test.java");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -76,7 +58,7 @@ public class RunJava {
 	
 	public String execCompile() {
 		try {
-			process = Runtime.getRuntime().exec("javac -cp . Test.java");
+			process = Runtime.getRuntime().exec("javac -cp /mainCompile/java" + time + "/ mainCompile/java" + time + "/Test.java ");
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
@@ -91,32 +73,5 @@ public class RunJava {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-//	public void runProcess() throws IOException {
-//	}
-	
-	public String execCommand() {
-			try {
-				process = Runtime.getRuntime().exec("java -cp . Test");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-	}
-	
-	public String writer(String content) {
-		this.content = content;
-		return content;
-	}
-	
-	
-	private String runClass() {
-		buffer = new StringBuffer();
-		
-		buffer.append("java -cp . Test");
-		
-		return buffer.toString();
 	}
 }

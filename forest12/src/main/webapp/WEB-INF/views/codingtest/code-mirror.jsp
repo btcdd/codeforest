@@ -883,10 +883,10 @@ $(function() {
 				compileResult2 = response.data.result[1];
 				
 				if(response.data.result[1] == "") {
-					$(".terminal").append("<p>"+response.data.result[0]+"</p>");
+					$(".terminal").append("<pre>"+response.data.result[0]+"</pre>");
 				}
 				else {
-					$(".terminal").append("<p>"+response.data.result[1]+"</p>");
+					$(".terminal").append("<pre>"+response.data.result[1]+"</pre>");
 					
 				}
 				$(".terminal").append("<span class=\"prompt\">-></span> ");
@@ -946,7 +946,8 @@ $(function() {
    		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
-   		
+   		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
+   		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
@@ -966,12 +967,16 @@ $(function() {
    					'compileResult2':compileResult2
    				},
    				success: function(response) {
-   					console.log("codeValue",response.data.codeValue);
+   					
+   					console.log("response.data.BooleanEquals2>>>",response.data.BooleanEquals2);
+   					console.log("response.data.BooleanEquals3>>>",response.data.BooleanEquals3);
+   					console.log("response.data.BooleanEquals4>>>",response.data.BooleanEquals4);
+   					
+   					console.log("response.data.BooleanEquals>>>",response.data.BooleanEquals);
+
    					
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;
-   					console.log("compileResult>>>>",compileResult);
-   					console.log("compileError>>>>",compileError);
    					if(compileError == true) {
    						alert("컴파일 오류입니다.");
    						return;
