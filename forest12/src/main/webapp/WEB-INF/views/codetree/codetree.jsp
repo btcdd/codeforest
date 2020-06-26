@@ -118,9 +118,10 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     
-// 	var prevText = $(".terminal").val();
-	$(".terminal").append(message.content + '\n');
-	console.log('gdgdg:', message.content);
+	$(".terminal").append("<p>" + message.content + "</p>");
+	$(".terminal").append("<span class=\"prompt\">-></span> ");
+	$(".terminal").append("<span class=\"path\">~</span> ");
+	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
 }
 
 
