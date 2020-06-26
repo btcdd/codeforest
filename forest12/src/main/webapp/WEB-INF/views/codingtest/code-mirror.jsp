@@ -72,7 +72,7 @@ var fileFetchList = function(){
 };
 
 var userStartTime = "${userStartTime}";
-
+console.log("typeof userStartTime>>>>",typeof userStartTime);
 
 
 var currentEditor = null;
