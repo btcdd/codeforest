@@ -304,6 +304,7 @@ public class CodingTestController {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
+		
 		 
 		boolean compileResult = true;
 		boolean compileError = false;
