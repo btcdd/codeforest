@@ -151,6 +151,7 @@ $(document).keypress(function(e) {
 				// ENTER
 				case 13:
 						{
+								console.log('asdfasdfasdfasfd');
 								terminal.append("\n");
 								processCommand();
 								displayPrompt();
