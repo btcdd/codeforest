@@ -30,7 +30,6 @@ import com.btcdd.codeforest.vo.ProblemVo;
 import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.SaveVo;
 import com.btcdd.codeforest.vo.SubProblemVo;
-import com.btcdd.codeforest.vo.SubmitVo;
 import com.btcdd.codeforest.vo.UserVo;
 import com.btcdd.security.Auth;
 
@@ -305,12 +304,20 @@ public class CodingTestController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		long hours=0,min=0,sec = 0;
 		Long diff = userSubmitTime2.getTime() - userStartTimeTransFormat.getTime();
-		long hours=0,min=0,sec;
-		sec = diff/1000;
-		min = sec / 60;
-		hours = min / 60;
+		diff = diff / 1000; //밀리세컨트를 초단위로 변환  1432초 
+		
+		if(diff >= 3600) {
+			hours = (long) Math.floor(diff / 3600);
+			diff -= hours * 3600;
+		}
+		if(diff >= 60) {
+			min = (long) Math.floor(diff / 60);
+			diff -= min * 60;
+		}
+		sec = diff;
+		
 		map.put("diff", diff);
 		map.put("hours", hours);
 		map.put("min", min);
