@@ -234,7 +234,7 @@
 			</when>
 			<otherwise>
 				<![CDATA[
-					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, timestampdiffnow(MINUTE,#{userStartTime},now()), #{language})
+					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, #{userStartTime}, #{language})
 				]]>				
 			</otherwise>
 		</choose>
