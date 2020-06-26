@@ -238,7 +238,7 @@ public class CodeTreeController {
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
 		
-		boolean compileResult = false;
+		boolean compileResult = true;
 		boolean compileError = false;
  		
 		Map<String, Object> map = new HashMap<>();
@@ -246,33 +246,36 @@ public class CodeTreeController {
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] compileResult1Split =compileResult1.split("\n");
 		
-
-		
-		
-		if(compileResult2 == null || compileResult2.equals("")) {
-			for(int i=0;i<examOutputSplit.length;i++) {
-				String tempString1 = examOutputSplit[i];
-				String tempString2 = compileResult1Split[i];
-				if(tempString1.contentEquals(tempString2)) {
-					compileResult = true;
-				}else {
-					compileResult = false;
-				}
-			}				
-			codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
-			SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
-			codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가				
-		} else {
-			compileError = true;
+		if(examOutputSplit.length != compileResult1Split.length) {
+			compileResult = false;
 		}
-		
-		 
-
-		
-		map.put("compileResult", compileResult);
+		else {
+			if(compileResult2 == null || compileResult2.equals("")) {
+				for(int i = 0; i < examOutputSplit.length; i++) {
+					if(i == examOutputSplit.length-1) {
+						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
+							compileResult = false;
+							break;
+						}
+					}
+					else {
+						if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
+							compileResult = false;
+							break;
+						}
+					}
+				}
+			}
+			else {
+				compileError = true;
+			}
+		}
 		map.put("compileError", compileError);
 		
-		
+		map.put("compileResult", compileResult);
+		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
+		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		
 		return JsonResult.success(map);
 	}		

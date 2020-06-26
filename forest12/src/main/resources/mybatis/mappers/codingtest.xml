@@ -158,9 +158,9 @@
 		]]>
 	</select>	
 
-	<select id="findByProblemNo" parameterType="hashmap" resultType="savevo">
+	<select id="findByProblemNo" parameterType="hashmap" resultType="long">
 			<![CDATA[
-			select *
+			select count(*)
 			from save
 			where user_no = #{authUserNo} and problem_no = #{problemNo}
 			]]>
