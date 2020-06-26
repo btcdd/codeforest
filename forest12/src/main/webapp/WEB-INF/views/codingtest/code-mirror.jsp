@@ -72,7 +72,7 @@ var fileFetchList = function(){
 };
 
 var userStartTime = "${userStartTime}";
-
+console.log("userStartTime>>>>",userStartTime);
 
 
 var currentEditor = null;
@@ -953,7 +953,13 @@ $(function() {
    		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
    		
    		var userDiff = (Date.parse(new Date()) - Date.parse(new Date(userStartTime))) / 1000;
+   		var userDiff2 = Date.parse(new Date()) - Date.parse(new Date(userStartTime)) ;
+   		var userDiff3 = Date.parse(new Date());
+   		var userDiff4 = Date.parse(new Date(userStartTime));
    		console.log("userDiff>>>>",userDiff);
+   		console.log("userDiff2>>>>",userDiff2);
+   		console.log("userDiff3>>>>",userDiff3);
+   		console.log("userDiff4>>>>",userDiff4);
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
