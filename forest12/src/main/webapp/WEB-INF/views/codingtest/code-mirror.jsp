@@ -952,14 +952,8 @@ $(function() {
    		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
    		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
    		
-   		var userDiff = (Date.parse(new Date()) - Date.parse(new Date(userStartTime))) / 1000;
-   		var userDiff2 = Date.parse(new Date()) - Date.parse(new Date(userStartTime)) ;
-   		var userDiff3 = Date.parse(new Date());
-   		var userDiff4 = Date.parse(new Date(userStartTime));
-   		console.log("userDiff>>>>",userDiff);
-   		console.log("userDiff2>>>>",userDiff2);
-   		console.log("userDiff3>>>>",userDiff3);
-   		console.log("userDiff4>>>>",userDiff4);
+   		console.log("Submit userStartTime>>",userStartTime);
+   		console.log("Date.parse(new Date(userStartTime))>>>",Date.parse(new Date(userStartTime)));
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
@@ -977,7 +971,7 @@ $(function() {
    					'problemNo' : problemNo,
    					'compileResult1':compileResult1,
    					'compileResult2':compileResult2,
-   					'solveTime':solveTime
+   					'solveTime':userStartTime
    				},
    				success: function(response) {
    					
