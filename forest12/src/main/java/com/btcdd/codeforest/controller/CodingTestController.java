@@ -1,7 +1,9 @@
 package com.btcdd.codeforest.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.btcdd.codeforest.linux.TrainingLinux;
-
 import com.btcdd.codeforest.service.CodingTestService;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
@@ -141,6 +142,7 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 			
+			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
 			
 			model.addAttribute("UserStartTimeYear",userTimeEnter.get("UserStartTimeYear"));
 			model.addAttribute("UserStartTimeMonth",userTimeEnter.get("UserStartTimeMonth"));
@@ -230,9 +232,11 @@ public class CodingTestController {
 			int sec = cal.get(Calendar.SECOND);
 			System.out.println("현재 시각은 " + year + "년도 " + month + "월 " + day + "일 " + hour + "시 " + min + "분 " + sec + "초입니다.");
 			
+			SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+			Date time = new Date();
+			String userStartTime = format.format(time);
 			
-			
-			
+			userTimeEnter.put("userStartTime", userStartTime);
 			
 			userTimeEnter.put("UserStartTimeYear",year);
 			userTimeEnter.put("UserStartTimeMonth",month);
@@ -241,7 +245,7 @@ public class CodingTestController {
 			userTimeEnter.put("UserStartTimeMin",min);
 			userTimeEnter.put("UserStartTimeSec",sec);
 			
-			
+			model.addAttribute("userStartTime",userTimeEnter.get("userStartTime"));
 			model.addAttribute("UserStartTimeYear",userTimeEnter.get("UserStartTimeYear"));
 			model.addAttribute("UserStartTimeMonth",userTimeEnter.get("UserStartTimeMonth"));
 			model.addAttribute("UserStartTimeDay",userTimeEnter.get("UserStartTimeDay"));
