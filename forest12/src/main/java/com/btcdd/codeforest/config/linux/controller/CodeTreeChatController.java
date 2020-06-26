@@ -66,11 +66,11 @@ public class CodeTreeChatController {
 				if("c".equals(language)) {
 					RunCLinux runCLinux = new RunCLinux(fileName, packagePath, language);
 				    errorResult = runCLinux.execCompile();
-					process = Runtime.getRuntime().exec("timeout 120s " + packagePath + "/" + language + "/Main/Test.exe");
+					process = Runtime.getRuntime().exec("timeout 120s " + packagePath + "/" + language + "/Test.exe");
 				} else if("cpp".equals(language)) {
 					RunCppLinux runCppLinux = new RunCppLinux(fileName, packagePath, language);
 				    errorResult = runCppLinux.execCompile();
-					process = Runtime.getRuntime().exec("timeout 120s " + packagePath + "/" + language + "/Main/Test.exe");
+					process = Runtime.getRuntime().exec("timeout 120s " + packagePath + "/" + language + "/Test.exe");
 				} else if("cs".equals(language)) {
 					RunCsLinux runCsLinux = new RunCsLinux(fileName, packagePath, language);
 				    errorResult = runCsLinux.execCompile();
