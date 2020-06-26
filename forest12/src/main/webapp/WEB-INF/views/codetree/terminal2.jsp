@@ -151,7 +151,7 @@ $(document).keypress(function(e) {
 				// ENTER
 				case 13:
 						{
-								console.log('asdfasdfasdfasfd');
+								$(".terminal").append("<p>얄루얄루양룰양룽룽룽룽루</p>");
 								terminal.append("\n");
 								processCommand();
 								displayPrompt();
