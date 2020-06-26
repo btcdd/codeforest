@@ -104,40 +104,39 @@ function appendCommand(str) {
 //	prevent it from navigating to the previous
 //	page. We also handle arrow keys for command history.
 */
-/*
 $(document).keydown(function(e) {
 	if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {
 		e = e || window.event;
 		var keyCode = typeof e.which === "number" ? e.which : e.keyCode;
 		// BACKSPACE
 		if (keyCode === 8 && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
-				e.preventDefault();
-				if (command !== "") {
-						erase(1);
-				}
+			e.preventDefault();
+			if (command !== "") {
+				erase(1);
+			}
 		}
 		// UP or DOWN
 		if (keyCode === 38 || keyCode === 40) {
-				// Move up or down the history
-				if (keyCode === 38) {
-						// UP
+			// Move up or down the history
+			if (keyCode === 38) {
+				// UP
+				historyIndex--;
+				if (historyIndex < 0) {
+					historyIndex++;
+				}
+			} else if (keyCode === 40) {
+				// DOWN
+				historyIndex++;
+				if (historyIndex > commandHistory.length - 1) {
 						historyIndex--;
-						if (historyIndex < 0) {
-								historyIndex++;
-						}
-				} else if (keyCode === 40) {
-						// DOWN
-						historyIndex++;
-						if (historyIndex > commandHistory.length - 1) {
-								historyIndex--;
-						}
 				}
-				// Get command
-				var cmd = commandHistory[historyIndex];
-				if (cmd !== undefined) {
-						clearCommand();
-						appendCommand(cmd);
-				}
+			}
+			// Get command
+			var cmd = commandHistory[historyIndex];
+			if (cmd !== undefined) {
+					clearCommand();
+					appendCommand(cmd);
+			}
 		}
 		$('.window').scrollTop($('.window').prop('scrollHeight'));
 	}
@@ -162,25 +161,25 @@ $(document).keypress(function(e) {
 				// ENTER
 				case 13:
 						{
-					    		cursorPandan = false;
-					    		
-						        result = $('.terminal').val().substring(prevCursor-1).replace("\n", "");
-						        
-						        sendMessage(e, result);
-						        result = '';
-							    
-								terminal.append("\n");
-								processCommand();
-								displayPrompt();
-								if($('.theme option:selected').parent().attr('label') == "white") {
-									   $(".window .terminal .prompt").css('color', "#004000");
-									   $(".window .terminal .path").css('color', "#1f0d98");
-								   }
-								   else {
-									   $(".prompt").css('color', "#bde371");
-									   $(".path").css('color', "#5ed7ff");
-								   }
-								break;
+				    		cursorPandan = false;
+				    		
+					        result = $('.terminal').val().substring(prevCursor-1).replace("\n", "");
+					        
+					        sendMessage(e, result);
+					        result = '';
+						    
+							terminal.append("\n");
+							processCommand();
+							displayPrompt();
+							if($('.theme option:selected').parent().attr('label') == "white") {
+								   $(".window .terminal .prompt").css('color', "#004000");
+								   $(".window .terminal .path").css('color', "#1f0d98");
+							   }
+							   else {
+								   $(".prompt").css('color', "#bde371");
+								   $(".path").css('color', "#5ed7ff");
+							   }
+							break;
 						}
 				default:
 						{
@@ -190,8 +189,6 @@ $(document).keypress(function(e) {
 		$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
 	}
 });
-*/
-
 //Set the window title
 title.text(email +": ~ ("+nickname+")");
 //Get the date for our fake last-login
