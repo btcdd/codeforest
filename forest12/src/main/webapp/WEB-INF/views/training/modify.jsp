@@ -262,7 +262,7 @@ window.onload = function(){
 			var ckeContents = document.getElementsByClassName("cke_contents")[i];
 			ckeContents.style = "height: 400px";
 		}
-	}, 50);
+	}, 70);
 };
 
 </script>
