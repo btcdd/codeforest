@@ -72,7 +72,7 @@ var fileFetchList = function(){
 };
 
 
-if("${UserStartTime}".equals("no") == false){
+
 	var useryear = "${UserStartTime}.get('year')";
 	var userMonth = "${UserStartTime}.get('month')";
 	var userDay = "${UserStartTime}.get('day')";
@@ -86,7 +86,7 @@ if("${UserStartTime}".equals("no") == false){
 	console.log("userHour>>>",userHour);
 	console.log("userMin>>>",userMin);
 	console.log("userSec>>>",userSec);
-}
+
 
 
 
