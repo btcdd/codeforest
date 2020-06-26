@@ -952,9 +952,8 @@ $(function() {
    		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
    		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
    		
-   		var solveTime = Date.parse(new Date())-Date.parse(new Date(userStartTime));
-   		console.log("solveTime",solveTime);
-   		console.log("typeof solveTime",typeof solveTime);
+   		var userDiff = (Date.parse(new Date()) - Date.parse(new Date(userStartTime))) / 1000;
+   		console.log("userDiff>>>>",userDiff);
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
