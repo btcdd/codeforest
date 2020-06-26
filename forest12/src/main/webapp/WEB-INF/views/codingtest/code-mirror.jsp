@@ -75,15 +75,26 @@ var fileFetchList = function(){
 
 	var UserStartTime = "${UserStartTime}";
 	console.log("UserStartTime>>>",UserStartTime);
-/* 	console.log("useryear>>>",UserStartTime.get("year"));
-	console.log("useryear>>>",UserStartTime.get("month"));
-	console.log("useryear>>>",UserStartTime.get("day"));
-	console.log("useryear>>>",UserStartTime.get("hour"));
-	console.log("useryear>>>",UserStartTime.get("min"));
-	console.log("useryear>>>",UserStartTime.get("sec")); */
-
-
-
+	console.log("UserStartTime.year>>>",UserStartTime.year);
+	console.log("UserStartTime.month>>>",UserStartTime.month);
+	console.log("UserStartTime.year>>>",UserStartTime.year);
+	console.log("UserStartTime.day>>>",UserStartTime.day);
+	console.log("UserStartTime.hour>>>",UserStartTime.hour);
+	console.log("UserStartTime.min>>>",UserStartTime.min);
+	console.log("UserStartTime.sec>>>",UserStartTime.sec);
+console.log("--------------------------------------------------");
+var userStartTimeYear = UserStartTime.year;
+var userStartTimeMonth = UserStartTime.month;
+var userStartTimeDay = UserStartTime.day;
+var userStartTimeHour = UserStartTime.hour;
+var userStartTimeMin = UserStartTime.min;
+var userStartTimeSec = UserStartTime.sec;
+console.log("userStartTimeYear>>",userStartTimeYear);
+console.log("userStartTimeMonth>>",userStartTimeMonth);
+console.log("userStartTimeDay>>",userStartTimeDay);
+console.log("userStartTimeHour>>",userStartTimeHour);
+console.log("userStartTimeMin>>",userStartTimeMin);
+console.log("userStartTimeSec>>",userStartTimeSec);
 
 
 
