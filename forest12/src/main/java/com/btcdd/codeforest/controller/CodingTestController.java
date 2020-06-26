@@ -172,7 +172,7 @@ public class CodingTestController {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			
-	
+			Long saveNo = null;
 			//관우-유진 코드
 			/////////////////////////////////////////////////////////////////////////////////////
 			Long[] subProblemNoArray = new Long[subProblemList.size()];
@@ -181,12 +181,12 @@ public class CodingTestController {
 				System.out.println("subProblemNoArray[i]>>>>"+subProblemNoArray[i]);
 			}
 			
-			testService.insertSaveProblemNo(authUser.getNo(), problemNo);
-			
-			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
+
 			
 			
 			if(!"ok".equals(session.getAttribute("firstEnter"))) {
+				testService.insertSaveProblemNo(authUser.getNo(), problemNo);
+				saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
 				//여기는 들어갈때 딱 한번만 되도록 한다
 				testService.insertSavePath(subProblemNoArray, saveNo, authUser.getNo(), problemNo);
 				
@@ -197,6 +197,7 @@ public class CodingTestController {
 				session.setAttribute("firstEnter","ok");
 			}
 			
+			saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
 			//태성 코드
 			SaveVo saveVo = testService.findSaveVo(saveNo);
 			List<SavePathVo> savePathList = testService.findSavePathList(saveVo.getNo());
