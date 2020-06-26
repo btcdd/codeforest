@@ -174,7 +174,7 @@ public class CodingTestController {
 			
 			SaveVo saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
 			
-			if(saveVO.getEnterTime() == null) {
+			if(saveVO == null) {
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				Date time = new Date();
 				String userStartTime = format.format(time);
