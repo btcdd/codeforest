@@ -116,10 +116,9 @@ function onMessageReceived(payload) {
 	
 	
     var message = JSON.parse(payload.body);
-	console.log('ㅎㅇㅎㅇㅎㅇㅎㅇ:', message.content);
     
-    var prevText = resultText.val();
-    resultText.val(prevText + message.content);
+	var prevText = currentEdiotr.getValue();
+	currentEdiotr.setValue(prevText + message.content);
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
