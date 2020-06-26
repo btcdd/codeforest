@@ -74,13 +74,13 @@ var fileFetchList = function(){
 
 
 	var UserStartTime = "${UserStartTime}";
-	
-	console.log("useryear>>>",UserStartTime.get("year"));
+	console.log("UserStartTime>>>",UserStartTime);
+/* 	console.log("useryear>>>",UserStartTime.get("year"));
 	console.log("useryear>>>",UserStartTime.get("month"));
 	console.log("useryear>>>",UserStartTime.get("day"));
 	console.log("useryear>>>",UserStartTime.get("hour"));
 	console.log("useryear>>>",UserStartTime.get("min"));
-	console.log("useryear>>>",UserStartTime.get("sec"));
+	console.log("useryear>>>",UserStartTime.get("sec")); */
 
 
 
