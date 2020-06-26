@@ -72,6 +72,25 @@ var fileFetchList = function(){
 };
 
 
+if("${UserStartTime}".equals("no") == false){
+	var useryear = "${UserStartTime}.get('year')";
+	var userMonth = "${UserStartTime}.get('month')";
+	var userDay = "${UserStartTime}.get('day')";
+	var userHour = "${UserStartTime}.get('hour')";
+	var userMin = "${UserStartTime}.get('min')";
+	var userSec = "${UserStartTime}.get('sec')";
+	
+	console.log("useryear>>>",useryear);
+	console.log("userMonth>>>",userMonth);
+	console.log("userDay>>>",userDay);
+	console.log("userHour>>>",userHour);
+	console.log("userMin>>>",userMin);
+	console.log("userSec>>>",userSec);
+}
+
+
+
+
 var currentEditor = null;
 
 var editorArray = new Array();

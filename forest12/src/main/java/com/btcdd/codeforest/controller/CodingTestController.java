@@ -139,6 +139,8 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 			
+			model.addAttribute("UserStartTime", "no");
+			
 			return "codingtest/code-mirror";
 		}
 
@@ -209,7 +211,24 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 						
+			Calendar cal = Calendar.getInstance();
+
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH) + 1;
+			int day = cal.get(Calendar.DAY_OF_MONTH);
+			int hour = cal.get(Calendar.HOUR_OF_DAY);
+			int min = cal.get(Calendar.MINUTE);
+			int sec = cal.get(Calendar.SECOND);
+			System.out.println("현재 시각은 " + year + "년도 " + month + "월 " + day + "일 " + hour + "시 " + min + "분 " + sec + "초입니다.");
 			
+			Map<String, Object> map = new HashMap<>(); 
+			map.put("year", year);
+			map.put("month", month);
+			map.put("day", day);
+			map.put("hour", hour);
+			map.put("min", min);
+			map.put("sec", sec);
+			model.addAttribute("UserStartTime",map);
 			
 			
 			return "codingtest/code-mirror"; //이동
