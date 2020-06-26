@@ -331,7 +331,7 @@ public class CodingTestController {
 		boolean compileResult = true;
 		boolean compileError = false;
  		
-		
+		 
 		
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] compileResult1Split =compileResult1.split("\n");
