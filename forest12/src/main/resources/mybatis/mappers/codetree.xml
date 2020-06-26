@@ -234,7 +234,7 @@
 			</when>
 			<otherwise>
 				<![CDATA[
-					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, now()-#{userStartTime}, #{language})
+					insert into submit values(null, #{codeValue},#{answer}, #{subProblemNo}, #{authUserNo}, timestampdiffnow(MINUTE,#{userStartTime},now()), #{language})
 				]]>				
 			</otherwise>
 		</choose>
@@ -284,7 +284,7 @@
 			code = #{codeValue },
 			answer = #{answer },
 			<if test="userStartTime != null">
-			solve_time = now()-#{userStartTime}
+			solve_time = timestampdiffnow(MINUTE,#{userStartTime},now())
 			</if>
 		</set>
 		where no = #{submitNo }
