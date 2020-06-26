@@ -974,7 +974,8 @@ $(function() {
    					'userStartTime':userStartTime
    				},
    				success: function(response) {
-   					console.log("response.data.solveTime>>>",response.data.solveTime);
+   					console.log("response.data.diff>>>",response.data.diff);
+   					console.log("response.data.sec>>>",response.data.sec);
    					
    					
    					var compileResult = response.data.compileResult;

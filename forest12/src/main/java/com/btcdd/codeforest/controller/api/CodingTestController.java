@@ -306,8 +306,10 @@ public class CodingTestController {
 			e.printStackTrace();
 		}
 		
-		Long solveTime = userSubmitTime2.getTime() - userStartTimeTransFormat.getTime();
-		map.put("solveTime", solveTime);
+		Long diff = userSubmitTime2.getTime() - userStartTimeTransFormat.getTime();
+		long sec = diff/1000;
+		map.put("diff", diff);
+		map.put("sec", sec);
 		
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
