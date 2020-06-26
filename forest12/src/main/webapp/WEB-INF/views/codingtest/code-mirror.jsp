@@ -979,6 +979,8 @@ $(function() {
    					console.log("response.data.min>>>",response.data.min);
    					console.log("response.data.sec>>>",response.data.sec);
    					
+   					console.log("response.data.solveTime>>>",response.data.solveTime);
+   					
    					
    					var compileResult = response.data.compileResult;
    					var compileError = response.data.compileError;
