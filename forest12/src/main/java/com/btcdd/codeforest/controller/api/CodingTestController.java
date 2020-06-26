@@ -321,7 +321,7 @@ public class CodingTestController {
 		
 		
 		String solveTime = hours+"시"+min+"분"+sec+"초";
-	
+		map.put("solveTime", solveTime);
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		

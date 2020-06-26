@@ -113,7 +113,7 @@ public class CodingTestController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
 		
-		ProblemVo problemVo = testService.selectProblemOne(problemNo);
+		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나만 뽑혀야 하는데 여러개 뽑히는 오류 여기서 나는듯..
 		
 		
 
@@ -166,8 +166,9 @@ public class CodingTestController {
 		 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-		ProblemVo problemVo = testService.selectProblemOne(problemNo);
-
+		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나 이상
+		
+		
 		if(problemVo.getState().equals("y") && problemVo.getPassword().equals(tempKey)) {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
