@@ -216,7 +216,7 @@ public class CodeTreeController {
 			try {
 				Runtime.getRuntime().exec("mkdir " + packagePath + "/" + language + "/Main");
 				
-				Thread.sleep(5000);
+				Thread.sleep(200);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
