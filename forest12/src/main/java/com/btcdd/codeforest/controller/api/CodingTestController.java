@@ -289,9 +289,10 @@ public class CodingTestController {
 		Map<String, Object> map = new HashMap<>();
 		
 		SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date userStartTimeTransFormat = null;
+		Date userStartTimeTransFormat = new Date();
 		try {
 			userStartTimeTransFormat = TransFormat.parse(userStartTime);
+			map.put("userStartTime", userStartTime);
 			map.put("userStartTimeTransFormat", userStartTimeTransFormat);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
