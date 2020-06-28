@@ -42,6 +42,7 @@ var editor;
 var execPandan;
 var prevCursor;
 var message;
+var prevText;
 
 //채팅 시작하기
 function connect(event) {
@@ -49,6 +50,7 @@ function connect(event) {
 	console.log('asdf');
 	$('#result').val('');
 	$('#result').val('프로그램이 시작되었습니다...\n');
+	prevText = '';
 	
 	$('#result').attr("readonly", false);
 	
@@ -108,7 +110,7 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    var prevText = $('#result').val() + '\n';
+    prevText = $('#result').val() + '\n';
     $('#result').val(prevText + message.content);
     console.log('message:', message.content);
     console.log('prevText:', prevText);
