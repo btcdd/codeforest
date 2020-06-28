@@ -57,11 +57,11 @@ public class ChatController {
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
 		
-		chatMessage.setProgramPandan(false);
-		chatMessage.setContent("");
 		
 		try {
 			if(pandan) {
+				chatMessage.setProgramPandan(false);
+				chatMessage.setContent("");
 //				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
 					RunC rc = new RunC(time);
