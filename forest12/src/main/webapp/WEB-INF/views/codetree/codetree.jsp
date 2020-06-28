@@ -826,8 +826,8 @@ $(function() {
 					else {
 						console.log("4");
 						if(language === 'java' && (response.data == "" || response.data == null)) {
-							face = 'public class ' + fileName + '{\n' + 
-							  		'\tpublic static void main(String[] args) {\n' + 
+							face = 'public class ' + fileName.split(".")[0] + '{\n' + 
+							  		'\tpublic static void main(String[] args) {\n\n' + 
 							      '\t}\n' + 
 							  '}\n';
 							currentEditor.setValue(face);
