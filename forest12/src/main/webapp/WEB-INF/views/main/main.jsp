@@ -43,6 +43,7 @@ var execPandan;
 var prevCursor;
 var message;
 var prevText = '';
+var socket;
 
 //채팅 시작하기
 function connect(event) {
@@ -56,7 +57,7 @@ function connect(event) {
 	code = editor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-    var socket = new SockJS('${pageContext.request.contextPath }/ws');
+    socket = new SockJS('${pageContext.request.contextPath }/ws');
    
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
