@@ -236,7 +236,7 @@ $(function() {
     	if (key.keyCode == 13) {
     		cursorPandan = false;
     		
-	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        result = $(this).val().substring(prevCursor).replace("\n", "");
 	        
 	        sendMessage(event, result);
 	        result = '';
