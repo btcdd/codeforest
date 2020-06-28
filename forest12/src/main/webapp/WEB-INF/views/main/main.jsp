@@ -48,6 +48,8 @@ var message;
 function connect(event) {
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
+	$('#result').attr("readonly", false);
+	
 	code = editor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
@@ -100,6 +102,7 @@ function sendMessage(event, res) {
     event.preventDefault();
 }
 
+
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
@@ -109,6 +112,10 @@ function onMessageReceived(payload) {
     prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
+    
+    if(message.programPandan) {
+    	$(this).attr("readonly", true);
+    }
 }
 
 $(function() {
@@ -302,7 +309,7 @@ public class Test{
 }</textarea>
                   </td>
                   <td>
-                     <textarea name="" id="result" class="res"></textarea>
+                     <textarea name="" id="result" class="res" readonly></textarea>
                   </td>
                </tr>
             </table>
