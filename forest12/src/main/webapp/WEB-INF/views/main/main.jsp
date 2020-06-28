@@ -46,7 +46,7 @@ var message;
 
 //채팅 시작하기
 function connect(event) {
-	$('#result').val('');
+	resultText.val('');
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
 	$('#result').attr("readonly", false);
@@ -107,7 +107,6 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    console.log(resultText.val());
     var prevText = resultText.val() + '\n';
     resultText.val(prevText + message.content);
     
