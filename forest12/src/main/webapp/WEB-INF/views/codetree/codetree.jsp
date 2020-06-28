@@ -821,7 +821,7 @@ $(function() {
 							console.log("3");
 							currentEditor.setValue(response.data);
 							SavedCode.set(fileNo+"",response.data);
-						}
+						} 
 					}
 					else {
 						console.log("4");
