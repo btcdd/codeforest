@@ -51,9 +51,9 @@ function connect(event) {
 	
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
-	$('#result').val('');
 	
-// 	$('#result').attr("readonly", false);
+	$('#result').attr("readonly", false);
+	$('#result').val('');
 	
 // 	prevText = '';
 	
