@@ -651,7 +651,7 @@ $(function() {
 		    	buttons:{
 		    		"수정":function(){
 						if(Test == "Test"){
-							$(".FileUpdate").css("color","red").html("<p>Test파일 수정불가</p>");
+							$("<p>Test파일 수정불가</p>").insertAfter(".fileName-update");
 							Test = null;							
 							return;
 						}		    			
