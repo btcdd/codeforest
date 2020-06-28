@@ -71,6 +71,9 @@ var fileFetchList = function(){
 	      });	
 };
 
+var userStartTime = "${userStartTime}";
+console.log("userStartTime>>>>",userStartTime);
+
 
 var currentEditor = null;
 
@@ -856,7 +859,9 @@ $(function() {
  	
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
- 		
+ 		if(currentEditor == null){
+ 			return;
+ 		} 		
  		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
@@ -902,6 +907,9 @@ $(function() {
  	
   	    
   	$(document).on("click","#Save",function(){
+   		if(tempFile == null){
+   			return;
+   		}  		
   		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
   		
   		$(this).addClass("SaveClick");	
@@ -928,6 +936,9 @@ $(function() {
 				'problemNo' : problemNo
 			},
 			success: function(response) {
+				if(tempLayout == null){
+					return;
+				}				
 				SavedCode.set(fileNo+"", currentEditor.getValue());
 				console.log("ok");
 				layoutId = "layout-"+fileNo;
@@ -943,11 +954,17 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
+   		if(currentEditor == null){
+   			return;
+   		}   		
    		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
    		console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
    		console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
+   		
+   		console.log("Submit userStartTime>>",userStartTime);
+   		
    		setTimeout(function(){
 
    	   		var problemNo = "${saveVo.problemNo }";
@@ -964,9 +981,13 @@ $(function() {
    					'codeValue' : currentEditor.getValue(),
    					'problemNo' : problemNo,
    					'compileResult1':compileResult1,
-   					'compileResult2':compileResult2
+   					'compileResult2':compileResult2,
+   					'userStartTime':userStartTime
    				},
    				success: function(response) {
+   	
+   					
+   					console.log("response.data.solveTime>>>",response.data.solveTime);
    					
    					
    					var compileResult = response.data.compileResult;

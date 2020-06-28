@@ -39,9 +39,7 @@ public class CodeTreeController {
 	@PostMapping(value="/list")// main-header에서 처음 열때
 	public JsonResult codeTree(String page, String kwd,HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		System.out.println("kwd>>>>"+kwd);
 		int p = Integer.parseInt(page);
-		System.out.println("p>>>"+p);
 		Map<String, Object> map = codetreeService.getContentsList(p,kwd,authUser.getNo());
 		map.get("list");
 		
@@ -211,6 +209,17 @@ public class CodeTreeController {
 		
 		// 관우 유진 코드
 		//////////
+		if("c".equals(language) || "cpp".equals(language)) {
+			try {
+				Runtime.getRuntime().exec("mkdir " + packagePath + "/" + language + "/Main");
+				
+				Thread.sleep(200);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			codeTreeLinux.createFileAsSourceFake(codeValue, packagePath + "/" + language + "/Main/" + fileName);
+		}
 		codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
 		
 		//////////

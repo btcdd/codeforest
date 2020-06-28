@@ -53,6 +53,31 @@ var setStyle = function(index2) {
 	}, 50);
 }
 
+function leadingZeros(n, digits) {
+	  var zero = '';
+	  n = n.toString();
+
+	  if (n.length < digits) {
+	    for (i = 0; i < digits - n.length; i++)
+	      zero += '0';
+	  }
+	  return zero + n;
+}
+
+function getTimeStamp() {
+	  var d = new Date();
+	  var s =
+	    leadingZeros(d.getFullYear(), 4) + '-' +
+	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+	    leadingZeros(d.getDate(), 2) + ' ' +
+
+	    leadingZeros(d.getHours(), 2) + ':' +
+	    leadingZeros(d.getMinutes(), 2) + ':' +
+	    leadingZeros(d.getSeconds(), 2);
+
+	  return s;
+}
+
 $(function() {
 	
 	$('#addSubProblem').click(function() {
@@ -101,7 +126,7 @@ $(function() {
 		if ($(this).prop("checked")) {
 			var passwordStr = '<div class="password"><div class="password-title">코딩 테스트 입력 코드</div><div class="password-input-div"><input class="password-input" type="text" name="password" required></div></div>';
 			var privacyStr = '<div class="privacy"><div class="privacy-check-title">문제 공개 여부</div><div><input type="radio" name="privacy" value="hi" checked="checked">공개<input class="privacy-check-radio" type="radio" name="privacy" value="on">비공개</div></div>';
-			var startDateStr = '<div class="date"><div class="start-date"><div class="start-date-title">시작 일자</div><input class="input-date" type="datetime-local" name="startTime" required></div><div class="end-date"><div class="end-date-title">종료 일자</div><input class="input-date" type="datetime-local" name="endTime" required></div></div>';
+			var startDateStr = '<div class="date"><div class="start-date"><div class="start-date-title">시작 일자</div><input id="start-time" class="input-date" type="datetime-local" name="startTime" required></div><div class="end-date"><div class="end-date-title">종료 일자</div><input id="end-time" class="input-date" type="datetime-local" name="endTime" required></div></div>';
 
 			$(".privateAndPassword").append(passwordStr).append(privacyStr).append(startDateStr);
 		} else {
@@ -161,13 +186,47 @@ $(function() {
 	});
 	
 	CKEDITOR.replace('prob-content-text0');
+	
+	$(document).on("focusout", "#start-time", function() {
+		var nowTime = getTimeStamp().substring(0, 10);
+		nowTime = nowTime + 'T';
+		nowTime = nowTime + getTimeStamp().substring(11, 16);
+		
+		if($(this).val() < nowTime) {
+			alert('시작 시간이 현재 시간보다 이전일 수 없습니다.');
+			$(this).val('');
+		} else if($('#end-time').val() != '' && $(this).val() > $('#end-time').val()) {
+			alert('시작 시간이 종료 시간보다 이후일 수 없습니다.');
+			$(this).val('');
+		} else if($('#end-time').val() != '' && $(this).val() == $('#end-time').val()) {
+			alert('시작 시간과 종료 시간이 같을 수 없습니다.');
+			$(this).val('');
+		}
+	});
+	
+	$(document).on("focusout", "#end-time", function() {
+		var nowTime = getTimeStamp().substring(0, 10);
+		nowTime = nowTime + 'T';
+		nowTime = nowTime + getTimeStamp().substring(11, 16);
+		
+		if($(this).val() < nowTime) {
+			alert('종료 시간이 현재 시간보다 이전일 수 없습니다.');
+			$(this).val('');
+		} else if($('#start-time').val() != '' && $(this).val() < $('#start-time').val()) {
+			alert('종료 시간이 시작 시간보다 이전일 수 없습니다.');
+			$(this).val('');
+		} else if($('#start-time').val() != '' && $(this).val() == $('#start-time').val()) {
+			alert('시작 시간과 종료 시간이 같을 수 없습니다.');
+			$(this).val('');
+		}
+	});
 });
 
 window.onload = function(){
 	setTimeout(function() {
 		var ckeContents = document.getElementsByClassName("cke_contents")[0];
 		ckeContents.style = "height: 400px";
-	}, 50);
+	}, 70);
 };
 
 function captureReturnKey(e) { 

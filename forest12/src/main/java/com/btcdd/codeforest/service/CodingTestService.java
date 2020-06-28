@@ -1,5 +1,6 @@
 package com.btcdd.codeforest.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,21 +45,22 @@ public class CodingTestService {
 		
 	}
 
-	public void insertSaveProblemNo(Long no, Long problemNo) {
+
+	public void insertSaveProblemNo(Long no, Long problemNo,Date userStartTime) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("userNo", no);
 		map.put("problemNo", problemNo);
-		
+		map.put("userStartTime", userStartTime);
 		testRepository.insertSaveProblemNo(map);
 		
-	}
+	}	
 
-	public Long findSaveNo(Long authUserNo, Long problemNo) {
+	public SaveVo findSaveVoByProblemNo(Long authUserNo, Long problemNo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("authUserNo", authUserNo);
 		map.put("problemNo", problemNo);
 		
-		return testRepository.findSaveNo(map);
+		return testRepository.findSaveVoByProblemNo(map);
 	}
 
 	public void insertSavePath(Long[] subProblemNoArray, Long saveNo, Long authUserNo, Long problemNo) {
@@ -90,10 +92,12 @@ public class CodingTestService {
 		return testRepository.findCodeList(savePathNo);
 	}
 
-	public boolean existSaveNo(Long authUserNo, Long problemNo) {
+	public Long existSaveNo(Long authUserNo, Long problemNo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("authUserNo", authUserNo);
 		map.put("problemNo", problemNo);
-		return testRepository.findByProblemNo(map) != null;
+		return testRepository.findByProblemNo(map);
 	}
+
+
 }

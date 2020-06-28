@@ -85,8 +85,6 @@ function getTimeStamp() {
 
 var fetchList = function() {
 	var endTime = '${problemVo.endTime}';
-	console.log(endTime);
-	console.log(getTimeStamp());
 	
 	if(endTime !== '' && endTime < getTimeStamp()) {
 		$('.codingtest-div').remove();

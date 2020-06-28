@@ -17,20 +17,27 @@ public class RunPy {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "testPy.py";
+	private Long time;
+	
+	public RunPy(Long time) {
+		this.time = time;
+	}
 	
 	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("python testPy.py");
+		buffer.append("python test" + time + ".py");
 		
 		return buffer.toString();
 	}
 	
 	public void createFileAsSource(String source) {
 		try {
-			file = new File(FILENAME);
+			process = Runtime.getRuntime().exec("mkdir /mainCompile/py" + time);
+			
+			Thread.sleep(100);
+			file = new File("mainCompile/py" + time + "/Test.py");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);

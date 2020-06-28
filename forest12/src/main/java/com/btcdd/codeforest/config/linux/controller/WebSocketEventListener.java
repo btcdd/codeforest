@@ -26,12 +26,12 @@ public class WebSocketEventListener {
         logger.info("Received a new web socket connection");
     }
 
-    @EventListener
-    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
-
-            ChatMessage chatMessage = new ChatMessage();
-            chatMessage.setType(MessageType.LEAVE);
-
-            messagingTemplate.convertAndSend("/topic/public", chatMessage);
-    }
+//    @EventListener
+//    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+//
+//            ChatMessage chatMessage = new ChatMessage();
+//            chatMessage.setType(MessageType.LEAVE);
+//
+//            messagingTemplate.convertAndSend("/topic/public", chatMessage);
+//    }
 }

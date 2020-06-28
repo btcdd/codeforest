@@ -17,20 +17,27 @@ public class RunCpp {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "cppTest.cpp";
+	private Long time;
+	
+	public RunCpp(Long time) {
+		this.time = time;
+	}
 	
 	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("g++ -o cppTest.exe fakeTest.cpp");
+		buffer.append("g++ -o /mainCompile/cpp" + time + "/Test.exe mainCompile/cpp" + time + "/fakeTest.cpp");
 		
 		return buffer.toString();
 	}
 	
 	public void createFileAsSourceTrue(String source) {
 		try {
-			file = new File(FILENAME);
+			process = Runtime.getRuntime().exec("mkdir /mainCompile/cpp" + time);
+			
+			Thread.sleep(100);
+			file = new File("mainCompile/cpp" + time + "/Test.cpp");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -51,7 +58,7 @@ public class RunCpp {
 	
 	public void createFileAsSourceFake(String source) {
 		try {
-			file = new File("fakeTest.cpp");
+			file = new File("mainCompile/cpp" + time + "/fakeTest.cpp");
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			String fakeSource = "";
@@ -98,6 +105,23 @@ public class RunCpp {
 		return null;
 	}
 	
+	public String execCompile(String codetreePandan) {
+		try {
+			process = Runtime.getRuntime().exec(inputSource());
+			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			String line = null;
+			readBuffer = new StringBuffer();
+			
+			while((line = bufferedReader.readLine()) != null) {
+				readBuffer.append(line);
+				readBuffer.append("\n");
+			}
+			return readBuffer.toString();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public String execCommand() {
 		try {

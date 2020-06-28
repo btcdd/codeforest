@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.content {
+    width: 80vw;
+    padding: 4% 0;
+    margin: auto;
+    margin-top: 3%
+}
+
+.search {
+     margin: 17px auto 50px 0;
+    text-align: center;
+}
+#search {
+	width: 30%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url(../../images/search.png);
+    background-size: 40px;
+    background-position: 5px 1px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 55px;
+    color: #999999;
+    outline: none;
+}
+
+.make-problem {
+    background-color: #244C1E;
+    border: none;
+    color: #fff;
+    padding: 10px 10px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px 4px 54em;
+    transition-duration: 0.4s;
+    border: 1.5px #244C1E solid;
+    cursor: pointer;
+}
+
+.make-problem:hover {
+	background-color: #5B7956;
+    border: 1.5px #5B7956 solid;
+}
+
+
+.proceeding-box, .expected-box, .deadline-box {
+    width: 32.333%;
+	height: 600px;
+	margin-bottom: 100px;
+}
+.proceeding-box {
+	float: left;
+}
+.expected-box {
+	float: left;
+}
+.deadline-box {
+	float: left;
+}
+
+.test {
+    width: 380px;
+    height: 97px;
+    border-radius: 10px;
+    margin: 15px 20px;
+    padding: 8px 10px 8px 10px;
+/*     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+}
+
+.test-top {
+	margin: 5px 5px 0 0px;
+	height: 37%;
+}
+.test-no {
+	float: left;
+	width: 10%;
+}
+.writer {
+    font-size: 0.9em;
+	float: left;
+	width: 75%;
+	margin-left: 3%;
+	color: #4D4D4D;
+}
+
+.proceeding-state, .expected-state, .deadline-state {
+	float: right;
+	background-color: #fff;
+	border-radius: 10px;
+	width: 10%;
+    text-align: center;
+    font-size: small;
+    padding: 3px 4px;
+}
+
+.proceeding-state {
+    border: 1px solid #f5e2a7;
+    color: #DC143C
+}
+
+.expected-state {
+    border: 1px solid #d9e9ee;
+}
+
+.deadline-state {
+    border: 1px solid #e0e0e0;
+}
+
+
+#priority1 .state {
+	color: red;
+}
+
+.test-mid {
+	height: 30%;
+}
+.probtitle {
+	float: left;
+	width: 77%;
+    margin-left: 3%;
+    font-weight: bolder;
+	font-size: large;
+}
+.d-day {
+	float: right;
+    /* width: 20%; */
+    color: #dc143c;
+    font-weight: bolder;
+    font-size: 0.9em;
+    margin-right: 1em;
+}
+
+.test-bottom {
+	height: 35%;
+}
+.date {
+	font-size: 0.9em;
+	float: left;
+	margin-left: 3%;
+	color: #4D4D4D;
+}
+
+#priority1 {
+    background-color: rgba(245,226,167,0.25);
+    position: relative;
+    margin: auto 0.5em 30px auto;
+    border: 1px solid #f5e2a7;
+}
+#priority2 {
+	background-color: rgba(217,233,238,0.25);
+	position: relative;
+    margin: auto 0.5em 30px auto;
+    border: 1px solid #d9e9ee;
+    cursor:default
+}
+#priority3 {
+	background-color: rgba(224,224,224,0.25);
+	position: relative;
+    margin: auto 0.5em 30px auto;
+    border: 1px solid #e0e0e0;
+}
+
+#priority3_link {
+	background-color: rgba(224,224,224,0.25);
+	position: relative;
+    margin: auto 0.5em 30px auto;
+    border: 1px solid #e0e0e0;
+}
+
+#priority1:hover {
+	z-index: 1;
+	background-color: #f5e2a7;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+#priority2:hover {
+	cursor: default;
+	z-index: 1;
+	background-color: #d9e9ee;
+}
+
+#priority3:hover {
+	cursor:default;
+	background-color: #e0e0e0;
+}
+
+#priority3_link:hover {
+	z-index: 1;
+	background-color: #e0e0e0;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.start-time {
+	display: inline-block;
+}
+
+.end-time {
+	display: inline-block;
+}
+
+
+#footer {
+	float: left;
+	width: 100%;
+	margin-top : 30px;
+}
+
+.footer {
+	margin: auto;
+	padding: 60px 0;
+	left: 0;
+	bottom: 0;
+	width: 74%;
+	background-color: #fafafa;
+	color: #3C3C3C;
+	text-align: center;
+	border-top: 1px solid #BFBFBf
+}
+
+.title-div {
+	float: left;
+    width: 77%;
+    margin-left: 3%;
+    font-weight: bolder;
+    font-size: 1em;
+}
+
+.blinking{
+   -webkit-animation:blink 1s ease-in-out infinite alternate;
+    -moz-animation:blink 1s ease-in-out infinite alternate;
+    animation:blink 1s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}

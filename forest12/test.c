@@ -6,6 +6,7 @@ int main()
     int i;
 	printf("Hello CodeForest!\n");
 
+  	
     int n = 0;
 	scanf("%d", &n);
     

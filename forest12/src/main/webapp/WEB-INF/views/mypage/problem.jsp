@@ -53,7 +53,7 @@ var originList = function(page2, keyword) {
          } else {
 	         endPageTrueNum = parseInt(map.count / 10 + 1);
          }
-        
+         
          fetchList();
       },
       error: function(xhr, status, e){
@@ -151,6 +151,8 @@ var fetchList = function() {
    str2 += "</div>";
       
    $(".quiz-table").after(str2);
+   
+   nextRemove();
 }
 
 var nextRemove = function() {

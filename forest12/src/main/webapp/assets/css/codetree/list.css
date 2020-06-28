@@ -17,7 +17,8 @@ html, body{height:100%;}
 }
 
 
-.problem-box {
+
+ .problem-box {
     float: left;
     background-color: #E7E7E7;
     width: 200px;
@@ -27,6 +28,7 @@ html, body{height:100%;}
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     cursor: pointer;
+    overflow:hidden;
 }
 .problem-box:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -48,7 +50,10 @@ html, body{height:100%;}
 .problem-user {
 	float:right;
 	margin:0 auto 8px;
-}
+} 
+
+
+
 .pager {
     width: 90%;
     float: left;

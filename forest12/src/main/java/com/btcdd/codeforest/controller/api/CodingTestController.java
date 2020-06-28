@@ -1,7 +1,10 @@
 package com.btcdd.codeforest.controller.api;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -84,7 +87,17 @@ public class CodingTestController {
 		List<ProblemVo> list3 = new ArrayList<ProblemVo>();
 
 		for(ProblemVo vo : list) {
-			if(!keyword.equals("") && vo.getTitle().contains(keyword) || vo.getNickname().contains(keyword) || vo.getStartTime().contains(keyword) || vo.getEndTime().contains(keyword)) {
+			if(keyword.equals("")) {
+				if(vo.getPriority() == 1) {
+					list1.add(vo);
+				}
+				if(vo.getPriority() == 2) {
+					list2.add(vo);
+				}
+				if(vo.getPriority() == 3) {
+					list3.add(vo);
+				}
+			} else if(!keyword.equals("") && vo.getTitle().contains(keyword) || vo.getNickname().contains(keyword) || vo.getStartTime().contains(keyword) || vo.getEndTime().contains(keyword)) {
 
 				vo.setStartTime((vo.getStartTime()+"").replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
 				vo.setEndTime(vo.getEndTime().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
@@ -282,16 +295,53 @@ public class CodingTestController {
 	@PostMapping("/submit")
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
-			String compileResult1, String compileResult2,HttpSession session) {
+			String compileResult1, String compileResult2,String userStartTime,HttpSession session) {
+		Map<String, Object> map = new HashMap<>();
+		
+		Date userStartTimeTransFormat = null;
+		String userSubmitTime = null;
+		Date userSubmitTime2 = null;
+		
+		
+		
+		try {
+			SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			userStartTimeTransFormat = TransFormat.parse(userStartTime);//처음 들어온 사용자 시간
+			
+			Date SubmitTime = new Date();	
+			userSubmitTime = TransFormat.format(SubmitTime);
+			userSubmitTime2 = TransFormat.parse(userSubmitTime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		long hours=0,min=0,sec = 0;
+		Long diff = userSubmitTime2.getTime() - userStartTimeTransFormat.getTime();
+		diff = diff / 1000; //밀리세컨트를 초단위로 변환  1432초 
+		
+		if(diff >= 3600) {
+			hours = (long) Math.floor(diff / 3600);
+			diff -= hours * 3600;
+		}
+		if(diff >= 60) {
+			min = (long) Math.floor(diff / 60);
+			diff -= min * 60;
+		}
+		sec = diff;
+		
+		
+		String solveTime = hours+"시"+min+"분"+sec+"초";
+		map.put("solveTime", solveTime);
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
 		
+		 
 		boolean compileResult = true;
 		boolean compileError = false;
  		
-		Map<String, Object> map = new HashMap<>();
+		 
 		
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] compileResult1Split =compileResult1.split("\n");
@@ -323,9 +373,11 @@ public class CodingTestController {
 		map.put("compileError", compileError);
 		
 		map.put("compileResult", compileResult);
-		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
+		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+		
+		
 		
 		return JsonResult.success(map);
 	}			

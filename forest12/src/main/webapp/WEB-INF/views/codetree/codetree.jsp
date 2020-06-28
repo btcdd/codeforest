@@ -33,18 +33,119 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
-
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
-
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/goldenlayout.min.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <%-- <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css" /> --%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
+
+var result = '';
+var resultText;
+var tmp = '';
+var lang;
+var code;
+var editor;
+var execPandan;
+var prevCursor;
+var message;
+var tempFile = null;
+
+//채팅 시작하기
+function connect(event) {
+	if(currentEditor == null){
+		return;
+	}
+	$("#Save").trigger("click");
+	$("#Run").blur();
+	
+	$('.terminal').attr("readonly", false);
+	
+	$(".terminal").append('프로그램이 시작되었습니다...\n');
+	
+	code = currentEditor.getValue();
+	
+	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+    var socket = new SockJS('${pageContext.request.contextPath }/ws');
+   
+    // 전역 변수에 세션 설정
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected, onError);
+    
+    event.preventDefault();
+}
+
+
+function onConnected() {
+    // Subscribe to the Public Topic
+    stompClient.subscribe('/topic/public', onMessageReceived);
+    
+    execPandan = true;
+    var chatMessage = {
+            language: tempFile.data("language"),
+    		code: code,
+    		execPandan: execPandan,
+    		fileName: tempFile.data("file-name"),
+    		packagePath: tempFile.data("package-path"),
+            type: 'CHAT'
+        };
+    execPandan = false;
+    // Tell your username to the server
+    stompClient.send("/app/codetree",
+        {},
+        JSON.stringify(chatMessage)
+    );
+}
+
+function onError(error) {
+}
+
+function sendMessage(event, res) {
+	
+	tmp = res;
+	
+    var messageContent = res;
+    var chatMessage = {
+        content: messageContent,
+        language:$(".lang option:selected").val(),
+		code:code,
+		execPandan: execPandan,
+        type: 'CHAT'
+    };
+    stompClient.send("/app/codetree", {}, JSON.stringify(chatMessage));
+    event.preventDefault();
+}
+
+function onMessageReceived(payload) {
+    message = JSON.parse(payload.body);
+    
+	var prevText = $('.terminal').val() + '\n';
+	$('.terminal').val(prevText + message.content);
+	
+	prevCursor = $('.terminal').prop('selectionStart') - 1;
+	
+	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+	
+	if(message.programPandan) {
+    	$('.terminal').attr("readonly", true);
+    }
+}
+
+
+
+
+////////////////////////////////////////////
+
+
+
+
+
 var listTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/codetree-fileList.ejs"
 });
+
 var fileFetchList = function(){
 	   var saveNo = "${saveVo.no }";
 	   var lang = $("select option:selected").val();
@@ -68,13 +169,20 @@ var fileFetchList = function(){
 	         }
 	      });	
 };
+
+
 var currentEditor = null;
+
 var editorArray = new Array();
 var editorArrayIndex = 0;
+
+
+
 $(function() {
 	fileFetchList();
 	
 ////////////////// code-mirror /////////////////////////////   
+
    
    var theme = 'panda-syntax';
    $('.theme').click(function() {
@@ -219,21 +327,25 @@ $(function() {
 	   
  	   $(".file-tree__subtree").remove();
 	   fileFetchList();
+
 	   
 	   
 	   
    });
    
 //  	$('.CodeMirror').addClass('code');
+
  	
 ///////////////////////////// problem-list //////////////////////////////////
  	var ui = $(".ui"),
  	    sidebar = $(".ui__sidebar");
+
  	// File Tree
  	$(document).on("click", ".folder", function(e) {
  		$(".contextmenu").hide();
  	    var t = $(this);
  	    var tree = t.closest(".file-tree__item");
+
  	    if (t.hasClass("folder--open")) {
  	        t.removeClass("folder--open");
  	        tree.removeClass("file-tree__item--open");
@@ -261,6 +373,7 @@ $(function() {
  	    }
  	});
  	
+
  	// 폰트 사이즈 변경
 	$(document).on("click", '#font-size', function(){	
 		var fontSize = $("#font-size option:selected").val();
@@ -268,6 +381,7 @@ $(function() {
 		$(".CodeMirror").css("font-size", fontSize);
 	});
 	
+
  	
 ////////////////파일 추가/////////////////////
  	
@@ -283,6 +397,7 @@ $(function() {
  	
  	
  	
+
 	$(document).on('mouseenter','.ui__sidebar',function() {
 		console.log("hi");
 		$(document).on('mousedown','#folder',function(e) {
@@ -333,6 +448,7 @@ $(function() {
 	 		    return false;					
 			}		
 		});
+
 		
 		$(document).on('mousedown','.userFile',function(e){
 			$(".contextmenu").hide();
@@ -441,6 +557,7 @@ $(function() {
 								return;
 							}
 							$(".file-tree__subtree").remove();
+
 							fileFetchList();
 							
 						},
@@ -510,6 +627,7 @@ $(function() {
  	
  	var layoutId = null;
  	var tempLayout = null;
+
  	$(document).on("click", "#userfile-update", function() {
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
@@ -558,6 +676,7 @@ $(function() {
 									return;
 								}
 								$(".file-tree__subtree").remove();
+
 								fileFetchList(); 
 								
 								
@@ -581,7 +700,6 @@ $(function() {
  	
  	
  	// 파일을 더블클릭 하면...
- 	var tempFile = null;
  	var fileNo = null;
  	var root = null;
 	var HashMap = new Map();
@@ -717,6 +835,7 @@ $(function() {
  		
  	});
 	$(document).on("mousedown", ".lm_title", function() {
+
 		console.log("title>>>",$(this));
 		console.log("getActiveContentItem()>>",root.getActiveContentItem());
 		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id);
@@ -743,7 +862,6 @@ $(function() {
  		fileNo = cmNo;
  		tempFile = fileMap.get(cmNo+"");
  		currentEditor = HashMap.get("editor"+cmNo);
- 		
 	});
 	
 	
@@ -760,7 +878,8 @@ $(function() {
     });
  	 
 	$(document).on("propertychange change keyup paste", function(e){
-		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update"){
+
+		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update" && e.target.className != "terminal"){
 			if(currentEditor.getValue() != SavedCode.get(fileNo+"")){
 				layoutId = "layout-"+fileNo;
 				tempFile = fileMap.get(fileNo+"");
@@ -773,16 +892,52 @@ $(function() {
 				tempLayout.setTitle(tempFile.data("fileName"));
 			}			
 		}
-		
 	}); 
-	
-	
+
  	var compileResult1 = "";
  	var compileResult2 = "";
  	
+ 	
+ 	var d = document.querySelector('#Run');
+    d.addEventListener('click', connect, true);
+    
+    prevCursor = 0;
+    var cursorPandan = false;
+    
+    $('.terminal').keydown(event, function(key) {
+    	
+    	if(message.programPandan) {
+    		if(key.keyCode === 8 || key.keyCode === 13) {
+    			return false;
+    		}
+    	}
+    	
+		if($(this).prop('selectionStart') <= prevCursor + 1) {
+			if(key.keyCode === 8) {
+				return false;
+			}
+		}
+		
+    	if(cursorPandan == false) {
+	    	prevCursor = $(this).prop('selectionStart') - 1;
+	    	cursorPandan = true;
+    	}
+    	if (key.keyCode == 13) {
+    		cursorPandan = false;
+    		
+	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        
+	        sendMessage(event, result);
+	        result = '';
+    	}
+   });
+ 	
+    
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
- 		
+ 		if(currentEditor == null){
+ 			return;
+ 		}
  		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
@@ -824,11 +979,15 @@ $(function() {
 			}							
 		}); 		
  	});
+    
+
  	
   	    
   	$(document).on("click","#Save",function(){
+   		if(tempFile == null){
+   			return;
+   		}  		
   		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
-  		
   		$(this).addClass("SaveClick");	
   		setTimeout(function(){
   			$("#Save").removeClass("SaveClick");
@@ -853,6 +1012,10 @@ $(function() {
 				'problemNo' : problemNo
 			},
 			success: function(response) {
+				if(tempLayout == null){
+					return;
+				}
+				
 				SavedCode.set(fileNo+"", currentEditor.getValue());
 				console.log("ok");
 				layoutId = "layout-"+fileNo;
@@ -868,11 +1031,16 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
+   		if(currentEditor == null){
+   			return;
+   		}
+   		
    		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
    		
    		setTimeout(function(){
+
    	   		var problemNo = "${saveVo.problemNo }";
    	 		$.ajax({
    				url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
@@ -925,8 +1093,10 @@ $(function() {
    			}
    		} */
    		
+
    		
  	});    	
+
  	
  	
  	//////////////////////////// golden layout /////////////////////////////	
@@ -944,8 +1114,10 @@ $(function() {
 	};
 	 
 	var myLayout = new GoldenLayout(config, $('#gl-cover'));
+
 	myLayout.registerComponent("newTab", function(container) {
 		container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
+
 		container.getElement().attr("id", "cm"+fileNo);		
 		
 	});
@@ -979,14 +1151,22 @@ $(function() {
 	$(document).on("click",".sub-menu > li:last-child",function(){
 		$("#Submit").trigger("click");
 	});
-////// function 끝부분 	
+	
+	
+////// function 끝부분
 });
+
 	
+
+
+
 	
+
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	
 	if (typeof Resizer === 'undefined') {
+
 	var Resizer = function(resizerNode, type, options) {
 		resizerNode.classList.add('resizer');
 		resizerNode.setAttribute('data-resizer-type', type);
@@ -1023,6 +1203,7 @@ $(function() {
 		// ajout des events
 		this.resizer.node.addEventListener('mousedown', this.startProcess.bind(this), false);
 	};
+
 	Resizer.prototype = {
 		startProcess: function(event) {
 			// cas processus déjà actif
@@ -1099,6 +1280,7 @@ $(function() {
 } else {
 	console.error('"Resizer" class already exists !');
 }
+
 window.onload = function() {
     new Resizer(document.querySelector('[name=resizerH1]'), 'H');
     new Resizer(document.querySelector('[name=resizerH2]'), 'H');
@@ -1114,6 +1296,8 @@ window.onload = function() {
    	el4.style = "flex: 0.461282 1.08793 0px;";
   };
   
+
+
 </script>
 </head>
 <body>
@@ -1173,19 +1357,13 @@ window.onload = function() {
 
 
 <div class="container">
-
 	<div class="frame horizontal">
-	  
 	    <div id="box_1" class="box" style="flex: 1 1 1">
 	    	<c:import url="/WEB-INF/views/codetree/problem-list.jsp"></c:import>
 	    </div>
-	    
 	  <div name="resizerH1"></div>
-	  
 	  <div class="frame vertical" id="code-mirror">
-
 		  <div class='navigator'>
-
               <div class='language-selector dropdown dropdown-dark'>
                 <select class="lang dropdown-select" name="lang">
                     <option value="c">C</option>
@@ -1196,7 +1374,6 @@ window.onload = function() {
                     <option value="py">Python</option>
                 </select>
               </div>
-              
               <div class='theme-selector dropdown dropdown-dark'>
                 <select class="theme dropdown-select" name="theme">
                 	<optgroup label="black">
