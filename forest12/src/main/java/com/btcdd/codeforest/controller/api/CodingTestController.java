@@ -87,7 +87,17 @@ public class CodingTestController {
 		List<ProblemVo> list3 = new ArrayList<ProblemVo>();
 
 		for(ProblemVo vo : list) {
-			if(!keyword.equals("") && vo.getTitle().contains(keyword) || vo.getNickname().contains(keyword) || vo.getStartTime().contains(keyword) || vo.getEndTime().contains(keyword)) {
+			if(keyword.equals("")) {
+				if(vo.getPriority() == 1) {
+					list1.add(vo);
+				}
+				if(vo.getPriority() == 2) {
+					list2.add(vo);
+				}
+				if(vo.getPriority() == 3) {
+					list3.add(vo);
+				}
+			} else if(!keyword.equals("") && vo.getTitle().contains(keyword) || vo.getNickname().contains(keyword) || vo.getStartTime().contains(keyword) || vo.getEndTime().contains(keyword)) {
 
 				vo.setStartTime((vo.getStartTime()+"").replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
 				vo.setEndTime(vo.getEndTime().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));

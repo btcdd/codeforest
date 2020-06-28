@@ -40,9 +40,9 @@ public class TrainingService {
 		
 		if(problemVo.getPassword() != null) {
 			if("on".equals(problemVo.getPrivacy())) {
-				problemVo.setPrivacy("y");
-			} else {
 				problemVo.setPrivacy("n");
+			} else {
+				problemVo.setPrivacy("y");
 			}
 		}
 		

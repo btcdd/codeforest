@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .content {
@@ -91,6 +94,7 @@ body {
 	float: left;
 	width: 75%;
 	margin-left: 3%;
+	color: #4D4D4D;
 }
 
 .proceeding-state, .expected-state, .deadline-state {
@@ -105,6 +109,7 @@ body {
 
 .proceeding-state {
     border: 1px solid #f5e2a7;
+    color: #DC143C
 }
 
 .expected-state {
@@ -146,6 +151,7 @@ body {
 	font-size: 0.9em;
 	float: left;
 	margin-left: 3%;
+	color: #4D4D4D;
 }
 
 #priority1 {
@@ -167,17 +173,30 @@ body {
     border: 1px solid #e0e0e0;
 }
 
+#priority3_link {
+	background-color: rgba(224,224,224,0.25);
+	position: relative;
+    margin: auto 0.5em 30px auto;
+    border: 1px solid #e0e0e0;
+}
+
 #priority1:hover {
 	z-index: 1;
 	background-color: #f5e2a7;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 #priority2:hover {
+	cursor: default;
 	z-index: 1;
 	background-color: #d9e9ee;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
+
 #priority3:hover {
+	cursor:default
+}
+
+#priority3_link:hover {
 	z-index: 1;
 	background-color: #e0e0e0;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -216,4 +235,22 @@ body {
     margin-left: 3%;
     font-weight: bolder;
     font-size: 1em;
+}
+
+.blinking{
+   -webkit-animation:blink 1s ease-in-out infinite alternate;
+    -moz-animation:blink 1s ease-in-out infinite alternate;
+    animation:blink 1s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
