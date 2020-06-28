@@ -978,7 +978,9 @@ $(function() {
   	    
   	$(document).on("click","#Save",function(){
   		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
-  		
+   		if(tempFile == null){
+   			return;
+   		}  		
   		$(this).addClass("SaveClick");	
   		setTimeout(function(){
   			$("#Save").removeClass("SaveClick");
