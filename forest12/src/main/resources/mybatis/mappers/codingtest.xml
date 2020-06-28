@@ -4,7 +4,7 @@
 	
 	<select id="selectTestList" resultType="problemvo">
 		<![CDATA[
-			  select p.no as no, u.email as email , p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as levelNo, date_format(p.start_time, '%Y-%m-%d %h:%i') as startTime, date_format(p.end_time, '%Y-%m-%d %h:%i') as endTime,
+			  select p.no as no, u.email as email , p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as levelNo, p.privacy as privacy, date_format(p.start_time, '%Y-%m-%d %h:%i') as startTime, date_format(p.end_time, '%Y-%m-%d %h:%i') as endTime,
 				case
 					when start_time <= now() and end_time > now() then 1
 				    when start_time > now() then 2

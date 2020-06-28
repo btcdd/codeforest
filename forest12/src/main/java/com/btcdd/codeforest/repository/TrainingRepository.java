@@ -56,7 +56,6 @@ public class TrainingRepository {
 	}
 
 	public int insertProblem(Map<String, Object> map) {
-		System.out.println(map);
 		return sqlSession.insert("training.insertProblem", map);
 	}
 

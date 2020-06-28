@@ -35,7 +35,7 @@ var list3 = new EJS({
 });
 
 
-$(function(){
+var scrollbar = function() {
 	$(".proceeding-box").mCustomScrollbar({
 	    theme:"inset"
 	});
@@ -45,7 +45,12 @@ $(function(){
 	$(".deadline-box").mCustomScrollbar({
 	    theme:"inset"
 	});
+}
 
+$(function(){
+
+	scrollbar();
+	
 	$('#search').on("propertychange change keyup paste", function(){		
 		var keyword = $(this).val();
 		$.ajax({
@@ -55,7 +60,11 @@ $(function(){
 			dataType: 'json',
 			data: 'keyword='+keyword,
 			success: function(response) {
+				
 				$(".test").remove();
+				$(".proceeding-box").mCustomScrollbar('destroy'); 
+				$(".expected-box").mCustomScrollbar('destroy'); 
+				$(".deadline-box").mCustomScrollbar('destroy'); 
 				
 				var html1 = list1.render(response);
 				var html2 = list2.render(response);
@@ -65,7 +74,10 @@ $(function(){
 				$(".expected-box").append(html2);				
 				$(".deadline-box").append(html3);
 				
-			
+				scrollbar();
+				console.log(html1);
+// 				$('#priority1').attr('onclick',"window.open('${pageContext.servletContext.contextPath }/codingtest/auth/' + $(this).attr('data-no'),'_blank')");
+				
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
@@ -73,7 +85,6 @@ $(function(){
 		});
 		
 	});
-	
 });
 
 </script>
@@ -92,14 +103,13 @@ $(function(){
 				onclick="window.open('${pageContext.servletContext.contextPath }/codingtest/auth/${vo.no}','_blank'); " >
 					<div class="test-top">
 						<div class="title-div">${vo.title }</div>
-						<div class="proceeding-state">진행</div>
+						<div class="proceeding-state blinking">진행</div>
 					</div>
 					<div class="test-mid">
-<%-- 						<div class="test-no">${fn:length(list1) - status.index }</div>						 --%>
 						<div class="writer">작성자 : ${vo.nickname }</div>
 					</div>
 					<div class="test-bottom">
-						<div class="date">테스트 : ${vo.startTime } - ${vo.endTime }</div>
+						<div class="date">테스트 : ${vo.startTime.substring(2,4)}년 ${vo.startTime.substring(5,7)}월 ${vo.startTime.substring(8,10)}일 ${vo.startTime.substring(10,16)} - ${vo.endTime.substring(5,7)}월 ${vo.endTime.substring(8,10)}일 ${vo.endTime.substring(10,16)}</div>
 					</div>
 				</div>
 			</c:forEach>
@@ -112,7 +122,6 @@ $(function(){
 						<div class="expected-state">예정</div>
 					</div>
 					<div class="test-mid">
-<%-- 						<div class="test-no">${fn:length(list2) - status.index }</div>						 --%>
 						<div class="writer">작성자 : ${vo.nickname }</div>
 						<c:choose>
 							<c:when test="${dday[vo.no] eq 0 }">
@@ -124,24 +133,37 @@ $(function(){
 						</c:choose>
 					</div>
 					<div class="test-bottom">
-						<div class="date">테스트 : ${vo.startTime } - ${vo.endTime }</div>
+						<div class="date">테스트 : ${vo.startTime.substring(2,4)}년 ${vo.startTime.substring(5,7)}월 ${vo.startTime.substring(8,10)}일 ${vo.startTime.substring(10,16)} - ${vo.endTime.substring(5,7)}월 ${vo.endTime.substring(8,10)}일 ${vo.endTime.substring(10,16)}</div>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
 		<div class="deadline-box">
 			<c:forEach items='${list3 }' var='vo' step='1' varStatus='status'>
-				<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
+				<c:choose>
+					<c:when test="${vo.privacy eq 'n'}">
+						<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
+					</c:when>
+					<c:otherwise>
+						<div class="test" data-no="${vo.no }" id="priority${vo.priority }_link" onclick="location.href='${pageContext.servletContext.contextPath }/training/view/${vo.no }'">
+					</c:otherwise>
+				</c:choose>
 					<div class="test-top">
 						<div class="title-div">${vo.title }</div>	
-						<div class="deadline-state">마감</div>
+						<c:choose>
+							<c:when test="${vo.privacy eq 'n'}">
+								<div class="deadline-state">마감</div>
+							</c:when>
+							<c:otherwise>
+								<div class="deadline-state" style="color:blue">공개</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="test-mid">
-<%-- 						<div class="test-no">${fn:length(list3) - status.index }</div>						 --%>
 						<div class="writer">작성자 : ${vo.nickname }</div>
 					</div>
 					<div class="test-bottom">
-						<div class="date">테스트 : ${vo.startTime } - ${vo.endTime }</div>
+						<div class="date">테스트 : ${vo.startTime.substring(2,4)}년 ${vo.startTime.substring(5,7)}월 ${vo.startTime.substring(8,10)}일 ${vo.startTime.substring(10,16)} - ${vo.endTime.substring(5,7)}월 ${vo.endTime.substring(8,10)}일 ${vo.endTime.substring(10,16)}</div>
 					</div>
 				</div>
 			</c:forEach>
