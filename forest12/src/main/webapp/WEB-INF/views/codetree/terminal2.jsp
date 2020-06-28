@@ -199,5 +199,5 @@ terminal.append("login: " + date + " on ttys000\n");
             </div>
             <span class="title"></span>
       </div>
-      <textarea class="terminal"></textarea>
+      <textarea class="terminal" readonly></textarea>
 </div>
