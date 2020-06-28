@@ -114,8 +114,7 @@ function onMessageReceived(payload) {
     $('#result').scrollTop($('#result').prop('scrollHeight'));
     
     if(message.programPandan) {
-    	console.log('asdf');
-    	$(this).attr("readonly", true);
+    	$('#result').attr("readonly", true);
     }
 }
 
