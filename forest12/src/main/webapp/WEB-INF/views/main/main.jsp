@@ -119,6 +119,7 @@ function onMessageReceived(payload) {
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
+    	resultText.val('');
     }
 }
 
