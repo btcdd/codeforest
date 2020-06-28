@@ -471,12 +471,13 @@
 	<select id="selectAnswerUserList" parameterType="map"
 		resultType="answeruserlistvo">
 		select s.code as code, u.nickname as nickname, s.lang as
-		lang, s.try as tryCnt
-		from submit s, user u
+		lang, tc.attempt as tryCnt, u.no as userNo
+		from submit s, user u, try_count tc
 		where s.user_no = u.no
 		and
 		s.subproblem_no = #{subProblemNo }
 		and s.answer = 'y'
+		and tc.submit_no = s.no
 		order by
 		solve_time desc
 		limit #{displayPost}, #{postNum}
@@ -485,14 +486,15 @@
 	<select id="selectAnswerUserLangList" parameterType="map"
 		resultType="answeruserlistvo">
 		select s.code as code, u.nickname as nickname, s.lang as
-		lang, s.try as tryCnt
-		from submit s, user u
+		lang, tc.attempt as tryCnt, u.no as userNo
+		from submit s, user u, try_count tc
 		where s.user_no = u.no
 		and
 		s.subproblem_no = #{subProblemNo }
 		and s.answer = 'y'
 		and lang = #{lang
 		}
+		and tc.submit_no = s.no
 		order by solve_time desc
 		limit #{displayPost}, #{postNum}
 	</select>
@@ -501,7 +503,7 @@
 	<insert id="insertSaveProblemNo" parameterType="map">
 		insert
 		into save
-		values (null, #{userNo }, #{problemNo })
+		values (null, #{userNo }, #{problemNo }, null)
 	</insert>
 
 	<select id="findSaveNo" parameterType="long" resultType="long">
@@ -695,5 +697,18 @@
 				 and state = 'y'
 		]]>
 	</select>
+
+	<select id="findSavePathAndFileName" parameterType="map" resultType="savepathvo">
+	<![CDATA[
+		  select sp.package_path as packagePath, c.file_name as fileName
+			from save s, save_path sp, code c
+			where s.no = sp.save_no
+				and sp.no = c.save_path_no
+			    and sp.sub_problem_no = #{subProblemNo }
+			    and s.user_no = #{userNo }
+			    and c.language = #{language }
+	]]>
+	</select>
+
 
 </mapper>

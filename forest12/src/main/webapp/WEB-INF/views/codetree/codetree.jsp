@@ -33,15 +33,110 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
-
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
-
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/goldenlayout.min.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <%-- <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css" /> --%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
+
+var result = '';
+var resultText;
+var tmp = '';
+var lang;
+var code;
+var editor;
+var execPandan;
+var prevCursor;
+var message;
+var tempFile = null;
+
+//채팅 시작하기
+function connect(event) {
+	$("#Save").trigger("click");
+	$("#Run").blur();
+	
+	$(".terminal").append('프로그램이 시작되었습니다...\n');
+	
+	code = currentEditor.getValue();
+	
+	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+    var socket = new SockJS('${pageContext.request.contextPath }/ws');
+   
+    // 전역 변수에 세션 설정
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected, onError);
+    
+    event.preventDefault();
+}
+
+
+function onConnected() {
+    // Subscribe to the Public Topic
+    stompClient.subscribe('/topic/public', onMessageReceived);
+    
+    execPandan = true;
+    var chatMessage = {
+            language: tempFile.data("language"),
+    		code: code,
+    		execPandan: execPandan,
+    		fileName: tempFile.data("file-name"),
+    		packagePath: tempFile.data("package-path"),
+            type: 'CHAT'
+        };
+    execPandan = false;
+    // Tell your username to the server
+    stompClient.send("/app/codetree",
+        {},
+        JSON.stringify(chatMessage)
+    );
+}
+
+function onError(error) {
+}
+
+function sendMessage(event, res) {
+	
+	tmp = res;
+	
+    var messageContent = res;
+    var chatMessage = {
+        content: messageContent,
+        language:$(".lang option:selected").val(),
+		code:code,
+		execPandan: execPandan,
+        type: 'CHAT'
+    };
+    stompClient.send("/app/codetree", {}, JSON.stringify(chatMessage));
+    event.preventDefault();
+}
+
+function onMessageReceived(payload) {
+    message = JSON.parse(payload.body);
+    
+// 	$(".terminal").append("<p>" + message.content + "</p>");
+	var prevText = $('.terminal').val();
+	$('.terminal').val(prevText + message.content);
+	
+	prevCursor = $('.terminal').prop('selectionStart') - 1;
+	
+// 	if(message.programPandan) {
+// 		$(".terminal").append("<span class=\"prompt\">-></span> ");
+// 		$(".terminal").append("<span class=\"path\">~</span> ");
+// 	}
+	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+}
+
+
+
+
+////////////////////////////////////////////
+
+
+
+
 
 var listTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/codetree-fileList.ejs"
@@ -601,7 +696,6 @@ $(function() {
  	
  	
  	// 파일을 더블클릭 하면...
- 	var tempFile = null;
  	var fileNo = null;
  	var root = null;
 	var HashMap = new Map();
@@ -794,15 +888,46 @@ $(function() {
 				tempLayout.setTitle(tempFile.data("fileName"));
 			}			
 		}
-
-		
 	}); 
-	
-	
 
  	var compileResult1 = "";
  	var compileResult2 = "";
  	
+ 	
+ 	var d = document.querySelector('#Run');
+    d.addEventListener('click', connect, true);
+    
+    prevCursor = 0;
+    var cursorPandan = false;
+    $('#result').keydown(event, function(key) {
+    	
+    	if(message.programPandan) {
+    		if(key.keyCode === 8 || key.keyCode === 13) {
+    			return false;
+    		}
+    	}
+    	
+		if($(this).prop('selectionStart') <= prevCursor + 1) {
+			if(key.keyCode === 8) {
+				return false;
+			}
+		}
+		
+    	if(cursorPandan == false) {
+	    	prevCursor = $(this).prop('selectionStart') - 1;
+	    	cursorPandan = true;
+    	}
+    	if (key.keyCode == 13) {
+    		cursorPandan = false;
+    		
+	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        
+	        sendMessage(event, result);
+	        result = '';
+    	}
+   });
+ 	
+    
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
  		
@@ -847,6 +972,7 @@ $(function() {
 			}							
 		}); 		
  	});
+    
 
  	
   	    
@@ -892,6 +1018,10 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
+   		if(currentEditor.getValue() == null){
+   			return;
+   		}
+   		
    		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
@@ -1008,7 +1138,9 @@ $(function() {
 	$(document).on("click",".sub-menu > li:last-child",function(){
 		$("#Submit").trigger("click");
 	});
-////// function 끝부분 	
+	
+	
+////// function 끝부분
 });
 
 	
@@ -1212,19 +1344,13 @@ window.onload = function() {
 
 
 <div class="container">
-
 	<div class="frame horizontal">
-	  
 	    <div id="box_1" class="box" style="flex: 1 1 1">
 	    	<c:import url="/WEB-INF/views/codetree/problem-list.jsp"></c:import>
 	    </div>
-	    
 	  <div name="resizerH1"></div>
-	  
 	  <div class="frame vertical" id="code-mirror">
-
 		  <div class='navigator'>
-
               <div class='language-selector dropdown dropdown-dark'>
                 <select class="lang dropdown-select" name="lang">
                     <option value="c">C</option>
@@ -1235,7 +1361,6 @@ window.onload = function() {
                     <option value="py">Python</option>
                 </select>
               </div>
-              
               <div class='theme-selector dropdown dropdown-dark'>
                 <select class="theme dropdown-select" name="theme">
                 	<optgroup label="black">

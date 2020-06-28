@@ -1,10 +1,13 @@
 package com.btcdd.codeforest.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.btcdd.codeforest.linux.TrainingLinux;
-
 import com.btcdd.codeforest.service.CodingTestService;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
@@ -35,6 +37,7 @@ public class CodingTestController {
 	private CodingTestService testService;
 	
 	private TrainingLinux trainingLinux = new TrainingLinux();
+	
 	
 	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
@@ -109,19 +112,19 @@ public class CodingTestController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
 		
-		ProblemVo problemVo = testService.selectProblemOne(problemNo);
+		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나만 뽑혀야 하는데 여러개 뽑히는 오류 여기서 나는듯..
 		
 		
 
 		
-		boolean exist = testService.existSaveNo(authUser.getNo(),problemNo);
+		Long existCount = testService.existSaveNo(authUser.getNo(),problemNo);
 		
-		if(exist==true) {
+		if(existCount >=1) {
 			System.out.println("바로 코드미러로"); 
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
-			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
+			SaveVo saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
 			//태성 코드
-			SaveVo saveVo = testService.findSaveVo(saveNo);
+			SaveVo saveVo = testService.findSaveVo(saveVO.getNo());
 			List<SavePathVo> savePathList = testService.findSavePathList(saveVo.getNo());
 			List<CodeVo> codeList = testService.findCodeList(savePathList.get(0).getNo());
 			for(int i = 1; i < savePathList.size(); i++) {
@@ -138,6 +141,9 @@ public class CodingTestController {
 			System.out.println("saveVo>>>>"+saveVo);
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
+			
+			
+			model.addAttribute("userStartTime",saveVO.getEnterTime());
 			
 			return "codingtest/code-mirror";
 		}
@@ -159,37 +165,51 @@ public class CodingTestController {
 		 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-		ProblemVo problemVo = testService.selectProblemOne(problemNo);
-
+		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나 이상
+		
+		
 		if(problemVo.getState().equals("y") && problemVo.getPassword().equals(tempKey)) {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			
-	
-			//관우-유진 코드
-			/////////////////////////////////////////////////////////////////////////////////////
-			Long[] subProblemNoArray = new Long[subProblemList.size()];
-			for(int i = 0; i < subProblemList.size(); i++) {
-				subProblemNoArray[i] = subProblemList.get(i).getNo();
-				System.out.println("subProblemNoArray[i]>>>>"+subProblemNoArray[i]);
+			SaveVo saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
+			
+			if(saveVO == null) {
+				DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				Date time = new Date();
+				String userStartTime = format.format(time);
+				Date userStartTime2 = null;
+				try {
+					userStartTime2 = format.parse(userStartTime);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 
+				//관우-유진 코드
+				/////////////////////////////////////////////////////////////////////////////////////				
+				Long[] subProblemNoArray = new Long[subProblemList.size()];
+				for(int i = 0; i < subProblemList.size(); i++) {
+					subProblemNoArray[i] = subProblemList.get(i).getNo();
+					System.out.println("subProblemNoArray[i]>>>>"+subProblemNoArray[i]);
+				}				
+				testService.insertSaveProblemNo(authUser.getNo(), problemNo,userStartTime2); //save에 저장 처음입장시간값 저장
+				
+				saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
+				
+				testService.insertSavePath(subProblemNoArray, saveVO.getNo(), authUser.getNo(), problemNo);
+				
+				testService.insertCode(saveVO.getNo());
+				
+				trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);				
+				
+				/////////////////////////////////////////////////////////////////////////////////////				
+				
 			}
 			
-			testService.insertSaveProblemNo(authUser.getNo(), problemNo);
-			
-			Long saveNo = testService.findSaveNo(authUser.getNo(), problemNo);
 
-			
-			//여기는 들어갈때 딱 한번만 되도록 한다
-			testService.insertSavePath(subProblemNoArray, saveNo, authUser.getNo(), problemNo);
-			
-			testService.insertCode(saveNo);
-			
-			trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);
-			
-			/////////////////////////////////////////////////////////////////////////////////////
-			
 			//태성 코드
-			SaveVo saveVo = testService.findSaveVo(saveNo);
+			SaveVo saveVo = testService.findSaveVo(saveVO.getNo());
 			List<SavePathVo> savePathList = testService.findSavePathList(saveVo.getNo());
 			List<CodeVo> codeList = testService.findCodeList(savePathList.get(0).getNo());
 			for(int i = 1; i < savePathList.size(); i++) {
@@ -209,7 +229,10 @@ public class CodingTestController {
 			System.out.println("savePathList>>>>"+savePathList);
 			System.out.println("codeList>>>>"+codeList);
 						
+
 			
+			model.addAttribute("userStartTime",saveVO.getEnterTime());
+		
 			
 			
 			return "codingtest/code-mirror"; //이동

@@ -42,9 +42,7 @@ var originList = function(page, kwd) {
 				console.error(response.message);
 				return;
 			}
-			
 			map = response.data;
-			
 			
 			fetchList();
 		},
@@ -104,7 +102,6 @@ $(function() {
 	originList('1', '');
 	$(document).on("click", ".page", function() {
 		page = $(this).attr('id');
-		console.log("page>>>",page);
 		originList(page, kwd);
 		nextRemove();
 		
@@ -113,8 +110,6 @@ $(function() {
 		page = $('span b').parent().attr('id');
 		var prevNo = parseInt(page) - 1;
 		page = String(prevNo);
-		
-		console.log(typeof(page) + " page: " + page + " / " + typeof(prevNo) + ":" + prevNo);
 		originList(page, kwd);
 		nextRemove();
 	});
@@ -122,7 +117,6 @@ $(function() {
 		page = $('span b').parent().attr('id');
 		var prevNo = parseInt(page) + 1;
 		page = String(prevNo);
-		console.log(typeof(page) + " page: " + page + " / " + typeof(prevNo) + ":" + prevNo);
 		originList(page, kwd);
 		nextRemove();
 	});

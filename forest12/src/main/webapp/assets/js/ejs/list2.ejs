@@ -6,12 +6,11 @@
 %>
 		<div class="test" data-no="<%=vo.no %>" id="priority<%=vo.priority %>">
 			<div class="test-top">
-				<div class="test-no"><%=data.list2.length - i %></div>						
-				<div class="writer"><%=vo.nickname %></div>
-				<div class="state">예정</div>
+				<div class="title-div"><%=vo.title %></div>
+				<div class="expected-state">예정</div>
 			</div>
 			<div class="test-mid">
-				<div class="title"><%=vo.title %></div>
+				<div class="writer"><%=vo.nickname %></div>
 				<% if(dday == 0) { %>
 					<div class="d-day" data-no="<%=vo.no %>">D-DAY</div>
 				<%} else { %>
@@ -19,7 +18,7 @@
 				<% } %>
 			</div>
 			<div class="test-bottom">
-				<div class="date">시작:<%=vo.startTime %><br/>마감:<%=vo.endTime %></div>
+				<div class="date">테스트 : <%=vo.startTime.substring(2,4)%>년 <%=vo.startTime.substring(5,7)%>월 <%=vo.startTime.substring(8,10)%>일 <%=vo.startTime.substring(10,16)%> - <%=vo.endTime.substring(5,7)%>월 <%=vo.endTime.substring(8,10)%>일 <%=vo.endTime.substring(10,16)%></div>
 			</div>
 		</div>
 <%

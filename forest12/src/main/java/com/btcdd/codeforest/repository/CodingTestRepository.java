@@ -1,5 +1,6 @@
 package com.btcdd.codeforest.repository;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,11 +51,10 @@ public class CodingTestRepository {
 
 	public void insertSaveProblemNo(Map<String, Object> map) {
 		sqlSession.insert("codingtest.insertSaveProblemNo", map);
-		
 	}
 
-	public Long findSaveNo(Map<String, Object> map) {
-		return sqlSession.selectOne("codingtest.findSaveNo", map);
+	public SaveVo findSaveVoByProblemNo(Map<String, Object> map) {
+		return sqlSession.selectOne("codingtest.findSaveVoByProblemNo", map);
 	}
 
 	public void insertSavePath(Long[] subProblemNoArray, Long saveNo, Long authUserNo, Long problemNo) {
@@ -87,9 +87,11 @@ public class CodingTestRepository {
 		return sqlSession.selectList("codingtest.findCodeList", savePathNo);
 	}
 
-	public SaveVo findByProblemNo(Map<String, Object> map) {
+	public Long findByProblemNo(Map<String, Object> map) {
 		return sqlSession.selectOne("codingtest.findByProblemNo", map);
 	}
+
+
 
 
 	

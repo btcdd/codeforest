@@ -41,6 +41,8 @@ var lang;
 var code;
 var editor;
 var execPandan;
+var prevCursor;
+var message;
 
 //채팅 시작하기
 function connect(event) {
@@ -80,8 +82,6 @@ function onConnected() {
 
 
 function onError(error) {
-//     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-//     connectingElement.style.color = 'red';
 }
 
 function sendMessage(event, res) {
@@ -102,14 +102,15 @@ function sendMessage(event, res) {
 
 function onMessageReceived(payload) {
 	
-    var message = JSON.parse(payload.body);
+    message = JSON.parse(payload.body);
     
     var prevText = resultText.val();
     resultText.val(prevText + message.content);
     
+    prevCursor = $('#result').prop('selectionStart') - 1;
+    
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
-
 
 $(function() {
 	
@@ -134,24 +135,6 @@ $(function() {
    
    var d = document.querySelector('.codeTest');
    d.addEventListener('submit', connect, true);
-   
-   /*
-   $('.codeTest').on('submit',function(e) {
-	   
-	   e.preventDefault();
-	   
-		// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-	    var socket = new SockJS('/ws');
-	    // 전역 변수에 세션 설정
-	    stompClient = Stomp.over(socket);
-
-	    stompClient.connect({}, onConnected, onError);
-   });
-   */
-   
-   
-   
-//    $('.codeTest').on('submit',function(e)
    
    var code = $('.CodeMirror')[0];
    editor = CodeMirror.fromTextArea(code, {
@@ -218,10 +201,22 @@ $(function() {
     
     resultText = $('#result');
     
-    var prevCursor = 0;
+    prevCursor = 0;
     var cursorPandan = false;
-    $('#result').keyup(event, function(key) {
+    $('#result').keydown(event, function(key) {
     	
+    	if(message.programPandan) {
+    		if(key.keyCode === 8 || key.keyCode === 13) {
+    			return false;
+    		}
+    	}
+    	
+		if($(this).prop('selectionStart') <= prevCursor + 1) {
+			if(key.keyCode === 8) {
+				return false;
+			}
+		}
+		
     	if(cursorPandan == false) {
 	    	prevCursor = $(this).prop('selectionStart') - 1;
 	    	cursorPandan = true;
@@ -234,10 +229,7 @@ $(function() {
 	        sendMessage(event, result);
 	        result = '';
     	}
-    	
    });
-    
-    
 });
 
 </script>
@@ -265,10 +257,10 @@ $(function() {
                <tr>
                   <td style="float:left; width: 150px;">
                      <select class="lang" name="lang">
-                         <option value="c" selected="selected">C</option>
+                         <option value="c">C</option>
                          <option value="cpp">C++</option>
                          <option value="cs">C#</option>
-                         <option value="java">JAVA</option>
+                         <option value="java" selected="selected">JAVA</option>
                          <option value="js">JavaScript</option>
                          <option value="py">Python</option>
                      </select>

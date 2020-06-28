@@ -2,10 +2,20 @@ package com.btcdd.codeforest.vo;
 
 public class AnswerUserListVo {
 
+	private Long userNo;
 	private String code;
 	private String nickname;
 	private String lang;
 	private int tryCnt;
+
+	
+	public Long getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(Long userNo) {
+		this.userNo = userNo;
+	}
 
 	public String getCode() {
 		return code;

@@ -19,15 +19,15 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 import com.btcdd.codeforest.model.ChatMessage;
-import com.btcdd.codeforest.runlanguage.RunC;
-import com.btcdd.codeforest.runlanguage.RunCpp;
-import com.btcdd.codeforest.runlanguage.RunCs;
-import com.btcdd.codeforest.runlanguage.RunJava;
-import com.btcdd.codeforest.runlanguage.RunJs;
-import com.btcdd.codeforest.runlanguage.RunPy;
+import com.btcdd.codeforest.runlanguage.RunCLinux;
+import com.btcdd.codeforest.runlanguage.RunCppLinux;
+import com.btcdd.codeforest.runlanguage.RunCsLinux;
+import com.btcdd.codeforest.runlanguage.RunJavaLinux;
+import com.btcdd.codeforest.runlanguage.RunJsLinux;
+import com.btcdd.codeforest.runlanguage.RunPyLinux;
 
 @Controller
-public class ChatController {
+public class CodeTreeChatController {
 	
 	private StringBuffer buffer;
 	private BufferedReader bufferedReader;
@@ -40,9 +40,10 @@ public class ChatController {
 	private StringBuffer readBuffer2 = new StringBuffer();
 	private final Long time = System.currentTimeMillis();
 
-	@MessageMapping("/chat")
+	@MessageMapping("/codetree")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+		
 		String errorResult = "";
 		Boolean pandan = false;
 		
@@ -56,39 +57,33 @@ public class ChatController {
 		pandan = (Boolean) obj.get("execPandan");
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
+		String fileName = (String) obj.get("fileName");
+		String packagePath = (String) obj.get("packagePath");
+		
 		try {
 			if(pandan) {
 //				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
-					RunC rc = new RunC(time);
-					rc.createFileAsSourceTrue(code);
-					rc.createFileAsSourceFake(code);
-					errorResult = rc.execCompile();
-					process = Runtime.getRuntime().exec("timeout 120s /mainCompile/c" + time + "/Test.exe");
+					RunCLinux runCLinux = new RunCLinux(fileName, packagePath, language);
+				    errorResult = runCLinux.execCompile();
+					process = Runtime.getRuntime().exec("timeout 120s " + packagePath + "/" + language + "/Test.exe");
 				} else if("cpp".equals(language)) {
-					RunCpp rcpp = new RunCpp(time);
-					rcpp.createFileAsSourceTrue(code);
-					rcpp.createFileAsSourceFake(code);
-					errorResult = rcpp.execCompile();
-					process = Runtime.getRuntime().exec("timeout 120s /mainCompile/cpp" + time + "/Test.exe");
+					RunCppLinux runCppLinux = new RunCppLinux(fileName, packagePath, language);
+				    errorResult = runCppLinux.execCompile();
+					process = Runtime.getRuntime().exec("timeout 120s " + packagePath + "/" + language + "/Test.exe");
 				} else if("cs".equals(language)) {
-					RunCs rcs = new RunCs(time);
-					rcs.createFileAsSource(code);
-					errorResult = rcs.execCompile();
-					process = Runtime.getRuntime().exec("timeout 120s mono /mainCompile/cs" + time + "/Test.exe");
+					RunCsLinux runCsLinux = new RunCsLinux(fileName, packagePath, language);
+				    errorResult = runCsLinux.execCompile();
+					process = Runtime.getRuntime().exec("timeout 120s mono " + packagePath + "/" + language + "/Test.exe");
 				} else if("java".equals(language)) {
-					RunJava rj = new RunJava(time);
-					rj.createFileAsSource(code);
-					errorResult = rj.execCompile();
-					process = Runtime.getRuntime().exec("timeout 120s java -cp /mainCompile/java" + time + "/ Test");
+					RunJavaLinux runJavaLinux = new RunJavaLinux(fileName, packagePath, language);
+				    errorResult = runJavaLinux.execCompile();
+				    String[] split = fileName.split("\\.");
+					process = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
 				} else if("js".equals(language)) {
-					RunJs rjs = new RunJs(time);
-					rjs.createFileAsSource(code);
-					process = Runtime.getRuntime().exec("timeout 120s node /mainCompile/js" + time + "/Test.js");
+					process = Runtime.getRuntime().exec("timeout 120s node " + packagePath + "/" + language + "/Test.js");
 				} else if("py".equals(language)) {
-					RunPy rpy = new RunPy(time);
-					rpy.createFileAsSource(code);
-					process = Runtime.getRuntime().exec("timeout 120s python3 /mainCompile/py" + time + "/Test.py");
+					process = Runtime.getRuntime().exec("timeout 120s python3 " + packagePath + "/" + language + "/Test.py");
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
