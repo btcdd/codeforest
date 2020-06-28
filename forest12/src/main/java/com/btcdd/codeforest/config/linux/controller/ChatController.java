@@ -136,7 +136,7 @@ public class ChatController {
 
 					if (!("".equals(input)) || input != null) {
 						try {
-							input += "\n";
+//							input += "\n";
 							readBuffer2.append(input);
 							writer.write(input);
 							writer.flush();
