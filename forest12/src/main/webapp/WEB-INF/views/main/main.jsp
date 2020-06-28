@@ -219,12 +219,10 @@ $(function() {
     	
 		if($(this).prop('selectionStart') < prevCursor + 1) {
 			if(key.keyCode !== 37 && key.keyCode !== 38 && key.keyCode !== 39 && key.keyCode !== 40) {
-				console.log('1111:',key.keyCode);
 				return false;
 			}
 		} else if($(this).prop('selectionStart') == prevCursor + 1) {
 			if(key.keyCode === 8) {
-				console.log('222'); 
 				return false;
 			}
 		}
