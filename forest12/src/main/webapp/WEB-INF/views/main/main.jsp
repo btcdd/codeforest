@@ -47,10 +47,12 @@ var prevText;
 //채팅 시작하기
 function connect(event) {
 	
-	console.log('asdf');
 	$('#result').val('');
+	
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	prevText = '';
+	
+	console.log('prevText:' + prevText);
 	
 	$('#result').attr("readonly", false);
 	
@@ -110,7 +112,7 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    prevText = '' + '\n';
+    prevText = $('#result').val() + '\n';
     $('#result').val(prevText + message.content);
 // 	$('#result').append(message.content);
     
