@@ -2,7 +2,12 @@
 	for(var i = 0; i < data.list3.length; i++) {
 		var vo = data.list3[i];
 %>
-		<div class="test" data-no="<%=vo.no %>" id="priority<%=vo.priority %>">
+		<% if(vo.privacy == 'n') { %>
+			<div class="test" data-no="<%=vo.no %>" id="priority<%=vo.priority %>">
+		<%} else { %>
+			<div class="test" data-no="<%=vo.no %>" id="priority<%=vo.priority %>_link">
+		<% } %>
+		
 			<div class="test-top">
 				<div class="title-div"><%=vo.title %></div>
 				<% if(vo.privacy == 'n') { %>
