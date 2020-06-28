@@ -807,9 +807,7 @@ $(function() {
 	
 					   }
 				   }
-				   if(currentEditor != null) {
-					   currentEditor.setValue(face);
-				   }
+					currentEditor.setValue(face);
 					console.log("code : " + response.data);
 					SavedCode.set(fileNo+"",response.data);
 				},
