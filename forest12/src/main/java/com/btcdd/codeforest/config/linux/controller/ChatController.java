@@ -56,6 +56,10 @@ public class ChatController {
 		pandan = (Boolean) obj.get("execPandan");
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
+		
+		chatMessage.setProgramPandan(false);
+		chatMessage.setContent("");
+		
 		try {
 			if(pandan) {
 //				process = Runtime.getRuntime().exec("cmd");
