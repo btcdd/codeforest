@@ -116,16 +116,11 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-// 	$(".terminal").append("<p>" + message.content + "</p>");
 	var prevText = $('.terminal').val();
-	$('.terminal').val(prevText + message.content);
+	$('.terminal').val('\n' + prevText + message.content);
 	
 	prevCursor = $('.terminal').prop('selectionStart') - 1;
 	
-// 	if(message.programPandan) {
-// 		$(".terminal").append("<span class=\"prompt\">-></span> ");
-// 		$(".terminal").append("<span class=\"path\">~</span> ");
-// 	}
 	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
 }
 
