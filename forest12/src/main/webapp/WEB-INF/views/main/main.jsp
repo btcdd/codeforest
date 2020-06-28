@@ -207,7 +207,11 @@ $(function() {
     var cursorPandan = false;
     $('#result').keyup(event, function(key) {
     	
-		console.log($(this).prop('selectionStart'));
+		if($(this).prop('selectionStart') <= prevCursor) {
+			if(key.keycode === 8) {
+				return false;
+			}
+		}
 		
     	if(cursorPandan == false) {
 	    	prevCursor = $(this).prop('selectionStart') - 1;
