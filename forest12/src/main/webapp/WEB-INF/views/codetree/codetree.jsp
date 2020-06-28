@@ -1010,6 +1010,10 @@ $(function() {
 				'problemNo' : problemNo
 			},
 			success: function(response) {
+				if(tempLayout == null){
+					return;
+				}
+				
 				SavedCode.set(fileNo+"", currentEditor.getValue());
 				console.log("ok");
 				layoutId = "layout-"+fileNo;
