@@ -208,8 +208,8 @@ $(function() {
     $('#result').keyup(event, function(key) {
     	
 		if($(this).prop('selectionStart') <= prevCursor) {
-			console.log(key.keycode);
-			if(key.keycode === 8) {
+			console.log(key.keyCode);
+			if(key.keyCode === 8) {
 				return false;
 			}
 		}
