@@ -651,11 +651,8 @@ $(function() {
 		    	buttons:{
 		    		"수정":function(){
 						if(Test == "Test"){
-							/* $(".fileName-update").remove(); */
 							$(".FileUpdate").css("color","red").html("<p>Test파일 수정불가</p>");
-							Test = null;
-							console.log("$(this)>>>",$(this));
-							
+							Test = null;							
 							return;
 						}		    			
 						var filename = $(this).find(".fileName-update").val();
