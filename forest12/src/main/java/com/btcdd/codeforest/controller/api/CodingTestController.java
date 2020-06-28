@@ -123,15 +123,6 @@ public class CodingTestController {
 		return JsonResult.success(map);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Auth
 	@PostMapping("/fileInsert")
 	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, HttpSession session) {
@@ -302,8 +293,6 @@ public class CodingTestController {
 		String userSubmitTime = null;
 		Date userSubmitTime2 = null;
 		
-		
-		
 		try {
 			SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			userStartTimeTransFormat = TransFormat.parse(userStartTime);//처음 들어온 사용자 시간
@@ -329,19 +318,15 @@ public class CodingTestController {
 		}
 		sec = diff;
 		
-		
-		String solveTime = hours+"시"+min+"분"+sec+"초";
+		String solveTime = hours+"시간 "+min+"분 "+sec+"초";
 		map.put("solveTime", solveTime);
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
-		
 		 
 		boolean compileResult = true;
 		boolean compileError = false;
- 		
-		 
 		
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] compileResult1Split =compileResult1.split("\n");
