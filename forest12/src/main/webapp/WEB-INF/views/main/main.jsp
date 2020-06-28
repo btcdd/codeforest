@@ -42,6 +42,7 @@ var code;
 var editor;
 var execPandan;
 var prevCursor;
+var message;
 
 //채팅 시작하기
 function connect(event) {
@@ -101,18 +102,17 @@ function sendMessage(event, res) {
 
 function onMessageReceived(payload) {
 	
-    var message = JSON.parse(payload.body);
+    message = JSON.parse(payload.body);
     
     console.log('gdgdgd:',message.content);
     
     var prevText = resultText.val();
-    resultText.val(prevText + message.content + '\n');
+    resultText.val(prevText + message.content);
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
-
 
 $(function() {
 	
@@ -207,10 +207,8 @@ $(function() {
     var cursorPandan = false;
     $('#result').keydown(event, function(key) {
     	
-		if($(this).prop('selectionStart') <= prevCursor + 1) {
-			console.log(key.keyCode);
+		if($(this).prop('selectionStart') <= prevCursor + 1 || message.programPandan) {
 			if(key.keyCode === 8) {
-				console.log('ddd');
 				return false;
 			}
 		}
