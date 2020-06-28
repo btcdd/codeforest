@@ -107,9 +107,8 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    var prevText = resultText.val() + '\n';
+    var prevText = resultText.val();
     resultText.val(prevText + message.content);
-    prevText = '';
     console.log('message::', message.content);
     
     prevCursor = $('#result').prop('selectionStart') - 1;
