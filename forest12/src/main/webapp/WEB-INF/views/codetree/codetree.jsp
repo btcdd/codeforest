@@ -33,24 +33,25 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
-
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
-
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/goldenlayout.min.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <%-- <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css" /> --%>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-
 <script>
-var code;
+
+var result = '';
+var resultText;
 var tmp = '';
-var tempFile = null;
 var lang;
+var code;
 var editor;
 var execPandan;
+var prevCursor;
+var message;
+var tempFile = null;
 
 //채팅 시작하기
 function connect(event) {
@@ -100,8 +101,6 @@ function sendMessage(event, res) {
 	
 	tmp = res;
 	
-	console.log('res:', res);
-	
     var messageContent = res;
     var chatMessage = {
         content: messageContent,
@@ -115,14 +114,18 @@ function sendMessage(event, res) {
 }
 
 function onMessageReceived(payload) {
-    var message = JSON.parse(payload.body);
+    message = JSON.parse(payload.body);
     
-	$(".terminal").append("<p>" + message.content + "</p>");
+// 	$(".terminal").append("<p>" + message.content + "</p>");
+	var prevText = $('.terminal').val();
+	$('.terminal').val(prevText + message.content);
 	
-	if(message.programPandan) {
-		$(".terminal").append("<span class=\"prompt\">-></span> ");
-		$(".terminal").append("<span class=\"path\">~</span> ");
-	}
+	prevCursor = $('.terminal').prop('selectionStart') - 1;
+	
+// 	if(message.programPandan) {
+// 		$(".terminal").append("<span class=\"prompt\">-></span> ");
+// 		$(".terminal").append("<span class=\"path\">~</span> ");
+// 	}
 	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
 }
 
@@ -885,11 +888,7 @@ $(function() {
 				tempLayout.setTitle(tempFile.data("fileName"));
 			}			
 		}
-
-		
 	}); 
-	
-	
 
  	var compileResult1 = "";
  	var compileResult2 = "";
@@ -897,6 +896,36 @@ $(function() {
  	
  	var d = document.querySelector('#Run');
     d.addEventListener('click', connect, true);
+    
+    prevCursor = 0;
+    var cursorPandan = false;
+    $('#result').keydown(event, function(key) {
+    	
+    	if(message.programPandan) {
+    		if(key.keyCode === 8 || key.keyCode === 13) {
+    			return false;
+    		}
+    	}
+    	
+		if($(this).prop('selectionStart') <= prevCursor + 1) {
+			if(key.keyCode === 8) {
+				return false;
+			}
+		}
+		
+    	if(cursorPandan == false) {
+	    	prevCursor = $(this).prop('selectionStart') - 1;
+	    	cursorPandan = true;
+    	}
+    	if (key.keyCode == 13) {
+    		cursorPandan = false;
+    		
+	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        
+	        sendMessage(event, result);
+	        result = '';
+    	}
+   });
  	
     /*
  	$(document).on("click","#Run",function(){
@@ -1311,19 +1340,13 @@ window.onload = function() {
 
 
 <div class="container">
-
 	<div class="frame horizontal">
-	  
 	    <div id="box_1" class="box" style="flex: 1 1 1">
 	    	<c:import url="/WEB-INF/views/codetree/problem-list.jsp"></c:import>
 	    </div>
-	    
 	  <div name="resizerH1"></div>
-	  
 	  <div class="frame vertical" id="code-mirror">
-
 		  <div class='navigator'>
-
               <div class='language-selector dropdown dropdown-dark'>
                 <select class="lang dropdown-select" name="lang">
                     <option value="c">C</option>
@@ -1334,7 +1357,6 @@ window.onload = function() {
                     <option value="py">Python</option>
                 </select>
               </div>
-              
               <div class='theme-selector dropdown dropdown-dark'>
                 <select class="theme dropdown-select" name="theme">
                 	<optgroup label="black">
