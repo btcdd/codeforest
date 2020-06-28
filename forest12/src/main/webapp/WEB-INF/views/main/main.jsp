@@ -49,7 +49,7 @@ function connect(event) {
 	
 	$('#result').val('');
 	
-// 	$('#result').val('프로그램이 시작되었습니다...\n');
+	$('#result').val('프로그램이 시작되었습니다...\n');
 	
 // 	$('#result').attr("readonly", false);
 	
