@@ -217,7 +217,7 @@ $(function() {
     		}
     	}
     	
-		if($(this).prop('selectionStart') <= prevCursor + 1) {
+		if($(this).prop('selectionStart') < prevCursor + 1) {
 			if(key.keyCode === 8) {
 				return false;
 			}
