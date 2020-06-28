@@ -35,7 +35,6 @@
 <script>
 
 var result = '';
-var resultText;
 var tmp = '';
 var lang;
 var code;
@@ -109,8 +108,8 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    var prevText = resultText.val() + '\n';
-    resultText.val(prevText + message.content);
+    var prevText = $('#result').val() + '\n';
+    $('#result').val(prevText + message.content);
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
@@ -207,8 +206,6 @@ $(function() {
    });
    
     $('.CodeMirror').addClass('code');
-    
-    resultText = $('#result');
     
     prevCursor = 0;
     var cursorPandan = false;
