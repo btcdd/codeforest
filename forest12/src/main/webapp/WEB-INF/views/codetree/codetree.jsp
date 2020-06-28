@@ -58,6 +58,8 @@ function connect(event) {
 	$("#Save").trigger("click");
 	$("#Run").blur();
 	
+	$('.terminal').attr("readonly", false);
+	
 	$(".terminal").append('프로그램이 시작되었습니다...\n');
 	
 	code = currentEditor.getValue();
@@ -116,12 +118,16 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-	var prevText = $('.terminal').val();
+	var prevText = $('.terminal').val() + '\n';
 	$('.terminal').val(prevText + message.content);
 	
 	prevCursor = $('.terminal').prop('selectionStart') - 1;
 	
 	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+	
+	if(message.programPandan) {
+    	$('.terminal').attr("readonly", true);
+    }
 }
 
 
