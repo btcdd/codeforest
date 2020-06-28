@@ -1,6 +1,5 @@
 package com.btcdd.codeforest.controller.api;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,9 +39,7 @@ public class CodeTreeController {
 	@PostMapping(value="/list")// main-header에서 처음 열때
 	public JsonResult codeTree(String page, String kwd,HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		System.out.println("kwd>>>>"+kwd);
 		int p = Integer.parseInt(page);
-		System.out.println("p>>>"+p);
 		Map<String, Object> map = codetreeService.getContentsList(p,kwd,authUser.getNo());
 		map.get("list");
 		

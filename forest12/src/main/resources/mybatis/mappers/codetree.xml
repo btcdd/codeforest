@@ -75,16 +75,27 @@
 		<choose>
 			<when test="keyword == null or keyword == ''">
 				<![CDATA[
-                    select count(*) from user u, save s, problem p
-                    where s.user_no = u.no and s.problem_no = p.no and s.user_no = #{authUserNo} and p.state ='y'				
+                    select count(*)
+					  from save s, problem p, kind k, user u
+				     where s.user_no = #{authUserNo }
+					   and p.user_no = u.no
+					   and s.problem_no = p.no
+					   and p.kind_no = k.no
+					   and p.state ='y'
+					   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 				]]>
 			</when>
 			<otherwise>
 			 <![CDATA[				 	
-                    select count(*) from user u, save s, problem p,kind k
-                    where s.user_no = u.no and k.no = p.kind_no and s.problem_no = p.no 
-                    and s.user_no = #{authUserNo}  and p.state ='y'                   
-                    and (p.title like '%${keyword}%' or u.nickname like '%${keyword}%' or k.name like '%${keyword}%')			 	
+                    select s.no as no, s.user_no as userNo, s.problem_no as problemNo, p.title as title, k.name as kind, u.nickname as nickname
+					  from save s, problem p, kind k, user u
+				     where s.user_no = #{authUserNo }
+					   and s.user_no = u.no
+					   and s.problem_no = p.no
+			   		   and p.kind_no = k.no 
+					   and p.state ='y'
+					   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
+	                   and (p.title like '%${keyword}%' or u.nickname like '%${keyword}%' or k.name like '%${keyword}%' )
 			 ]]>
 			</otherwise>			
 		</choose>
