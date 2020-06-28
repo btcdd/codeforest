@@ -208,6 +208,7 @@ $(function() {
     $('#result').keyup(event, function(key) {
     	
 		if($(this).prop('selectionStart') <= prevCursor) {
+			console.log('asdf');
 			if(key.keycode === 8) {
 				return false;
 			}
@@ -227,7 +228,9 @@ $(function() {
     	}
    });
     
-    
+    $('#result').focus(function(){
+    	  console.log($(this).prop('selectionStart'));
+    });
 });
 
 </script>
