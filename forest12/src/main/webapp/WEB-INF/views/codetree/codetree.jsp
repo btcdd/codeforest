@@ -651,7 +651,7 @@ $(function() {
 		    	buttons:{
 		    		"수정":function(){
 						if(Test == "Test"){
-							$(".validateTips").css("color","red").html("<p>Test파일 수정 불가</p>");
+							$(".fileName-update").css("color","red").html("<p>Test파일 수정불가</p>");
 							Test = null;
 							return;
 						}		    			
