@@ -108,6 +108,7 @@ function onMessageReceived(payload) {
     
     var prevText = resultText.val() + '\n';
     resultText.val(prevText + message.content);
+    prevText = '';
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
