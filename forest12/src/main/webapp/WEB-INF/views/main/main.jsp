@@ -47,12 +47,9 @@ var prevText;
 //채팅 시작하기
 function connect(event) {
 	
-	$('#result').val('');
+	$('#result').val('').change();
 	
 	$('#result').val('프로그램이 시작되었습니다...\n');
-	prevText = '';
-	
-	console.log('prevText:' + prevText);
 	
 	$('#result').attr("readonly", false);
 	
