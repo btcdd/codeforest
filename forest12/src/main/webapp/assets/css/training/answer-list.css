@@ -75,11 +75,18 @@ table.type09 .even {
     margin-left: 3%;
 }
 
+.CodeMirror {
+	height: 100%;
+}
+
 textarea {
     width: 99%;
     height: 60%;
 }
 
+.setting-selector {
+	display: inline-block;
+}
 .theme {
     width: 155px;
     height: 35px;
@@ -92,6 +99,22 @@ textarea {
     border-radius: 0px;
     display: block;
     margin-bottom: 10px;
+    float: left;
+}
+
+#font-size {
+    width: 155px;
+    height: 35px;
+    padding: .3em .3em;
+    font-family: inherit;
+    font-size: 1em;
+    background: no-repeat 95% 50%;
+    background-color: #fff;
+    border: 1px solid #999;
+    border-radius: 0px;
+    display: block;
+    margin-bottom: 10px;
+    float: left;
 }
 
 .language {
@@ -125,8 +148,4 @@ textarea {
 	color: #3C3C3C;
 	text-align: center;
 	border-top: 1px solid #BFBFBf
-}
-
-.CodeMirror {
-	height: 100%;
 }

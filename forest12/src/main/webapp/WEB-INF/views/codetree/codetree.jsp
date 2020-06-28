@@ -639,7 +639,7 @@ $(function() {
 					'packagePath' : packagePath
 				},
 				success: function(response) {	   				   
-				   if(response.data != "") {
+				   if(response.data != "" || response.data != null) {
 					currentEditor.setValue(response.data);
 				   }
 				   else {
@@ -682,10 +682,10 @@ $(function() {
 						   } else if(language === 'py') {
 							   face = 'print("Hello World")';
 						   }
+						   if(currentEditor != null) {
+							   currentEditor.setValue(face);
+						   }	
 					   }
-					   if(currentEditor != null) {
-						   currentEditor.setValue(face);
-					   }	
 				   }
 					console.log("code : " + response.data);
 					SavedCode.set(fileNo+"",response.data);

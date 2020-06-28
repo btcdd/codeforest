@@ -106,6 +106,9 @@ var fetchList = function() {
 	$("#answer-user").after(str2);
 }
 
+var editorArray = new Array();
+var editorArrayIndex = 0;
+
 $(function() {
 //    var code = $('.CodeMirror')[0];
 //    var editor = CodeMirror.fromTextArea(code, {
@@ -147,12 +150,13 @@ $(function() {
 		success: function(response){
 			
 			if(myLayout.root.contentItems[0] != null) {
+				editorArray = new Array();
+				editorArrayIndex = 0;
 				myLayout.destroy();
 				myLayout = new GoldenLayout(config, $('.code-mirror'));
 				myLayout.registerComponent("newTab", function(container) {
 					container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
 					container.getElement().attr("id", "cm" + fileIndex);		
-					
 				});				
 				myLayout.init();
 			}
@@ -176,12 +180,13 @@ $(function() {
 				var editor = CodeMirror.fromTextArea(code, {
 					lineNumbers : true,
 					mode : 'text/x-java',
-					theme : 'panda-syntax',
+					theme : theme,
 					matchBrackets : true,
 					readOnly : true
 				});		
 				
 				editor.setValue(response.data.codes[i]);
+				editorArray[editorArrayIndex++] = editor;
 			}			
 			
 		},
@@ -221,7 +226,21 @@ $(function() {
 		originList(page, language);
 	});
 	
+ 	// 폰트 사이즈 변경
+	$(document).on("click", '#font-size', function(){	
+		var fontSize = $("#font-size option:selected").val();
+		$(".CodeMirror").css("font-size", fontSize);
+	});
 	
+ 	
+	// 테마 변경
+	var theme = 'panda-syntax';
+	$('.theme').click(function() {
+		theme = $(".theme option:selected").val();
+		for (var i = 0; i < editorArray.length; i++ ) {
+			editorArray[i].setOption("theme", theme);
+		}
+	});
 	
 	
  	//////////////////////////// golden layout /////////////////////////////	
@@ -339,22 +358,38 @@ $(function() {
            </table>
        </div>
        <div class="code-mirror">
-	       <select class="theme" name="theme">
-	       	<optgroup label="black">
-	           <option value="abcdef">abcdef</option>
-	           <option value="blackboard">blackboard</option>
-	           <option value="dracula">dracula</option>
-	           <option value="moxer">moxer</option>
-	           <option value="panda-syntax" selected="selected">panda-syntax</option>
-	         </optgroup>
-	         <optgroup label="white">
-	           <option value="duotone-light">duotone-light</option>
-	           <option value="eclipse">eclipse</option>
-	           <option value="neat">neat</option>
-	           <option value="ttcn">ttcn</option>
-	           <option value="solarized">solarized</option>
-	         </optgroup>
-	       </select>	       
+       		<div class="setting-selector">
+		       <select class="theme" name="theme">
+		       	<optgroup label="black">
+		           <option value="abcdef">abcdef</option>
+		           <option value="blackboard">blackboard</option>
+		           <option value="dracula">dracula</option>
+		           <option value="moxer">moxer</option>
+		           <option value="panda-syntax" selected="selected">panda-syntax</option>
+		         </optgroup>
+		         <optgroup label="white">
+		           <option value="duotone-light">duotone-light</option>
+		           <option value="eclipse">eclipse</option>
+		           <option value="neat">neat</option>
+		           <option value="ttcn">ttcn</option>
+		           <option value="solarized">solarized</option>
+		         </optgroup>
+		       </select>	
+		       	       
+               <select class="size" id="font-size" name="size">
+                 <option value="10px">10px</option>
+                 <option value="12px">12px</option>
+                 <option value="15px">15px</option>
+                 <option value="16px" selected="selected">16px</option>
+                 <option value="17px">17px</option>
+                 <option value="18px">18px</option>
+                 <option value="19px">19px</option>
+                 <option value="20px">20px</option>
+                 <option value="25px">25px</option>
+                 <option value="30px">30px</option>
+                 <option value="35px">35px</option>
+             </select>
+          	 </div>     
       </div>
    </div>
    <c:import url="/WEB-INF/views/include/footer.jsp" />
