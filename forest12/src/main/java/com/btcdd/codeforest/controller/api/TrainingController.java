@@ -113,7 +113,7 @@ public class TrainingController {
 
 		return JsonResult.success(null);
 	}
-	
+	 
 	// 코드 보기 눌렀을 때 파일 찾아오기!
 	@PostMapping("/find-code")
 	public JsonResult findCode(Long subProblemNo, Long userNo, String language) {
@@ -127,8 +127,8 @@ public class TrainingController {
 //			map.put("file"+i, list.get(i).getFileName());
 //			map.put("code"+i, codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
 			fileNames.add(list.get(i).getFileName());
-			codes.add(codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
-//			codes.add("ㅋㅋㅋ");
+//			codes.add(codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
+			codes.add("ㅋㅋㅋ");
 		}
 		
 		map.put("fileNames", fileNames);	
