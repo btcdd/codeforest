@@ -64,7 +64,7 @@ function connect(event) {
 //     stompClient = Stomp.over(socket);
 //     stompClient.connect({}, onConnected, onError);
     
-//     event.preventDefault();
+    event.preventDefault();
 }
 
 
