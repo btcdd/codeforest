@@ -756,14 +756,15 @@ $(function() {
 					'fileName' : fileName,
 					'packagePath' : packagePath
 				},
-				success: function(response) {	   				   
+				success: function(response) {	 
+					var face = '';
 				   if(response.data != "" || response.data != null) {
-					currentEditor.setValue(response.data);
+					face = response.data;
+					
 					console.log("response.data: ", response.data);
 					console.log("if  fileName.split('.')[0] :", fileName.split(".")[0]);
 				   }
 				   else {
-					   var face = '';
 					   console.log("else   fileName.split('.')[0] :", fileName.split(".")[0]);
 					   if(fileName.split(".")[0] == "Test") {
 						   if(language === 'c') {
@@ -803,9 +804,10 @@ $(function() {
 						   } else if(language === 'py') {
 							   face = 'print("Hello World")';
 						   }
-						   if(currentEditor != null) {
-							   currentEditor.setValue(face);
-						   }	
+	
+					   }
+					   if(currentEditor != null) {
+						   currentEditor.setValue(face);
 					   }
 				   }
 					console.log("code : " + response.data);
