@@ -62,7 +62,6 @@ public class ChatController {
 			if(pandan) {
 				chatMessage.setProgramPandan(false);
 				chatMessage.setContent("");
-//				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
 					RunC rc = new RunC(time);
 					rc.createFileAsSourceTrue(code);
@@ -88,10 +87,12 @@ public class ChatController {
 				} else if("js".equals(language)) {
 					RunJs rjs = new RunJs(time);
 					rjs.createFileAsSource(code);
+					errorResult = rjs.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s node /mainCompile/js" + time + "/Test.js");
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy(time);
 					rpy.createFileAsSource(code);
+					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s python3 /mainCompile/py" + time + "/Test.py");
 				}
 				readBuffer.setLength(0);
@@ -111,7 +112,6 @@ public class ChatController {
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-//					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
 					int c = 0;
 					while ((c = reader.read()) != -1) {
@@ -154,7 +154,6 @@ public class ChatController {
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
 					InputStreamReader is = new InputStreamReader(stdout, "utf-8");
-//					InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
 					int c = 0;
 					readBuffer.setLength(0);
 					while ((c = is.read()) != -1) {

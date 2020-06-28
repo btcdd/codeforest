@@ -158,7 +158,6 @@ $(function() {
 			}
 			
 			
-			
 			root = myLayout.root.contentItems[0] || myLayout.root;
 			
 			for(var i = 0; i < response.data.fileNames.length; i++) {
