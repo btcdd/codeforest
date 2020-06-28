@@ -641,10 +641,11 @@ $(function() {
 				success: function(response) {	   				   
 				   if(response.data != "" || response.data != null) {
 					currentEditor.setValue(response.data);
+					console.log("if  fileName.split('.')[0] :", fileName.split(".")[0]);
 				   }
 				   else {
 					   var face = '';
-					   console.log("fileName.split('.')[0] :", fileName.split(".")[0]);
+					   console.log("else   fileName.split('.')[0] :", fileName.split(".")[0]);
 					   if(fileName.split(".")[0] == "Test") {
 						   if(language === 'c') {
 							   face = '#include <stdio.h>\n\n' + 
