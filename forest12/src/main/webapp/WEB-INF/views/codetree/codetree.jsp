@@ -933,7 +933,9 @@ $(function() {
     
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
- 		
+ 		if(currentEditor == null){
+ 			return;
+ 		}
  		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
