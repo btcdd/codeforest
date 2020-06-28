@@ -138,7 +138,7 @@ public class ChatController {
 						try {
 //							input += "\n";
 							readBuffer2.append(input);
-							writer.write(input);
+							writer.write(input + "\n");
 							writer.flush();
 							readBuffer.setLength(0);
 						} catch (IOException e) {
