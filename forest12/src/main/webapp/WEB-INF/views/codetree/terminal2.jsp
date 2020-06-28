@@ -177,7 +177,8 @@ title.text(email +": ~ ("+nickname+")");
 //Get the date for our fake last-login
 var date = new Date().toString(); date = date.substr(0, date.indexOf("GMT") - 1);
 //Display last-login and promt
-terminal.append("Last login: " + date + " on ttys000\n"); displayPrompt();
+terminal.append("login: " + date + " on ttys000\n"); 
+// displayPrompt();
 });
 </script>
 
@@ -193,5 +194,5 @@ terminal.append("Last login: " + date + " on ttys000\n"); displayPrompt();
             </div>
             <span class="title"></span>
       </div>
-      <div class="terminal"></div>
+      <textarea class="terminal"></textarea>
 </div>

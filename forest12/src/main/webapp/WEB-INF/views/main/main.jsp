@@ -232,10 +232,6 @@ $(function() {
 	        result = '';
     	}
    });
-    
-    $('#result').focus(function(){
-    	  console.log($(this).prop('selectionStart'));
-    });
 });
 
 </script>
