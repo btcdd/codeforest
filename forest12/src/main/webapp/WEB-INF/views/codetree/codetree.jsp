@@ -453,6 +453,9 @@ $(function() {
 			$(".contextmenu").hide();
 			if(e.which == 3){
 				//tempFile = $(this);
+				if("Test.java".equals($(this).data("file-name"))){
+					alert("Test.java");
+				}
 				codeNo = $(this).data("no");
 				prevFileName = $(this).data("file-name");
 	 		    //Get window size:
