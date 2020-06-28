@@ -5,6 +5,7 @@
 var email = '${saveVo.userEmail}';
 var nickname = '${saveVo.nickname}';
 
+
 $(document).ready(function() {
    "use strict";
    // UTILITY
@@ -104,6 +105,7 @@ function appendCommand(str) {
 //   prevent it from navigating to the previous
 //   page. We also handle arrow keys for command history.
 */
+/*
 $(document).keydown(function(e) {
    if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {
       e = e || window.event;
@@ -141,6 +143,7 @@ $(document).keydown(function(e) {
       $('.window').scrollTop($('.window').prop('scrollHeight'));
    }
 });
+
 $(document).keypress(function(e) {
    if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {      
       // Make sure we get the right event
@@ -172,6 +175,7 @@ $(document).keypress(function(e) {
       $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    }
 });
+*/
 //Set the window title
 title.text(email +": ~ ("+nickname+")");
 //Get the date for our fake last-login
@@ -180,6 +184,7 @@ var date = new Date().toString(); date = date.substr(0, date.indexOf("GMT") - 1)
 terminal.append("login: " + date + " on ttys000\n"); 
 // displayPrompt();
 });
+
 </script>
 
 <div class="window" id="window">

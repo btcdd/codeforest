@@ -101,7 +101,6 @@ function sendMessage(event, res) {
 }
 
 function onMessageReceived(payload) {
-	
     message = JSON.parse(payload.body);
     
     var prevText = resultText.val();

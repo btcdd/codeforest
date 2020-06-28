@@ -856,8 +856,6 @@ $(function() {
  		fileNo = cmNo;
  		tempFile = fileMap.get(cmNo+"");
  		currentEditor = HashMap.get("editor"+cmNo);
- 		
-
 	});
 	
 	
@@ -875,7 +873,7 @@ $(function() {
  	 
 	$(document).on("propertychange change keyup paste", function(e){
 
-		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update"){
+		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update" && e.target.className != "terminal"){
 			if(currentEditor.getValue() != SavedCode.get(fileNo+"")){
 				layoutId = "layout-"+fileNo;
 				tempFile = fileMap.get(fileNo+"");
@@ -899,7 +897,8 @@ $(function() {
     
     prevCursor = 0;
     var cursorPandan = false;
-    $('#result').keydown(event, function(key) {
+    
+    $('.terminal').keydown(event, function(key) {
     	
     	if(message.programPandan) {
     		if(key.keyCode === 8 || key.keyCode === 13) {
