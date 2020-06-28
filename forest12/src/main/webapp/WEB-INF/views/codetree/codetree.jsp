@@ -55,8 +55,13 @@ var tempFile = null;
 
 //채팅 시작하기
 function connect(event) {
+	if(currentEditor == null){
+		return;
+	}
 	$("#Save").trigger("click");
 	$("#Run").blur();
+	
+	$('.terminal').attr("readonly", false);
 	
 	$(".terminal").append('프로그램이 시작되었습니다...\n');
 	
@@ -116,17 +121,16 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-// 	$(".terminal").append("<p>" + message.content + "</p>");
-	var prevText = $('.terminal').val();
+	var prevText = $('.terminal').val() + '\n';
 	$('.terminal').val(prevText + message.content);
 	
 	prevCursor = $('.terminal').prop('selectionStart') - 1;
 	
-// 	if(message.programPandan) {
-// 		$(".terminal").append("<span class=\"prompt\">-></span> ");
-// 		$(".terminal").append("<span class=\"path\">~</span> ");
-// 	}
 	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+	
+	if(message.programPandan) {
+    	$('.terminal').attr("readonly", true);
+    }
 }
 
 
@@ -856,8 +860,6 @@ $(function() {
  		fileNo = cmNo;
  		tempFile = fileMap.get(cmNo+"");
  		currentEditor = HashMap.get("editor"+cmNo);
- 		
-
 	});
 	
 	
@@ -875,7 +877,7 @@ $(function() {
  	 
 	$(document).on("propertychange change keyup paste", function(e){
 
-		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update"){
+		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update" && e.target.className != "terminal"){
 			if(currentEditor.getValue() != SavedCode.get(fileNo+"")){
 				layoutId = "layout-"+fileNo;
 				tempFile = fileMap.get(fileNo+"");
@@ -899,7 +901,8 @@ $(function() {
     
     prevCursor = 0;
     var cursorPandan = false;
-    $('#result').keydown(event, function(key) {
+    
+    $('.terminal').keydown(event, function(key) {
     	
     	if(message.programPandan) {
     		if(key.keyCode === 8 || key.keyCode === 13) {
@@ -907,7 +910,11 @@ $(function() {
     		}
     	}
     	
-		if($(this).prop('selectionStart') <= prevCursor + 1) {
+		if($(this).prop('selectionStart') < prevCursor + 1) {
+			if(key.keyCode !== 37 && key.keyCode !== 38 && key.keyCode !== 39 && key.keyCode !== 40) {
+				return false;
+			}
+		} else if($(this).prop('selectionStart') == prevCursor + 1) {
 			if(key.keyCode === 8) {
 				return false;
 			}
@@ -920,7 +927,7 @@ $(function() {
     	if (key.keyCode == 13) {
     		cursorPandan = false;
     		
-	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        result = $(this).val().substring(prevCursor).replace("\n", "");
 	        
 	        sendMessage(event, result);
 	        result = '';
@@ -930,7 +937,9 @@ $(function() {
     
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
- 		
+ 		if(currentEditor == null){
+ 			return;
+ 		}
  		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
@@ -977,8 +986,10 @@ $(function() {
  	
   	    
   	$(document).on("click","#Save",function(){
+   		if(tempFile == null){
+   			return;
+   		}  		
   		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
-  		
   		$(this).addClass("SaveClick");	
   		setTimeout(function(){
   			$("#Save").removeClass("SaveClick");
@@ -1003,6 +1014,10 @@ $(function() {
 				'problemNo' : problemNo
 			},
 			success: function(response) {
+				if(tempLayout == null){
+					return;
+				}
+				
 				SavedCode.set(fileNo+"", currentEditor.getValue());
 				console.log("ok");
 				layoutId = "layout-"+fileNo;
@@ -1018,7 +1033,7 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
-   		if(currentEditor.getValue() == null){
+   		if(currentEditor == null){
    			return;
    		}
    		

@@ -56,8 +56,12 @@ public class ChatController {
 		pandan = (Boolean) obj.get("execPandan");
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
+		
+		
 		try {
 			if(pandan) {
+				chatMessage.setProgramPandan(false);
+				chatMessage.setContent("");
 //				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
 					RunC rc = new RunC(time);
@@ -126,7 +130,7 @@ public class ChatController {
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
 					// 지술이형 코드!!
-					if(input == null) {
+					if(input == null || "".equals(input)) {
 						return;
 					}
 

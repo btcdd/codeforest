@@ -35,7 +35,6 @@
 <script>
 
 var result = '';
-var resultText;
 var tmp = '';
 var lang;
 var code;
@@ -43,10 +42,16 @@ var editor;
 var execPandan;
 var prevCursor;
 var message;
+var prevText;
 
 //채팅 시작하기
 function connect(event) {
+	
+	$('#result').val('').change();
+	
 	$('#result').val('프로그램이 시작되었습니다...\n');
+	
+	$('#result').attr("readonly", false);
 	
 	code = editor.getValue();
 	
@@ -100,16 +105,21 @@ function sendMessage(event, res) {
     event.preventDefault();
 }
 
+
 function onMessageReceived(payload) {
-	
     message = JSON.parse(payload.body);
     
-    var prevText = resultText.val();
-    resultText.val(prevText + message.content);
+    prevText = $('#result').val() + '\n';
+    $('#result').val(prevText + message.content);
+// 	$('#result').append(message.content);
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
+    
+    if(message.programPandan) {
+    	$('#result').attr("readonly", true);
+    }
 }
 
 $(function() {
@@ -199,8 +209,6 @@ $(function() {
    
     $('.CodeMirror').addClass('code');
     
-    resultText = $('#result');
-    
     prevCursor = 0;
     var cursorPandan = false;
     $('#result').keydown(event, function(key) {
@@ -211,7 +219,11 @@ $(function() {
     		}
     	}
     	
-		if($(this).prop('selectionStart') <= prevCursor + 1) {
+		if($(this).prop('selectionStart') < prevCursor + 1) {
+			if(key.keyCode !== 37 && key.keyCode !== 38 && key.keyCode !== 39 && key.keyCode !== 40) {
+				return false;
+			}
+		} else if($(this).prop('selectionStart') == prevCursor + 1) {
 			if(key.keyCode === 8) {
 				return false;
 			}
@@ -224,12 +236,19 @@ $(function() {
     	if (key.keyCode == 13) {
     		cursorPandan = false;
     		
-	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        result = $(this).val().substring(prevCursor).replace("\n", ""); 
 	        
 	        sendMessage(event, result);
 	        result = '';
     	}
    });
+    
+    $('#result').mousedown(function(){
+    	$('#result').mousemove(function(e){
+    		return false;
+    	});
+    });   
+
 });
 
 </script>
@@ -303,7 +322,7 @@ public class Test{
 }</textarea>
                   </td>
                   <td>
-                     <textarea name="" id="result" class="res"></textarea>
+                     <textarea name="" id="result" class="res" readonly></textarea>
                   </td>
                </tr>
             </table>
