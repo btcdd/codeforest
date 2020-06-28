@@ -112,6 +112,7 @@ function onMessageReceived(payload) {
     
     console.log('prevText:' + $('#result').val());
     
+    prevText = '';
     prevText = $('#result').val() + '\n';
     $('#result').val(prevText + message.content);
 // 	$('#result').append(message.content);
