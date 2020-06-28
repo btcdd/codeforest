@@ -397,6 +397,7 @@ $(function() {
  	var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
  	$(".userfile-menu").append(str2);
  	
+ 	var Test = null;
  	
  	
  	
@@ -457,6 +458,12 @@ $(function() {
 			$(".contextmenu").hide();
 			if(e.which == 3){
 				//tempFile = $(this);
+				var currentFileName = $(this).data("file-name");
+				var currentFileNameSplit = currentFileName.split(".")[0];
+				if(currentFileNameSplit === "Test"){
+					Test = currentFileNameSplit;
+					console.log("Test>>",Test);
+				}
 				codeNo = $(this).data("no");
 				prevFileName = $(this).data("file-name");
 	 		    //Get window size:
@@ -580,7 +587,7 @@ $(function() {
  	
  	
  	$(document).on('click','#userfile-delete',function(){
- 		console.log("userfile-delete   >>codeNo",codeNo);
+ 		console.log("userfile-delete   >>codeNo",codeNo); 		
  		$(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
  		dialogDelete.dialog("open");
  	});
@@ -593,6 +600,12 @@ $(function() {
 			modal:true,
 			buttons:{
 				"삭제":function(){
+					if(Test == "Test"){
+						$(".validateTips").css("color","red").html("<p>Test파일 삭제 불가</p>");
+						Test = null;
+						return;
+					}
+					
 					$.ajax({
 						url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
 						async: true,
@@ -635,12 +648,17 @@ $(function() {
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
  		/* codeNo = fileNo; */
- 		$('<div> <input type="text" style="z-index:10000" class="fileName-update" placeholder='+'.'+lang+'></div>')
+ 		$('<div class="FileUpdate"> <input type="text" style="z-index:10000" class="fileName-update" placeholder='+'.'+lang+'></div>')
 		    .attr("title","파일 수정")
 		    .dialog({
 		    	modal: true,
 		    	buttons:{
 		    		"수정":function(){
+						if(Test == "Test"){
+							$(".FileUpdate").css("color","red").html("<p>Test파일 수정불가</p>");
+							Test = null;							
+							return;
+						}		    			
 						var filename = $(this).find(".fileName-update").val();
 						var filename2 =filename.replace(/(\s*)/g,""); 
 						if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
