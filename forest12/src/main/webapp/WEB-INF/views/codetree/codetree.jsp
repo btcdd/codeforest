@@ -1020,7 +1020,7 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
-   		if(currentEditor.getValue() == null){
+   		if(currentEditor == null){
    			return;
    		}
    		
