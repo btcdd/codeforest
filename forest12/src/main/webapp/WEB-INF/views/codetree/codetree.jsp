@@ -55,6 +55,9 @@ var tempFile = null;
 
 //채팅 시작하기
 function connect(event) {
+	if(currentEditor == null){
+		return;
+	}
 	$("#Save").trigger("click");
 	$("#Run").blur();
 	
