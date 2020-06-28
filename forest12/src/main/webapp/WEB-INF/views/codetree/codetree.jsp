@@ -825,8 +825,18 @@ $(function() {
 					}
 					else {
 						console.log("4");
-						currentEditor.setValue(response.data);
-						SavedCode.set(fileNo+"",response.data);
+						if(language === 'java' && (response.data == "" || response.data == null)) {
+							face = 'public class ' + fileName + '{\n' + 
+							  		'\tpublic static void main(String[] args) {\n' + 
+							      '\t}\n' + 
+							  '}\n';
+							currentEditor.setValue(face);
+							SavedCode.set(fileNo+"",face);
+						}
+						else {
+							currentEditor.setValue(response.data);
+							SavedCode.set(fileNo+"",response.data);	
+						}
 					}
 					
 					
