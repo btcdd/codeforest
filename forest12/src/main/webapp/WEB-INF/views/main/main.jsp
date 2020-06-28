@@ -218,7 +218,7 @@ $(function() {
     	}
     	
 		if($(this).prop('selectionStart') <= prevCursor + 1) {
-			if(key.keyCode === 8) {
+			if(key.keyCode < 37 || key.keyCode > 40) {
 				return false;
 			}
 		}
