@@ -41,12 +41,13 @@ var lang;
 var code;
 var editor;
 var execPandan;
+var prevCursor;
 
 //채팅 시작하기
 function connect(event) {
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
-	code = editor.getValue(); 
+	code = editor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
     var socket = new SockJS('${pageContext.request.contextPath }/ws');
@@ -106,6 +107,10 @@ function onMessageReceived(payload) {
     
     var prevText = resultText.val();
     resultText.val(prevText + message.content + '\n');
+    
+    prevCursor = $(this).prop('selectionStart') - 1;
+    
+    console.log('prevCursor:', prevCursor);
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
@@ -200,7 +205,7 @@ $(function() {
     
     resultText = $('#result');
     
-    var prevCursor = 0;
+    prevCursor = 0;
     var cursorPandan = false;
     $('#result').keyup(event, function(key) {
     	
@@ -216,7 +221,6 @@ $(function() {
 	        sendMessage(event, result);
 	        result = '';
     	}
-    	
    });
     
     
