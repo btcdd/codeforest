@@ -146,6 +146,19 @@ $(function() {
 		},
 		success: function(response){
 			
+			if(myLayout.root.contentItems[0] != null) {
+				myLayout.destroy();
+				myLayout = new GoldenLayout(config, $('.code-mirror'));
+				myLayout.registerComponent("newTab", function(container) {
+					container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
+					container.getElement().attr("id", "cm" + fileIndex);		
+					
+				});				
+				myLayout.init();
+			}
+			
+			
+			
 			root = myLayout.root.contentItems[0] || myLayout.root;
 			
 			for(var i = 0; i < response.data.fileNames.length; i++) {
@@ -163,7 +176,7 @@ $(function() {
 				var editor = CodeMirror.fromTextArea(code, {
 					lineNumbers : true,
 					mode : 'text/x-java',
-					theme : 'panda-sysntax',
+					theme : 'panda-syntax',
 					matchBrackets : true,
 					readOnly : true
 				});		

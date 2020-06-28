@@ -128,6 +128,7 @@ public class TrainingController {
 //			map.put("code"+i, codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
 			fileNames.add(list.get(i).getFileName());
 			codes.add(codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
+//			codes.add("ㅋㅋㅋ");
 		}
 		
 		map.put("fileNames", fileNames);	
