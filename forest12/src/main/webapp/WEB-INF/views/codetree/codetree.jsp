@@ -43,7 +43,6 @@
 <script>
 
 var result = '';
-var resultText;
 var tmp = '';
 var lang;
 var code;
@@ -52,6 +51,8 @@ var execPandan;
 var prevCursor;
 var message;
 var tempFile = null;
+var socket;
+var prevText = '';
 
 //채팅 시작하기
 function connect(event) {
@@ -68,7 +69,7 @@ function connect(event) {
 	code = currentEditor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-    var socket = new SockJS('${pageContext.request.contextPath }/ws');
+    socket = new SockJS('${pageContext.request.contextPath }/ws');
    
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
@@ -121,7 +122,8 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-	var prevText = $('.terminal').val() + '\n';
+    prevText = '';
+	prevText = $('.terminal').val() + '\n';
 	$('.terminal').val(prevText + message.content);
 	
 	prevCursor = $('.terminal').prop('selectionStart') - 1;
@@ -130,6 +132,7 @@ function onMessageReceived(payload) {
 	
 	if(message.programPandan) {
     	$('.terminal').attr("readonly", true);
+    	socket.close();
     }
 }
 
@@ -933,6 +936,12 @@ $(function() {
 	        result = '';
     	}
    });
+    
+    $('.terminal').mousedown(function(){
+    	$('#result').mousemove(function(e){
+    		return false;
+    	});
+    }); 
  	
     
  	$(document).on("click","#Run",function(){

@@ -113,8 +113,6 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    console.log('prevText:' + $('#result').val());
-    
     prevText = '';
     prevText = $('#result').val() + '\n';
     $('#result').val(prevText + message.content);
