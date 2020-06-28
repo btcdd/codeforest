@@ -111,9 +111,8 @@ function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
     prevText = $('#result').val() + '\n';
-    $('#result').val(prevText + message.content);
-    console.log('message:', message.content);
-    console.log('prevText:', prevText);
+//     $('#result').val(prevText + message.content);
+	$('#result').append(message.content);
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
