@@ -110,8 +110,6 @@ function onMessageReceived(payload) {
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
-    console.log('prevCursor:', prevCursor);
-    
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
 
@@ -209,6 +207,8 @@ $(function() {
     var cursorPandan = false;
     $('#result').keyup(event, function(key) {
     	
+		console.log($(this).prop('selectionStart'));
+		
     	if(cursorPandan == false) {
 	    	prevCursor = $(this).prop('selectionStart') - 1;
 	    	cursorPandan = true;
