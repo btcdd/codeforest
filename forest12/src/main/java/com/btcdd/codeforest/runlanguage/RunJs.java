@@ -28,7 +28,7 @@ public class RunJs {
 
 		buffer = new StringBuffer();
 
-		buffer.append("node test" + time + ".js");
+		buffer.append("timeout 120s node /mainCompile/js" + time + "/Test.js");
 
 		return buffer.toString();
 	}

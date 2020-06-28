@@ -161,6 +161,8 @@ $(function() {
 	
 	originList('1', '', '');
 	
+	nextRemove();
+	
 	$(document).on("click", ".page", function() {
 		page = $(this).attr('id');
 		

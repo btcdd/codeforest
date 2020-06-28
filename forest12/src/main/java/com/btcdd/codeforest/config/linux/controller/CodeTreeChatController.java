@@ -62,7 +62,6 @@ public class CodeTreeChatController {
 		
 		try {
 			if(pandan) {
-//				process = Runtime.getRuntime().exec("cmd");
 				if("c".equals(language)) {
 					RunCLinux runCLinux = new RunCLinux(fileName, packagePath, language);
 				    errorResult = runCLinux.execCompile();
@@ -81,14 +80,18 @@ public class CodeTreeChatController {
 				    String[] split = fileName.split("\\.");
 					process = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
 				} else if("js".equals(language)) {
+					RunJsLinux runJsLinux = new RunJsLinux(fileName, packagePath, language);
+					errorResult = runJsLinux.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s node " + packagePath + "/" + language + "/Test.js");
 				} else if("py".equals(language)) {
+					RunPyLinux runPyLinux = new RunPyLinux(fileName, packagePath, language);
+					errorResult = runPyLinux.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s python3 " + packagePath + "/" + language + "/Test.py");
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
-					
+					chatMessage.setProgramPandan(true);
 					return chatMessage;
 				}
 			}
@@ -102,7 +105,6 @@ public class CodeTreeChatController {
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-//					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "euc-kr"));
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
 					int c = 0;
 					while ((c = reader.read()) != -1) {
@@ -145,7 +147,6 @@ public class CodeTreeChatController {
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
 					InputStreamReader is = new InputStreamReader(stdout, "utf-8");
-//					InputStreamReader is = new InputStreamReader(stdout, "euc-kr");
 					int c = 0;
 					readBuffer.setLength(0);
 					while ((c = is.read()) != -1) {
