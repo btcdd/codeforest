@@ -207,7 +207,13 @@ $(function() {
     var cursorPandan = false;
     $('#result').keydown(event, function(key) {
     	
-		if($(this).prop('selectionStart') <= prevCursor + 1 || message.programPandan) {
+    	if(message.programPandan) {
+    		if(key.keyCode === 8 || key.keyCode === 13) {
+    			return false;
+    		}
+    	}
+    	
+		if($(this).prop('selectionStart') <= prevCursor + 1) {
 			if(key.keyCode === 8) {
 				return false;
 			}
