@@ -46,6 +46,8 @@ var message;
 
 //채팅 시작하기
 function connect(event) {
+	
+	console.log('asdf');
 	resultText.val('');
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
@@ -110,16 +112,12 @@ function onMessageReceived(payload) {
     var prevText = resultText.val() + '\n';
     resultText.val(prevText + message.content);
     
-    console.log('resultText:', resultText.val());
-    
-    
     prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
-    	resultText.val('');
     }
 }
 
