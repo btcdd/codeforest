@@ -453,7 +453,9 @@ $(function() {
 			$(".contextmenu").hide();
 			if(e.which == 3){
 				//tempFile = $(this);
-				if("Test.java".equals($(this).data("file-name"))){
+				var currentFileName = $(this).data("file-name");
+				console.log("currentFileName>>>>>",currentFileName);
+				if("Test.java".equals(currentFileName)){
 					alert("Test.java");
 				}
 				codeNo = $(this).data("no");
