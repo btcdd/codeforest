@@ -48,23 +48,19 @@ var prevText = '';
 function connect(event) {
 	
 	$('#result').val('');
-	
 	$('#result').val('프로그램이 시작되었습니다...\n');
-	
-	
 	$('#result').attr("readonly", false);
-	$('#result').val('');
 	
-// 	prevText = '';
+	prevText = '';
 	
-// 	code = editor.getValue();
+	code = editor.getValue();
 	
-// 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-//     var socket = new SockJS('${pageContext.request.contextPath }/ws');
+	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+    var socket = new SockJS('${pageContext.request.contextPath }/ws');
    
-//     // 전역 변수에 세션 설정
-//     stompClient = Stomp.over(socket);
-//     stompClient.connect({}, onConnected, onError);
+    // 전역 변수에 세션 설정
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected, onError);
     
     event.preventDefault();
 }
@@ -128,6 +124,7 @@ function onMessageReceived(payload) {
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
+    	socket.close();
     }
 }
 
