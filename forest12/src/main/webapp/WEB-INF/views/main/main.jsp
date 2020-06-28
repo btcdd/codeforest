@@ -105,7 +105,7 @@ function onMessageReceived(payload) {
     console.log('gdgdgd:',message.content);
     
     var prevText = resultText.val();
-    resultText.val(prevText + message.content);
+    resultText.val(prevText + message.content + '\n');
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
 }
