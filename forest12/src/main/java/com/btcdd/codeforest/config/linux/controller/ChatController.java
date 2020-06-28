@@ -98,7 +98,7 @@ public class ChatController {
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
-					
+					chatMessage.setProgramPandan(true);
 					return chatMessage;
 				}
 			}
