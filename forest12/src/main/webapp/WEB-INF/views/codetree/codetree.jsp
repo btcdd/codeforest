@@ -806,9 +806,9 @@ $(function() {
 						   }
 	
 					   }
-					   if(currentEditor != null) {
-						   currentEditor.setValue(face);
-					   }
+				   }
+				   if(currentEditor != null) {
+					   currentEditor.setValue(face);
 				   }
 					console.log("code : " + response.data);
 					SavedCode.set(fileNo+"",response.data);
