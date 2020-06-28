@@ -242,6 +242,13 @@ $(function() {
 	        result = '';
     	}
    });
+    
+    $('#result').mousedown(function(){
+    	$('#result').mousemove(function(e){
+    		return false;
+    	});
+    });   
+
 });
 
 </script>
