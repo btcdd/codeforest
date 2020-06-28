@@ -397,7 +397,7 @@ $(function() {
  	var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
  	$(".userfile-menu").append(str2);
  	
- 	var Test = null;
+
  	
  	
  	
@@ -460,52 +460,55 @@ $(function() {
 				//tempFile = $(this);
 				var currentFileName = $(this).data("file-name");
 				var currentFileNameSplit = currentFileName.split(".")[0];
-				if(currentFileNameSplit === "Test"){
-					Test = currentFileNameSplit;
-					console.log("Test>>",Test);
+				if(currentFileNameSplit != "Test"){
+
+					codeNo = $(this).data("no");
+					prevFileName = $(this).data("file-name");
+		 		    //Get window size:
+		 		    var winWidth = $(document).width();
+		 		    var winHeight = $(document).height();
+		 		    //Get pointer position:
+		 		    var posX = e.pageX;
+		 		    var posY = e.pageY;
+		 		    //Get contextmenu size:
+		 		    var menuWidth = $(".userfile-menu").width();
+		 		    var menuHeight = $(".userfile-menu").height();
+		 		    //Security margin:
+		 		    var secMargin = 10;
+		 		    //Prevent page overflow:
+		 		    if(posX + menuWidth + secMargin >= winWidth
+		 		    && posY + menuHeight + secMargin >= winHeight){
+		 		      //Case 1: right-bottom overflow:
+		 		      posLeft = posX - menuWidth - secMargin + "px";
+		 		      posTop = posY - menuHeight - secMargin + "px";
+		 		    }
+		 		    else if(posX + menuWidth + secMargin >= winWidth){
+		 		      //Case 2: right overflow:
+		 		      posLeft = posX - menuWidth - secMargin + "px";
+		 		      posTop = posY + secMargin + "px";
+		 		    }
+		 		    else if(posY + menuHeight + secMargin >= winHeight){
+		 		      //Case 3: bottom overflow:
+		 		      posLeft = posX + secMargin + "px";
+		 		      posTop = posY - menuHeight - secMargin + "px";
+		 		    }
+		 		    else {
+		 		      //Case 4: default values:
+		 		      posLeft = posX + secMargin + "px";
+		 		      posTop = posY + secMargin + "px";
+		 		    };
+		 		    //Display contextmenu:
+		 		    $(".userfile-menu").css({
+		 		      "left": posLeft,
+		 		      "top": posTop
+		 		    }).show();
+		 		    //Prevent browser default contextmenu.
+		 		    return false;						
+					
+					
+					
 				}
-				codeNo = $(this).data("no");
-				prevFileName = $(this).data("file-name");
-	 		    //Get window size:
-	 		    var winWidth = $(document).width();
-	 		    var winHeight = $(document).height();
-	 		    //Get pointer position:
-	 		    var posX = e.pageX;
-	 		    var posY = e.pageY;
-	 		    //Get contextmenu size:
-	 		    var menuWidth = $(".userfile-menu").width();
-	 		    var menuHeight = $(".userfile-menu").height();
-	 		    //Security margin:
-	 		    var secMargin = 10;
-	 		    //Prevent page overflow:
-	 		    if(posX + menuWidth + secMargin >= winWidth
-	 		    && posY + menuHeight + secMargin >= winHeight){
-	 		      //Case 1: right-bottom overflow:
-	 		      posLeft = posX - menuWidth - secMargin + "px";
-	 		      posTop = posY - menuHeight - secMargin + "px";
-	 		    }
-	 		    else if(posX + menuWidth + secMargin >= winWidth){
-	 		      //Case 2: right overflow:
-	 		      posLeft = posX - menuWidth - secMargin + "px";
-	 		      posTop = posY + secMargin + "px";
-	 		    }
-	 		    else if(posY + menuHeight + secMargin >= winHeight){
-	 		      //Case 3: bottom overflow:
-	 		      posLeft = posX + secMargin + "px";
-	 		      posTop = posY - menuHeight - secMargin + "px";
-	 		    }
-	 		    else {
-	 		      //Case 4: default values:
-	 		      posLeft = posX + secMargin + "px";
-	 		      posTop = posY + secMargin + "px";
-	 		    };
-	 		    //Display contextmenu:
-	 		    $(".userfile-menu").css({
-	 		      "left": posLeft,
-	 		      "top": posTop
-	 		    }).show();
-	 		    //Prevent browser default contextmenu.
-	 		    return false;				
+			
 			}			
 		});
 		
@@ -600,11 +603,6 @@ $(function() {
 			modal:true,
 			buttons:{
 				"삭제":function(){
-					if(Test == "Test"){
-						$(".validateTips").css("color","red").html("<p>Test파일 삭제 불가</p>");
-						Test = null;
-						return;
-					}
 					
 					$.ajax({
 						url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
@@ -654,11 +652,7 @@ $(function() {
 		    	modal: true,
 		    	buttons:{
 		    		"수정":function(){
-						if(Test == "Test"){
-							$(".FileUpdate").css("color","red").html("<p>Test파일 수정불가</p>");
-							Test = null;							
-							return;
-						}		    			
+	    			
 						var filename = $(this).find(".fileName-update").val();
 						var filename2 =filename.replace(/(\s*)/g,""); 
 						if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
