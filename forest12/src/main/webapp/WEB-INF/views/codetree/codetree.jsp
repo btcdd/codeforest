@@ -43,7 +43,6 @@
 <script>
 
 var result = '';
-var resultText;
 var tmp = '';
 var lang;
 var code;
@@ -52,6 +51,8 @@ var execPandan;
 var prevCursor;
 var message;
 var tempFile = null;
+var socket;
+var prevText = '';
 
 //채팅 시작하기
 function connect(event) {
@@ -61,14 +62,14 @@ function connect(event) {
 	$("#Save").trigger("click");
 	$("#Run").blur();
 	
-	$('.terminal').attr("readonly", false);
-	
+	$('#result').val('');
 	$(".terminal").append('프로그램이 시작되었습니다...\n');
+	$('.terminal').attr("readonly", false);
 	
 	code = currentEditor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-    var socket = new SockJS('${pageContext.request.contextPath }/ws');
+    socket = new SockJS('${pageContext.request.contextPath }/ws');
    
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
@@ -121,7 +122,8 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-	var prevText = $('.terminal').val() + '\n';
+    prevText = '';
+	prevText = $('.terminal').val() + '\n';
 	$('.terminal').val(prevText + message.content);
 	
 	prevCursor = $('.terminal').prop('selectionStart') - 1;
@@ -130,6 +132,7 @@ function onMessageReceived(payload) {
 	
 	if(message.programPandan) {
     	$('.terminal').attr("readonly", true);
+    	socket.close();
     }
 }
 
@@ -910,7 +913,11 @@ $(function() {
     		}
     	}
     	
-		if($(this).prop('selectionStart') <= prevCursor + 1) {
+		if($(this).prop('selectionStart') < prevCursor + 1) {
+			if(key.keyCode !== 37 && key.keyCode !== 38 && key.keyCode !== 39 && key.keyCode !== 40) {
+				return false;
+			}
+		} else if($(this).prop('selectionStart') == prevCursor + 1) {
 			if(key.keyCode === 8) {
 				return false;
 			}
@@ -923,12 +930,18 @@ $(function() {
     	if (key.keyCode == 13) {
     		cursorPandan = false;
     		
-	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        result = $(this).val().substring(prevCursor).replace("\n", "");
 	        
 	        sendMessage(event, result);
 	        result = '';
     	}
    });
+    
+    $('.terminal').mousedown(function(){
+    	$('#result').mousemove(function(e){
+    		return false;
+    	});
+    }); 
  	
     
  	$(document).on("click","#Run",function(){

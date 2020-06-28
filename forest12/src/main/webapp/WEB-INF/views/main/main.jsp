@@ -35,7 +35,6 @@
 <script>
 
 var result = '';
-var resultText;
 var tmp = '';
 var lang;
 var code;
@@ -43,17 +42,22 @@ var editor;
 var execPandan;
 var prevCursor;
 var message;
+var prevText = '';
+var socket;
 
 //채팅 시작하기
 function connect(event) {
-	$('#result').val('프로그램이 시작되었습니다...\n');
 	
+	$('#result').val('');
+	$('#result').val('프로그램이 시작되었습니다...\n');
 	$('#result').attr("readonly", false);
+	
+	prevText = '';
 	
 	code = editor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-    var socket = new SockJS('${pageContext.request.contextPath }/ws');
+    socket = new SockJS('${pageContext.request.contextPath }/ws');
    
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
@@ -64,6 +68,7 @@ function connect(event) {
 
 
 function onConnected() {
+	prevText = '';
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
@@ -87,10 +92,12 @@ function onError(error) {
 }
 
 function sendMessage(event, res) {
+	prevText = '';
 	
 	tmp = res;
 	
     var messageContent = res;
+    
     var chatMessage = {
         content: messageContent,
         language:$(".lang option:selected").val(),
@@ -106,8 +113,9 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    var prevText = resultText.val() + '\n';
-    resultText.val(prevText + message.content);
+    prevText = '';
+    prevText = $('#result').val() + '\n';
+    $('#result').val(prevText + message.content);
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
@@ -115,6 +123,7 @@ function onMessageReceived(payload) {
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
+    	socket.close();
     }
 }
 
@@ -205,8 +214,6 @@ $(function() {
    
     $('.CodeMirror').addClass('code');
     
-    resultText = $('#result');
-    
     prevCursor = 0;
     var cursorPandan = false;
     $('#result').keydown(event, function(key) {
@@ -219,12 +226,10 @@ $(function() {
     	
 		if($(this).prop('selectionStart') < prevCursor + 1) {
 			if(key.keyCode !== 37 && key.keyCode !== 38 && key.keyCode !== 39 && key.keyCode !== 40) {
-				console.log('1111:',key.keyCode);
 				return false;
 			}
 		} else if($(this).prop('selectionStart') == prevCursor + 1) {
 			if(key.keyCode === 8) {
-				console.log('222');
 				return false;
 			}
 		}
@@ -236,12 +241,19 @@ $(function() {
     	if (key.keyCode == 13) {
     		cursorPandan = false;
     		
-	        result = $(this).val().substring(prevCursor-1).replace("\n", "");
+	        result = $(this).val().substring(prevCursor).replace("\n", ""); 
 	        
 	        sendMessage(event, result);
 	        result = '';
     	}
    });
+    
+    $('#result').mousedown(function(){
+    	$('#result').mousemove(function(e){
+    		return false;
+    	});
+    });   
+
 });
 
 </script>
