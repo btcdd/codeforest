@@ -76,8 +76,6 @@ function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
     
-    console.log('asdfasdfasdfasdfasdf');
-
     execPandan = true;
     var chatMessage = {
             language: tempFile.data("language"),

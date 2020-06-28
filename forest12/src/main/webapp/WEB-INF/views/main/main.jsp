@@ -80,8 +80,6 @@ function onConnected() {
 
 
 function onError(error) {
-//     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-//     connectingElement.style.color = 'red';
 }
 
 function sendMessage(event, res) {
@@ -103,6 +101,8 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
 	
     var message = JSON.parse(payload.body);
+    
+    console.log('gdgdgd:',message.content);
     
     var prevText = resultText.val();
     resultText.val(prevText + message.content);
@@ -134,24 +134,6 @@ $(function() {
    
    var d = document.querySelector('.codeTest');
    d.addEventListener('submit', connect, true);
-   
-   /*
-   $('.codeTest').on('submit',function(e) {
-	   
-	   e.preventDefault();
-	   
-		// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-	    var socket = new SockJS('/ws');
-	    // 전역 변수에 세션 설정
-	    stompClient = Stomp.over(socket);
-
-	    stompClient.connect({}, onConnected, onError);
-   });
-   */
-   
-   
-   
-//    $('.codeTest').on('submit',function(e)
    
    var code = $('.CodeMirror')[0];
    editor = CodeMirror.fromTextArea(code, {
