@@ -14,13 +14,30 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/mypage.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
+<script>
+function getTimeStamp() {
+	  var d = new Date();
+	  var s =
+	    leadingZeros(d.getFullYear(), 4) + '-' +
+	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+	    leadingZeros(d.getDate(), 2) + ' ' +
 
+	    leadingZeros(d.getHours(), 2) + ':' +
+	    leadingZeros(d.getMinutes(), 2) + ':' +
+	    leadingZeros(d.getSeconds(), 2);
+
+	  return s;
+}
+
+var time = getTimeStamp();
+</script>
 <body>
 	<c:import url="/WEB-INF/views/include/mypage-header.jsp" />
     <div class="container">
         <div class="">
             <div class="ranking">
                 <h4>랭킹 1위</h4>
+                <div class="safe-password"><i class="fas fa-info-circle info"></i>삭제되거나, 비공개인 문제는 이동이 불가능합니다.</div>
             </div>
             <div>
                 <div class="correct">
@@ -31,7 +48,21 @@
                 		<div class="empty-right-submit"><i class="far fa-lightbulb"></i><span class="light">아직 <strong>맞은 문제</strong>가 없습니다.</span></div>
                 	</c:if>
                     <c:forEach items='${rightSubmit }' var='vo' varStatus='status'>
-                    	<span><a id="right-problem" href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+	                	<c:set var="time" value="${time }" />
+                    	<c:choose>
+                    		<c:when test="${vo.state eq 'n' }">
+		                    	<span><a id="right-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
+                    		</c:when>
+                    		<c:when test="${vo.privacy eq 'n' }">
+		                    	<span><a id="right-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
+                    		</c:when>
+                    		<c:when test="${vo.startTime >= time && vo.endTime <= time}">
+		                    	<span><a id="right-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
+                    		</c:when>
+                    		<c:otherwise>
+		                    	<span><a id="right-problem" href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+                    		</c:otherwise>
+                    	</c:choose>
                     </c:forEach>
                 </div>
             </div>
@@ -45,7 +76,21 @@
                 	</c:if>
                 <div class="wrong-answer">
                     <c:forEach items='${wrongSubmit }' var='vo' varStatus='status'>
-                    	<span><a id="wrong-problem" href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+	                	<c:set var="time" value="${time }" />
+                    	<c:choose>
+                    		<c:when test="${vo.state eq 'n' }">
+		                    	<span><a id="wrong-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
+                    		</c:when>
+                    		<c:when test="${vo.privacy eq 'n' }">
+		                    	<span><a id="wrong-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
+                    		</c:when>
+                    		<c:when test="${vo.startTime >= time && vo.endTime <= time}">
+		                    	<span><a id="wrong-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
+                    		</c:when>
+                    		<c:otherwise>
+		                    	<span><a id="wrong-problem" href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+                    		</c:otherwise>
+                    	</c:choose>
                     </c:forEach>
                 </div>
             </div>

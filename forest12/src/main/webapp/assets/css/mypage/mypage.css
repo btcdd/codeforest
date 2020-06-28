@@ -23,6 +23,16 @@ ul {
     margin: 0;
 }
 
+.safe-password {
+	font-size: 0.9em;
+    margin-bottom: 1em;
+    color: #515151;
+    margin-top: 1em;
+}
+
+.info {
+	margin-right: 5px;
+}
 
 #right-problem {
 	color: #428BCA;
@@ -32,12 +42,20 @@ ul {
 	font-weight: bold;
 }
 
+#right-problem-none {
+	color: #428BCA;
+}
+
 #wrong-problem {
 	color: #e7911f;
 }
 
 #wrong-problem:hover {
 	font-weight: bold;
+}
+
+#wrong-problem-none {
+	color: #e7911f;
 }
 
 .menulist {
