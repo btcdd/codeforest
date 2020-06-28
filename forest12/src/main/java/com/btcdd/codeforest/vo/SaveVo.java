@@ -11,7 +11,7 @@ public class SaveVo {
 	String nickname;
 	String userName;
 	String userEmail;
-	private Timestamp enterTime;
+	Timestamp enterTime;
 
 	public Timestamp getEnterTime() {
 		return enterTime;
