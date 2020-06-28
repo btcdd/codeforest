@@ -75,16 +75,27 @@ $(function(){
 				$(".deadline-box").append(html3);
 				
 				scrollbar();
-				console.log(html1);
-// 				$('#priority1').attr('onclick',"window.open('${pageContext.servletContext.contextPath }/codingtest/auth/' + $(this).attr('data-no'),'_blank')");
+				
+				$(document).on("click", "#priority1", function(e) {
+					e.preventDefault();
+					var clickProblemNo = $(this).attr('data-no');
+					console.log("값:",url);
+					window.open('${pageContext.servletContext.contextPath }/codingtest/auth/' + clickProblemNo,'_blank');
+				});
+				
+				$(document).on("click", "#priority3_link", function(e) {
+					e.preventDefault();
+					var clickProblemNo = $(this).attr('data-no');
+					$(location).attr('href','${pageContext.servletContext.contextPath }/training/view/' + clickProblemNo);
+				});
 				
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
 			}
 		});
-		
 	});
+	
 });
 
 </script>

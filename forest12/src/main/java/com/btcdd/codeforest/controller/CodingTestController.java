@@ -111,16 +111,11 @@ public class CodingTestController {
 		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
-		
-		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나만 뽑혀야 하는데 여러개 뽑히는 오류 여기서 나는듯..
-		
-		
-
+		ProblemVo problemVo = testService.selectProblemOne(problemNo);
 		
 		Long existCount = testService.existSaveNo(authUser.getNo(),problemNo);
 		
 		if(existCount >=1) {
-			System.out.println("바로 코드미러로"); 
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
 			SaveVo saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
 			//태성 코드
@@ -136,13 +131,6 @@ public class CodingTestController {
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);			
 			
-			System.out.println("problemVo>>>>"+problemVo);
-			System.out.println("subProblemList>>>>"+subProblemList);
-			System.out.println("saveVo>>>>"+saveVo);
-			System.out.println("savePathList>>>>"+savePathList);
-			System.out.println("codeList>>>>"+codeList);
-			
-			
 			model.addAttribute("userStartTime",saveVO.getEnterTime());
 			
 			return "codingtest/code-mirror";
@@ -154,6 +142,7 @@ public class CodingTestController {
 		
 		return "codingtest/auth";
 	}
+	
 	@Auth
 	@RequestMapping(value="/codemirror/{problemNo}", method=RequestMethod.POST)
 	public String Codemirror(@PathVariable("problemNo") Long problemNo,
