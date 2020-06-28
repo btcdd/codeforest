@@ -55,6 +55,9 @@ var tempFile = null;
 
 //채팅 시작하기
 function connect(event) {
+	if(currentEditor == null){
+		return;
+	}
 	$("#Save").trigger("click");
 	$("#Run").blur();
 	
@@ -934,7 +937,9 @@ $(function() {
     
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
- 		
+ 		if(currentEditor == null){
+ 			return;
+ 		}
  		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
@@ -981,8 +986,10 @@ $(function() {
  	
   	    
   	$(document).on("click","#Save",function(){
+   		if(tempFile == null){
+   			return;
+   		}  		
   		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
-  		
   		$(this).addClass("SaveClick");	
   		setTimeout(function(){
   			$("#Save").removeClass("SaveClick");
@@ -1007,6 +1014,10 @@ $(function() {
 				'problemNo' : problemNo
 			},
 			success: function(response) {
+				if(tempLayout == null){
+					return;
+				}
+				
 				SavedCode.set(fileNo+"", currentEditor.getValue());
 				console.log("ok");
 				layoutId = "layout-"+fileNo;
@@ -1022,7 +1033,7 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
-   		if(currentEditor.getValue() == null){
+   		if(currentEditor == null){
    			return;
    		}
    		

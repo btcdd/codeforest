@@ -859,7 +859,9 @@ $(function() {
  	
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
- 		
+ 		if(currentEditor == null){
+ 			return;
+ 		} 		
  		
  		console.log("editor.getValue()>>>>>>",currentEditor.getValue());
  		var problemNo = "${saveVo.problemNo }";
@@ -905,6 +907,9 @@ $(function() {
  	
   	    
   	$(document).on("click","#Save",function(){
+   		if(tempFile == null){
+   			return;
+   		}  		
   		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
   		
   		$(this).addClass("SaveClick");	
@@ -931,6 +936,9 @@ $(function() {
 				'problemNo' : problemNo
 			},
 			success: function(response) {
+				if(tempLayout == null){
+					return;
+				}				
 				SavedCode.set(fileNo+"", currentEditor.getValue());
 				console.log("ok");
 				layoutId = "layout-"+fileNo;
@@ -946,6 +954,9 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
+   		if(currentEditor == null){
+   			return;
+   		}   		
    		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
