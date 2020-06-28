@@ -654,6 +654,7 @@ $(function() {
 							$(".fileName-update").remove();
 							$(".FileUpdate").css("color","red").html("<p>Test파일 수정불가</p>");
 							Test = null;
+							$(this).dialog("close");
 							return;
 						}		    			
 						var filename = $(this).find(".fileName-update").val();
