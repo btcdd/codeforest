@@ -42,7 +42,7 @@ var editor;
 var execPandan;
 var prevCursor;
 var message;
-var prevText;
+var prevText = '';
 
 //채팅 시작하기
 function connect(event) {
@@ -52,6 +52,8 @@ function connect(event) {
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
 	$('#result').attr("readonly", false);
+	
+	prevText = '';
 	
 	code = editor.getValue();
 	
@@ -67,6 +69,7 @@ function connect(event) {
 
 
 function onConnected() {
+	prevText = '';
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
@@ -90,6 +93,7 @@ function onError(error) {
 }
 
 function sendMessage(event, res) {
+	prevText = '';
 	
 	tmp = res;
 	
