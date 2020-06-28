@@ -67,6 +67,7 @@ function connect(event) {
 
 
 function onConnected() {
+	resultText.val('');
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
