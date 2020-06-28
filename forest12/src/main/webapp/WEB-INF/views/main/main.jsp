@@ -95,7 +95,6 @@ function sendMessage(event, res) {
 	
     var messageContent = res;
     
-    console.log('messageContent:', messageContent);
     var chatMessage = {
         content: messageContent,
         language:$(".lang option:selected").val(),
@@ -110,6 +109,8 @@ function sendMessage(event, res) {
 
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
+    
+    console.log('prevText:' + $('#result').val());
     
     prevText = $('#result').val() + '\n';
     $('#result').val(prevText + message.content);
