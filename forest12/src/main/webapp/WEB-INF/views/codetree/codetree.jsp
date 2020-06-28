@@ -62,9 +62,9 @@ function connect(event) {
 	$("#Save").trigger("click");
 	$("#Run").blur();
 	
-	$('.terminal').attr("readonly", false);
-	
+	$('#result').val('');
 	$(".terminal").append('프로그램이 시작되었습니다...\n');
+	$('.terminal').attr("readonly", false);
 	
 	code = currentEditor.getValue();
 	
