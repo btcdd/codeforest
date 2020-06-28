@@ -211,6 +211,7 @@ $(function() {
 			console.log(key.keyCode);
 			if(key.keyCode === 8) {
 				console.log('ddd');
+				event.preventDefault();
 				return false;
 			}
 		}
