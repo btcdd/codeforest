@@ -977,10 +977,10 @@ $(function() {
  	
   	    
   	$(document).on("click","#Save",function(){
-  		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
    		if(tempFile == null){
    			return;
    		}  		
+  		console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
   		$(this).addClass("SaveClick");	
   		setTimeout(function(){
   			$("#Save").removeClass("SaveClick");
