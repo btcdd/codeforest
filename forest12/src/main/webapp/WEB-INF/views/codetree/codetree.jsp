@@ -457,6 +457,9 @@ $(function() {
 				var currentFileName = $(this).data("file-name");
 				var currentFileNameSplit = currentFileName.split(".")[0];
 				if(currentFileNameSplit === "Test"){
+					$(".userfile-menu").remove();
+					
+					
 					Test = currentFileNameSplit;
 					console.log("Test>>",Test);
 				}
