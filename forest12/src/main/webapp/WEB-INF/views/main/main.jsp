@@ -48,7 +48,7 @@ var message;
 function connect(event) {
 	
 	console.log('asdf');
-	resultText.val('');
+	$('#result').val('');
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
 	$('#result').attr("readonly", false);
@@ -67,7 +67,6 @@ function connect(event) {
 
 
 function onConnected() {
-	resultText.val('');
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
