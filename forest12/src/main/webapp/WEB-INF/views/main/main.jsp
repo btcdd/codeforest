@@ -205,13 +205,12 @@ $(function() {
     
     prevCursor = 0;
     var cursorPandan = false;
-    $('#result').keyup(event, function(key) {
+    $('#result').keydown(event, function(key) {
     	
 		if($(this).prop('selectionStart') <= prevCursor) {
 			console.log(key.keyCode);
 			if(key.keyCode === 8) {
 				console.log('ddd');
-				event.preventDefault();
 				return false;
 			}
 		}
