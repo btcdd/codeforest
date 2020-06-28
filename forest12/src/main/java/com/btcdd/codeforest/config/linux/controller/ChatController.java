@@ -130,15 +130,15 @@ public class ChatController {
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
 					// 지술이형 코드!!
-					if(input == null) {
+					if(input == null || "".equals(input)) {
 						return;
 					}
 
 					if (!("".equals(input)) || input != null) {
 						try {
-//							input += "\n";
+							input += "\n";
 							readBuffer2.append(input);
-							writer.write(input + "\n");
+							writer.write(input);
 							writer.flush();
 							readBuffer.setLength(0);
 						} catch (IOException e) {
