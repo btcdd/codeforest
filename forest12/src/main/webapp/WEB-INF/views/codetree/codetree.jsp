@@ -759,6 +759,7 @@ $(function() {
 				success: function(response) {	   				   
 				   if(response.data != "" || response.data != null) {
 					currentEditor.setValue(response.data);
+					console.log("response.data: ", response.data);
 					console.log("if  fileName.split('.')[0] :", fileName.split(".")[0]);
 				   }
 				   else {
