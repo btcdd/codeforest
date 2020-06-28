@@ -223,7 +223,7 @@ $(function() {
 				return false;
 			}
 		} else if($(this).prop('selectionStart') == prevCursor + 1) {
-			if(key.keyCode === 8) {|
+			if(key.keyCode === 8) {
 				console.log('222');
 				return false;
 			}
