@@ -927,7 +927,7 @@ $(function() {
     	}
    });
  	
-    /*
+    
  	$(document).on("click","#Run",function(){
  		$("#Save").trigger("click");
  		
@@ -972,7 +972,7 @@ $(function() {
 			}							
 		}); 		
  	});
-    */
+    
 
  	
   	    
@@ -1018,6 +1018,10 @@ $(function() {
   	
   	
    	$(document).on("click","#Submit",function(){
+   		if(currentEditor.getValue() == null){
+   			return;
+   		}
+   		
    		$("#Run").trigger("click");
    		var problemNo = "${saveVo.problemNo }";
    		console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
