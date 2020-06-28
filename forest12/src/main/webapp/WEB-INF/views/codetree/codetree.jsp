@@ -58,6 +58,8 @@ function connect(event) {
 	$("#Save").trigger("click");
 	$("#Run").blur();
 	
+	$('.terminal').attr("readonly", false);
+	
 	$(".terminal").append('프로그램이 시작되었습니다...\n');
 	
 	code = currentEditor.getValue();
@@ -116,17 +118,16 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-// 	$(".terminal").append("<p>" + message.content + "</p>");
-	var prevText = $('.terminal').val();
+	var prevText = $('.terminal').val() + '\n';
 	$('.terminal').val(prevText + message.content);
 	
 	prevCursor = $('.terminal').prop('selectionStart') - 1;
 	
-// 	if(message.programPandan) {
-// 		$(".terminal").append("<span class=\"prompt\">-></span> ");
-// 		$(".terminal").append("<span class=\"path\">~</span> ");
-// 	}
 	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+	
+	if(message.programPandan) {
+    	$('.terminal').attr("readonly", true);
+    }
 }
 
 
@@ -856,8 +857,6 @@ $(function() {
  		fileNo = cmNo;
  		tempFile = fileMap.get(cmNo+"");
  		currentEditor = HashMap.get("editor"+cmNo);
- 		
-
 	});
 	
 	
@@ -875,7 +874,7 @@ $(function() {
  	 
 	$(document).on("propertychange change keyup paste", function(e){
 
-		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update"){
+		if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update" && e.target.className != "terminal"){
 			if(currentEditor.getValue() != SavedCode.get(fileNo+"")){
 				layoutId = "layout-"+fileNo;
 				tempFile = fileMap.get(fileNo+"");
@@ -899,7 +898,8 @@ $(function() {
     
     prevCursor = 0;
     var cursorPandan = false;
-    $('#result').keydown(event, function(key) {
+    
+    $('.terminal').keydown(event, function(key) {
     	
     	if(message.programPandan) {
     		if(key.keyCode === 8 || key.keyCode === 13) {

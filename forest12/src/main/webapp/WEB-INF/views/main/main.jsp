@@ -48,6 +48,8 @@ var message;
 function connect(event) {
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
+	$('#result').attr("readonly", false);
+	
 	code = editor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
@@ -100,16 +102,20 @@ function sendMessage(event, res) {
     event.preventDefault();
 }
 
+
 function onMessageReceived(payload) {
-	
     message = JSON.parse(payload.body);
     
-    var prevText = resultText.val();
+    var prevText = resultText.val() + '\n';
     resultText.val(prevText + message.content);
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
+    
+    if(message.programPandan) {
+    	$('#result').attr("readonly", true);
+    }
 }
 
 $(function() {
@@ -211,8 +217,14 @@ $(function() {
     		}
     	}
     	
-		if($(this).prop('selectionStart') <= prevCursor + 1) {
+		if($(this).prop('selectionStart') < prevCursor + 1) {
+			if(key.keyCode !== 37 && key.keyCode !== 38 && key.keyCode !== 39 && key.keyCode !== 40) {
+				console.log('1111:',key.keyCode);
+				return false;
+			}
+		} else if($(this).prop('selectionStart') == prevCursor + 1) {
 			if(key.keyCode === 8) {
+				console.log('222');
 				return false;
 			}
 		}
@@ -303,7 +315,7 @@ public class Test{
 }</textarea>
                   </td>
                   <td>
-                     <textarea name="" id="result" class="res"></textarea>
+                     <textarea name="" id="result" class="res" readonly></textarea>
                   </td>
                </tr>
             </table>
