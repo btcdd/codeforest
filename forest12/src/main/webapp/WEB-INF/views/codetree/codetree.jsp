@@ -821,14 +821,13 @@ $(function() {
 							console.log("3");
 							currentEditor.setValue(response.data);
 							SavedCode.set(fileNo+"",response.data);
-						}
+						} 
 					}
 					else {
 						console.log("4");
 						if(language === 'java' && (response.data == "" || response.data == null)) {
-							face = 'public class ' + fileName + '{\n' + 
-							  		'\tpublic static void main(String[] args) {\n' + 
-							      '\t}\n' + 
+							face = 'public class ' + fileName.split(".")[0] + '{\n\n' + 
+
 							  '}\n';
 							currentEditor.setValue(face);
 							SavedCode.set(fileNo+"",face);
