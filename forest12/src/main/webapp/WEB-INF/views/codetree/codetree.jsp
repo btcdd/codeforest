@@ -101,8 +101,6 @@ function sendMessage(event, res) {
 	
 	tmp = res;
 	
-	console.log('res:', res);
-	
     var messageContent = res;
     var chatMessage = {
         content: messageContent,
@@ -118,12 +116,16 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-	$(".terminal").append("<p>" + message.content + "</p>");
+// 	$(".terminal").append("<p>" + message.content + "</p>");
+	var prevText = $('.terminal').val();
+	$('.terminal').val(prevText + message.content);
 	
-	if(message.programPandan) {
-		$(".terminal").append("<span class=\"prompt\">-></span> ");
-		$(".terminal").append("<span class=\"path\">~</span> ");
-	}
+	prevCursor = $('.terminal').prop('selectionStart') - 1;
+	
+// 	if(message.programPandan) {
+// 		$(".terminal").append("<span class=\"prompt\">-></span> ");
+// 		$(".terminal").append("<span class=\"path\">~</span> ");
+// 	}
 	$('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
 }
 

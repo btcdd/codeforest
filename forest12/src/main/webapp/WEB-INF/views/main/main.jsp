@@ -104,8 +104,6 @@ function onMessageReceived(payload) {
 	
     message = JSON.parse(payload.body);
     
-    console.log('gdgdgd:',message.content);
-    
     var prevText = resultText.val();
     resultText.val(prevText + message.content);
     
