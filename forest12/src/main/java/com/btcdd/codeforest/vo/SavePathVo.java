@@ -6,6 +6,15 @@ public class SavePathVo {
 	Long subProblemNo;
 	Long saveNo;
 	String packagePath;
+	private String fileName;
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
 	public Long getNo() {
 		return no;

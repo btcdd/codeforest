@@ -81,6 +81,7 @@ ul {
 
 th {
 	padding-bottom: 10px;
+	
 }
 
 td {
@@ -280,7 +281,7 @@ input[type=text] {
   padding: 8px 50px 8px 12px
   border: 1px solid #d9d7ce;
   font-size : 1em;
-  width: 200px;
+  width: 900px;
 }
 
 .check-box {
@@ -291,3 +292,14 @@ input[type=text] {
 	padding : 10px 80px 5px 10px;
 }
 
+#go-codetree {
+	text-align: center;
+	width: 100px;	
+}
+#go-codetree, #name, #email, #nickname, #try-count, #lang, #solve-time {
+	padding-top: 5px;
+	text-align: center;	
+}
+.fa-laptop-code:hover {
+	cursor: pointer;
+}
