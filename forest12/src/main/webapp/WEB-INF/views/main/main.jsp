@@ -207,7 +207,7 @@ $(function() {
     var cursorPandan = false;
     $('#result').keydown(event, function(key) {
     	
-		if($(this).prop('selectionStart') <= prevCursor) {
+		if($(this).prop('selectionStart') <= prevCursor + 1) {
 			console.log(key.keyCode);
 			if(key.keyCode === 8) {
 				console.log('ddd');
