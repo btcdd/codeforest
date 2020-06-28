@@ -644,6 +644,7 @@ $(function() {
 				   }
 				   else {
 					   var face = '';
+					   console.log("fileName.split(".")[0] :", fileName.split(".")[0]);
 					   if(fileName.split(".")[0] == "Test") {
 						   if(language === 'c') {
 							   face = '#include <stdio.h>\n\n' + 
