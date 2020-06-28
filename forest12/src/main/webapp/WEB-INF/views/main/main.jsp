@@ -47,7 +47,7 @@ var prevText;
 //채팅 시작하기
 function connect(event) {
 	
-	$('#result').val('').change();
+	$('#result').val('');
 	
 	$('#result').val('프로그램이 시작되었습니다...\n');
 	
@@ -94,6 +94,8 @@ function sendMessage(event, res) {
 	tmp = res;
 	
     var messageContent = res;
+    
+    console.log('messageContent:', messageContent);
     var chatMessage = {
         content: messageContent,
         language:$(".lang option:selected").val(),
