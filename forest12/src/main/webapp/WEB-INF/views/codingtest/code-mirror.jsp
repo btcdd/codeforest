@@ -96,7 +96,7 @@ function onConnected() {
         };
     execPandan = false;
     // Tell your username to the server
-    stompClient.send("/app/codetree",
+    stompClient.send("/app/codingtest",
         {},
         JSON.stringify(chatMessage)
     );
