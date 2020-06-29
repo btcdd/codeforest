@@ -929,12 +929,13 @@ $(function() {
 		$(this).parent().attr("id", "tab"+tabFileNo); //dom 분리시 작업 코드 진행중
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
-		
- 		console.log("myLayout.root>>>",myLayout.root);
+	
+ 		//---------------------------------------------------//
+// 		console.log("myLayout.root>>>",myLayout.root);
  		//myLayout.root.contentItems[0].config.content
- 		if(myLayout.root.contentItems[0].config.content.length > 1){
- 			myLayout.root.contentItems[0].config.content[0].content.push(myLayout.root.contentItems[0].config.content[1].content[0]);
- 		}
+// 		if(myLayout.root.contentItems[0].config.content.length > 1){
+// 			myLayout.root.contentItems[0].config.content[0].content.push(myLayout.root.contentItems[0].config.content[1].content[0]);
+// 		}
  		   
 	});
 	
