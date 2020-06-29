@@ -36,7 +36,7 @@ var time = getTimeStamp();
     <div class="container">
         <div class="">
             <div class="ranking">
-                <h4>랭킹 1위</h4>
+                <h4>랭킹 ${rank } 위</h4>
                 <div class="safe-password"><i class="fas fa-info-circle info"></i>삭제되거나, 비공개인 문제는 이동이 불가능합니다.</div>
             </div>
             <div>

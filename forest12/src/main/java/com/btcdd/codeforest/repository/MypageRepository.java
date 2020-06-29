@@ -95,4 +95,8 @@ public class MypageRepository {
 	public UserVo findWriterByProblemNo(Long problemNo) {
 		return sqlSession.selectOne("mypage.findWriterByProblemNo", problemNo);
 	}
+
+	public Long selectRank(Long authUserNo) {
+		return sqlSession.selectOne("mypage.selectRank", authUserNo);
+	}
 }
