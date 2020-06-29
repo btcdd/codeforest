@@ -1222,7 +1222,7 @@ $(function() {
 			console.log("myLayout.root.contentItems[0].contentItems>>",myLayout.root.contentItems[0].contentItems);
 //			myLayout.root.contentItems[0].contentItems[0]//Test,aaa
 //			myLayout.root.contentItems[0].contentItems[1]//zz
-			myLayout.root.contentItems[0].contentItems[0].contentItems.push(myLayout.root.contentItems[0].contentItems[1]);
+			myLayout.root.config[0].content.push(myLayout.root.contentItems[0].contentItems[1].config.content[0]);
 		});
 	});
 	
