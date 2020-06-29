@@ -69,13 +69,13 @@ function connect(event) {
    code = currentEditor.getValue();
    
    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-    socket = new SockJS('${pageContext.request.contextPath }/ws');
+   socket = new SockJS('${pageContext.request.contextPath }/ws');
    
-    // 전역 변수에 세션 설정
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, onConnected, onError);
+   // 전역 변수에 세션 설정
+   stompClient = Stomp.over(socket);
+   stompClient.connect({}, onConnected, onError);
     
-    event.preventDefault();
+   event.preventDefault();
 }
 
 
@@ -132,7 +132,7 @@ function onMessageReceived(payload) {
    if(message.programPandan) {
        $('.terminal').attr("readonly", true);
        socket.close();
-    }
+   }
 }
 
 
