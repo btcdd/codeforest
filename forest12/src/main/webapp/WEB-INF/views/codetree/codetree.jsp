@@ -1222,8 +1222,8 @@ $(function() {
 			
 			
 			if(myLayout.root.contentItems[0].contentItems.length>1){
-				for(int i=1;i<myLayout.root.contentItems[0].contentItems.length;i++){
-					contentItems=myLayout.root.contentItems[0].contentItems[i].contentItems;	
+				for(var n=1;i<myLayout.root.contentItems[0].contentItems.length;i++){
+					contentItems=myLayout.root.contentItems[0].contentItems[n].contentItems;	
 				}	
 			}
 			console.log("contentItems>>",contentItems);
