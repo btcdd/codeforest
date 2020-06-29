@@ -749,7 +749,6 @@ $(function() {
     
     
     // 파일을 더블클릭 하면...
-    var tempFile = null;
     var fileNo = null;
     var root = null;
    var HashMap = new Map();
