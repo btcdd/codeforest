@@ -50,7 +50,7 @@ var setStyle = function(index2) {
 	setTimeout(function() {
 		var ckeContents2 = document.getElementsByClassName("cke_contents")[index2];
 		ckeContents2.style = "height: 400px";
-	}, 50);
+	}, 70);
 }
 
 function leadingZeros(n, digits) {

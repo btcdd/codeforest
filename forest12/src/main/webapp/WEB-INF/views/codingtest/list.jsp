@@ -79,7 +79,6 @@ $(function(){
 				$(document).on("click", "#priority1", function(e) {
 					e.preventDefault();
 					var clickProblemNo = $(this).attr('data-no');
-					console.log("값:",url);
 					window.open('${pageContext.servletContext.contextPath }/codingtest/auth/' + clickProblemNo,'_blank');
 				});
 				

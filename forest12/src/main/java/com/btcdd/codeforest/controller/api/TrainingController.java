@@ -35,7 +35,7 @@ public class TrainingController {
 
 		int p = Integer.parseInt(page);
 		Map<String, Object> map = trainingService.getContentsList(p, kwd, category, checkValues);
-
+		
 		return JsonResult.success(map);
 	}
 	
