@@ -27,6 +27,8 @@ public class TrainingController {
 	private TrainingService trainingService;  
 	
 	private TrainingLinux trainingLinux = new TrainingLinux();
+	
+	private CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
 
 	@PostMapping(value = "/list")
 	public JsonResult originProblemList(String page, String kwd, String category, String[] checkValues) {
