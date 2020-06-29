@@ -588,7 +588,7 @@ $(function() {
  		}); 		
  	});
  	
- 	$(".fileName-input").find('input').keypress(function(e){
+ 	$(document).find('fileName-input').keypress(function(e){
  		 if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
  			  console.log("input enter click!!!");
  			  
