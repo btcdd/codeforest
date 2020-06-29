@@ -1214,6 +1214,12 @@ $(function() {
 		
 	});
 	
+	myLayout.on('tabCreated',function(tab){
+		tab._dragListener.on('drag',function(){
+			console.log("drag!!!");
+		});
+	});
+	
 	myLayout.init();
 	var glCm = document.getElementsByClassName("lm_root")[0];
 	glCm.style = "";
