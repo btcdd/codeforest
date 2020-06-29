@@ -27,8 +27,6 @@ public class CodeTreeLinux {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "Test.java";
-	
 	private Process process;
 	
 	String c = "#include <stdio.h>\r\n" + 
