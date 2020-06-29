@@ -48,7 +48,8 @@ public class ChatController {
 		pandan = (Boolean) obj.get("execPandan");
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
-		
+		String fileName = (String) obj.get("file-name");
+        String packagePath = (String) obj.get("package-path");
 		
 		try {
 			if(pandan) {

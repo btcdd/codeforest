@@ -11,11 +11,8 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <!-- code mirror -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/abcdef.css">
@@ -30,18 +27,108 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/ttcn.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/js/codemirror.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/mode/clike.js"></script>
-
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
-
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
-
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/goldenlayout.min.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
-<%-- <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css" /> --%>
-
 <script>
+
+var result = '';
+var tmp = '';
+var lang;
+var code;
+var editor;
+var execPandan;
+var prevCursor;
+var message;
+var tempFile = null;
+var socket;
+var prevText = '';
+
+//채팅 시작하기
+function connect(event) {
+   if(currentEditor == null){
+      return;
+   }
+   $("#Save").trigger("click");
+   $("#Run").blur();
+   
+   $('#result').val('');
+   $(".terminal").append('프로그램이 시작되었습니다...\n');
+   $('.terminal').attr("readonly", false);
+   
+   code = currentEditor.getValue();
+   
+   // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
+    socket = new SockJS('${pageContext.request.contextPath }/ws');
+   
+    // 전역 변수에 세션 설정
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected, onError);
+    
+    event.preventDefault();
+}
+
+
+function onConnected() {
+    // Subscribe to the Public Topic
+    stompClient.subscribe('/topic/public', onMessageReceived);
+    
+    execPandan = true;
+    var chatMessage = {
+            language: tempFile.data("language"),
+          code: code,
+          execPandan: execPandan,
+          fileName: tempFile.data("file-name"),
+          packagePath: tempFile.data("package-path"),
+            type: 'CHAT'
+        };
+    execPandan = false;
+    // Tell your username to the server
+    stompClient.send("/app/codetree",
+        {},
+        JSON.stringify(chatMessage)
+    );
+}
+
+function onError(error) {
+}
+
+function sendMessage(event, res) {
+   
+   tmp = res;
+   
+    var messageContent = res;
+    var chatMessage = {
+        content: messageContent,
+        language:$(".lang option:selected").val(),
+      code:code,
+      execPandan: execPandan,
+        type: 'CHAT'
+    };
+    stompClient.send("/app/codetree", {}, JSON.stringify(chatMessage));
+    event.preventDefault();
+}
+
+function onMessageReceived(payload) {
+    message = JSON.parse(payload.body);
+    
+    prevText = '';
+   prevText = $('.terminal').val() + '\n';
+   $('.terminal').val(prevText + message.content);
+   
+   prevCursor = $('.terminal').prop('selectionStart') - 1;
+   
+   $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+   
+   if(message.programPandan) {
+       $('.terminal').attr("readonly", true);
+       socket.close();
+    }
+}
+
 
 var listTemplate = new EJS({
    url: "${pageContext.request.contextPath }/assets/js/ejs/codetree-fileList.ejs"
@@ -867,52 +954,52 @@ $(function() {
     var compileResult1 = "";
     var compileResult2 = "";
     
-    $(document).on("click","#Run",function(){
-       $("#Save").trigger("click");
-       if(currentEditor == null){
-          return;
-       }       
+//     $(document).on("click","#Run",function(){
+//        $("#Save").trigger("click");
+//        if(currentEditor == null){
+//           return;
+//        }       
        
-       console.log("editor.getValue()>>>>>>",currentEditor.getValue());
-       var problemNo = "${saveVo.problemNo }";
-       $("#Run").blur();
-       $.ajax({
-         url: '${pageContext.servletContext.contextPath }/api/codingtest/run',
-         async: true,
-         type: 'post',
-         dataType:'json',
-         data: {
-            'language' : tempFile.data("language"),
-            'fileName' : tempFile.data("file-name"),
-            'packagePath' : tempFile.data("package-path"),
-            'subProblemNo':tempFile.data("subproblem-no"),
-            'codeValue' : currentEditor.getValue(),
-            'problemNo' : problemNo
-         },
-         success: function(response) {
+//        console.log("editor.getValue()>>>>>>",currentEditor.getValue());
+//        var problemNo = "${saveVo.problemNo }";
+//        $("#Run").blur();
+//        $.ajax({
+//          url: '${pageContext.servletContext.contextPath }/api/codingtest/run',
+//          async: true,
+//          type: 'post',
+//          dataType:'json',
+//          data: {
+//             'language' : tempFile.data("language"),
+//             'fileName' : tempFile.data("file-name"),
+//             'packagePath' : tempFile.data("package-path"),
+//             'subProblemNo':tempFile.data("subproblem-no"),
+//             'codeValue' : currentEditor.getValue(),
+//             'problemNo' : problemNo
+//          },
+//          success: function(response) {
             
-            console.log("ok");
+//             console.log("ok");
             
-            console.log(response.data.result);
-            compileResult1 = response.data.result[0];
-            compileResult2 = response.data.result[1];
+//             console.log(response.data.result);
+//             compileResult1 = response.data.result[0];
+//             compileResult2 = response.data.result[1];
             
-            if(response.data.result[1] == "") {
-               $(".terminal").append("<pre>"+response.data.result[0]+"</pre>");
-            }
-            else {
-               $(".terminal").append("<pre>"+response.data.result[1]+"</pre>");
+//             if(response.data.result[1] == "") {
+//                $(".terminal").append("<pre>"+response.data.result[0]+"</pre>");
+//             }
+//             else {
+//                $(".terminal").append("<pre>"+response.data.result[1]+"</pre>");
                
-            }
-            $(".terminal").append("<span class=\"prompt\">-></span> ");
-            $(".terminal").append("<span class=\"path\">~</span> ");
-            $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }                     
-      });       
-    });
+//             }
+//             $(".terminal").append("<span class=\"prompt\">-></span> ");
+//             $(".terminal").append("<span class=\"path\">~</span> ");
+//             $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+//          },
+//          error: function(xhr, status, e) {
+//             console.error(status + ":" + e);
+//          }                     
+//       });       
+//     });
 
     
          
@@ -1092,6 +1179,54 @@ $(function() {
       $("#Submit").trigger("click");
    });
 ////// function 끝부분    
+
+
+
+
+   var d = document.querySelector('#Run');
+   d.addEventListener('click', connect, true);
+   
+   prevCursor = 0;
+   var cursorPandan = false;
+   
+   $('.terminal').keydown(event, function(key) {
+      
+      if(message.programPandan) {
+         if(key.keyCode === 8 || key.keyCode === 13) {
+            return false;
+         }
+      }
+      
+     if($(this).prop('selectionStart') < prevCursor + 1) {
+        if(key.keyCode !== 37 && key.keyCode !== 38 && key.keyCode !== 39 && key.keyCode !== 40) {
+           return false;
+        }
+     } else if($(this).prop('selectionStart') == prevCursor + 1) {
+        if(key.keyCode === 8) {
+           return false;
+        }
+     }
+     
+      if(cursorPandan == false) {
+         prevCursor = $(this).prop('selectionStart') - 1;
+         cursorPandan = true;
+      }
+      if (key.keyCode == 13) {
+         cursorPandan = false;
+         
+          result = $(this).val().substring(prevCursor).replace("\n", "");
+          
+          sendMessage(event, result);
+          result = '';
+      }
+  });
+   
+   $('.terminal').mousedown(function(){
+      $('#result').mousemove(function(e){
+         return false;
+      });
+   }); 
+   
 });
 
    
