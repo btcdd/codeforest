@@ -34,6 +34,9 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 
+        <script type="text/javascript"
+     src="https://cdn.rawgit.com/meetselva/attrchange/master/js/attrchange.js"></script>
+
 <script>
 var page = '1';
 var language = '';
@@ -119,7 +122,7 @@ $(function() {
 //    });
    
    $('.theme').click(function() {
-	   var theme = $(".theme option:selected").val();
+// 	   var theme = $(".theme option:selected").val();
 	   
 // 	   editor.setOption("theme", theme);
    });
@@ -165,8 +168,8 @@ $(function() {
 			root = myLayout.root.contentItems[0] || myLayout.root;
 			
 			for(var i = 0; i < response.data.fileNames.length; i++) {
-				console.log("fileNames : ", response.data.fileNames[i]);
-				console.log("codes : ", response.data.codes[i]);
+// 				console.log("fileNames : ", response.data.fileNames[i]);
+// 				console.log("codes : ", response.data.codes[i]);
 				fileIndex = i;
 				root.addChild({
 					type : "component",
@@ -174,7 +177,7 @@ $(function() {
 					title : response.data.fileNames[i],
 					id : "layout-" + fileIndex
 				});
-				var code = $('#cm'+ fileIndex +' > .CodeMirror')[0];		
+				var code = $('#cm'+ fileIndex +' > .CodeMirror')[0];
 				
 				var editor = CodeMirror.fromTextArea(code, {
 					lineNumbers : true,
@@ -186,15 +189,32 @@ $(function() {
 				
 				editor.setValue(response.data.codes[i]);
 				editorArray[editorArrayIndex++] = editor;
-			}			
+			}
 			
+			$('li').attrchange({
+			    trackValues: true, // set to true so that the event object is updated with old & new values
+			    callback: function(event) {
+			    	setTimeout(function() {
+				    	var el = document.getElementsByClassName('CodeMirror-scroll');
+				 		for (var i = 0; i < editorArray.length; i++) {
+				    	    el[i].click();
+						}
+			    	}, 1000);
+			    }
+			});
+// 			$('.CodeMirror-scroll').click(function() {
+// 				console.log('여기 들어왔다~');
+// 				$('.CodeMirror-scroll').trigger('focus');
+// 				$('.code-mirror').trigger('click');
+// 			});
+			$('.CodeMirror-scroll').click(function() {
+				console.log('gdgd');
+			});
 		},
 		error: function(xhr, status, e){
 			console.error(status + ":" + e);
 		}
 	});
-		
-	  
    });
    
    // ---------------------------------------------------------------
@@ -232,6 +252,13 @@ $(function() {
 	});
 	
  	
+ 	var clickEvent = setTimeout(function() {
+ 		var el = document.getElementsByClassName('CodeMirror-scroll');
+ 		for (var i = 0; i < editorArray.length; i++ ) {
+    	    el[i].click();
+		}
+ 	}, 1000);
+ 	
 	// 테마 변경
 	var theme = 'panda-syntax';
 	$('.theme').click(function() {
@@ -259,9 +286,9 @@ $(function() {
 	var myLayout = new GoldenLayout(config, $('.code-mirror'));
 	myLayout.registerComponent("newTab", function(container) {
 		container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
-		container.getElement().attr("id", "cm" + fileIndex);		
-		
+		container.getElement().attr("id", "cm" + fileIndex);
 	});
+	
 	
 	myLayout.init();
 	
