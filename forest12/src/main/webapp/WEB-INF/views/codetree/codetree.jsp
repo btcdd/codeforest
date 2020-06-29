@@ -1213,13 +1213,20 @@ $(function() {
 		container.getElement().attr("id", "cm"+fileNo);		
 		
 	});
-	
+	var contentItems = new Array();
 	myLayout.on('tabCreated',function(tab){
 		tab._dragListener.on('drag',function(){
 			console.log("drag!!!");
 			console.log("tab",tab);
 			console.log("myLayout.root>>",myLayout.root);
-
+			
+			
+			if(myLayout.root.contentItems[0].contentItems.length>1){
+				for(int i=1;i<myLayout.root.contentItems[0].contentItems.length;i++){
+					contentItems=myLayout.root.contentItems[0].contentItems[i].contentItems;	
+				}	
+			}
+			console.log("contentItems>>",contentItems);
 		});
 	});
 	
