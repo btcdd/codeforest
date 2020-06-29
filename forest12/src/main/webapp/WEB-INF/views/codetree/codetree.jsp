@@ -1220,13 +1220,11 @@ $(function() {
 	});
 	
 	myLayout.on('tabCreated',function(tab){
-		tab._dragListener.on('drag',function(){
+		tab._dragListener.on('drag',function(event){
 			console.log("drag!!!");
 			console.log("tab",tab);
 			console.log("myLayout.root>>",myLayout.root);
-			tab.on('mouseup',function(){
-				console.log('mouseup>>');
-			});
+			console.log("event>>",event);
 		});
 	});
 	
