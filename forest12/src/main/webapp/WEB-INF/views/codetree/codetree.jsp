@@ -931,8 +931,11 @@ $(function() {
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
  		console.log("myLayout.root>>>",myLayout.root);
- 		
- 		     
+ 		//myLayout.root.contentItems[0].config.content
+ 		if(myLayout.root.contentItems[0].config.content.length > 1){
+ 			myLayout.root.contentItems[0].config.content[0].content.push(myLayout.root.contentItems[0].config.content[1].content[0]);
+ 		}
+ 		   
 	});
 	
 	$(document).on("click", ".CodeMirror-scroll", function(e) {
@@ -1222,12 +1225,7 @@ $(function() {
 			console.log("myLayout.root>>",myLayout.root);
 			
 			
-//			if(myLayout.root.contentItems[0].contentItems.length>1){
-//				for(var n=1;n<myLayout.root.contentItems[0].contentItems.length;n++){
-//					var contentItemss=myLayout.root.contentItems[0].contentItems[n].contentItems;	
-//				}	
-//			}
-//			console.log("contentItemss>>",contentItemss);
+
 		});
 	});
 	
