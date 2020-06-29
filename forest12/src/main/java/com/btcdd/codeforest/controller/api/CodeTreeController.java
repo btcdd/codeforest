@@ -264,15 +264,24 @@ public class CodeTreeController {
 				}
 			}
 			else {
+				compileResult = false;
 				compileError = true;
 			}
 		}
 		map.put("compileError", compileError);
-		
 		map.put("compileResult", compileResult);
+		
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
+		
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+		
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+		
+		/////// [User] AnserCount increase method
+		if(compileResult == true) {
+			codetreeService.updateUserAnswerCount(authUser.getNo());
+		}
+		/////////////////////////////////////////
 		
 		return JsonResult.success(map);
 	}		

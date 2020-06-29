@@ -352,6 +352,7 @@ public class CodingTestController {
 				}
 			}
 			else {
+				compileResult = false;
 				compileError = true;
 			}
 		}
@@ -362,7 +363,11 @@ public class CodingTestController {
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		
-		
+		/////// [User] AnserCount increase method
+		if(compileResult == true) {
+			codetreeService.updateUserAnswerCount(authUser.getNo());
+		}
+		/////////////////////////////////////////
 		
 		return JsonResult.success(map);
 	}			
