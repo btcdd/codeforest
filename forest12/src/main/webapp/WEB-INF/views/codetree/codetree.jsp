@@ -1219,6 +1219,10 @@ $(function() {
 			console.log("drag!!!");
 			console.log("tab",tab);
 			console.log("myLayout.root>>",myLayout.root);
+			console.log("myLayout.root.contentItems[0].contentItems>>",myLayout.root.contentItems[0].contentItems);
+//			myLayout.root.contentItems[0].contentItems[0]//Test,aaa
+//			myLayout.root.contentItems[0].contentItems[1]//zz
+			myLayout.root.contentItems[0].contentItems[0].contentItems.push(myLayout.root.contentItems[0].contentItems[1]);
 		});
 	});
 	
