@@ -930,9 +930,8 @@ $(function() {
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
- 		if(myLayout.root.contentItems[0].contentItems.length>1){
- 			console.log("분할됨!!");
- 		}
+ 		console.log("myLayout.root>>>",myLayout.root);
+ 		
  		     
 	});
 	
