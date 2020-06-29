@@ -1217,7 +1217,7 @@ $(function() {
 		container.getElement().attr("id", "cm"+fileNo);		
 		
 	});
-	//var contentItems = new Array();
+	
 	myLayout.on('tabCreated',function(tab){
 		tab._dragListener.on('drag',function(){
 			console.log("drag!!!");
