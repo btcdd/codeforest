@@ -122,7 +122,6 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    prevText = '';
    prevText = $('.terminal').val() + '\n';
    $('.terminal').val(prevText + message.content);
    
@@ -1023,58 +1022,6 @@ $(function() {
           return false;
        });
     }); 
-    
-    
-//     $(document).on("click","#Run",function(){
-//        $("#Save").trigger("click");
-//        if(currentEditor == null){
-//           return;
-//        }
-       
-       /*
-       var problemNo = "${saveVo.problemNo }";
-       $("#Run").blur();
-       $.ajax({
-         url: '${pageContext.servletContext.contextPath }/api/codetree/run',
-         async: true,
-         type: 'post',
-         dataType:'json',
-         data: {
-            'language' : tempFile.data("language"),
-            'fileName' : tempFile.data("file-name"),
-            'packagePath' : tempFile.data("package-path"),
-            'subProblemNo':tempFile.data("subproblem-no"),
-            'codeValue' : currentEditor.getValue(),
-            'problemNo' : problemNo
-         },
-         success: function(response) {
-            
-            console.log("ok");
-            
-            console.log(response.data.result);
-            compileResult1 = response.data.result[0];
-            compileResult2 = response.data.result[1];
-            
-            if(response.data.result[1] == "") {
-               $(".terminal").append("<p>"+response.data.result[0]+"</p>");
-            }
-            else {
-               $(".terminal").append("<p>"+response.data.result[1]+"</p>");
-               
-            }
-            $(".terminal").append("<span class=\"prompt\">-></span> ");
-            $(".terminal").append("<span class=\"path\">~</span> ");
-            $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }                     
-      });       
-       */
-//     });
-    
-
-    
          
      $(document).on("click","#Save",function(){
          if(tempFile == null){
