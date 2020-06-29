@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/list.css">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
     <link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -128,10 +128,6 @@ $(function() {
 	});	
 	
 	$(document).on("click",".problem-box",function(){
-/* 		var codetreeURL = '${pageContext.request.contextPath }/codetree/codemirror' 
-		window.open(codetreeURL,'_blank'); */
-		
-		
 		var saveNo = $(this).data('no');
 		$.ajax({
 	          url:'${pageContext.request.contextPath }/api/codetree/codemirror/',
@@ -149,32 +145,7 @@ $(function() {
 	             console.error(status + ":" + e);
 	          }
 	       }); 
-		
 	});
- 		
-/*  	      $.ajax({
-	          url:'${pageContext.request.contextPath }/api/codetree/',
-	          async:false,
-	          type:'get',
-	          dataType:'json',
-	          data : '',
-	          success:function(response){
-	             console.log(response.data);
-	             console.log(response.data.authUser.email);
-var codetreeURL = '${pageContext.request.contextPath }/codetree/list/' + response.data.authUser.no
-	          window.open('${pageContext.request.contextPath }/codetree/list/' + response.data.authUser.no,'_blank');
-	          window.open(codetreeURL,'_blank');
-	          window.open('','_blank');
-	              
-
-	              
-	          },
-	          error: function(xhr, status, e) {
-	             console.error(status + ":" + e);
-	          }
-	       });  */
-
- 	
 });
 
 </script>   
