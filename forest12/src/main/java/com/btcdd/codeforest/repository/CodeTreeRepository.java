@@ -184,6 +184,7 @@ public class CodeTreeRepository {
 		
 		return sqlSession.update("codetree.updateSubProblem", map);
 	}	
+	
 	public int updateSubProblem(Long submitNo,String codeValue, String answer,String solveTime) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("submitNo", submitNo);
@@ -194,12 +195,8 @@ public class CodeTreeRepository {
 		return sqlSession.update("codetree.updateSubProblem", map);
 	}
 
-
-
-
-
-//	public int getTotalCount(String keyword) {
-//		return sqlSession.selectOne("codetree.totalCount",keyword);
-//	}
-
+	public int updateUserAnswerCount(Long authUserNo) {
+		return sqlSession.update("codetree.updateUserAnswerCount", authUserNo);
+	}
+	
 }

@@ -304,5 +304,12 @@
 		</choose>
 	</update>
 	
+	<update id="updateUserAnswerCount" parameterType="long">
+		<![CDATA[
+			update user
+				set answer_count = answer_count + 1				
+			where no = #{authUserNo }
+		]]>	
+	</update>	
 
 </mapper>
