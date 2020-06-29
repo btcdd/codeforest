@@ -1,6 +1,5 @@
 package com.btcdd.codeforest.service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,24 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.btcdd.codeforest.repository.CodeTreeRepository;
-import com.btcdd.codeforest.runlanguage.RunJavaLinux;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.SaveVo;
 import com.btcdd.codeforest.vo.SubProblemVo;
 import com.btcdd.codeforest.vo.SubmitVo;
-import com.btcdd.codeforest.vo.UserVo;
 
 @Service
 public class CodeTreeService {
 	private static final int postNum = 10; //한 페이지에 출력할 게시물 갯수
-	private static final int pageNum_cnt = 10; 		//한번에 표시할 페이징 번호의 갯수
+	private static final int pageNum_cnt = 5; 		//한번에 표시할 페이징 번호의 갯수
 	
 	@Autowired
 	private CodeTreeRepository codetreeRepository;
-	
-	private Process process;
-
 	
 	public Map<String, Object> saveUserCodeAndProblems(Long authUserNo, Long problemNo, List<SavePathVo> savePathVoList, List<CodeVo> codeVoList) {
 		Map<String, Object> map = new HashMap<>();
@@ -46,32 +40,6 @@ public class CodeTreeService {
 		codetreeRepository.saveCode(map);
 		
 		return map;
-	}
-
-	public void compilePackage(Long authUserNo, Long problemNo, Long subProblemNo, List<CodeVo> codeVoListTrue) {
-		try {
-//			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + authUserNo + 
-//												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
-//												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
-		
-			
-//			RunJavaLinux rjct = new RunJavaLinux(authUserNo, problemNo, subProblemNo);
-			
-//			for(int i = 0; i < codeVoListTrue.size(); i++) {
-//				rjct.createFileAsSource(codeVoListTrue.get(i).getCode(), codeVoListTrue.get(i).getFileName());
-//			}
-			
-//			rjct.execCompile(codeVoListTrue);
-//			String result = rjct.execCommand();
-//			String errorResult = rjct.execCompile(codeVoListTrue);
-//			
-//			String[] res = new String[2];
-//			res[0] = result;
-//			res[1] = errorResult;
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public List<CodeVo> findCode(Long subProblemNo) {
@@ -245,10 +213,6 @@ public class CodeTreeService {
 		}
 		
 	}
-
-
-
-	
 
 
 	

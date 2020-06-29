@@ -1019,7 +1019,7 @@ $(function() {
    });
     
     $('.terminal').mousedown(function(){
-    	$('#result').mousemove(function(e){
+    	$('.terminal').mousemove(function(e){
     		return false;
     	});
     }); 

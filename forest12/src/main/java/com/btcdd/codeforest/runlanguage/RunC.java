@@ -17,8 +17,6 @@ public class RunC {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "test.c";
-	private final Long TIME = System.currentTimeMillis();
 	private Long time;
 	
 	public RunC(Long time) {
@@ -115,14 +113,6 @@ public class RunC {
 		}
 		
 		return null;
-	}
-	
-	private String runClass() {
-		buffer = new StringBuffer();
-		
-		buffer.append("timeout 2s ./test.exe");
-		
-		return buffer.toString();
 	}
 	
 	public String execSave(String cmd) {
