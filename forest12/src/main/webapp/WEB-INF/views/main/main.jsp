@@ -45,6 +45,8 @@ var message;
 var prevText = '';
 var socket;
 
+var outputResult = '';
+
 //채팅 시작하기
 function connect(event) {
 	
@@ -117,12 +119,16 @@ function onMessageReceived(payload) {
     prevText = $('#result').val() + '\n';
     $('#result').val(prevText + message.content);
     
+    outputResult += message.content;
+    
     prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
+    	$('#tmp').val(outputResult);
+    	outputResult = '';
     	socket.close();
     }
 }
@@ -328,6 +334,9 @@ public class Test{
                   </td>
                   <td>
                      <textarea name="" id="result" class="res" readonly></textarea>
+                  </td>
+                  <td>
+                     <textarea name="" id="tmp" class="tmp" readonly></textarea>
                   </td>
                </tr>
             </table>
