@@ -33,6 +33,8 @@
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/goldenlayout.min.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
 
 var result = '';
@@ -55,20 +57,20 @@ function connect(event) {
    $("#Save").trigger("click");
    $("#Run").blur();
    
-   $('#result').val('');
-   $(".terminal").append('프로그램이 시작되었습니다...\n');
+   $('.terminal').val('');
+   $(".terminal").val('프로그램이 시작되었습니다...\n');
    $('.terminal').attr("readonly", false);
    
    code = currentEditor.getValue();
    
    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-    socket = new SockJS('${pageContext.request.contextPath }/ws');
+   socket = new SockJS('${pageContext.request.contextPath }/ws');
    
-    // 전역 변수에 세션 설정
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, onConnected, onError);
+   // 전역 변수에 세션 설정
+   stompClient = Stomp.over(socket);
+   stompClient.connect({}, onConnected, onError);
     
-    event.preventDefault();
+   event.preventDefault();
 }
 
 
@@ -87,7 +89,7 @@ function onConnected() {
         };
     execPandan = false;
     // Tell your username to the server
-    stompClient.send("/app/codetree",
+    stompClient.send("/app/codingtest",
         {},
         JSON.stringify(chatMessage)
     );
@@ -108,14 +110,13 @@ function sendMessage(event, res) {
       execPandan: execPandan,
         type: 'CHAT'
     };
-    stompClient.send("/app/codetree", {}, JSON.stringify(chatMessage));
+    stompClient.send("/app/codingtest", {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
-    prevText = '';
    prevText = $('.terminal').val() + '\n';
    $('.terminal').val(prevText + message.content);
    
@@ -126,9 +127,8 @@ function onMessageReceived(payload) {
    if(message.programPandan) {
        $('.terminal').attr("readonly", true);
        socket.close();
-    }
+   }
 }
-
 
 var listTemplate = new EJS({
    url: "${pageContext.request.contextPath }/assets/js/ejs/codetree-fileList.ejs"
@@ -749,7 +749,6 @@ $(function() {
     
     
     // 파일을 더블클릭 하면...
-    var tempFile = null;
     var fileNo = null;
     var root = null;
    var HashMap = new Map();
@@ -1222,7 +1221,7 @@ $(function() {
   });
    
    $('.terminal').mousedown(function(){
-      $('#result').mousemove(function(e){
+      $('.terminal').mousemove(function(e){
          return false;
       });
    }); 
