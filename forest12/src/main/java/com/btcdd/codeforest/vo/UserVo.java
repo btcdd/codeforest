@@ -2,22 +2,17 @@ package com.btcdd.codeforest.vo;
 
 import java.sql.Date;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class UserVo {
 	private Long no;
 
 	private String name;
 
-	@NotEmpty
 	private String nickname;
 
-	@NotEmpty
 	private String email;
 
 	private Date birth;
 
-	@NotEmpty
 	private String password;
 	private String privacy;
 

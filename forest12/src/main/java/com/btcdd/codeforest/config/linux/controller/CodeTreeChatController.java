@@ -2,7 +2,6 @@ package com.btcdd.codeforest.config.linux.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,16 +28,8 @@ import com.btcdd.codeforest.runlanguage.RunPyLinux;
 @Controller
 public class CodeTreeChatController {
 	
-	private StringBuffer buffer;
-	private BufferedReader bufferedReader;
-	
-	private File file;
-	private BufferedWriter bufferWriter;
-	
 	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
-	private StringBuffer readBuffer2 = new StringBuffer();
-	private final Long time = System.currentTimeMillis();
 
 	@MessageMapping("/codetree")
 	@SendTo("/topic/public")
@@ -56,7 +47,6 @@ public class CodeTreeChatController {
 		}		
 		pandan = (Boolean) obj.get("execPandan");
 		String language = (String) obj.get("language");
-		String code = (String) obj.get("code");
 		String fileName = (String) obj.get("fileName");
 		String packagePath = (String) obj.get("packagePath");
 		
