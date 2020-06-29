@@ -1217,8 +1217,8 @@ $(function() {
 	myLayout.on('tabCreated',function(tab){
 		tab._dragListener.on('drag',function(){
 			console.log("drag!!!");
-			console.log("this",this);
 			console.log("tab",tab);
+			console.log("myLayout.root>>",myLayout.root);
 		});
 	});
 	
