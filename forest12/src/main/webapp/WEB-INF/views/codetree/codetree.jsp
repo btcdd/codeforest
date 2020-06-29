@@ -1224,7 +1224,7 @@ $(function() {
 			console.log("drag!!!");
 			console.log("tab",tab);
 			console.log("myLayout.root>>",myLayout.root);
-			console.log("event>>",event);
+			console.log("event>>",event.target);
 		});
 	});
 	
