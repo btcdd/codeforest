@@ -42,7 +42,7 @@
    
    <select id="selectProblemList" parameterType="map"  resultType="problemvo">
       <![CDATA[
-         select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend, start_time as startTime, end_time as endTime
+         select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend, start_time as startTime, end_time as endTime, p.privacy as privacy
            from problem p, user u
           where u.no = #{userNo } 
             and p.user_no = u.no 
