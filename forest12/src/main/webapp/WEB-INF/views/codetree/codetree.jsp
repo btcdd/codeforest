@@ -1222,7 +1222,7 @@ $(function() {
 			
 			
 			if(myLayout.root.contentItems[0].contentItems.length>1){
-				for(var n=1;n<myLayout.root.contentItems[0].contentItems.length;i++){
+				for(var n=1;n<myLayout.root.contentItems[0].contentItems.length;n++){
 					contentItems=myLayout.root.contentItems[0].contentItems[n].contentItems;	
 				}	
 			}
