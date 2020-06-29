@@ -60,7 +60,8 @@ var fetchList = function() {
 	var str="";
 	for(var i=0;i<map.list.length;i++){
 		str+= '<div data-user="'+map.list[i].userNo+'" data-no="'+map.list[i].no+'" class="problem-box" >'+
-			'<div class="problem-no">'+map.list[i].problemNo+'</div>'+
+			'<div><div class="problem-no">'+map.list[i].problemNo+'</div>'+
+			'<img class="top-right-arrow" src="${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow.png"></div>'+
 			'<div class="problem-title">'+map.list[i].title+'</div>'+
 			'<div class="problem-user">'+map.list[i].kind +" "+ map.list[i].nickname+'</div>'+
 		'</div>';
