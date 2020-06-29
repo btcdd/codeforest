@@ -1224,8 +1224,8 @@ $(function() {
 			console.log("drag!!!");
 			console.log("tab",tab);
 			console.log("myLayout.root>>",myLayout.root);
-			$(this).on('mouseup',function(){
-				console.log("mouseup>>",mouseup);
+			tab._dragListener.on('mouseup',function(){
+				console.log('mouseup>>');
 			});
 		});
 	});
