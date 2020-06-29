@@ -930,7 +930,9 @@ $(function() {
  		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
- 		
+ 		if(myLayout.root.contentItems[0].contentItems.length>1){
+ 			console.log("분할됨!!");
+ 		}
  		     
 	});
 	
@@ -1213,13 +1215,20 @@ $(function() {
 		container.getElement().attr("id", "cm"+fileNo);		
 		
 	});
-
+	//var contentItems = new Array();
 	myLayout.on('tabCreated',function(tab){
 		tab._dragListener.on('drag',function(){
 			console.log("drag!!!");
 			console.log("tab",tab);
 			console.log("myLayout.root>>",myLayout.root);
-
+			
+			
+//			if(myLayout.root.contentItems[0].contentItems.length>1){
+//				for(var n=1;n<myLayout.root.contentItems[0].contentItems.length;n++){
+//					var contentItemss=myLayout.root.contentItems[0].contentItems[n].contentItems;	
+//				}	
+//			}
+//			console.log("contentItemss>>",contentItemss);
 		});
 	});
 	
