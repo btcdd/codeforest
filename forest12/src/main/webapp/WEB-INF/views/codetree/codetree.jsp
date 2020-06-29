@@ -37,7 +37,6 @@
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/goldenlayout.min.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
-<%-- <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css" /> --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
@@ -1025,52 +1024,52 @@ $(function() {
     }); 
     
     
-    $(document).on("click","#Run",function(){
-       $("#Save").trigger("click");
-       if(currentEditor == null){
-          return;
-       }
+//     $(document).on("click","#Run",function(){
+//        $("#Save").trigger("click");
+//        if(currentEditor == null){
+//           return;
+//        }
        
-       console.log("editor.getValue()>>>>>>",currentEditor.getValue());
-       var problemNo = "${saveVo.problemNo }";
-       $("#Run").blur();
-       $.ajax({
-         url: '${pageContext.servletContext.contextPath }/api/codetree/run',
-         async: true,
-         type: 'post',
-         dataType:'json',
-         data: {
-            'language' : tempFile.data("language"),
-            'fileName' : tempFile.data("file-name"),
-            'packagePath' : tempFile.data("package-path"),
-            'subProblemNo':tempFile.data("subproblem-no"),
-            'codeValue' : currentEditor.getValue(),
-            'problemNo' : problemNo
-         },
-         success: function(response) {
+//        console.log("editor.getValue()>>>>>>",currentEditor.getValue());
+//        var problemNo = "${saveVo.problemNo }";
+//        $("#Run").blur();
+//        $.ajax({
+//          url: '${pageContext.servletContext.contextPath }/api/codetree/run',
+//          async: true,
+//          type: 'post',
+//          dataType:'json',
+//          data: {
+//             'language' : tempFile.data("language"),
+//             'fileName' : tempFile.data("file-name"),
+//             'packagePath' : tempFile.data("package-path"),
+//             'subProblemNo':tempFile.data("subproblem-no"),
+//             'codeValue' : currentEditor.getValue(),
+//             'problemNo' : problemNo
+//          },
+//          success: function(response) {
             
-            console.log("ok");
+//             console.log("ok");
             
-            console.log(response.data.result);
-            compileResult1 = response.data.result[0];
-            compileResult2 = response.data.result[1];
+//             console.log(response.data.result);
+//             compileResult1 = response.data.result[0];
+//             compileResult2 = response.data.result[1];
             
-            if(response.data.result[1] == "") {
-               $(".terminal").append("<p>"+response.data.result[0]+"</p>");
-            }
-            else {
-               $(".terminal").append("<p>"+response.data.result[1]+"</p>");
+//             if(response.data.result[1] == "") {
+//                $(".terminal").append("<p>"+response.data.result[0]+"</p>");
+//             }
+//             else {
+//                $(".terminal").append("<p>"+response.data.result[1]+"</p>");
                
-            }
-            $(".terminal").append("<span class=\"prompt\">-></span> ");
-            $(".terminal").append("<span class=\"path\">~</span> ");
-            $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }                     
-      });       
-    });
+//             }
+//             $(".terminal").append("<span class=\"prompt\">-></span> ");
+//             $(".terminal").append("<span class=\"path\">~</span> ");
+//             $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
+//          },
+//          error: function(xhr, status, e) {
+//             console.error(status + ":" + e);
+//          }                     
+//       });       
+//     });
     
 
     
