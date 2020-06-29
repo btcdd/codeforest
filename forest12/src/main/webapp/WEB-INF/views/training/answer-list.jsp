@@ -194,19 +194,9 @@ $(function() {
 			$('li').attrchange({
 			    trackValues: true, // set to true so that the event object is updated with old & new values
 			    callback: function(event) {
-			    	setTimeout(function() {
-				    	var el = document.getElementsByClassName('CodeMirror-scroll');
-				 		for (var i = 0; i < editorArray.length; i++) {
-				    	    el[i].click();
-						}
-			    	}, 1000);
+			    	console.log('하이하이');
 			    }
 			});
-// 			$('.CodeMirror-scroll').click(function() {
-// 				console.log('여기 들어왔다~');
-// 				$('.CodeMirror-scroll').trigger('focus');
-// 				$('.code-mirror').trigger('click');
-// 			});
 			$('.CodeMirror-scroll').click(function() {
 				console.log('gdgd');
 			});
