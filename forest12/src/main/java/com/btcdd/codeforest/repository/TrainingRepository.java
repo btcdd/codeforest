@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.btcdd.codeforest.vo.AnswerUserListVo;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
+import com.btcdd.codeforest.vo.RankVo;
 import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.SaveVo;
 import com.btcdd.codeforest.vo.StatisticsVo;
@@ -262,5 +263,9 @@ public class TrainingRepository {
 
 	public List<SavePathVo> findSavePathAndFileName(Map<String, Object> map) {
 		return sqlSession.selectList("training.findSavePathAndFileName", map);
+	}
+
+	public List<RankVo> getRankList() {
+		return sqlSession.selectList("training.getRankList");
 	}
 }
