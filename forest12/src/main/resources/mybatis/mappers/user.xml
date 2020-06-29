@@ -5,7 +5,7 @@
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
 			insert into user 
-			values (null, null, #{nickname}, #{email}, null, #{password}, 'y')
+			values (null, null, #{nickname}, #{email}, null, #{password}, 'y', 0)
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			select last_insert_id()
