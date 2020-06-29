@@ -35,10 +35,12 @@ public class MypageController {
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
+
+		Long rank = mypageService.selectRank(authUser.getNo());
 		List<SubmitVo> rightSubmit = mypageService.findRrightSubmit(authUser.getNo());
-		
 		List<SubmitVo> wrongSubmit = mypageService.findWrongSubmit(authUser.getNo());
 		
+		model.addAttribute("rank", rank);
 		model.addAttribute("rightSubmit", rightSubmit);	
 		model.addAttribute("wrongSubmit", wrongSubmit);	
 		

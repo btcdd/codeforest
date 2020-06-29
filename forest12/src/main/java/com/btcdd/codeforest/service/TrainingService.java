@@ -13,6 +13,7 @@ import com.btcdd.codeforest.repository.TrainingRepository;
 import com.btcdd.codeforest.vo.AnswerUserListVo;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
+import com.btcdd.codeforest.vo.RankVo;
 import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.SaveVo;
 import com.btcdd.codeforest.vo.StatisticsVo;
@@ -139,6 +140,13 @@ public class TrainingService {
 		map.put("next",next);
 		map.put("keyword",keyword);
 		map.put("count", count);
+		
+		// --- rank -----------------------------
+		
+		List<RankVo> rankList = trainingRepository.getRankList();
+		map.put("rankList", rankList);
+		
+		// --------------------------------------
 		
 		return map;
 	}
