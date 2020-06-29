@@ -55,7 +55,7 @@ var prevText = '';
 
 //채팅 시작하기
 function connect(event) {
-   if(currentEditor == null){
+   if(currentEditor == null){ 
       return;
    }
    $("#Save").trigger("click");
