@@ -122,16 +122,9 @@ public class CodeTreeChatController {
 					String input = chatMessage.getContent();
 					
 					if(submitPandan == true) {
-						try {
-							File file = new File("gwanwooooo22222.txt");
-							BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
-							
-							bufferWriter.write("gdgd");
-							bufferWriter.flush(); 
-						} catch(Exception e) {
-							e.printStackTrace();
-							System.exit(1);
-						}
+						writer.write("\n111111111\n");
+						writer.flush();
+						readBuffer.setLength(0);
 					}
 					// 지술이형 코드!!
 					if(input == null) {
