@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -24,6 +25,7 @@ import com.btcdd.codeforest.runlanguage.RunCsLinux;
 import com.btcdd.codeforest.runlanguage.RunJavaLinux;
 import com.btcdd.codeforest.runlanguage.RunJsLinux;
 import com.btcdd.codeforest.runlanguage.RunPyLinux;
+import com.btcdd.codeforest.service.CodeTreeService;
 
 @Controller
 public class CodeTreeChatController {
@@ -49,6 +51,15 @@ public class CodeTreeChatController {
 		String language = (String) obj.get("language");
 		String fileName = (String) obj.get("fileName");
 		String packagePath = (String) obj.get("packagePath");
+		Boolean submitPandan = (Boolean) obj.get("submitPandan");
+		Long subProblemNo = (Long) obj.get("subProblemNo");
+		String examInput = "";
+		
+		CodeTreeService codetreeService = new CodeTreeService();
+		
+		if(submitPandan) {
+			examInput = codetreeService.getExamInput(subProblemNo);
+		}
 		
 		try {
 			if(pandan) {

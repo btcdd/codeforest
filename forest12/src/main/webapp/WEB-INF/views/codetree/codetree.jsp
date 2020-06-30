@@ -53,6 +53,8 @@ var tempFile = null;
 var socket;
 var prevText = '';
 
+var submitPandan = false;
+
 //채팅 시작하기
 function connect(event) {
    if(currentEditor == null){ 
@@ -83,14 +85,18 @@ function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
     
     execPandan = true;
+    
     var chatMessage = {
-            language: tempFile.data("language"),
-          code: code,
-          execPandan: execPandan,
-          fileName: tempFile.data("file-name"),
-          packagePath: tempFile.data("package-path"),
-            type: 'CHAT'
-        };
+ 		language: tempFile.data("language"),
+       	code: code,
+       	execPandan: execPandan,
+       	fileName: tempFile.data("file-name"),
+       	packagePath: tempFile.data("package-path"),
+       	submitPandan: submitPandan,
+       	subProblemNo: tempFile.data("subproblem-no"),
+        type: 'CHAT'
+    };
+    
     execPandan = false;
     // Tell your username to the server
     stompClient.send("/app/codetree",
@@ -130,6 +136,7 @@ function onMessageReceived(payload) {
    
    if(message.programPandan) {
        $('.terminal').attr("readonly", true);
+       submitPandan = false;
        socket.close();
    }
 }
@@ -1074,9 +1081,9 @@ $(function() {
             return;
          }
          
+         submitPandan = true;
          $("#Run").trigger("click");
          var problemNo = "${saveVo.problemNo }";
-         console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
          
          setTimeout(function(){
 
@@ -1090,11 +1097,11 @@ $(function() {
                   'language' : tempFile.data("language"),
                   'fileName' : tempFile.data("file-name"),
                   'packagePath' : tempFile.data("package-path"),
-                  'subProblemNo':tempFile.data("subproblem-no"),
+                  'subProblemNo': tempFile.data("subproblem-no"),
                   'codeValue' : currentEditor.getValue(),
                   'problemNo' : problemNo,
-                  'compileResult1':compileResult1,
-                  'compileResult2':compileResult2
+                  'compileResult1': compileResult1,
+                  'compileResult2': compileResult2
                },
                success: function(response) {
                   var compileResult = response.data.compileResult;

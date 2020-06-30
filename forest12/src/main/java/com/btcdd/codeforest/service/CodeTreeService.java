@@ -226,4 +226,8 @@ public class CodeTreeService {
 		return codetreeRepository.updateUserAnswerCount(authUserNo);
 	}
 
+	public String getExamInput(Long subProblemNo) {
+		return codetreeRepository.getExamInput(subProblemNo);
+	}
+
 }

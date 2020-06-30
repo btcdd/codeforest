@@ -117,6 +117,7 @@ function onMessageReceived(payload) {
     
     prevText = '';
     prevText = $('#result').val() + '\n';
+    
     $('#result').val(prevText + message.content);
     
     outputResult += message.content;

@@ -198,4 +198,8 @@ public class CodeTreeRepository {
 	public int updateUserAnswerCount(Long authUserNo) {
 		return sqlSession.update("codetree.updateUserAnswerCount", authUserNo);
 	}
+
+	public String getExamInput(Long subProblemNo) {
+		return sqlSession.selectOne("codetree.getExamInput", subProblemNo);
+	}
 }
