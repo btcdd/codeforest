@@ -133,7 +133,7 @@ public class CodeTreeChatController {
 						return;
 					}
 					
-					if (submitPandan == false && (!("".equals(input)) || input != null)) {
+					if (submitPandan == false && (!("".equals(input)) || input != null || !("null".equals(input)))) {
 						try {
 							input += "\n";
 							readBuffer2.append(input);
