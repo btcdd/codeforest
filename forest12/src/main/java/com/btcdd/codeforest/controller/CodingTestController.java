@@ -38,7 +38,6 @@ public class CodingTestController {
 	
 	private TrainingLinux trainingLinux = new TrainingLinux();
 	
-	
 	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String training(Model model) {
@@ -213,8 +212,6 @@ public class CodingTestController {
 			
 			return "codingtest/code-mirror"; //이동
 		}
-		
-		
 		return "codingtest/";
 	}	
 //	@PostMapping("/auth/{userEmail}/{problemNo}")
