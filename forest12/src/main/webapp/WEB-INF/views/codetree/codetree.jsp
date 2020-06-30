@@ -700,7 +700,7 @@ $(function() {
                        },
                        success: function(response) {
               			  
-                    	  if(!'no'.equals(response.data.result)){
+                    	  if(response.data.result != "no"){
                               layoutId = "layout-"+codeNo;
                               
                               
