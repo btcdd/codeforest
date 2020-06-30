@@ -175,7 +175,7 @@
 	<select id="findByFileName" parameterType="map" resultType="long">
 		<![CDATA[
 			select 
-				count(*)
+				count(file_name)
 			from code 
 			where file_name = binary(#{fileName}) and save_path_no = #{savePathNo}
 			 

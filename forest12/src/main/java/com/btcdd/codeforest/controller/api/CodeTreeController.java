@@ -110,7 +110,7 @@ public class CodeTreeController {
 		System.out.println("codeNo>>"+codeNo);
 		System.out.println("fileName>>"+fileName);
 		System.out.println("prevFileName"+prevFileName);
-		Long existCount = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다 != null
+		Long existCount = codetreeService.existFile(fileName,savePathNo); 
 		Map<String,Object> map = new HashMap<>();
 		map.put("existCount", existCount);
 		if(existCount < 1) {
