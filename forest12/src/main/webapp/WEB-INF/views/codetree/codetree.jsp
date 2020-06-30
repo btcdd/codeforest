@@ -388,6 +388,8 @@ $(function() {
     
     var savePathNo = null;
     var subProblemNo = null;
+    var savePathNo2 = null;
+    var subProblemNo2 = null;    
     var codeNo = null;
     var prevFileName = null;
     var str='<div id="file-insert"><li>파일 추가</li></div>';
@@ -457,10 +459,10 @@ $(function() {
       $(document).on('mousedown','.userFile',function(e){
          $(".contextmenu").hide();
          if(e.which == 3){
-             savePathNo = $(this).data("no2");
-             subProblemNo = $(this).data("no3");          
-            console.log("savePathNo>>>",savePathNo);
-            console.log("subProblemNo>>>",subProblemNo);
+             savePathNo2 = $(this).data("no2");
+             subProblemNo2 = $(this).data("no3");          
+            console.log("savePathNo2>>>",savePathNo2);
+            console.log("subProblemNo2>>>",subProblemNo2);
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
             if(currentFileNameSplit != "Test"){
