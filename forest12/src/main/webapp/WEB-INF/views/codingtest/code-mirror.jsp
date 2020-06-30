@@ -1119,8 +1119,7 @@ $(function() {
 
                var problemNo = "${saveVo.problemNo }";
              $.ajax({
-//                url: '${pageContext.servletContext.contextPath }/api/codingtest/submit',
-               url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
+               url: '${pageContext.servletContext.contextPath }/api/codingtest/submit',
                async: true,
                type: 'post',
                dataType:'json',
