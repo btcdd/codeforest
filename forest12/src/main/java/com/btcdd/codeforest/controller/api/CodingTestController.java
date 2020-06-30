@@ -286,39 +286,39 @@ public class CodingTestController {
 	@PostMapping("/submit")
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
-			String compileResult1, Boolean compileResult2, String outputResult, HttpSession session) {
+			String compileResult1, Boolean compileResult2, String outputResult, String userStartTime,HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		
-//		Date userStartTimeTransFormat = null;
-//		String userSubmitTime = null;
-//		Date userSubmitTime2 = null;
-//		
-//		try {
-//			SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//			userStartTimeTransFormat = TransFormat.parse(userStartTime);//처음 들어온 사용자 시간
-//			
-//			Date SubmitTime = new Date();	
-//			userSubmitTime = TransFormat.format(SubmitTime);
-//			userSubmitTime2 = TransFormat.parse(userSubmitTime);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//		long hours=0,min=0,sec = 0;
-//		Long diff = userSubmitTime2.getTime() - userStartTimeTransFormat.getTime();
-//		diff = diff / 1000; //밀리세컨트를 초단위로 변환  1432초 
-//		
-//		if(diff >= 3600) {
-//			hours = (long) Math.floor(diff / 3600);
-//			diff -= hours * 3600;
-//		}
-//		if(diff >= 60) {
-//			min = (long) Math.floor(diff / 60);
-//			diff -= min * 60;
-//		}
-//		sec = diff;
-//		
-//		String solveTime = hours+"시간 "+min+"분 "+sec+"초";
-//		map.put("solveTime", solveTime);
+		Date userStartTimeTransFormat = null;
+		String userSubmitTime = null;
+		Date userSubmitTime2 = null;
+		
+		try {
+			SimpleDateFormat TransFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			userStartTimeTransFormat = TransFormat.parse(userStartTime);//처음 들어온 사용자 시간
+			
+			Date SubmitTime = new Date();	
+			userSubmitTime = TransFormat.format(SubmitTime);
+			userSubmitTime2 = TransFormat.parse(userSubmitTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		long hours=0,min=0,sec = 0;
+		Long diff = userSubmitTime2.getTime() - userStartTimeTransFormat.getTime();
+		diff = diff / 1000; //밀리세컨트를 초단위로 변환  1432초 
+		
+		if(diff >= 3600) {
+			hours = (long) Math.floor(diff / 3600);
+			diff -= hours * 3600;
+		}
+		if(diff >= 60) {
+			min = (long) Math.floor(diff / 60);
+			diff -= min * 60;
+		}
+		sec = diff;
+		
+		String solveTime = hours+"시간 "+min+"분 "+sec+"초";
+		map.put("solveTime", solveTime);
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
@@ -356,7 +356,7 @@ public class CodingTestController {
 		map.put("compileError", compileError);
 		map.put("compileResult", compileResult);
 
-//		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
+		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		

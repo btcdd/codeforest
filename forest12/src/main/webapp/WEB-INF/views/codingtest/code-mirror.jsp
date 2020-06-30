@@ -1142,7 +1142,8 @@ $(function() {
                    'problemNo' : problemNo,
                    'compileResult1': compileResult1,
                    'compileResult2': message.errorPandan,
-                   'outputResult': outputResult
+                   'outputResult': outputResult,
+                   'userStartTime':userStartTime
                },
                success: function(response) {
                   var compileResult = response.data.compileResult;
