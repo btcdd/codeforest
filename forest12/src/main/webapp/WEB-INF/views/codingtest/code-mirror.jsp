@@ -181,10 +181,11 @@ $(function() {
    var timer = setInterval(function(){
       var diff = (Date.parse(new Date(endTime)) - Date.parse(new Date())) / 1000; 
       if(diff <0){
-         alert("시험 종료");
-         clearInterval(timer);
-         return;
-      }
+          alert("시험 종료");
+          clearInterval(timer);
+          window.open('','_self').close();
+          return;
+       }
       
        if (diff >= (365.25 * 86400)) { // 365.25 * 24 * 60 * 60
            years = Math.floor(diff / (365.25 * 86400));
@@ -198,21 +199,21 @@ $(function() {
          }
          
          if (diff >= 3600) { // 60 * 60   
-           hours = Math.floor(diff / 3600);
-           diff -= hours * 3600;
+           	hours = Math.floor(diff / 3600);
+           	diff -= hours * 3600;
          }
          
          if (diff >= 60) {
-          min = Math.floor(diff / 60);
-           diff -= min * 60;
+          	min = Math.floor(diff / 60);
+           	diff -= min * 60;
+         }else if(diff < 60){
+        	 min = 0;
          }
-         
          var sec = diff;
-         
-         $(".countdown table td:first").text("남은 시간  ");
-       $(".countdown table td+td").text("[ "+hours+"시");
-      $(".countdown table td+td+td").text(min+"분");
-      $(".countdown table td:last").text(sec+"초"+" ]"); 
+     $(".countdown table td:first").text("남은 시간  ");
+     $(".countdown table td+td").text("[ "+hours+"시");
+     $(".countdown table td+td+td").text(min+"분");
+     $(".countdown table td:last").text(sec+"초"+" ]"); 
 
    },1000);   
    
