@@ -11,7 +11,7 @@
 							var codeList = data.codeList[j];
 							if(vo.no == codeList.savePathNo) {
 					%>
-							<li class='userFile' data-no="<%=codeList.no%>" data-file-name="<%=codeList.fileName %>">
+							<li class='userFile' data-no="<%=codeList.no%>" data-file-name="<%=codeList.fileName %>" data-no2="<%=vo.no%>" data-no3="<%=vo.subProblemNo%>" >
 								<div class="file" data-no="<%=codeList.no%>" data-subproblem-no="<%=codeList.subProblemNo%>" data-language="<%=codeList.language%>" data-file-name="<%=codeList.fileName %>" data-package-path="<%=vo.packagePath %>"><%=codeList.fileName%></div>
 							</li>	
 					<%

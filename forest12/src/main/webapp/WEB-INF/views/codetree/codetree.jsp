@@ -455,7 +455,8 @@ $(function() {
       $(document).on('mousedown','.userFile',function(e){
          $(".contextmenu").hide();
          if(e.which == 3){
-                    
+             savePathNo = $(this).data("no2");
+             subProblemNo = $(this).data("no3");          
             
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
@@ -603,7 +604,7 @@ $(function() {
         close: function(){}
     });
     
-    $(document).on('click','#userfile-delete',function(){
+    $(document).on('click','#userfile-delete',function(){    	
        console.log("userfile-delete   >>codeNo",codeNo);       
        $(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
        dialogDelete.dialog("open");
@@ -661,6 +662,9 @@ $(function() {
     
     
     $(document).on('click','#userfile-update',function(){
+        console.log("update  savePathNo!!!"+savePathNo);
+        console.log("update  subProblemNo!!!"+subProblemNo);
+        
     	$(".updateErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
         $(".fileName-update").attr("placeholder","."+lang);
