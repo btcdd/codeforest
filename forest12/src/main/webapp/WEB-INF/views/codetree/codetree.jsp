@@ -547,10 +547,11 @@ $(function() {
         buttons:{
             "추가": function(){
             	var lang = $(".lang option:selected").val();
-            	$(".fileName-input").attr("placeholder",'.'+lang+')
+            	var selected_lang = $(".fileName-input").attr("placeholder",".java");
                 var filename = $(".fileName-input").val();
-                var filename2 =filename.replace(/(\s*)/g,""); 
-                if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
+                var filename2 =filename.replace(/(\s*)/g,"");
+                console.log("filename2>>",filename2);
+                if(filename2.split(".").length >2 || selected_lang !=lang || filename2.split(".")[0] ==""){
                    alert("잘못된 형식입니다");
                    return;
                 }
@@ -1529,7 +1530,7 @@ window.onload = function() {
    </div>
    		
    		<div id="dialog-insert-form" title="파일 추가" style="display:none">
-   			<input type="text" class="fileName-input"/>
+   			<input type="text" class="fileName-input" />
    		</div>   
          <div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
             <p class="validateTips"></p>  
