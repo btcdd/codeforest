@@ -408,6 +408,8 @@ $(function() {
             //tempFile = $(this);
             savePathNo = $(this).data("no");
              subProblemNo = $(this).data("no2");
+             console.log("savePathNo>>>",savePathNo);
+             console.log("subProblemNo>>>",subProblemNo);             
               //Get window size:
               var winWidth = $(document).width();
               var winHeight = $(document).height();
