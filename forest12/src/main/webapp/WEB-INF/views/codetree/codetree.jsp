@@ -115,6 +115,7 @@ function sendMessage(event, res) {
         content: messageContent,
         language:$(".lang option:selected").val(),
       code:code,
+      submitPandan: submitPandan,
       execPandan: execPandan,
         type: 'CHAT'
     };
