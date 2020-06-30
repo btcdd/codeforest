@@ -120,11 +120,10 @@ public class CodeTreeChatController {
 					String input = chatMessage.getContent();
 					// 지술이형 코드!!
 					if(input == null) {
-						writer.write(codetreeService.getExamInput(subProblemNo));
+						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
 						writer.flush();
 						readBuffer.setLength(0);
 					}
-
 					if (!("".equals(input)) || input != null) {
 						try {
 							input += "\n";
