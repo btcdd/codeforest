@@ -720,13 +720,13 @@ $(function() {
                           $(".fileName-update").val("");
                           fileFetchList(); 
                           
-                          $(this).dialog("close");
+                          
                        },
                        error: function(xhr, status, e) {
                           console.error(status + ":" + e);
                        }
                     });
-                    //$(this).dialog("close");          				
+                    $(this).dialog("close");          				
     			}
     		},
     		{
