@@ -189,6 +189,8 @@ var editorArrayIndex = 0;
 $(function() {
    fileFetchList();
    
+   submitPandan = false;
+   
 ////////////////// code-mirror /////////////////////////////   
 
    
