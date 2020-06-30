@@ -156,7 +156,6 @@ public class CodingTestController {
 
 		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나 이상
 		
-		
 		if(problemVo.getState().equals("y") && problemVo.getPassword().equals(tempKey)) {
 			testService.insertUserInfo(name,birth,authUser.getNo());
 			List<SubProblemVo> subProblemList = testService.findSubProblemList(problemNo);
@@ -210,19 +209,7 @@ public class CodingTestController {
 			model.addAttribute("saveVo", saveVo);
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);
-
-			
-			System.out.println("problemVo>>>>"+problemVo);
-			System.out.println("subProblemList>>>>"+subProblemList);
-			System.out.println("saveVo>>>>"+saveVo);
-			System.out.println("savePathList>>>>"+savePathList);
-			System.out.println("codeList>>>>"+codeList);
-						
-
-			
 			model.addAttribute("userStartTime",saveVO.getEnterTime());
-		
-			
 			
 			return "codingtest/code-mirror"; //이동
 		}
