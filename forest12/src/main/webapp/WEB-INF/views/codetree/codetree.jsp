@@ -1109,7 +1109,7 @@ $(function() {
                   'codeValue' : currentEditor.getValue(),
                   'problemNo' : problemNo,
                   'compileResult1': compileResult1,
-                  'compileResult2': message.programPandan,
+                  'compileResult2': message.errorPandan,
                   'outputResult': outputResult
                },
                success: function(response) {

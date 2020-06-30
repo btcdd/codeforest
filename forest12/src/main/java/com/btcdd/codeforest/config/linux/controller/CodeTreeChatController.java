@@ -90,7 +90,7 @@ public class CodeTreeChatController {
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
-					chatMessage.setProgramPandan(true);
+					chatMessage.setErrorPandan(true);
 					return chatMessage;
 				}
 			}
