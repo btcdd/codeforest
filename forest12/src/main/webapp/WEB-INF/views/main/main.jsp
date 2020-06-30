@@ -119,17 +119,18 @@ function onMessageReceived(payload) {
     prevText = $('#result').val() + '\n';
     $('#result').val(prevText + message.content);
     
+    outputResult += message.content;
+    
     prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
+    	outputResult = outputResult.substring(0, outputResult.length - 15);
     	$('#tmp').val(outputResult);
     	outputResult = '';
     	socket.close();
-    } else {
-    	outputResult += message.content;
     }
 }
 
