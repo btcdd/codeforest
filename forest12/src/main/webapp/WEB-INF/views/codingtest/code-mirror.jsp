@@ -173,7 +173,7 @@ var fileFetchList = function(){
          });   
 };
 
-var userStartTime = "2020-05-30 07:45:19";
+var userStartTime = "${userStartTime}";
 console.log("userStartTime>>>>",userStartTime);
 
 
