@@ -118,12 +118,11 @@ public class CodeTreeChatController {
 				try {
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
-					if(submitPandan) {
-						input = codetreeService.getExamInput(subProblemNo);
-					}
 					// 지술이형 코드!!
 					if(input == null) {
-						return;
+						writer.write(codetreeService.getExamInput(subProblemNo));
+						writer.flush();
+						readBuffer.setLength(0);
 					}
 
 					if (!("".equals(input)) || input != null) {
