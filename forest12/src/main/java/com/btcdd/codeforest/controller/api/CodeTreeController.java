@@ -228,7 +228,7 @@ public class CodeTreeController {
 	@PostMapping("/submit")
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
-			String compileResult1, String compileResult2, String outputResult, HttpSession session) {
+			String compileResult1, Boolean compileResult2, String outputResult, HttpSession session) {
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
@@ -248,7 +248,7 @@ public class CodeTreeController {
 			compileResult = false;
 		}
 		else {
-			if(compileResult2 == null || compileResult2.equals("")) {
+			if(compileResult2 == false) {
 				for(int i = 0; i < examOutputSplit.length; i++) {
 					if(i == examOutputSplit.length-1) {
 						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
