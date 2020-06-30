@@ -220,7 +220,7 @@ public class CodingTestController {
 						
 
 			
-			model.addAttribute("userStartTime",saveVo.getEnterTime());
+			model.addAttribute("userStartTime",saveVO.getEnterTime());
 		
 			
 			
