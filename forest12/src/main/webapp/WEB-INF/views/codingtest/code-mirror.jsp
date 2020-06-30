@@ -208,7 +208,7 @@ $(function() {
            	diff -= min * 60;
          }else if(diff < 60){
         	 min = 0;
-        	 $(".countdown").css("color","red");
+        	 $(".countdown table").css("color","red");
          }
          var sec = diff;
      $(".countdown table td:first").text("남은 시간  ");
