@@ -130,7 +130,8 @@ public class CodeTreeChatController {
 //					} 
 //					// 지술이형 코드!!
 //					else 
-					if(submitPandan == false && input == null) {
+					
+					if((submitPandan == false || submitPandan == null)&& input == null) {
 						return;
 					}
 					
