@@ -57,7 +57,6 @@ public class CodeTreeChatController {
 		Long subProblemNo = (Long) obj.get("subProblemNo");
 		
 		CodeTreeService codetreeService = new CodeTreeService();
-		String in = codetreeService.getExamInput(subProblemNo) + "\n";
 		
 		try {
 			if(pandan) {
@@ -123,6 +122,8 @@ public class CodeTreeChatController {
 					String input = chatMessage.getContent();
 					
 					if(submitPandan == true && input == null) {
+						String in = codetreeService.getExamInput(subProblemNo) + "\n";
+						Thread.sleep(100);
 						writer.write(in);
 						writer.flush();
 						readBuffer.setLength(0);
