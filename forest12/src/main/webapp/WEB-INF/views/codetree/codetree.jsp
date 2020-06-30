@@ -687,6 +687,7 @@ $(function() {
                        return;
                     }
                     var fileName = filename2;
+                    console.log("fileName>>>>",fileName);
                     $.ajax({
                        url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
                        async: true,
