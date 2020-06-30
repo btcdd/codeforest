@@ -180,6 +180,7 @@ $(function() {
    
    var timer = setInterval(function(){
       var diff = (Date.parse(new Date(endTime)) - Date.parse(new Date())) / 1000; 
+      console.log("first>>",diff);
       if(diff <0){
           alert("시험 종료");
           clearInterval(timer);
@@ -198,24 +199,20 @@ $(function() {
          }
          
          if (diff >= 3600) { // 60 * 60   
-           hours = Math.floor(diff / 3600);
-           diff -= hours * 3600;
+           	hours = Math.floor(diff / 3600);
+           	diff -= hours * 3600;
          }
-         
+         console.log("min diff>>>",diff);
          if (diff >= 60) {
-          min = Math.floor(diff / 60);
-           diff -= min * 60;
+          	min = Math.floor(diff / 60);
+           	diff -= min * 60;
          }
-         
-         var sec = diff;
- 
          console.log("min>>>",min);
-         console.log("sec>>>",sec);
-         console.log("diff>>>",diff);
-         $(".countdown table td:first").text("남은 시간  ");
-       $(".countdown table td+td").text("[ "+hours+"시");
-      $(".countdown table td+td+td").text(min+"분");
-      $(".countdown table td:last").text(sec+"초"+" ]"); 
+         var sec = diff;
+     $(".countdown table td:first").text("남은 시간  ");
+     $(".countdown table td+td").text("[ "+hours+"시");
+     $(".countdown table td+td+td").text(min+"분");
+     $(".countdown table td:last").text(sec+"초"+" ]"); 
 
    },1000);   
    
