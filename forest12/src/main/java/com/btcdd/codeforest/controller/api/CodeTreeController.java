@@ -116,7 +116,6 @@ public class CodeTreeController {
 		if(!exist) {
 			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);
-			map.put("result", "yes");
 			// 여기!!
 		}else {
 			System.out.println("기존파일이 존재한다");

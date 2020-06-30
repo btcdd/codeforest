@@ -660,7 +660,6 @@ $(function() {
     
     
     $(document).on('click','#userfile-update',function(){
-    	$(".updateErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
         $(".fileName-update").attr("placeholder","."+lang);
         dialogUpdate.dialog("open");
@@ -701,27 +700,48 @@ $(function() {
                           'prevFileName':prevFileName
                        },
                        success: function(response) {
-              			  
-                    	  if(response.data.result == "yes"){
-                              layoutId = "layout-"+codeNo;
+
+                           layoutId = "layout-"+codeNo;
+                           
+                           
+                           if(root != null){
+                              console.log("root가 있을경우 해당");
+                              tempLayout = root.getItemsById(layoutId)[0]; 
+                             if(tempLayout != null){
+                                tempLayout.setTitle(fileName);
+                             }
+                           }
+                          
+                           if(response.data.result == 'no'){
+                        	 $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
+                             return;
+                          }
+                          $(".file-tree__subtree").remove();
+                          fileFetchList();                     	   
+                          $("#CloseUpdateButton").click();
+                    	   
+                       /* if(response.data.result=="no"){
+                             $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");	  
+	                     	 $(".fileName-update").val("");      
+	                     	 return;
+                       }                  
+
+                       layoutId = "layout-"+codeNo;
                               
                               
-                              if(root != null){
-                                 console.log("root가 있을경우 해당");
-                                 tempLayout = root.getItemsById(layoutId)[0]; 
-                                if(tempLayout != null){
-                                   tempLayout.setTitle(fileName);
-                                }
-                              }  
-                              $(".file-tree__subtree").remove();
-                              $(".fileName-update").val("");
-                              fileFetchList(); 
-                              $("#CloseUpdateButton").click();
-                    	  }else if(response.data.result=="no"){
-                    		  $(".fileName-update").val("");
-                              $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");	  
-                    	  }                  
-    
+	                   if(root != null){
+	                   	   console.log("root가 있을경우 해당");
+	                       tempLayout = root.getItemsById(layoutId)[0]; 
+	                       if(tempLayout != null){
+	                          tempLayout.setTitle(fileName);
+	                       }
+	                   }  
+	                   $(".file-tree__subtree").remove();
+	                   $(".fileName-update").val("");
+	                   fileFetchList(); 
+	                   $("#CloseUpdateButton").click();
+	                   $(".updateErrorMessage").html("<p></p>");
+ */
                        },
                        error: function(xhr, status, e) {
                           console.error(status + ":" + e);
