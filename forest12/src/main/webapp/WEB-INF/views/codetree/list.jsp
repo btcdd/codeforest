@@ -44,6 +44,12 @@ var originList = function(page, kwd) {
 			}
 			map = response.data;
 			
+			if(map.count / 10 % 1 == 0) {
+	        	 endPageTrueNum = map.count / 10;
+	        } else {
+		         endPageTrueNum = parseInt(map.count / 10 + 1);
+	        }
+			
 			fetchList();
 		},
 		error: function(xhr, status, e){
@@ -69,7 +75,7 @@ var fetchList = function() {
 	$(".problems").append(str);
 	var str2 = "<div class='pager'>";
 	if(page != '1'){
-		str2 += '<span class="prev">◀</span>';
+		str2 += '<span class="prev"><i class="fas fa-angle-left"></i></span>';
 	}
 	for(var i = map.startPageNum; i < map.endPageNum; i++){
 		str2 += '<span class="page" id="' + i + '">';
@@ -82,7 +88,7 @@ var fetchList = function() {
 		str2 += '</span>';
 	}	
 	if(map.next){
-		str2 += '<span class="next">▶</span>';
+		str2 += '<span class="next"><i class="fas fa-angle-right"></i></span>';
 	}	
 	str2 += "</div>";
 	$(".problems").after(str2);
@@ -95,12 +101,15 @@ var nextRemove = function() {
 		$('.next').remove();
 		nextPandan = false;
 	} else if(nextPandan == false){
-		$('.pager').append('<span class="next">▶</span>');
+		$('.pager').append('<span class="next"><i class="fas fa-angle-right"></i></span>');
 		nextPandan = true;
 	}
 }
 $(function() {
 	originList('1', '');
+	
+	nextRemove();
+	
 	$(document).on("click", ".page", function() {
 		page = $(this).attr('id');
 		originList(page, kwd);

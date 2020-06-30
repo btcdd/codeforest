@@ -113,3 +113,13 @@ input[type=text] {
 	float: right;
 	margin-top: -23px;
 }
+
+.page, .next, .prev {
+	position: relative;
+    display: inline-block;
+    padding: .53125rem .84375rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #90929e;
+	cursor: pointer;
+}

@@ -241,7 +241,6 @@ float: left;
     margin-bottom: 0;
     margin-left: 2.6%;
     text-align: center;
-    cursor: pointer;
 }
 
 .page {
@@ -374,6 +373,7 @@ float: left;
     margin-left: -1px;
     line-height: 1.25;
     color: #90929e;
+	cursor: pointer;
 }
 
 #MOVE-TOP {
