@@ -228,11 +228,13 @@ public class CodeTreeController {
 	@PostMapping("/submit")
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
-			String compileResult1, String compileResult2,HttpSession session) {
+			String compileResult1, String compileResult2, String outputResult, HttpSession session) {
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
+		
+		
 		
 		boolean compileResult = true;
 		boolean compileError = false;
@@ -240,22 +242,22 @@ public class CodeTreeController {
 		Map<String, Object> map = new HashMap<>();
 		
 		String[] examOutputSplit = examOutput.split("\n");
-		String[] compileResult1Split =compileResult1.split("\n");
+		String[] outputResultSplit =outputResult.split("\n");
 		
-		if(examOutputSplit.length != compileResult1Split.length) {
+		if(examOutputSplit.length != outputResultSplit.length) {
 			compileResult = false;
 		}
 		else {
 			if(compileResult2 == null || compileResult2.equals("")) {
 				for(int i = 0; i < examOutputSplit.length; i++) {
 					if(i == examOutputSplit.length-1) {
-						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
+						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
 							compileResult = false;
 							break;
 						}
 					}
 					else {
-						if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
+						if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
 							compileResult = false;
 							break;
 						}

@@ -52,11 +52,14 @@ var message;
 var tempFile = null;
 var socket;
 var prevText = '';
-
 var submitPandan;
+var outputResult = '';
 
 //채팅 시작하기
 function connect(event) {
+	
+	outputReuslt = '';
+	
    if(currentEditor == null){ 
       return;
    }
@@ -127,15 +130,22 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
+    prevText = '';
    prevText = $('.terminal').val() + '\n';
+   
    $('.terminal').val(prevText + message.content);
+   
+   outputResult += message.content;
    
    prevCursor = $('.terminal').prop('selectionStart') - 1;
    
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
+   // 프로그램 끝!
    if(message.programPandan) {
        $('.terminal').attr("readonly", true);
+       outputResult = outputResult.substring(0, outputResult.length - 16);
+       
        submitPandan = false;
        socket.close();
    }
@@ -1103,7 +1113,8 @@ $(function() {
                   'codeValue' : currentEditor.getValue(),
                   'problemNo' : problemNo,
                   'compileResult1': compileResult1,
-                  'compileResult2': compileResult2
+                  'compileResult2': compileResult2,
+                  'outputResult': outputResult
                },
                success: function(response) {
                   var compileResult = response.data.compileResult;
