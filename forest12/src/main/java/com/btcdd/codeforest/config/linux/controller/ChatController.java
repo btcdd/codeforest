@@ -166,7 +166,7 @@ public class ChatController {
 		}
 
 		try {
-			Thread.sleep(500);
+			Thread.sleep(800);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
