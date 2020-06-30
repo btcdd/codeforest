@@ -546,48 +546,56 @@ $(function() {
         width:300,
         height:220,
         modal:true,
-        buttons:{
-            "추가": function(){
-            	var lang = $(".lang option:selected").val();
-                var filename = $(".fileName-input").val();
-                var filename2 =filename.replace(/(\s*)/g,"");
-                if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
-                   alert("잘못된 형식입니다");
-                   return;
-                }
-                var fileName = filename2;
-                
-                $.ajax({
-                   url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
-                   async: true,
-                   type: 'post',
-                   dataType: 'json',
-                   data: {
-                      'savePathNo' : savePathNo,
-                      'language' : lang,
-                      'fileName' : fileName,
-                      'subProblemNo':subProblemNo
-                   },
-                   success: function(response) {
-                               
-                      if(response.data.result == 'no'){
-                         alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                         return;
-                      }
-                      $(".file-tree__subtree").remove();
-                      $(".fileName-input").val("");	
-                      fileFetchList();
-                      
-                   },
-                   error: function(xhr, status, e) {
-                      console.error(status + ":" + e);
-                   }
-                });
-                $(this).dialog("close");
-             },
-             "취소":function(){
-                $(this).dialog("close");
-             }        	
+        buttons:[
+        		{
+        			text:"추가",
+        			id:"fileInsertButton",
+        			click:function(){
+                    	var lang = $(".lang option:selected").val();
+                        var filename = $(".fileName-input").val();
+                        var filename2 =filename.replace(/(\s*)/g,"");
+                        if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
+                           alert("잘못된 형식입니다");
+                           return;
+                        }
+                        var fileName = filename2;
+                        
+                        $.ajax({
+                           url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
+                           async: true,
+                           type: 'post',
+                           dataType: 'json',
+                           data: {
+                              'savePathNo' : savePathNo,
+                              'language' : lang,
+                              'fileName' : fileName,
+                              'subProblemNo':subProblemNo
+                           },
+                           success: function(response) {
+                                       
+                              if(response.data.result == 'no'){
+                                 alert("이미 파일이 존재합니다.");//메시지 처리 필요
+                                 return;
+                              }
+                              $(".file-tree__subtree").remove();
+                              $(".fileName-input").val("");	
+                              fileFetchList();
+                              
+                           },
+                           error: function(xhr, status, e) {
+                              console.error(status + ":" + e);
+                           }
+                        });
+                        $(this).dialog("close");        				
+        			}
+        		},
+        		{
+        			text:"취소":
+        			click:function(){
+        				$(this).dialog("close");
+        			}
+        		}
+        	]       	
         },
         close: function(){}
     });
@@ -701,8 +709,7 @@ $(function() {
                       $(".fileName-update").val("");
                       fileFetchList(); 
                       
-                      
-                      
+
                    },
                    error: function(xhr, status, e) {
                       console.error(status + ":" + e);
