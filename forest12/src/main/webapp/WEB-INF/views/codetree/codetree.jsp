@@ -592,6 +592,7 @@ $(function() {
         		{
         			text:"취소",
         			click:function(){
+        				$(".fileName-input").val("");	
         				$(this).dialog("close");
         			}
         		}
