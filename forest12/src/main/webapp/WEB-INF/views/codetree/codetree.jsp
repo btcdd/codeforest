@@ -713,7 +713,6 @@ $(function() {
                           
                            if(response.data.result == 'no'){
                              alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                             $(this).dialog("open");
                              return;
                           }
                           $(".file-tree__subtree").remove();
