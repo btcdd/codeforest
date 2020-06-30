@@ -97,7 +97,7 @@ function onConnected() {
     
     execPandan = false;
     // Tell your username to the server
-    stompClient.send("/app/codetree",
+    stompClient.send("/app/codingtest",
         {},
         JSON.stringify(chatMessage)
     );
@@ -118,7 +118,7 @@ function sendMessage(event, res) {
       execPandan: execPandan,
         type: 'CHAT'
     };
-    stompClient.send("/app/codetree", {}, JSON.stringify(chatMessage));
+    stompClient.send("/app/codingtest", {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
