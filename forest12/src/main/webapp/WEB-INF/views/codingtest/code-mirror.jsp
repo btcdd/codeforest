@@ -208,7 +208,7 @@ $(function() {
          }
          
          var sec = diff;
-
+ 
          console.log("min>>>",min);
          console.log("sec>>>",sec);
          console.log("diff>>>",diff);
