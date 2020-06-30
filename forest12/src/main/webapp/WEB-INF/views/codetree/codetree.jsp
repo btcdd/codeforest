@@ -457,7 +457,8 @@ $(function() {
          if(e.which == 3){
              savePathNo = $(this).data("no2");
              subProblemNo = $(this).data("no3");          
-            
+            console.log("savePathNo>>>",savePathNo);
+            console.log("subProblemNo>>>",subProblemNo);
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
             if(currentFileNameSplit != "Test"){

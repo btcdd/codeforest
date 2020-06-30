@@ -1,8 +1,7 @@
 <ul class="file-tree__subtree"> 
        <%
-       		var vo = null;
        		for(var i = 0; i < data.savePathList.length; i++) {
-       		vo = data.savePathList[i];
+       		var vo = data.savePathList[i];
        %> 
 	       <li class="file-tree__item">
 	       		<div id="folder" class="folder folder--open" data-no="<%=vo.no %>" data-no2="<%=vo.subProblemNo%>" ><%=data.saveVo.title%>/<%=i+1 %></div>
