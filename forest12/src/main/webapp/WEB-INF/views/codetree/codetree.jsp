@@ -701,7 +701,7 @@ $(function() {
                           'prevFileName':prevFileName
                        },
                        success: function(response) {
-
+ 
                            layoutId = "layout-"+codeNo;
                            if(response.data.result == 'no'){
                           	 $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
