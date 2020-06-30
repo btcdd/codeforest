@@ -701,7 +701,7 @@ $(function() {
                           'prevFileName':prevFileName
                        },
                        success: function(response) {
-
+                    	   console.log("response.data.exist>>>>>",response.data.exist);
                            layoutId = "layout-"+codeNo;
                            
                            
@@ -712,8 +712,8 @@ $(function() {
                                 tempLayout.setTitle(fileName);
                              }
                            }
-                           console.log('$(".file")>>>>>>>>>',$(".file"));
-                           if(response.data.result == 'no' ){
+                           
+                           if(response.data.result == 'no'){
                         	 $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
                              return;
                           }
