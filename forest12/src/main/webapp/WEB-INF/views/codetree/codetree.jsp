@@ -1003,6 +1003,7 @@ $(function() {
         	switch(event.target.className){
         	case 'fileName-input':
         		console.log('$(".fileName-input").val()>>>>>>>',$(".fileName-input").val());
+        		$("#fileInsertButton").click();
         		break;
         	}
         }
