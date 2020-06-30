@@ -575,7 +575,7 @@ $(function() {
         console.log("savePathNo!!!",savePathNo);
         console.log("subProblemNo!!!",subProblemNo);
         var lang = $(".lang option:selected").val();   
-        $(".fileName-input").attr("placeholder","."+lang);
+        $(".fileName-insert").attr("placeholder","."+lang);
         dialogInsert.dialog("open");
      });   
    
@@ -590,7 +590,7 @@ $(function() {
         			id:"fileInsertButton",
         			click:function(){
                     	var lang = $(".lang option:selected").val();
-                        var filename = $(".fileName-input").val();
+                        var filename = $(".fileName-insert").val();
                         var filename2 =filename.replace(/(\s*)/g,"");
                         if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
                            alert("잘못된 형식입니다");
@@ -613,11 +613,11 @@ $(function() {
                                        
                               if(response.data.result == 'no'){
                                  alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                                 $(".fileName-input").val("");
+                                 $(".fileName-insert").val("");
                                  return;
                               }
                               $(".file-tree__subtree").remove();
-                              $(".fileName-input").val("");	
+                              $(".fileName-insert").val("");	
                               fileFetchList();
                               
                            },
@@ -631,7 +631,7 @@ $(function() {
         		{
         			text:"취소",
         			click:function(){
-        				$(".fileName-input").val("");	
+        				$(".fileName-insert").val("");	
         				$(this).dialog("close");
         			}
         		}
@@ -963,6 +963,14 @@ $(function() {
                $("#Save").trigger("click");
                break;
            } 
+        }else if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)){
+        	switch(event.target.className){
+        	case 'fileName-insert':
+        		$("#fileInsertButton").click();
+        		break;
+        	case 'fileName-update':
+        		$("#fileUpdateButton").click();
+        	}
         }
     });
      
@@ -1604,7 +1612,7 @@ window.onload = function() {
      
    </div>
    		<div id="dialog-insert-form" title="파일 추가" style="display:none">
-   			<input type="text" class="fileName-input" />
+   			<input type="text" class="fileName-insert" />
    		</div>
    		<div id="dialog-update-form" title="파일 수정" style="display:none">
    			<input type="text" class="fileName-update" />
