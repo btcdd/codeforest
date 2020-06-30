@@ -1094,7 +1094,9 @@ $(function() {
          var problemNo = "${saveVo.problemNo }";
          
          setTimeout(function(){
-
+        	 
+			console.log('message.errorPandan:', message.errorPandan);	
+        	 
                var problemNo = "${saveVo.problemNo }";
              $.ajax({
                url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
