@@ -962,7 +962,7 @@ $(function() {
         	}
         }
     });
-     
+      
    $(document).on("propertychange change keyup paste", function(e){
 
       if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update" && e.target.className != "terminal"){
