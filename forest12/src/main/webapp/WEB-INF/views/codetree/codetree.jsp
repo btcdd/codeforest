@@ -716,6 +716,7 @@ $(function() {
                               $(".fileName-update").val("");
                               fileFetchList(); 
                               $(this).dialog("close");
+                              return;
                     	  }
 
                            
