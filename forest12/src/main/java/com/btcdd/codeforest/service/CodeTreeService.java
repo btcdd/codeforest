@@ -1,5 +1,6 @@
 package com.btcdd.codeforest.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,17 +88,25 @@ public class CodeTreeService {
 		}
 		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력
 		
-		
-		List<SaveVo> saveVoList = codetreeRepository.selectSaveNoList(displayPost,postNum,keyword,authUserNo);
 		Map<String, Object> map = new HashMap<>();
-		map.put("list",saveVoList);		
+		List<SaveVo> saveVoList = codetreeRepository.selectSaveNoList(displayPost,postNum,keyword,authUserNo);
+		List<SavePathVo> savePathVoList = new ArrayList<>();
+		List<Long> subProblemNoCountList = new ArrayList<>();
+		for(int i = 0; i < saveVoList.size(); i++) {
+			savePathVoList = codetreeRepository.findSavePathList(saveVoList.get(i).getNo());
+			subProblemNoCountList.add((long)savePathVoList.size());
+		}
+		
+		map.put("subProblemNoCountList", subProblemNoCountList);
+		map.put("list",saveVoList);
 		map.put("pageNum",pageNum);
 		map.put("select",currentPage);
 		map.put("startPageNum",startPageNum);
 		map.put("endPageNum",endPageNum + 1);
 		map.put("next",next);
 		map.put("keyword",keyword);
-		map.put("count", count);		
+		map.put("count", count);
+		
 		return map;
 	}
 

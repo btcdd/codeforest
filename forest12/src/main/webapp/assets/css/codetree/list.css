@@ -57,8 +57,6 @@ html, body{height:100%;}
 	margin-right: 4px;
 } 
 
-
-
 .pager {
     width: 90%;
     float: left;
@@ -130,4 +128,8 @@ input[type=text] {
     line-height: 1.25;
     color: #90929e;
 	cursor: pointer;
+}
+
+.sub-problem-count {
+	float: left;
 }
