@@ -243,12 +243,7 @@ public class CodeTreeController {
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] outputResultSplit =outputResult.split("\n");
 		
-		if(examOutputSplit.length != outputResultSplit.length) {
-			compileError = false;
-			compileResult = false;
-			test = "여깅1";
-		}
-		else {
+		
 			if(compileResult2 == false) {
 				for(int i = 0; i < examOutputSplit.length; i++) {
 					if(i == examOutputSplit.length-1) {
@@ -274,7 +269,6 @@ public class CodeTreeController {
 				compileError = true;
 				compileResult = false;
 			}
-		}
 		
 		map.put("compileError", compileError);
 		map.put("compileResult", compileResult);
