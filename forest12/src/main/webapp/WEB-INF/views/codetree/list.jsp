@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/list.css">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
     <link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -44,6 +44,12 @@ var originList = function(page, kwd) {
 			}
 			map = response.data;
 			
+			if(map.count / 10 % 1 == 0) {
+	        	 endPageTrueNum = map.count / 10;
+	        } else {
+		         endPageTrueNum = parseInt(map.count / 10 + 1);
+	        }
+			
 			fetchList();
 		},
 		error: function(xhr, status, e){
@@ -52,23 +58,23 @@ var originList = function(page, kwd) {
 	});	
 }
 
-
-
 var fetchList = function() {
 	$(".list .problem-box").remove();
 	$(".list .pager").remove();
 	var str="";
 	for(var i=0;i<map.list.length;i++){
 		str+= '<div data-user="'+map.list[i].userNo+'" data-no="'+map.list[i].no+'" class="problem-box" >'+
-			'<div class="problem-no">'+map.list[i].problemNo+'</div>'+
+			'<div><div class="problem-no">'+map.list[i].problemNo+'</div>'+
+			'<img class="top-right-arrow" src="${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow.png"></div>'+
 			'<div class="problem-title">'+map.list[i].title+'</div>'+
-			'<div class="problem-user">'+map.list[i].kind +" "+ map.list[i].nickname+'</div>'+
+			'<div><div class="sub-problem-count">문제 개수 '+ map.subProblemNoCountList[i] +'</div>'+
+			'<div class="problem-user">'+map.list[i].kind +" "+ map.list[i].nickname+'</div></div>'+
 		'</div>';
 	}
 	$(".problems").append(str);
 	var str2 = "<div class='pager'>";
 	if(page != '1'){
-		str2 += '<span class="prev">◀</span>';
+		str2 += '<span class="prev"><i class="fas fa-angle-left"></i></span>';
 	}
 	for(var i = map.startPageNum; i < map.endPageNum; i++){
 		str2 += '<span class="page" id="' + i + '">';
@@ -81,7 +87,7 @@ var fetchList = function() {
 		str2 += '</span>';
 	}	
 	if(map.next){
-		str2 += '<span class="next">▶</span>';
+		str2 += '<span class="next"><i class="fas fa-angle-right"></i></span>';
 	}	
 	str2 += "</div>";
 	$(".problems").after(str2);
@@ -94,12 +100,15 @@ var nextRemove = function() {
 		$('.next').remove();
 		nextPandan = false;
 	} else if(nextPandan == false){
-		$('.pager').append('<span class="next">▶</span>');
+		$('.pager').append('<span class="next"><i class="fas fa-angle-right"></i></span>');
 		nextPandan = true;
 	}
 }
 $(function() {
 	originList('1', '');
+	
+	nextRemove();
+	
 	$(document).on("click", ".page", function() {
 		page = $(this).attr('id');
 		originList(page, kwd);
@@ -128,10 +137,6 @@ $(function() {
 	});	
 	
 	$(document).on("click",".problem-box",function(){
-/* 		var codetreeURL = '${pageContext.request.contextPath }/codetree/codemirror' 
-		window.open(codetreeURL,'_blank'); */
-		
-		
 		var saveNo = $(this).data('no');
 		$.ajax({
 	          url:'${pageContext.request.contextPath }/api/codetree/codemirror/',
@@ -149,32 +154,13 @@ $(function() {
 	             console.error(status + ":" + e);
 	          }
 	       }); 
-		
 	});
- 		
-/*  	      $.ajax({
-	          url:'${pageContext.request.contextPath }/api/codetree/',
-	          async:false,
-	          type:'get',
-	          dataType:'json',
-	          data : '',
-	          success:function(response){
-	             console.log(response.data);
-	             console.log(response.data.authUser.email);
-var codetreeURL = '${pageContext.request.contextPath }/codetree/list/' + response.data.authUser.no
-	          window.open('${pageContext.request.contextPath }/codetree/list/' + response.data.authUser.no,'_blank');
-	          window.open(codetreeURL,'_blank');
-	          window.open('','_blank');
-	              
-
-	              
-	          },
-	          error: function(xhr, status, e) {
-	             console.error(status + ":" + e);
-	          }
-	       });  */
-
- 	
+	
+	$('.problem-box').hover(function() {
+		$(this).children().children('img').attr("src", '${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow-hover.png');
+	}, function(){
+		$(this).children().children('img').attr("src", '${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow.png');
+	});
 });
 
 </script>   

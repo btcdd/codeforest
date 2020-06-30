@@ -97,13 +97,21 @@ var fetchList = function() {
    str += '<tbody id="problem-tbody">';
    for(var i = 0; i < map.list.length; i++){
 	   if(map.list[i].startTime <= getTimeStamp() && map.list[i].endTime >= getTimeStamp()) {
+		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><button class="blinking" id="modify-btn" style="padding: 2px 9px; background-color: #fc9303; border: 1px solid #fc9303; outline: none; cursor: default" >진행중</button></a></td>';
 		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
-		   titleStr = map.list[i].title;
 	   } else if(map.list[i].startTime > getTimeStamp()) {
 		   titleStr = map.list[i].title + '<span class="blinking" id="expected" style="color: #fff; background-color: #3e91b5; border: 1px solid #3e91b5; border-radius: 0.5rem; padding: 0 1em; margin-left: 1em; font-size: 0.8em; margin-top: 2px;outline: none; cursor: default" >예정</span>';
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
 		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
+	   } else if(map.list[i].privacy == null) {
+		   titleStr = map.list[i].title;
+		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
+		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
+   	   } else if(map.list[i].privacy == 'n' && map.list[i].endTime <= getTimeStamp()){ 
+		   titleStr = map.list[i].title;
+		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
+		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
 	   } else {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
@@ -466,8 +474,8 @@ $(function() {
             <table class="quiz-table">
                <thead>
                    <tr>
-                       <th width="9%">번호</th>
-                       <th width="47%">제목</th>
+                       <th width="13%">문제번호</th>
+                       <th width="43%">제목</th>
                        <th width="10%">조회수</th>
                        <th width="10%">추천수</th>
                        <th width="10%">수정하기</th>

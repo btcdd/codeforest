@@ -28,15 +28,15 @@ import com.btcdd.codeforest.runlanguage.RunPyLinux;
 import com.btcdd.codeforest.service.CodeTreeService;
 
 @Controller
-public class CodeTreeChatController {
+public class CodingTestChatController {
 	
 	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
-
+	
 	@Autowired
 	CodeTreeService codetreeService = new CodeTreeService();
-	
-	@MessageMapping("/codetree")
+
+	@MessageMapping("/codingtest")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
@@ -58,7 +58,6 @@ public class CodeTreeChatController {
 		String packagePath = (String) obj.get("packagePath");
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
-		
 		
 		try {
 			if(pandan) {
@@ -124,12 +123,12 @@ public class CodeTreeChatController {
 						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
 						writer.flush();
 						readBuffer.setLength(0);
-					} 
+					}
 					if( (submitPandan == false || submitPandan.equals("null")) && input == null) {
 						return;
 					}
-					
-					if (submitPandan == false && (!("".equals(input)) || input != null)) {
+
+					if(submitPandan == false && (!("".equals(input)) || input != null)) {
 						try {
 							input += "\n";
 							writer.write(input);

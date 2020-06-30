@@ -2,7 +2,6 @@ package com.btcdd.codeforest.config.linux.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,6 +11,7 @@ import java.util.concurrent.Executors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -25,19 +25,13 @@ import com.btcdd.codeforest.runlanguage.RunCs;
 import com.btcdd.codeforest.runlanguage.RunJava;
 import com.btcdd.codeforest.runlanguage.RunJs;
 import com.btcdd.codeforest.runlanguage.RunPy;
+import com.btcdd.codeforest.service.CodeTreeService;
 
 @Controller
 public class ChatController {
 	
-	private StringBuffer buffer;
-	private BufferedReader bufferedReader;
-	
-	private File file;
-	private BufferedWriter bufferWriter;
-	
 	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
-	private StringBuffer readBuffer2 = new StringBuffer();
 	private final Long time = System.currentTimeMillis();
 
 	@MessageMapping("/chat")
@@ -56,7 +50,8 @@ public class ChatController {
 		pandan = (Boolean) obj.get("execPandan");
 		String language = (String) obj.get("language");
 		String code = (String) obj.get("code");
-		
+		String fileName = (String) obj.get("file-name");
+        String packagePath = (String) obj.get("package-path");
 		
 		try {
 			if(pandan) {

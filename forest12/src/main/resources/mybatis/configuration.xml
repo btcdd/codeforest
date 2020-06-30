@@ -13,6 +13,7 @@
 		<typeAlias alias="savepathvo" type="com.btcdd.codeforest.vo.SavePathVo"/>
 		<typeAlias alias="codevo" type="com.btcdd.codeforest.vo.CodeVo"/>
 		<typeAlias alias="savevo" type="com.btcdd.codeforest.vo.SaveVo"/>
+		<typeAlias alias="rankvo" type="com.btcdd.codeforest.vo.RankVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />

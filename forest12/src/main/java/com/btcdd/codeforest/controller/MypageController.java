@@ -1,7 +1,6 @@
 package com.btcdd.codeforest.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.btcdd.codeforest.service.CodeTreeService;
 import com.btcdd.codeforest.service.MypageService;
@@ -37,10 +35,12 @@ public class MypageController {
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
+
+		Long rank = mypageService.selectRank(authUser.getNo());
 		List<SubmitVo> rightSubmit = mypageService.findRrightSubmit(authUser.getNo());
-		
 		List<SubmitVo> wrongSubmit = mypageService.findWrongSubmit(authUser.getNo());
 		
+		model.addAttribute("rank", rank);
 		model.addAttribute("rightSubmit", rightSubmit);	
 		model.addAttribute("wrongSubmit", wrongSubmit);	
 		

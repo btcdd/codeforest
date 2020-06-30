@@ -128,5 +128,9 @@ public class MypageService {
 		return mypageRepository.findWriterByProblemNo(problemNo);
 	}
 
+	public Long selectRank(Long authUserNo) {
+		return mypageRepository.selectRank(authUserNo);
+	}
+
 	
 }

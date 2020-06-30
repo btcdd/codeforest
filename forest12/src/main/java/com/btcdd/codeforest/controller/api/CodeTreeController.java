@@ -29,7 +29,6 @@ import com.btcdd.security.Auth;
 @RequestMapping("/api/codetree")
 public class CodeTreeController {
 
-	
 	@Autowired 
 	private CodeTreeService codetreeService;
 	
@@ -112,7 +111,7 @@ public class CodeTreeController {
 		System.out.println("prevFileName"+prevFileName);
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		Map<String,Object> map = new HashMap<>();
-		
+
 		if(!exist) {
 			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);
@@ -229,7 +228,7 @@ public class CodeTreeController {
 	@PostMapping("/submit")
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
-			String compileResult1, String compileResult2,HttpSession session) {
+			String compileResult1, Boolean compileResult2, String outputResult, HttpSession session) {
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
@@ -237,42 +236,49 @@ public class CodeTreeController {
 		
 		boolean compileResult = true;
 		boolean compileError = false;
- 		
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		String[] examOutputSplit = examOutput.split("\n");
-		String[] compileResult1Split =compileResult1.split("\n");
+		String[] outputResultSplit =outputResult.split("\n");
 		
-		if(examOutputSplit.length != compileResult1Split.length) {
-			compileResult = false;
-		}
-		else {
-			if(compileResult2 == null || compileResult2.equals("")) {
-				for(int i = 0; i < examOutputSplit.length; i++) {
-					if(i == examOutputSplit.length-1) {
-						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
-							compileResult = false;
-							break;
-						}
+		if(compileResult2 == false) {
+			for(int i = 0; i < examOutputSplit.length; i++) {
+				if(i == examOutputSplit.length-1) {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
 					}
-					else {
-						if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
-							compileResult = false;
-							break;
-						}
+				}
+				else {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
 					}
 				}
 			}
-			else {
-				compileError = true;
-			}
 		}
-		map.put("compileError", compileError);
+		else {
+			compileError = true;
+			compileResult = false;
+		}
 		
+		map.put("compileError", compileError);
 		map.put("compileResult", compileResult);
+
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
+		
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+		
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+		
+		/////// [User] AnswerCount increase method
+		if(compileResult == true) {
+			codetreeService.updateUserAnswerCount(authUser.getNo());
+		}
+		/////////////////////////////////////////
 		
 		return JsonResult.success(map);
 	}		

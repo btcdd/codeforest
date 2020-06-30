@@ -1,118 +1,119 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
-	
-	<update id="changeNickname" parameterType="uservo">
-		<![CDATA[
-			update user 
-   			   set nickname = #{nickname }
- 			 where no = #{no }
-		]]>
-	</update>
-	
-	<update id="changePassword" parameterType="uservo">
-		<![CDATA[
-			update user 
-   			   set password = #{password }
- 			 where no = #{no }
-		]]>
-	</update>
-	
-	<update id="foreignKeyChecks">
-		<![CDATA[
-			set foreign_key_checks = 0
-		]]>
-	</update>
-	
-	<delete id="deleteUser" parameterType="uservo">
-		<![CDATA[
-			delete
-  			  from user
- 			 where no = #{no } and email = #{email } and password = #{password }
-		]]>
-	</delete>
-	
-	<select id="lookUpPassword" parameterType="string" resultType="string">
-		<![CDATA[
-			select password
-  			  from user
-			 where email = #{email }
-		]]>
-	</select>
-	
-	<select id="selectProblemList" parameterType="map"  resultType="problemvo">
-		<![CDATA[
-			select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend, start_time as startTime, end_time as endTime
-			  from problem p, user u
-			 where u.no = #{userNo } 
-			   and p.user_no = u.no 
-			   and p.state = 'y'
-		]]>
-		<if test="keyword != null or keyword != ''">
-			<![CDATA[
-			   and (p.title like '%${keyword}%' or p.no like '%${keyword}%')
-			]]>
-		</if>
-		<![CDATA[
-			limit #{displayPost}, #{postNum}
-		]]>
-	</select>
-	
-	<update id="deleteProblem" parameterType="long">
-		<![CDATA[
-			update problem
-			   set state = 'n'
-			 where no = #{no }
-		]]>
-	</update>
-	
-	<select id="problemSolveList" parameterType="long" resultType="submitVo">
-		<![CDATA[
-			select u.email as email, u.name as name, u.nickname as nickname, s.lang as lang, s.solve_time as solveTime, tc.attempt as tryCount, u.no as userNo
-			from submit s, user u, problem p, sub_problem sp, try_count tc
-			where u.no = s.user_no && p.no = sp.problem_no && s.subproblem_no = sp.no && p.no = #{no } && s.no = tc.submit_no
-			group by u.email
-		]]>
-	</select>
+   
+   <update id="changeNickname" parameterType="uservo">
+      <![CDATA[
+         update user 
+               set nickname = #{nickname }
+           where no = #{no }
+      ]]>
+   </update>
+   
+   <update id="changePassword" parameterType="uservo">
+      <![CDATA[
+         update user 
+               set password = #{password }
+           where no = #{no }
+      ]]>
+   </update>
+   
+   <update id="foreignKeyChecks">
+      <![CDATA[
+         set foreign_key_checks = 0
+      ]]>
+   </update>
+   
+   <delete id="deleteUser" parameterType="uservo">
+      <![CDATA[
+         delete
+             from user
+           where no = #{no } and email = #{email } and password = #{password }
+      ]]>
+   </delete>
+   
+   <select id="lookUpPassword" parameterType="string" resultType="string">
+      <![CDATA[
+         select password
+             from user
+          where email = #{email }
+      ]]>
+   </select>
+   
+   <select id="selectProblemList" parameterType="map"  resultType="problemvo">
+      <![CDATA[
+         select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend, start_time as startTime, end_time as endTime, p.privacy as privacy
+           from problem p, user u
+          where u.no = #{userNo } 
+            and p.user_no = u.no 
+            and p.state = 'y'
+      ]]>
+      <if test="keyword != null or keyword != ''">
+         <![CDATA[
+            and (p.title like '%${keyword}%' or p.no like '%${keyword}%')
+         ]]>
+      </if>
+      <![CDATA[
+         limit #{displayPost}, #{postNum}
+      ]]>
+   </select>
+   
+   <update id="deleteProblem" parameterType="long">
+      <![CDATA[
+         update problem
+            set state = 'n'
+          where no = #{no }
+      ]]>
+   </update>
+   
+   <select id="problemSolveList" parameterType="long" resultType="submitVo">
+      <![CDATA[
+         select u.email as email, u.name as name, u.nickname as nickname, s.lang as lang, s.solve_time as solveTime, tc.attempt as tryCount, u.no as userNo
+         from submit s, user u, problem p, sub_problem sp, try_count tc
+         where u.no = s.user_no && p.no = sp.problem_no && s.subproblem_no = sp.no && p.no = #{no } && s.no = tc.submit_no
+         group by u.email
+      ]]>
+   </select>
 
 
-	<select id="totalCount" parameterType="map" resultType="integer">
-		<![CDATA[
-			select count(*) 
-			  from problem p, user u 
-			 where p.user_no = u.no 
-			   and u.no = #{userNo }
-			   and p.state = 'y'
-		]]>
-		<if test="keyword != null or keyword != ''">
-			<![CDATA[
-			   and (p.title like '%${keyword}%' or p.no like '%${keyword}%')
-			]]>
-		</if>
-	</select>
-	
-	<select id="findSubProblem" parameterType="long"  resultType="subproblemvo">
-		<![CDATA[
-			select no, title, contents, exam_input as examInput, exam_input as examInput, problem_no as problemNo, state
-			  from sub_problem sp
-			 where problem_no = #{no }
-			   and sp.state = 'y'
-		]]>
-	</select>
+   <select id="totalCount" parameterType="map" resultType="integer">
+      <![CDATA[
+         select count(*) 
+           from problem p, user u 
+          where p.user_no = u.no 
+            and u.no = #{userNo }
+            and p.state = 'y'
+      ]]>
+      <if test="keyword != null or keyword != ''">
+         <![CDATA[
+            and (p.title like '%${keyword}%' or p.no like '%${keyword}%')
+         ]]>
+      </if>
+   </select>
+   
+   <select id="findSubProblem" parameterType="long"  resultType="subproblemvo">
+      <![CDATA[
+         select no, title, contents, exam_input as examInput, exam_input as examInput, problem_no as problemNo, state
+           from sub_problem sp
+          where problem_no = #{no }
+            and sp.state = 'y'
+      ]]>
+   </select>
 
-	<update id="deleteSubProblem" parameterType="long">
-		<![CDATA[
-			update sub_problem
-  			   set state = 'n'
- 			 where no = #{no }
-		]]>
-	</update>
+   <update id="deleteSubProblem" parameterType="long">
+      <![CDATA[
+         update sub_problem
+              set state = 'n'
+           where no = #{no }
+      ]]>
+   </update>
 
 	<select id="findRrightSubmit" parameterType="long"  resultType="submitvo">
 		<![CDATA[
-			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo
-			  from submit s, sub_problem sp
+			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo, p.state as state, p.privacy as privacy, p.end_time as endTime, p.start_time as startTime
+			  from submit s, sub_problem sp, problem p
 			 where s.subproblem_no = sp.no
+			   and p.no = sp.problem_no
 			   and s.user_no = #{no }
 			   and answer = 'y'
 		]]>
@@ -120,36 +121,52 @@
 	
 	<select id="findWrongSubmit" parameterType="long"  resultType="submitvo">
 		<![CDATA[
-			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo
-			  from submit s, sub_problem sp
+			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo, p.state as state, p.privacy as privacy, p.end_time as endTime, p.start_time as startTime
+			  from submit s, sub_problem sp, problem p
 			 where s.subproblem_no = sp.no
+			   and p.no = sp.problem_no
 			   and s.user_no = #{no }
 			   and answer = 'n'
 		]]>
 	</select>
-	
-	<update id="privacyChange" parameterType="map">
-		<![CDATA[
-			update user
-  			   set privacy = #{privacy }
- 			 where no = #{authUserNo }
-		]]>
-	</update>
-	
-	<select id="findSaveNoByProblemNoAndUserNo" parameterType="map" resultType="long">
-		<![CDATA[
-			select no
-			from save
-			where user_no = #{userNo } and problem_no = #{problemNo }
-		]]>
-	</select>
-	
-	<select id="findWriterByProblemNo" parameterType="long" resultType="uservo">
-		<![CDATA[
-			select u.no as no
-			from problem p, user u
-			where p.user_no = u.no and p.no = #{problemNo }
-		]]>
-	</select>
-	
+   
+   <update id="privacyChange" parameterType="map">
+      <![CDATA[
+         update user
+              set privacy = #{privacy }
+           where no = #{authUserNo }
+      ]]>
+   </update>
+   
+   <select id="findSaveNoByProblemNoAndUserNo" parameterType="map" resultType="long">
+      <![CDATA[
+         select no
+         from save
+         where user_no = #{userNo } and problem_no = #{problemNo }
+      ]]>
+   </select>
+   
+   <select id="findWriterByProblemNo" parameterType="long" resultType="uservo">
+      <![CDATA[
+         select u.no as no
+         from problem p, user u
+         where p.user_no = u.no and p.no = #{problemNo }
+      ]]>
+   </select>
+   
+   <select id="selectRank" parameterType="long" resultType="long">
+      <![CDATA[
+         select sub.real_rank
+		   from user u, 
+		  	    (select no, nickname, answer_count, 
+				    (@rank := @rank + 1) as rank,
+				    (@real_rank := IF(@last > answer_count, @real_rank := @real_rank + 1, @real_rank)) as real_rank,
+				    (@last := answer_count) as last
+				 from user as a, (select @rank := 0, @last := 0, @real_rank := 1) as b
+				 order by a.answer_count desc) as sub
+		  where u.no = sub.no
+		    and sub.no = #{authUserNo }
+      ]]>
+   </select>
+   
 </mapper>

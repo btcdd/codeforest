@@ -5,7 +5,14 @@ public class ChatMessage {
     private MessageType type;
     private String content;
     private Boolean programPandan;
+    private Boolean errorPandan;
     
+	public Boolean getErrorPandan() {
+		return errorPandan;
+	}
+	public void setErrorPandan(Boolean errorPandan) {
+		this.errorPandan = errorPandan;
+	}
 	public MessageType getType() {
 		return type;
 	}

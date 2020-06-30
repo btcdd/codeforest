@@ -16,6 +16,7 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script>
+
 function onKeyDown() {
 	if(event.keyCode == 13) {
 		kwd = $('#kwd').val();
@@ -59,6 +60,10 @@ var originList = function(page, kwd, category) {
 		         endPageTrueNum = parseInt(map.count / 12 + 1);
 	        }
 			
+			for(i = 0; i < map.rankList.length; i++) {
+				$("#rank" + (i+1)).text( map.rankList[i].nickname);
+			}
+			
 			fetchList();
 		},
 		error: function(xhr, status, e){
@@ -75,10 +80,9 @@ var fetchList = function() {
 	for(var i = 0; i < map.list.length;i++){
 		str += '<div class="problem-box" onclick="location.href=' + "'" + '${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + "'" + '">' +
 		'<div class="problem-no"><a class="problem-number" data-no=' + map.list[i].no + '>' + map.list[i].no +'</a></div>' +
-        '<div class="problem-recommend"><i class="fas fa-heart like"></i>' + map.list[i].recommend + '</div>' + 
 		'<div class="problem-title" id="title">' + map.list[i].title + '</div>' +
-        '<div class="problem-user">' + map.list[i].nickname + '</div>' + 
-        '<div class="problem-kind">' + map.list[i].kind + '</div>' + 
+        '<div class="problem-box-bottom"><div class="problem-recommend"><i class="fas fa-heart like"></i><span class="recommend-count">' + map.list[i].recommend + '</span></div><div class="problem-user">' + map.list[i].nickname + '</div>' + 
+        '<div class="problem-kind">' + map.list[i].kind + '</div></div>' + 
 	'</div>';
 	}
 	$(".problems").append(str).hide();
@@ -287,13 +291,44 @@ $(function() {
 	$(window).scroll(function() {
 		var height = $(document).scrollTop();
 		
-		if(height < 468) {
+		if(height < 320) {
 			$('.menu-bar-change').attr('class', 'menu-bar');
 		}
-		if(height >= 468) {
+		if(height >= 320) {
 			$('.menu-bar').attr('class', 'menu-bar-change');
 		}
-	})
+	});
+	
+	$('#algorithm-toggle').click(function(){
+	    if($('#algorithm-table').css('display') == 'none'){
+		    $('#algorithm-table').show();
+		    $(this).attr('class','fas fa-chevron-up up-menu');
+		}else{
+		    $('#algorithm-table').hide();
+		    $(this).attr('class','fas fa-chevron-down up-menu');
+		}
+	});
+	
+	$('#category-toggle').click(function(){
+	    if($('#category-table').css('display') == 'none'){
+		    $('#category-table').show();
+		    $(this).attr('class','fas fa-chevron-up up-menu');
+		}else{
+		    $('#category-table').hide();
+		    $(this).attr('class','fas fa-chevron-down up-menu');
+		}
+	});
+	
+	$('#rank-toggle').click(function(){
+	    if($('#rank-table').css('display') == 'none'){
+		    $('#rank-table').show();
+		    $(this).attr('class','fas fa-chevron-up up-menu');
+		}else{
+		    $('#rank-table').hide();
+		    console.log($(this).attr('class'));
+		    $(this).attr('class','fas fa-chevron-down up-menu');
+		}
+	});
 });
 
 
@@ -307,8 +342,8 @@ $(function() {
     <div class="content">
         <div class="menu-bar" id="menu-bar">
             <div class="algo">
-            	<div class="algorithm">알고리즘</div>
-                <table>
+            	<div class="algorithm"><span class="algorithm-title">알고리즘</span><i class="fas fa-chevron-up up-menu" id="algorithm-toggle"></i></div>
+                <table id="algorithm-table">
                     <tr id="sub">
                         <td><input type="checkbox" id="one" name="level" value="one">
                             <label for="one"><span></span>level 1</label></td>
@@ -333,8 +368,8 @@ $(function() {
             </div>
 
             <div class="category-content">
-            	<div class="category">분류</div>
-                <table>
+            	<div class="category"><span class="category-title">분류</span><i class="fas fa-chevron-up up-menu" id="category-toggle"></i></div>
+                <table id="category-table">
                     <tr id="sub">
                         <td><input type="checkbox" id="enterprise" name="organization" value="enterprise">
                             <label for="enterprise"><span></span>기업</label></td>
@@ -357,13 +392,34 @@ $(function() {
                     </tr>
                 </table>
             </div>
+            
+            <div class="ranking">
+            	<div class="rank"><span class="rank-title">랭킹</span><i class="fas fa-chevron-up up-menu" id="rank-toggle"></i></div>
+                <table id="rank-table">
+                    <tr id="sub">
+                        <td><label><span class="rank-num">1</span><span class="rank-user-nickname" id="rank1"></span><img class="gold" src="${pageContext.servletContext.contextPath }/assets/images/training/gold.png" /></label></td>
+                    </tr>
+                    <tr id="sub">
+                        <td><label><span class="rank-num">2</span><span class="rank-user-nickname" id="rank2"></span><img class="silver" src="${pageContext.servletContext.contextPath }/assets/images/training/silver.png" /></label></td>
+                    </tr>
+                    <tr id="sub">
+                        <td><label><span class="rank-num">3</span><span class="rank-user-nickname" id="rank3"></label><img class="bronze" src="${pageContext.servletContext.contextPath }/assets/images/training/bronze.png" /></span></td>
+                    </tr>
+                    <tr id="sub">
+                        <td><label><span class="rank-num">4</span><span class="rank-user-nickname" id="rank4"></span></label></td>
+                    </tr>
+                    <tr id="sub">
+                        <td><label><span class="rank-num">5</span><span class="rank-user-nickname" id="rank5"></span></label></td>
+                    </tr>
+                </table>
+            </div>
         </div> <!-- div menu-bar -->
 
         <div class="list">
             <div class="search">
                 <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();" autoComplete="off">
                 <input type="button" id="search" value="검색" >
-                <button class="reset">초기화</button>
+                <button class="reset"><i class="fas fa-redo-alt"></i></button>
                 <button class="make-problem" onclick="location.href='${pageContext.servletContext.contextPath }/training/write'">문제작성</button>
             </div>
             <div class="problems">

@@ -2,24 +2,28 @@ package com.btcdd.codeforest.vo;
 
 import java.sql.Date;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class UserVo {
 	private Long no;
 
 	private String name;
 
-	@NotEmpty
 	private String nickname;
 
-	@NotEmpty
 	private String email;
 
 	private Date birth;
 
-	@NotEmpty
 	private String password;
 	private String privacy;
+	private Long answerCount;
+
+	public Long getAnswerCount() {
+		return answerCount;
+	}
+
+	public void setAnswerCount(Long answerCount) {
+		this.answerCount = answerCount;
+	}
 
 	public Long getNo() {
 		return no;
@@ -80,6 +84,7 @@ public class UserVo {
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", nickname=" + nickname + ", email=" + email + ", birth="
-				+ birth + ", password=" + password + ", privacy=" + privacy + "]";
+				+ birth + ", password=" + password + ", privacy=" + privacy + ", answerCount=" + answerCount + "]";
 	}
+
 }

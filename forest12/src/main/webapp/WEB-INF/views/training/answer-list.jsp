@@ -34,6 +34,9 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 
+        <script type="text/javascript"
+     src="https://cdn.rawgit.com/meetselva/attrchange/master/js/attrchange.js"></script>
+
 <script>
 var page = '1';
 var language = '';
@@ -109,8 +112,7 @@ var fetchList = function() {
 var editorArray = new Array();
 var editorArrayIndex = 0;
 
-$(function() {
-   
+$(function() {   
    // 파일 열기
    var fileIndex = null;
    var root = null;
@@ -148,8 +150,8 @@ $(function() {
 			root = myLayout.root.contentItems[0] || myLayout.root;
 			
 			for(var i = 0; i < response.data.fileNames.length; i++) {
-				console.log("fileNames : ", response.data.fileNames[i]);
-				console.log("codes : ", response.data.codes[i]);
+// 				console.log("fileNames : ", response.data.fileNames[i]);
+// 				console.log("codes : ", response.data.codes[i]);
 				fileIndex = i;
 				root.addChild({
 					type : "component",
@@ -179,13 +181,20 @@ $(function() {
 				
 			}			
 			
+			$('li').attrchange({
+			    trackValues: true, // set to true so that the event object is updated with old & new values
+			    callback: function(event) {
+			    	console.log('하이하이');
+			    }
+			});
+			$('.CodeMirror-scroll').click(function() {
+				console.log('gdgd');
+			});
 		},
 		error: function(xhr, status, e){
 			console.error(status + ":" + e);
 		}
 	});
-		
-	  
    });
    
    // ---------------------------------------------------------------
@@ -223,6 +232,13 @@ $(function() {
 	});
 	
  	
+ 	var clickEvent = setTimeout(function() {
+ 		var el = document.getElementsByClassName('CodeMirror-scroll');
+ 		for (var i = 0; i < editorArray.length; i++ ) {
+    	    el[i].click();
+		}
+ 	}, 1000);
+ 	
 	// 테마 변경
 	var theme = 'panda-syntax';
 	$(document).on("change", '.theme', function() {
@@ -257,9 +273,9 @@ $(function() {
 	var myLayout = new GoldenLayout(config, $('.code-mirror'));
 	myLayout.registerComponent("newTab", function(container) {
 		container.getElement().html('<textarea name="code" class="CodeMirror code" id="newTab"></textarea>');
-		container.getElement().attr("id", "cm" + fileIndex);		
-		
+		container.getElement().attr("id", "cm" + fileIndex);
 	});
+	
 	
 	myLayout.init();
 	

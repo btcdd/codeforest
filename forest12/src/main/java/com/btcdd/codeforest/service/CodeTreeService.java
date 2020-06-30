@@ -1,6 +1,6 @@
 package com.btcdd.codeforest.service;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,24 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.btcdd.codeforest.repository.CodeTreeRepository;
-import com.btcdd.codeforest.runlanguage.RunJavaLinux;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.SaveVo;
 import com.btcdd.codeforest.vo.SubProblemVo;
 import com.btcdd.codeforest.vo.SubmitVo;
-import com.btcdd.codeforest.vo.UserVo;
 
 @Service
 public class CodeTreeService {
 	private static final int postNum = 10; //한 페이지에 출력할 게시물 갯수
-	private static final int pageNum_cnt = 10; 		//한번에 표시할 페이징 번호의 갯수
+	private static final int pageNum_cnt = 5; 		//한번에 표시할 페이징 번호의 갯수
 	
 	@Autowired
 	private CodeTreeRepository codetreeRepository;
-	
-	private Process process;
-
 	
 	public Map<String, Object> saveUserCodeAndProblems(Long authUserNo, Long problemNo, List<SavePathVo> savePathVoList, List<CodeVo> codeVoList) {
 		Map<String, Object> map = new HashMap<>();
@@ -46,32 +41,6 @@ public class CodeTreeService {
 		codetreeRepository.saveCode(map);
 		
 		return map;
-	}
-
-	public void compilePackage(Long authUserNo, Long problemNo, Long subProblemNo, List<CodeVo> codeVoListTrue) {
-		try {
-//			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + authUserNo + 
-//												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
-//												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
-		
-			
-//			RunJavaLinux rjct = new RunJavaLinux(authUserNo, problemNo, subProblemNo);
-			
-//			for(int i = 0; i < codeVoListTrue.size(); i++) {
-//				rjct.createFileAsSource(codeVoListTrue.get(i).getCode(), codeVoListTrue.get(i).getFileName());
-//			}
-			
-//			rjct.execCompile(codeVoListTrue);
-//			String result = rjct.execCommand();
-//			String errorResult = rjct.execCompile(codeVoListTrue);
-//			
-//			String[] res = new String[2];
-//			res[0] = result;
-//			res[1] = errorResult;
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public List<CodeVo> findCode(Long subProblemNo) {
@@ -119,17 +88,25 @@ public class CodeTreeService {
 		}
 		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력
 		
-		
-		List<SaveVo> saveVoList = codetreeRepository.selectSaveNoList(displayPost,postNum,keyword,authUserNo);
 		Map<String, Object> map = new HashMap<>();
-		map.put("list",saveVoList);		
+		List<SaveVo> saveVoList = codetreeRepository.selectSaveNoList(displayPost,postNum,keyword,authUserNo);
+		List<SavePathVo> savePathVoList = new ArrayList<>();
+		List<Long> subProblemNoCountList = new ArrayList<>();
+		for(int i = 0; i < saveVoList.size(); i++) {
+			savePathVoList = codetreeRepository.findSavePathList(saveVoList.get(i).getNo());
+			subProblemNoCountList.add((long)savePathVoList.size());
+		}
+		
+		map.put("subProblemNoCountList", subProblemNoCountList);
+		map.put("list",saveVoList);
 		map.put("pageNum",pageNum);
 		map.put("select",currentPage);
 		map.put("startPageNum",startPageNum);
 		map.put("endPageNum",endPageNum + 1);
 		map.put("next",next);
 		map.put("keyword",keyword);
-		map.put("count", count);		
+		map.put("count", count);
+		
 		return map;
 	}
 
@@ -243,46 +220,14 @@ public class CodeTreeService {
 			//시도는 1로 삽입
 			return codetreeRepository.insertAttempt(submitNo) == 1;
 		}
-		
 	}
 
+	public int updateUserAnswerCount(Long authUserNo) {
+		return codetreeRepository.updateUserAnswerCount(authUserNo);
+	}
 
+	public String getExamInput(Long subProblemNo) {
+		return codetreeRepository.getExamInput(subProblemNo);
+	}
 
-	
-
-
-	
-//	public Map<String, Object> getContentsList(int currentPage, String keyword) {
-//		//게시물 총 갯수
-//		int count = codetreeRepository.getTotalCount(keyword);
-//		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
-//		int pageNum = (int)Math.ceil((double)count/postNum);
-//		
-//		//출력할 게시물
-//		int displayPost = (currentPage -1) * postNum;
-//		
-//		//표시되는 페이지 번호 중 마지막 번호
-//		int endPageNum = (int)(Math.ceil((double)currentPage / (double)pageNum_cnt) * pageNum_cnt);
-//		
-//		//표시되는 페이지 번호 중 첫번째 번호
-//		int startPageNum = endPageNum - (pageNum_cnt - 1);
-//		
-//		//마지막번호 재계산
-//		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNum_cnt));
-//		
-//		if(endPageNum > endPageNum_tmp) {
-//			endPageNum = endPageNum_tmp;
-//		}
-//		
-//		boolean prev = startPageNum == 1 ? false : true;//시작 페이지 번호가 1일 때를 제외하곤 무조건 출력
-//		
-//		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력			
-//		
-//		
-//		
-//		Map<String,Object> map = new HashMap<String,Object>();
-//			
-//		return map;
-//
-//	}
 }
