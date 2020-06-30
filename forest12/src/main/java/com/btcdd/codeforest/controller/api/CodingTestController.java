@@ -129,13 +129,13 @@ public class CodingTestController {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 
 		Long problemNo = codetreeService.findProblemNo(subProblemNo);
-		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
+		Long existCount = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		
-		System.out.println("exist>>>>"+exist);
+		
 		
 		Map<String,Object> map = new HashMap<>();
 				
-		if(!exist) {
+		if(existCount < 1) {
 			System.out.println("기존 존재하지 않는다");
 			codetreeService.insertFile(savePathNo,language,fileName);
 			
@@ -178,10 +178,10 @@ public class CodingTestController {
 		System.out.println("codeNo>>"+codeNo);
 		System.out.println("fileName>>"+fileName);
 		System.out.println("prevFileName"+prevFileName);
-		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
+		Long existCount = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		Map<String,Object> map = new HashMap<>();
 		
-		if(!exist) {
+		if(existCount < 1) {
 			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);
 			// 여기!!
