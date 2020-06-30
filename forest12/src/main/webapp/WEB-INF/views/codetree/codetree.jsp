@@ -456,7 +456,7 @@ $(function() {
       });
 
       
-      $(document).on('mousedown','.userFile',function(e){
+      $(document).on('mousedown','.file',function(e){
          $(".contextmenu").hide();
          if(e.which == 3){
              savePathNo2 = $(this).data("no2");
