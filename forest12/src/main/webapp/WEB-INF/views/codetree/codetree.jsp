@@ -703,7 +703,12 @@ $(function() {
                        success: function(response) {
 
                            layoutId = "layout-"+codeNo;
-                           
+                           if(response.data.result == 'no'){
+                          	 $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
+                               return;
+                            }
+                            $("#CloseUpdateButton").click();
+                            $(".updateErrorMessage").html("<p></p>");                           
                            
                            if(root != null){
                               console.log("root가 있을경우 해당");
@@ -713,14 +718,11 @@ $(function() {
                              }
                            }
                            
-                           if(response.data.result == 'no'){
-                        	 $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
-                             return;
-                          }
+
                           $(".file-tree__subtree").remove();
                           fileFetchList();                     	   
-                          $("#CloseUpdateButton").click();
-                          $(".updateErrorMessage").html("<p></p>");
+                          
+                          
                        /* if(response.data.result=="no"){
                              $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");	  
 	                     	 $(".fileName-update").val("");      
