@@ -698,7 +698,7 @@ $(function() {
                          return;
                       }
                       $(".file-tree__subtree").remove();
-
+                      $(".fileName-input").val("");	
                       fileFetchList(); 
                       
                       
