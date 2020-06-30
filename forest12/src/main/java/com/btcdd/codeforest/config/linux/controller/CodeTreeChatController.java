@@ -124,17 +124,18 @@ public class CodeTreeChatController {
 					String input = chatMessage.getContent();
 					
 					if(submitPandan == true && input == null) {
+						process = Runtime.getRuntime().exec("mkdir eong1");
 						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
 						writer.flush();
 						readBuffer.setLength(0);
-					} 
-					// 지술이형 코드!!
-					else if(submitPandan == false && input == null) {
+					} else if(submitPandan == false && input == null) {
+						process = Runtime.getRuntime().exec("mkdir eong2");
 						return;
 					}
 					
-					if (submitPandan == false && (!("".equals(input)) || input != null)) {
+					if (submitPandan == false && (!("".equals(input)) || input != null || !"null".equals(input))) {
 						try {
+							process = Runtime.getRuntime().exec("mkdir eong3");
 							input += "\n";
 							readBuffer2.append(input);
 							writer.write(input);
