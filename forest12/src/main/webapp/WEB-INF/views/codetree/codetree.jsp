@@ -699,34 +699,34 @@ $(function() {
                           'prevFileName':prevFileName
                        },
                        success: function(response) {
-              
-                          layoutId = "layout-"+codeNo;
-                       
-                          
-                           if(root != null){
-                              console.log("root가 있을경우 해당");
-                              tempLayout = root.getItemsById(layoutId)[0]; 
-                             if(tempLayout != null){
-                                tempLayout.setTitle(fileName);
-                             }
-                           }
-                          
-                           if(response.data.result == 'no'){
-                             alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                             $(".fileName-update").val("");
-                             return;
-                          }
-                          $(".file-tree__subtree").remove();
-                          $(".fileName-update").val("");
-                          fileFetchList(); 
-                          
-                          
+              			  
+                    	  if(!'no'.equals(response.data.result)){
+                              layoutId = "layout-"+codeNo;
+                              
+                              
+                              if(root != null){
+                                 console.log("root가 있을경우 해당");
+                                 tempLayout = root.getItemsById(layoutId)[0]; 
+                                if(tempLayout != null){
+                                   tempLayout.setTitle(fileName);
+                                }
+                              }  
+                              
+                              $(".file-tree__subtree").remove();
+                              $(".fileName-update").val("");
+                              fileFetchList(); 
+                              $(this).dialog("close");
+                    	  }
+
+                           
+                         $(".fileName-update").val("");
+                         $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
+   
                        },
                        error: function(xhr, status, e) {
                           console.error(status + ":" + e);
                        }
-                    });
-                    $(this).dialog("close");          				
+                    });    				
     			}
     		},
     		{
@@ -1627,6 +1627,7 @@ window.onload = function() {
    			<input type="text" class="fileName-input" />
    		</div>
    		<div id="dialog-update-form" title="파일 수정" style="display:none">
+   			<p class="updateErrorMessage"></p>
    			<input type="text" class="fileName-update" />
    		</div>   		   
          <div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
