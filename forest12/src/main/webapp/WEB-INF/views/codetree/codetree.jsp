@@ -553,7 +553,7 @@ $(function() {
                 var filename = $(".fileName-input").val();
                 var filename2 =filename.replace(/(\s*)/g,"");
                 console.log("filename2>>",filename2);
-                if(filename2.split(".").length >2 || selected_lang !=lang || filename2.split(".")[0] ==""){
+                if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
                    alert("잘못된 형식입니다");
                    return;
                 }
