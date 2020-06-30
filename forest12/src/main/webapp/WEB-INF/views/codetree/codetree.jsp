@@ -145,7 +145,6 @@ function onMessageReceived(payload) {
    if(message.programPandan) {
        $('.terminal').attr("readonly", true);
        outputResult = outputResult.substring(0, outputResult.length - 16);
-       
        submitPandan = false;
        socket.close();
    }
@@ -1132,6 +1131,7 @@ $(function() {
                   } else {
                      alert("오답입니다.");
                   }
+                  outputResult = '';
                },
                error: function(xhr, status, e) {
                   console.error(status + ":" + e);
