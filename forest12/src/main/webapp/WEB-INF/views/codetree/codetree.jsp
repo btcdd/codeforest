@@ -1133,6 +1133,7 @@ $(function() {
                   }
                   console.log('output:>>>>>>>>>', outputResult);
                   outputResult = '';
+                  console.log('output:>>>222222222>>>>>>', outputResult);
                   
                },
                error: function(xhr, status, e) {
