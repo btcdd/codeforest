@@ -236,6 +236,12 @@
 		]]>
 	</select>
 	
+	<select id="getExamInput" parameterType="long" resultType="string">
+		<![CDATA[
+			select exam_input as examInput from sub_problem where no = #{subProblemNo }
+		]]>
+	</select>
+	
 	<insert id="submitSubProblem" parameterType="hashmap">
 		<choose>
 			<when test="solveTime == null">

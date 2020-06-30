@@ -11,11 +11,8 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <!-- code mirror -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/abcdef.css">
@@ -30,7 +27,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/ttcn.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/js/codemirror.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/mode/clike.js"></script>
-
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
@@ -52,9 +48,14 @@ var message;
 var tempFile = null;
 var socket;
 var prevText = '';
+var submitPandan;
+var outputResult = '';
 
 //채팅 시작하기
 function connect(event) {
+	
+	outputReuslt = '';
+	
    if(currentEditor == null){ 
       return;
    }
@@ -83,14 +84,18 @@ function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
     
     execPandan = true;
+    
     var chatMessage = {
-            language: tempFile.data("language"),
-          code: code,
-          execPandan: execPandan,
-          fileName: tempFile.data("file-name"),
-          packagePath: tempFile.data("package-path"),
-            type: 'CHAT'
-        };
+ 		language: tempFile.data("language"),
+       	code: code,
+       	execPandan: execPandan,
+       	fileName: tempFile.data("file-name"),
+       	packagePath: tempFile.data("package-path"),
+       	submitPandan: submitPandan,
+       	subProblemNo: tempFile.data("subproblem-no"),
+        type: 'CHAT'
+    };
+    
     execPandan = false;
     // Tell your username to the server
     stompClient.send("/app/codetree",
@@ -103,7 +108,6 @@ function onError(error) {
 }
 
 function sendMessage(event, res) {
-   
    tmp = res;
    
     var messageContent = res;
@@ -119,28 +123,30 @@ function sendMessage(event, res) {
 }
 
 function onMessageReceived(payload) {
+	
     message = JSON.parse(payload.body);
     
+    prevText = '';
    prevText = $('.terminal').val() + '\n';
+   
    $('.terminal').val(prevText + message.content);
+   
+   outputResult = message.content;
    
    prevCursor = $('.terminal').prop('selectionStart') - 1;
    
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
-   if(message.programPandan) {
+   // 프로그램 끝!
+   if(message.programPandan || message.errorPandan) {
        $('.terminal').attr("readonly", true);
+       outputResult = outputResult.substring(0, outputResult.length - 16);
+       submitPandan = false;
        socket.close();
    }
 }
 
-
-
-
 ////////////////////////////////////////////
-
-
-
 
 
 var listTemplate = new EJS({
@@ -160,7 +166,6 @@ var fileFetchList = function(){
                'language' : lang
             },
             success: function(response){
-               console.log(response.data);
                var html = listTemplate.render(response);
               
                    $(".file-tree__item").append(html);  
@@ -181,6 +186,8 @@ var editorArrayIndex = 0;
 
 $(function() {
    fileFetchList();
+   
+   submitPandan = false;
    
 ////////////////// code-mirror /////////////////////////////   
 
@@ -378,7 +385,6 @@ $(function() {
     // 폰트 사이즈 변경
    $(document).on("click", '#font-size', function(){   
       var fontSize = $("#font-size option:selected").val();
-      console.log("font-size:"+fontSize);
       $(".CodeMirror").css("font-size", fontSize);
    });
    
@@ -401,7 +407,6 @@ $(function() {
     
 
    $(document).on('mouseenter','.ui__sidebar',function() {
-      console.log("hi");
       $(document).on('mousedown','#folder',function(e) {
          $(".userfile-menu").hide();
          if(e.which == 3){
@@ -513,7 +518,6 @@ $(function() {
       
       
    }).on('mouseleave','.ui__sidebar',function(){
-      console.log("bye");
    }).on('contextmenu','.ui__sidebar',function(){
       return false;
    }).on('userfile-menu','.ui__sidebar',function(){
@@ -1046,7 +1050,7 @@ $(function() {
             'language' : tempFile.data("language"),
             'fileName' : tempFile.data("file-name"),
             'packagePath' : tempFile.data("package-path"),
-            'subProblemNo':tempFile.data("subproblem-no"),
+            'subProblemNo': tempFile.data("subproblem-no"),
             'codeValue' : currentEditor.getValue(),
             'problemNo' : problemNo
          },
@@ -1074,13 +1078,15 @@ $(function() {
             return;
          }
          
+         submitPandan = true;
+         
+         $('#Save').trigger("click");
          $("#Run").trigger("click");
          var problemNo = "${saveVo.problemNo }";
-         console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
          
          setTimeout(function(){
-
-               var problemNo = "${saveVo.problemNo }";
+        	 
+              var problemNo = "${saveVo.problemNo }";
              $.ajax({
                url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
                async: true,
@@ -1090,17 +1096,18 @@ $(function() {
                   'language' : tempFile.data("language"),
                   'fileName' : tempFile.data("file-name"),
                   'packagePath' : tempFile.data("package-path"),
-                  'subProblemNo':tempFile.data("subproblem-no"),
+                  'subProblemNo': tempFile.data("subproblem-no"),
                   'codeValue' : currentEditor.getValue(),
                   'problemNo' : problemNo,
-                  'compileResult1':compileResult1,
-                  'compileResult2':compileResult2
+                  'compileResult1': compileResult1,
+                  'compileResult2': message.errorPandan,
+                  'outputResult': outputResult
                },
                success: function(response) {
                   var compileResult = response.data.compileResult;
                   var compileError = response.data.compileError;
-                  console.log("compileResult>>>>",compileResult);
-                  console.log("compileError>>>>",compileError);
+                  var locationtest = response.data.locationtest;
+                  
                   if(compileError == true) {
                      alert("컴파일 오류입니다.");
                      return;
@@ -1110,6 +1117,7 @@ $(function() {
                   } else {
                      alert("오답입니다.");
                   }
+                  outputResult = '';
                },
                error: function(xhr, status, e) {
                   console.error(status + ":" + e);
@@ -1195,14 +1203,7 @@ $(function() {
 ////// function 끝부분
 });
 
-   
-
-
-
-   
-
 /////////////////////////////////////////////////////////////////////////////////////////////////   
-   
    
    if (typeof Resizer === 'undefined') {
 
@@ -1334,14 +1335,9 @@ window.onload = function() {
       var el4 = document.getElementById("box_4");
       el4.style = "flex: 0.461282 1.08793 0px;";
   };
-  
-
-
 </script>
 </head>
 <body>
-
-
 
 <nav role="navigation" class='main-nav'>
     <div class="main-nav-wrapper">

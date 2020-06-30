@@ -117,6 +117,7 @@ function onMessageReceived(payload) {
     
     prevText = '';
     prevText = $('#result').val() + '\n';
+    
     $('#result').val(prevText + message.content);
     
     outputResult += message.content;
@@ -127,7 +128,7 @@ function onMessageReceived(payload) {
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
-    	outputResult = outputResult.substring(0, outputResult.length - 15);
+    	outputResult = outputResult.substring(0, outputResult.length - 16);
     	$('#tmp').val(outputResult);
     	outputResult = '';
     	socket.close();
@@ -337,7 +338,7 @@ public class Test{
                      <textarea name="" id="result" class="res" readonly></textarea>
                   </td>
                   <td>
-                     <textarea name="" id="tmp" class="tmp" readonly></textarea>
+                     <textarea name="" id="tmp" class="tmp"></textarea>
                   </td>
                </tr>
             </table>

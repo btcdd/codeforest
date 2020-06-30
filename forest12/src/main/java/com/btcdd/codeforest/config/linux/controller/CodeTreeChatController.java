@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -24,6 +25,7 @@ import com.btcdd.codeforest.runlanguage.RunCsLinux;
 import com.btcdd.codeforest.runlanguage.RunJavaLinux;
 import com.btcdd.codeforest.runlanguage.RunJsLinux;
 import com.btcdd.codeforest.runlanguage.RunPyLinux;
+import com.btcdd.codeforest.service.CodeTreeService;
 
 @Controller
 public class CodeTreeChatController {
@@ -31,9 +33,14 @@ public class CodeTreeChatController {
 	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
 
+	@Autowired
+	CodeTreeService codetreeService = new CodeTreeService();
+	
 	@MessageMapping("/codetree")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+		
+		chatMessage.setErrorPandan(false);
 		
 		String errorResult = "";
 		Boolean pandan = false;
@@ -49,6 +56,9 @@ public class CodeTreeChatController {
 		String language = (String) obj.get("language");
 		String fileName = (String) obj.get("fileName");
 		String packagePath = (String) obj.get("packagePath");
+		Boolean submitPandan = (Boolean) obj.get("submitPandan");
+		Long subProblemNo = (Long) obj.get("subProblemNo");
+		
 		
 		try {
 			if(pandan) {
@@ -81,7 +91,7 @@ public class CodeTreeChatController {
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
-					chatMessage.setProgramPandan(true);
+					chatMessage.setErrorPandan(true);
 					return chatMessage;
 				}
 			}
@@ -112,12 +122,18 @@ public class CodeTreeChatController {
 				try {
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
+					
+					if(submitPandan == true && input == null) {
+						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
+						writer.flush();
+						readBuffer.setLength(0);
+					} 
 					// 지술이형 코드!!
-					if(input == null) {
+					else if(submitPandan == false && input == null) {
 						return;
 					}
-
-					if (!("".equals(input)) || input != null) {
+					
+					if (submitPandan == false && (!("".equals(input)) || input != null)) {
 						try {
 							input += "\n";
 							readBuffer2.append(input);
