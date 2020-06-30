@@ -129,11 +129,10 @@ public class CodeTreeChatController {
 					} 
 					// 지술이형 코드!!
 					else if(submitPandan == false && input == null) {
-						process = Runtime.getRuntime().exec("mkdir gwanwo2222222");
 						return;
 					}
 					
-					if (!("".equals(input)) || input != null) {
+					if (submitPandan == false && (!("".equals(input)) || input != null)) {
 						try {
 							process = Runtime.getRuntime().exec("mkdir gwanwo33333");
 							input += "\n";
