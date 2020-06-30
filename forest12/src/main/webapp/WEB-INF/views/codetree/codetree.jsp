@@ -538,7 +538,6 @@ $(function() {
        console.log("subProblemNo!!!"+subProblemNo);
        var lang = $(".lang option:selected").val();   
        $(".fileName-input").attr("placeholder","."+lang);
-       /* var fileName = null; */
        dialogInsert.dialog("open");
     });
      
@@ -552,7 +551,6 @@ $(function() {
             	var lang = $(".lang option:selected").val();
                 var filename = $(".fileName-input").val();
                 var filename2 =filename.replace(/(\s*)/g,"");
-                console.log("filename2>>",filename2);
                 if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
                    alert("잘못된 형식입니다");
                    return;
@@ -644,13 +642,84 @@ $(function() {
          close:function(){}
     });    
     
+    
+    $(document).on('click','#userfile-update',function(){
+        var lang = $(".lang option:selected").val();   
+        $(".fileName-update").attr("placeholder","."+lang);
+        dialogUpdate.dialog("open");
+     });    
+    
     var layoutId = null;
     var tempLayout = null;
 
-    $(document).on("click", "#userfile-update", function() {
+    var dialogUpdate = $("#dialog-update-form").dialog({
+        autoOpen: false,
+        width:300,
+        height:220,
+        modal:true,
+        buttons:{
+            "수정":function(){
+            	var lang = $(".lang option:selected").val();
+                var filename = $(this).find(".fileName-update").val();
+                var filename2 =filename.replace(/(\s*)/g,""); 
+                if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
+                   alert("잘못된 형식입니다");
+                   return;
+                }
+                var fileName = filename2;
+                console.log("fileName>>>>>>>>>>>>>>>>>",fileName);
+                $.ajax({
+                   url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
+                   async: true,
+                   type: 'post',
+                   dataType: 'json',
+                   data: {
+                      'savePathNo' : savePathNo,
+                      'codeNo' : codeNo,
+                      'fileName' : fileName,
+                      'subProblemNo':subProblemNo,
+                      'prevFileName':prevFileName
+                   },
+                   success: function(response) {
+          
+                      layoutId = "layout-"+codeNo;
+                   
+                      
+                       if(root != null){
+                          console.log("root가 있을경우 해당");
+                          tempLayout = root.getItemsById(layoutId)[0]; 
+                         if(tempLayout != null){
+                            tempLayout.setTitle(fileName);
+                         }
+                       }
+                      
+                       if(response.data.result == 'no'){
+                         alert("이미 파일이 존재합니다.");//메시지 처리 필요
+                         return;
+                      }
+                      $(".file-tree__subtree").remove();
+
+                      fileFetchList(); 
+                      
+                      
+                      
+                   },
+                   error: function(xhr, status, e) {
+                      console.error(status + ":" + e);
+                   }
+                });
+                $(this).dialog("close");                   
+              },
+             "취소":function(){
+                $(this).dialog("close");
+             }        	
+        },
+        close:function(){}
+    });
+    
+/*     $(document).on("click", "#userfile-update", function() {
        var lang = $(".lang option:selected").val();
        var fileName = null;
-       /* codeNo = fileNo; */
        $('<div class="FileUpdate"> <input type="text" style="z-index:10000" class="fileName-update" placeholder='+'.'+lang+'></div>')
           .attr("title","파일 수정")
           .dialog({
@@ -715,7 +784,7 @@ $(function() {
              close:function(){}
           });
          
-    });
+    }); */
     
     
     
@@ -1533,7 +1602,10 @@ window.onload = function() {
    		
    		<div id="dialog-insert-form" title="파일 추가" style="display:none">
    			<input type="text" class="fileName-input" />
-   		</div>   
+   		</div>
+   		<div id="dialog-update-form" title="파일 수정" style="display:none">
+   			<input type="text" class="fileName-update" />
+   		</div>   		   
          <div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
             <p class="validateTips"></p>  
          </div>
