@@ -590,7 +590,7 @@ $(function() {
         			}
         		},
         		{
-        			text:"취소":
+        			text:"취소",
         			click:function(){
         				$(this).dialog("close");
         			}
