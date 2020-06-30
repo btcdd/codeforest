@@ -122,7 +122,7 @@ public class CodeTreeChatController {
 					String input = chatMessage.getContent();
 					
 					if(submitPandan == true) {
-						writer.write("\n111111111\n");
+						writer.write("\n1234\n");
 						writer.flush();
 						readBuffer.setLength(0);
 					}
