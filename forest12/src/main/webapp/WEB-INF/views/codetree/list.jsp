@@ -58,8 +58,6 @@ var originList = function(page, kwd) {
 	});	
 }
 
-
-
 var fetchList = function() {
 	$(".list .problem-box").remove();
 	$(".list .pager").remove();
@@ -69,7 +67,8 @@ var fetchList = function() {
 			'<div><div class="problem-no">'+map.list[i].problemNo+'</div>'+
 			'<img class="top-right-arrow" src="${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow.png"></div>'+
 			'<div class="problem-title">'+map.list[i].title+'</div>'+
-			'<div class="problem-user">'+map.list[i].kind +" "+ map.list[i].nickname+'</div>'+
+			'<div><div class="sub-problem-count">문제 개수 '+ map.subProblemNoCountList[i] +'</div>'+
+			'<div class="problem-user">'+map.list[i].kind +" "+ map.list[i].nickname+'</div></div>'+
 		'</div>';
 	}
 	$(".problems").append(str);
