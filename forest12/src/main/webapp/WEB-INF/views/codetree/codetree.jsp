@@ -546,7 +546,7 @@ $(function() {
         modal:true,
         buttons:{
             "추가": function(){
-            	
+            	console.log("lang>>",lang);
             	var selected_lang = $(".fileName-input").attr("placeholder","."+lang);
                 var filename = $(".fileName-input").val();
                 var filename2 =filename.replace(/(\s*)/g,"");
