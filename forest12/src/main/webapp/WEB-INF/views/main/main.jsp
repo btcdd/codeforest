@@ -121,7 +121,7 @@ function onMessageReceived(payload) {
     
     outputResult += message.content;
     
-    prevCursor = $('#result').prop('selectionStart');
+    prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
     
