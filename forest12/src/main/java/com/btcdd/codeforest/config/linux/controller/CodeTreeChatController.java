@@ -133,7 +133,7 @@ public class CodeTreeChatController {
 						return;
 					}
 					
-					if (submitPandan == false && (!("".equals(input)) || input != null)) {
+					if (!("".equals(input)) || input != null) {
 						try {
 							process = Runtime.getRuntime().exec("mkdir eong3");
 							input += "\n";
