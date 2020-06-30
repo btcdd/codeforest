@@ -538,7 +538,7 @@ $(function() {
        var fileName = null;
        dialogInsert.dialog("open");
     });
-    
+    var lang = $(".lang option:selected").val();
     var dialogInsert = $("#dialog-insert-form").dialog({
         autoOpen: false,
         width:300,
@@ -546,7 +546,7 @@ $(function() {
         modal:true,
         buttons:{
             "추가": function(){
-            	var lang = $(".lang option:selected").val();
+            	
             	var selected_lang = $(".fileName-input").attr("placeholder","."+lang);
                 var filename = $(".fileName-input").val();
                 var filename2 =filename.replace(/(\s*)/g,"");
