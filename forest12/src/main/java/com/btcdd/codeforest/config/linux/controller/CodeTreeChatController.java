@@ -135,7 +135,7 @@ public class CodeTreeChatController {
 						return;
 					}
 					
-					if (!("".equals(input)) || input != null || !("null".equals(input))) {
+					if (submitPandan == false && (!("".equals(input)) || input != null)) {
 						try {
 							process = Runtime.getRuntime().exec("mkdir eong111" + input);
 							input += "\n";
