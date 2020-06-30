@@ -58,9 +58,7 @@ var outputResult = '';
 //채팅 시작하기
 function connect(event) {
 	
-	console.log('output:1111111:,', outputResult);
 	outputReuslt = '';
-	console.log('output:2222222:', outputResult);
 	
    if(currentEditor == null){ 
       return;
@@ -86,7 +84,6 @@ function connect(event) {
 
 
 function onConnected() {
-	console.log('output:3333333:', outputResult);
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
     
@@ -115,8 +112,6 @@ function onError(error) {
 }
 
 function sendMessage(event, res) {
-	console.log('output:44444:', outputResult);
-   
    tmp = res;
    
     var messageContent = res;
@@ -133,8 +128,6 @@ function sendMessage(event, res) {
 
 function onMessageReceived(payload) {
 	
-	console.log('output:555555:', outputResult);
-	
     message = JSON.parse(payload.body);
     
     prevText = '';
@@ -148,26 +141,18 @@ function onMessageReceived(payload) {
    
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
-   console.log('output:66666:', outputResult);
-   
    // 프로그램 끝!
    if(message.programPandan) {
-	   console.log('output:77777:', outputResult);
        $('.terminal').attr("readonly", true);
        outputResult = outputResult.substring(0, outputResult.length - 16);
        submitPandan = false;
-       console.log('output:88888:', outputResult);
        socket.close();
    }
 }
 
 
 
-
 ////////////////////////////////////////////
-
-
-
 
 
 var listTemplate = new EJS({
@@ -187,7 +172,6 @@ var fileFetchList = function(){
                'language' : lang
             },
             success: function(response){
-               console.log(response.data);
                var html = listTemplate.render(response);
               
                    $(".file-tree__item").append(html);  
@@ -1125,7 +1109,7 @@ $(function() {
                   'codeValue' : currentEditor.getValue(),
                   'problemNo' : problemNo,
                   'compileResult1': compileResult1,
-                  'compileResult2': compileResult2,
+                  'compileResult2': message.programPandan,
                   'outputResult': outputResult
                },
                success: function(response) {
