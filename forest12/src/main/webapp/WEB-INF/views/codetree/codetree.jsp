@@ -659,6 +659,7 @@ $(function() {
     
     
     $(document).on('click','#userfile-update',function(){
+    	$(".updateErrorMessage").remove();
         var lang = $(".lang option:selected").val();   
         $(".fileName-update").attr("placeholder","."+lang);
         dialogUpdate.dialog("open");
@@ -717,11 +718,10 @@ $(function() {
                               fileFetchList(); 
                               $("#CloseUpdateButton").click();
                     	  }else if(response.data.result=="no"){
-                    		  console.log("이미존재하는 파일이다");
                     		  $(".fileName-update").val("");
                               $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");	  
                     	  }                  
-   
+    
                        },
                        error: function(xhr, status, e) {
                           console.error(status + ":" + e);
@@ -1628,8 +1628,8 @@ window.onload = function() {
    			<input type="text" class="fileName-input" />
    		</div>
    		<div id="dialog-update-form" title="파일 수정" style="display:none">
-   			<p class="updateErrorMessage"></p>
    			<input type="text" class="fileName-update" />
+   			<p class="updateErrorMessage"></p>
    		</div>   		   
          <div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
             <p class="validateTips"></p>  
