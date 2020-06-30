@@ -460,13 +460,15 @@ $(function() {
          $(".contextmenu").hide();
          if(e.which == 3){
              savePathNo2 = $(this).data("no2");
-             subProblemNo2 = $(this).data("no3");          
+             subProblemNo2 = $(this).data("no3");  
+             console.log($(this).data("no2"));
+             console.log($(this).data("no3"));
             console.log("savePathNo2>>>",savePathNo2);
-            console.log("subProblemNo2>>>",$(this).data("no"));
-            console.log("subProblemNo2>>>",$(this).data("subproblem-no"));
-            console.log("subProblemNo2>>>",$(this).data("language"));
-            console.log("subProblemNo2>>>",$(this).data("file-name"));
-            console.log("subProblemNo2>>>",$(this).data("package-path"));
+            console.log("no>>>",$(this).data("no"));
+            console.log("subproblem-no>>>",$(this).data("subproblem-no"));
+            console.log("language>>>",$(this).data("language"));
+            console.log("file-name>>>",$(this).data("file-name"));
+            console.log("package-path>>>",$(this).data("package-path"));
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
             if(currentFileNameSplit != "Test"){
