@@ -180,7 +180,6 @@ $(function() {
    
    var timer = setInterval(function(){
       var diff = (Date.parse(new Date(endTime)) - Date.parse(new Date())) / 1000; 
-      console.log("first>>",diff);
       if(diff <0){
           alert("시험 종료");
           clearInterval(timer);
@@ -202,11 +201,15 @@ $(function() {
            	hours = Math.floor(diff / 3600);
            	diff -= hours * 3600;
          }
-         console.log("min diff>>>",diff);
+         
          if (diff >= 60) {
           	min = Math.floor(diff / 60);
            	diff -= min * 60;
+         }else if(diff < 60){
+        	 min = 0;
          }
+         
+         console.log("diff>>>",diff);
          console.log("min>>>",min);
          var sec = diff;
      $(".countdown table td:first").text("남은 시간  ");
