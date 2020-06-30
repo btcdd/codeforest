@@ -716,12 +716,10 @@ $(function() {
                               $(".fileName-update").val("");
                               fileFetchList(); 
                               $("#CloseUpdateButton").click();
-                              return;
-                    	  }
-
-                           
-                         $(".fileName-update").val("");
-                         $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
+                    	  }else{
+                    		  $(".fileName-update").val("");
+                              $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");	  
+                    	  }                  
    
                        },
                        error: function(xhr, status, e) {
