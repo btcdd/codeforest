@@ -618,33 +618,34 @@ $(function() {
     			text:"삭제",
     			id:"fileDeleteButton",
     			click:function(){
-    	               $.ajax({
-    	                   url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
-    	                   async: true,
-    	                   type: 'delete',
-    	                   dataType:'json',
-    	                   data:'',
-    	                   success: function(response) {
-    	                      
-    	                      if(response.result != "success"){
-    	                         console.error(response.message);
-    	                         return;
-    	                      }
-    	                      
-    	                      if(response.data != -1){
-    	                          
-    	                         $(".userFile[data-no="+response.data+"]").remove();
+    				$.ajax({
+    	                  url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
+    	                  async: true,
+    	                  type: 'delete',
+    	                  dataType:'json',
+    	                  data:'',
+    	                  success: function(response) {
+    	                     
+    	                     if(response.result != "success"){
+    	                        console.error(response.message);
+    	                        return;
+    	                     }
+    	                     
+    	                     if(response.data != -1){
     	                         
-    	                         dialogDelete.dialog('close');
-    	                         return;
-    	                      }                     
-    	                      
-    	                      $(".validateTips").css("color","red").html("<p>삭제실패</p>");
-    	                   },
-    	                   error: function(xhr, status, e) {
-    	                      console.error(status + ":" + e);
-    	                   }  				
-    			});
+    	                        $(".userFile[data-no="+response.data+"]").remove();
+    	                        
+    	                        dialogDelete.dialog('close');
+    	                        return;
+    	                     }                     
+    	                     
+    	                     $(".validateTips").css("color","red").html("<p>삭제실패</p>");
+    	                  },
+    	                  error: function(xhr, status, e) {
+    	                     console.error(status + ":" + e);
+    	                  }    					
+    				});
+    			}
     		},
     		{
     			text:"취소",
