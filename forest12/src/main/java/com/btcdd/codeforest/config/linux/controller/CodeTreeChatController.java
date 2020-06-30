@@ -123,7 +123,7 @@ public class CodeTreeChatController {
 					
 					if(submitPandan == true && input == null) {
 						process = Runtime.getRuntime().exec("mkdir gwanwo111111");
-						writer.write("1234\n");
+						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
 						writer.flush();
 						readBuffer.setLength(0);
 					} 
