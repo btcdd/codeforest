@@ -547,7 +547,7 @@ $(function() {
         buttons:{
             "추가": function(){
             	var lang = $(".lang option:selected").val();
-            	$(".fileName-input").attr("placeholder",'.'+lang+');
+            	$(".fileName-input").attr("placeholder",'.'+lang+')
                 var filename = $(".fileName-input").val();
                 var filename2 =filename.replace(/(\s*)/g,""); 
                 if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
