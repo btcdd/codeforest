@@ -666,62 +666,70 @@ $(function() {
         width:300,
         height:220,
         modal:true,
-        buttons:{
-            "수정":function(){
-            	var lang = $(".lang option:selected").val();
-                var filename = $(".fileName-update").val();
-                var filename2 =filename.replace(/(\s*)/g,""); 
-                if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
-                   alert("잘못된 형식입니다");
-                   return;
-                }
-                var fileName = filename2;
-                console.log("fileName>>>>>>>>>>>>>>>>>",fileName);
-                $.ajax({
-                   url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
-                   async: true,
-                   type: 'post',
-                   dataType: 'json',
-                   data: {
-                      'savePathNo' : savePathNo,
-                      'codeNo' : codeNo,
-                      'fileName' : fileName,
-                      'subProblemNo':subProblemNo,
-                      'prevFileName':prevFileName
-                   },
-                   success: function(response) {
-          
-                      layoutId = "layout-"+codeNo;
-                   
-                      
-                       if(root != null){
-                          console.log("root가 있을경우 해당");
-                          tempLayout = root.getItemsById(layoutId)[0]; 
-                         if(tempLayout != null){
-                            tempLayout.setTitle(fileName);
-                         }
-                       }
-                      
-                       if(response.data.result == 'no'){
-                         alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                         return;
-                      }
-                      $(".file-tree__subtree").remove();
-                      $(".fileName-update").val("");
-                      fileFetchList(); 
-                      
+        buttons:[
+    		{
+    			text:"추가",
+    			id:"fileUpdateButton",
+    			click:function(){
+                	var lang = $(".lang option:selected").val();
+                    var filename = $(".fileName-update").val();
+                    var filename2 =filename.replace(/(\s*)/g,""); 
+                    if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
+                       alert("잘못된 형식입니다");
+                       return;
+                    }
+                    var fileName = filename2;
+                    console.log("fileName>>>>>>>>>>>>>>>>>",fileName);
+                    $.ajax({
+                       url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
+                       async: true,
+                       type: 'post',
+                       dataType: 'json',
+                       data: {
+                          'savePathNo' : savePathNo,
+                          'codeNo' : codeNo,
+                          'fileName' : fileName,
+                          'subProblemNo':subProblemNo,
+                          'prevFileName':prevFileName
+                       },
+                       success: function(response) {
+              
+                          layoutId = "layout-"+codeNo;
+                       
+                          
+                           if(root != null){
+                              console.log("root가 있을경우 해당");
+                              tempLayout = root.getItemsById(layoutId)[0]; 
+                             if(tempLayout != null){
+                                tempLayout.setTitle(fileName);
+                             }
+                           }
+                          
+                           if(response.data.result == 'no'){
+                             alert("이미 파일이 존재합니다.");//메시지 처리 필요
+                             return;
+                          }
+                          $(".file-tree__subtree").remove();
+                          $(".fileName-update").val("");
+                          fileFetchList(); 
+                          
 
-                   },
-                   error: function(xhr, status, e) {
-                      console.error(status + ":" + e);
-                   }
-                });
-                $(this).dialog("close");                   
-              },
-             "취소":function(){
-                $(this).dialog("close");
-             }        	
-        },
+                       },
+                       error: function(xhr, status, e) {
+                          console.error(status + ":" + e);
+                       }
+                    });
+                    $(this).dialog("close");          				
+    			}
+    		},
+    		{
+    			text:"취소",
+    			click:function(){
+    				$(".fileName-update").val("");	
+    				$(this).dialog("close");
+    			}
+    		}
+    	],
         close:function(){}
     });
     
