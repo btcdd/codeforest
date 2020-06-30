@@ -156,6 +156,12 @@ $(function() {
 	          }
 	       }); 
 	});
+	
+	$('.problem-box').hover(function() {
+		$(this).children().children('img').attr("src", '${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow-hover.png');
+	}, function(){
+		$(this).children().children('img').attr("src", '${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow.png');
+	});
 });
 
 </script>   
