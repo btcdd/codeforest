@@ -180,7 +180,11 @@ $(function() {
    
    var timer = setInterval(function(){
       var diff = (Date.parse(new Date(endTime)) - Date.parse(new Date())) / 1000; 
-
+      if(diff <0){
+          alert("시험 종료");
+          clearInterval(timer);
+          return;
+       }
       
        if (diff >= (365.25 * 86400)) { // 365.25 * 24 * 60 * 60
            years = Math.floor(diff / (365.25 * 86400));
@@ -204,11 +208,7 @@ $(function() {
          }
          
          var sec = diff;
-         if(diff <0){
-             alert("시험 종료");
-             clearInterval(timer);
-             return;
-          }
+
          console.log("min>>>",min);
          console.log("sec>>>",sec);
          console.log("diff>>>",diff);
