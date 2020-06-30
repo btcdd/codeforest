@@ -110,28 +110,11 @@ var editorArray = new Array();
 var editorArrayIndex = 0;
 
 $(function() {
-//    var code = $('.CodeMirror')[0];
-//    var editor = CodeMirror.fromTextArea(code, {
-//    		lineNumbers: true,
-//    		mode: 'text/x-java',
-//    		theme: 'panda-syntax',
-//    		matchBrackets: true
-//    });
-   
-   $('.theme').click(function() {
-	   var theme = $(".theme option:selected").val();
-	   
-// 	   editor.setOption("theme", theme);
-   });
-   
    
    // 파일 열기
    var fileIndex = null;
    var root = null;
    $(document).on('click', '#showCode', function(event) {
-// 	  var index = $(this).attr("class");
-// 	  var code = $("#hiddenCode" + index).text();
-// 	  editor.setValue(code);
 
 	  var userNo = $(this).data("user-no");
 	  var language = $(this).data("language");
@@ -174,6 +157,7 @@ $(function() {
 					title : response.data.fileNames[i],
 					id : "layout-" + fileIndex
 				});
+				
 				var code = $('#cm'+ fileIndex +' > .CodeMirror')[0];		
 				
 				var editor = CodeMirror.fromTextArea(code, {
@@ -181,11 +165,18 @@ $(function() {
 					mode : 'text/x-java',
 					theme : theme,
 					matchBrackets : true,
-					readOnly : true
+					readOnly : true,
 				});		
+
+				console.log("child : ", $(".lm_tab").children().eq(i));
+				$(".lm_tabs").children().eq(i).attr("id", "tab"+i);
+				$(".lm_tabs").children().eq(i).children().eq(1).attr("id", "title"+i);
 				
-				editor.setValue(response.data.codes[i]);
+				console.log("editorArrayIndex : ",editorArrayIndex);
 				editorArray[editorArrayIndex++] = editor;
+				editor.setValue(response.data.codes[i]);
+				console.log("editorArray : ",editorArray[editorArrayIndex-1]);
+				
 			}			
 			
 		},
@@ -234,13 +225,20 @@ $(function() {
  	
 	// 테마 변경
 	var theme = 'panda-syntax';
-	$('.theme').click(function() {
+	$(document).on("change", '.theme', function() {
 		theme = $(".theme option:selected").val();
-		for (var i = 0; i < editorArray.length; i++ ) {
-			editorArray[i].setOption("theme", theme);
+		var containers = document.getElementsByClassName('lm_item_container');
+		for (var i = 0; i < editorArray.length; i++ ) {				
+			if(containers[i].style.display == "none"){
+				containers[i].style.display = '';
+				editorArray[i].setOption("theme", theme);
+				containers[i].style.display = 'none';
+			} else {
+				editorArray[i].setOption("theme", theme);
+			}
 		}
 	});
-	
+
 	
  	//////////////////////////// golden layout /////////////////////////////	
 	var config = {
