@@ -715,8 +715,7 @@ $(function() {
                               $(".file-tree__subtree").remove();
                               $(".fileName-update").val("");
                               fileFetchList(); 
-                              $(this).dialog("close");
-                              return;
+                              $("#CloseUpdateButton").click();
                     	  }
 
                            
@@ -732,6 +731,7 @@ $(function() {
     		},
     		{
     			text:"취소",
+    			id:"CloseUpdateButton"
     			click:function(){
     				$(".fileName-update").val("");	
     				$(this).dialog("close");
