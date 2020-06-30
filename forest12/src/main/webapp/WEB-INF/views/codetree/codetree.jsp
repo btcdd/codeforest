@@ -660,7 +660,7 @@ $(function() {
         buttons:{
             "수정":function(){
             	var lang = $(".lang option:selected").val();
-                var filename = $(this).find(".fileName-update").val();
+                var filename = $(".fileName-update").val();
                 var filename2 =filename.replace(/(\s*)/g,""); 
                 if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
                    alert("잘못된 형식입니다");
@@ -698,7 +698,7 @@ $(function() {
                          return;
                       }
                       $(".file-tree__subtree").remove();
-                      $(".fileName-input").val("");	
+                      $(".fileName-update").val("");
                       fileFetchList(); 
                       
                       
