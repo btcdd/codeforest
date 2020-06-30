@@ -717,6 +717,7 @@ $(function() {
                               fileFetchList(); 
                               $("#CloseUpdateButton").click();
                     	  }else if(response.data.result=="no"){
+                    		  console.log("이미존재하는 파일이다");
                     		  $(".fileName-update").val("");
                               $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");	  
                     	  }                  
