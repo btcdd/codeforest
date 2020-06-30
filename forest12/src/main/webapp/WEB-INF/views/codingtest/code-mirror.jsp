@@ -209,7 +209,6 @@ $(function() {
          }else if(diff < 60){
         	 min = 0;
          }
-         console.log("diff>>>",diff);
          var sec = diff;
      $(".countdown table td:first").text("남은 시간  ");
      $(".countdown table td+td").text("[ "+hours+"시");
