@@ -123,6 +123,8 @@ public class CodeTreeChatController {
 					
 					if(submitPandan == true && input == null) {
 						String in = codetreeService.getExamInput(subProblemNo) + "\n";
+						
+						Thread.sleep(1000);
 						process = Runtime.getRuntime().exec("mkdir " + in);
 						
 						Thread.sleep(100);
