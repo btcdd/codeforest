@@ -53,6 +53,9 @@ var outputResult = '';
 
 //채팅 시작하기
 function connect(event) {
+	
+	outputResult = '';
+	
    if(currentEditor == null){
       return;
    }
@@ -94,7 +97,7 @@ function onConnected() {
     
     execPandan = false;
     // Tell your username to the server
-    stompClient.send("/app/codingtest",
+    stompClient.send("/app/codetree",
         {},
         JSON.stringify(chatMessage)
     );
@@ -115,7 +118,7 @@ function sendMessage(event, res) {
       execPandan: execPandan,
         type: 'CHAT'
     };
-    stompClient.send("/app/codingtest", {}, JSON.stringify(chatMessage));
+    stompClient.send("/app/codetree", {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
@@ -1116,21 +1119,31 @@ $(function() {
 
                var problemNo = "${saveVo.problemNo }";
              $.ajax({
-               url: '${pageContext.servletContext.contextPath }/api/codingtest/submit',
+//                url: '${pageContext.servletContext.contextPath }/api/codingtest/submit',
+               url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
                async: true,
                type: 'post',
                dataType:'json',
                data: {
-                  'language' : tempFile.data("language"),
-                  'fileName' : tempFile.data("file-name"),
-                  'packagePath' : tempFile.data("package-path"),
-                  'subProblemNo':tempFile.data("subproblem-no"),
-                  'codeValue' : currentEditor.getValue(),
-                  'problemNo' : problemNo,
-                  'compileResult1':compileResult1,
-                  'compileResult2': message.errorPandan,
-                  'userStartTime':userStartTime,
-                  'outputResult': outputResult
+//                   'language' : tempFile.data("language"),
+//                   'fileName' : tempFile.data("file-name"),
+//                   'packagePath' : tempFile.data("package-path"),
+//                   'subProblemNo':tempFile.data("subproblem-no"),
+//                   'codeValue' : currentEditor.getValue(),
+//                   'problemNo' : problemNo,
+//                   'compileResult1':compileResult1,
+//                   'compileResult2': message.errorPandan,
+//                   'userStartTime':userStartTime,
+//                   'outputResult': outputResult
+            	   'language' : tempFile.data("language"),
+                   'fileName' : tempFile.data("file-name"),
+                   'packagePath' : tempFile.data("package-path"),
+                   'subProblemNo': tempFile.data("subproblem-no"),
+                   'codeValue' : currentEditor.getValue(),
+                   'problemNo' : problemNo,
+                   'compileResult1': compileResult1,
+                   'compileResult2': message.errorPandan,
+                   'outputResult': outputResult
                },
                success: function(response) {
                   var compileResult = response.data.compileResult;
