@@ -53,7 +53,7 @@ public class CodeTreeChatController {
 		String packagePath = (String) obj.get("packagePath");
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
-		String examInput = "";
+		final String examInput = "";
 		
 		CodeTreeService codetreeService = new CodeTreeService();
 		
@@ -123,6 +123,9 @@ public class CodeTreeChatController {
 				try {
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
+					if(submitPandan) {
+						input = examInput;
+					}
 					// 지술이형 코드!!
 					if(input == null) {
 						return;

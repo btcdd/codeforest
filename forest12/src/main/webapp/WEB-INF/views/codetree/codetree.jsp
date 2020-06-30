@@ -1053,7 +1053,7 @@ $(function() {
             'language' : tempFile.data("language"),
             'fileName' : tempFile.data("file-name"),
             'packagePath' : tempFile.data("package-path"),
-            'subProblemNo':tempFile.data("subproblem-no"),
+            'subProblemNo': tempFile.data("subproblem-no"),
             'codeValue' : currentEditor.getValue(),
             'problemNo' : problemNo
          },
