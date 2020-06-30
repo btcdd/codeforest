@@ -613,41 +613,46 @@ $(function() {
          width:300,
          height:220,
          modal:true,
-         buttons:{
-            "삭제":function(){
-               
-               $.ajax({
-                  url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
-                  async: true,
-                  type: 'delete',
-                  dataType:'json',
-                  data:'',
-                  success: function(response) {
-                     
-                     if(response.result != "success"){
-                        console.error(response.message);
-                        return;
-                     }
-                     
-                     if(response.data != -1){
-                         
-                        $(".userFile[data-no="+response.data+"]").remove();
-                        
-                        dialogDelete.dialog('close');
-                        return;
-                     }                     
-                     
-                     $(".validateTips").css("color","red").html("<p>삭제실패</p>");
-                  },
-                  error: function(xhr, status, e) {
-                     console.error(status + ":" + e);
-                  }                     
-               });
-            },
-            "취소":function(){
-               $(this).dialog("close");
-            }
-         },
+         buttons:[
+     		{
+    			text:"삭제",
+    			id:"fileDeleteButton",
+    			click:function(){
+    	               $.ajax({
+    	                   url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
+    	                   async: true,
+    	                   type: 'delete',
+    	                   dataType:'json',
+    	                   data:'',
+    	                   success: function(response) {
+    	                      
+    	                      if(response.result != "success"){
+    	                         console.error(response.message);
+    	                         return;
+    	                      }
+    	                      
+    	                      if(response.data != -1){
+    	                          
+    	                         $(".userFile[data-no="+response.data+"]").remove();
+    	                         
+    	                         dialogDelete.dialog('close');
+    	                         return;
+    	                      }                     
+    	                      
+    	                      $(".validateTips").css("color","red").html("<p>삭제실패</p>");
+    	                   },
+    	                   error: function(xhr, status, e) {
+    	                      console.error(status + ":" + e);
+    	                   }  				
+    			});
+    		},
+    		{
+    			text:"취소",
+    			click:function(){
+    				$(this).dialog("close");
+    			}
+    		}
+    	]  ,
          close:function(){}
     });    
     
@@ -668,7 +673,7 @@ $(function() {
         modal:true,
         buttons:[
     		{
-    			text:"추가",
+    			text:"수정",
     			id:"fileUpdateButton",
     			click:function(){
                 	var lang = $(".lang option:selected").val();
