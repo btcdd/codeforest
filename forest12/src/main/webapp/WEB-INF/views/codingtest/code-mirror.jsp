@@ -1124,16 +1124,6 @@ $(function() {
                type: 'post',
                dataType:'json',
                data: {
-//                   'language' : tempFile.data("language"),
-//                   'fileName' : tempFile.data("file-name"),
-//                   'packagePath' : tempFile.data("package-path"),
-//                   'subProblemNo':tempFile.data("subproblem-no"),
-//                   'codeValue' : currentEditor.getValue(),
-//                   'problemNo' : problemNo,
-//                   'compileResult1':compileResult1,
-//                   'compileResult2': message.errorPandan,
-//                   'userStartTime':userStartTime,
-//                   'outputResult': outputResult
             	   'language' : tempFile.data("language"),
                    'fileName' : tempFile.data("file-name"),
                    'packagePath' : tempFile.data("package-path"),
