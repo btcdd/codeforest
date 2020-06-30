@@ -53,7 +53,7 @@ var tempFile = null;
 var socket;
 var prevText = '';
 
-var submitPandan = false;
+var submitPandan;
 
 //채팅 시작하기
 function connect(event) {
