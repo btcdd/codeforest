@@ -128,7 +128,7 @@ public class CodeTreeChatController {
 						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
 						writer.flush();
 						readBuffer.setLength(0);
-					} else if(submitPandan == false && input == null) {
+					} else if(submitPandan == false) {
 						process = Runtime.getRuntime().exec("mkdir 여기2");
 						return;
 					}
