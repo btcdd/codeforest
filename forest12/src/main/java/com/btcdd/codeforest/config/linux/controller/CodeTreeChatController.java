@@ -2,6 +2,8 @@ package com.btcdd.codeforest.config.linux.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -118,6 +120,19 @@ public class CodeTreeChatController {
 				try {
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
+					
+					if(submitPandan == true) {
+						try {
+							File file = new File("gwanwooooo22222.txt");
+							BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
+							
+							bufferWriter.write("gdgd");
+							bufferWriter.flush(); 
+						} catch(Exception e) {
+							e.printStackTrace();
+							System.exit(1);
+						}
+					}
 					// 지술이형 코드!!
 					if(input == null) {
 						return;
