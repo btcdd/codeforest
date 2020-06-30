@@ -208,7 +208,9 @@ $(function() {
              alert("시험 종료");
              clearInterval(timer);
              return;
-          }         
+          }
+         console.log("min>>>",min);
+         console.log("sec>>>",sec);
          console.log("diff>>>",diff);
          $(".countdown table td:first").text("남은 시간  ");
        $(".countdown table td+td").text("[ "+hours+"시");
