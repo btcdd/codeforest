@@ -124,7 +124,6 @@ function sendMessage(event, res) {
 }
 
 function onMessageReceived(payload) {
-	
     message = JSON.parse(payload.body);
     
     prevText = '';
@@ -138,7 +137,7 @@ function onMessageReceived(payload) {
    
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
-   // 프로그램 끝!
+   // 프로그램 끝!!
    if(message.programPandan || message.errorPandan) {
        $('.terminal').attr("readonly", true);
        outputResult = outputResult.substring(0, outputResult.length - 16);
@@ -336,9 +335,6 @@ $(function() {
       
        $(".file-tree__subtree").remove();
       fileFetchList();
-
-      
-      
       
    });
    
@@ -401,11 +397,6 @@ $(function() {
     $(".contextmenu").append(str);
     var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
     $(".userfile-menu").append(str2);
-    
-
-    
-    
-    
 
    $(document).on('mouseenter','.ui__sidebar',function() {
       $(document).on('mousedown','#folder',function(e) {
@@ -1095,15 +1086,12 @@ $(function() {
          if(tempFile == null){
             return;
          }        
-        console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
         $(this).addClass("SaveClick");   
         setTimeout(function(){
            $("#Save").removeClass("SaveClick");
            $("#Save").addClass("Save");
         },100);
         
-        
-        console.log("editor.getValue()>>>>>>",currentEditor.getValue());
         var problemNo = "${saveVo.problemNo }";
         
        $.ajax({
@@ -1171,7 +1159,6 @@ $(function() {
                success: function(response) {
                   var compileResult = response.data.compileResult;
                   var compileError = response.data.compileError;
-                  var locationtest = response.data.locationtest;
                   
                   if(compileError == true) {
                      alert("컴파일 오류입니다.");

@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -24,16 +25,22 @@ import com.btcdd.codeforest.runlanguage.RunCsLinux;
 import com.btcdd.codeforest.runlanguage.RunJavaLinux;
 import com.btcdd.codeforest.runlanguage.RunJsLinux;
 import com.btcdd.codeforest.runlanguage.RunPyLinux;
+import com.btcdd.codeforest.service.CodeTreeService;
 
 @Controller
 public class CodingTestChatController {
 	
 	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
+	
+	@Autowired
+	CodeTreeService codetreeService = new CodeTreeService();
 
 	@MessageMapping("/codingtest")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+		
+		chatMessage.setErrorPandan(false);
 		
 		String errorResult = "";
 		Boolean pandan = false;
@@ -49,6 +56,8 @@ public class CodingTestChatController {
 		String language = (String) obj.get("language");
 		String fileName = (String) obj.get("fileName");
 		String packagePath = (String) obj.get("packagePath");
+		Boolean submitPandan = (Boolean) obj.get("submitPandan");
+		Long subProblemNo = (Long) obj.get("subProblemNo");
 		
 		try {
 			if(pandan) {
@@ -81,7 +90,7 @@ public class CodingTestChatController {
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
-					chatMessage.setProgramPandan(true);
+					chatMessage.setErrorPandan(true);
 					return chatMessage;
 				}
 			}
@@ -90,8 +99,6 @@ public class CodingTestChatController {
 			InputStream stderr = process.getErrorStream();
 			InputStream stdout = process.getInputStream();
 
-			StringBuffer readBuffer2 = new StringBuffer();
-
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
@@ -99,7 +106,6 @@ public class CodingTestChatController {
 					int c = 0;
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
-						readBuffer2.append(line);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -112,15 +118,19 @@ public class CodingTestChatController {
 				try {
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 					String input = chatMessage.getContent();
-					// 지술이형 코드!!
-					if(input == null) {
+					
+					if(submitPandan == true && input == null) {
+						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
+						writer.flush();
+						readBuffer.setLength(0);
+					}
+					if( (submitPandan == false || submitPandan.equals("null")) && input == null) {
 						return;
 					}
 
-					if (!("".equals(input)) || input != null) {
+					if(submitPandan == false && (!("".equals(input)) || input != null)) {
 						try {
 							input += "\n";
-							readBuffer2.append(input);
 							writer.write(input);
 							writer.flush();
 							readBuffer.setLength(0);
