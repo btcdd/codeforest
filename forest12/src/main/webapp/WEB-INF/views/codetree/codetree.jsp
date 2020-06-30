@@ -530,15 +530,18 @@ $(function() {
     $(document).click(function(){
        $(".userfile-menu").hide();
     });   
+   
+    
     
     $(document).on('click','#file-insert',function(){
        console.log("savePathNo!!!"+savePathNo);
        console.log("subProblemNo!!!"+subProblemNo);
-       var lang = $(".lang option:selected").val();
-       var fileName = null;
+       var lang = $(".lang option:selected").val();   
+       $(".fileName-input").attr("placeholder","."+lang);
+       /* var fileName = null; */
        dialogInsert.dialog("open");
     });
-    var lang = $(".lang option:selected").val();
+    
     var dialogInsert = $("#dialog-insert-form").dialog({
         autoOpen: false,
         width:300,
@@ -546,8 +549,7 @@ $(function() {
         modal:true,
         buttons:{
             "추가": function(){
-            	console.log("lang>>",lang);
-            	var selected_lang = $(".fileName-input").attr("placeholder","."+lang);
+            	var lang = $(".lang option:selected").val();
                 var filename = $(".fileName-input").val();
                 var filename2 =filename.replace(/(\s*)/g,"");
                 console.log("filename2>>",filename2);
@@ -555,7 +557,7 @@ $(function() {
                    alert("잘못된 형식입니다");
                    return;
                 }
-                fileName = filename2;
+                var fileName = filename2;
                 
                 $.ajax({
                    url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
