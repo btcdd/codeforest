@@ -725,7 +725,7 @@ $(function() {
                           console.error(status + ":" + e);
                        }
                     });
-                    $(this).dialog("close");          				
+                          				
     			}
     		},
     		{
