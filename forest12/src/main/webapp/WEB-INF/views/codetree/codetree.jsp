@@ -536,56 +536,60 @@ $(function() {
        console.log("subProblemNo!!!"+subProblemNo);
        var lang = $(".lang option:selected").val();
        var fileName = null;
-       $('<div> <input type="text" style="z-index:10000" class="fileName-input"  placeholder='+'.'+lang+' > </div>')
-           .attr("title","파일 추가")
-          .dialog({
-          modal: true,
-         buttons:{
-            "추가": function(){
-               var filename = $(this).find(".fileName-input").val();
-               var filename2 =filename.replace(/(\s*)/g,""); 
-               if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
-                  alert("잘못된 형식입니다");
-                  return;
-               }
-               fileName = filename2;
-               
-               $.ajax({
-                  url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
-                  async: true,
-                  type: 'post',
-                  dataType: 'json',
-                  data: {
-                     'savePathNo' : savePathNo,
-                     'language' : lang,
-                     'fileName' : fileName,
-                     'subProblemNo':subProblemNo
-                  },
-                  success: function(response) {
-                              
-                     if(response.data.result == 'no'){
-                        alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                        return;
-                     }
-                     $(".file-tree__subtree").remove();
-
-                     fileFetchList();
-                     
-                  },
-                  error: function(xhr, status, e) {
-                     console.error(status + ":" + e);
-                  }
-               });
-               $(this).dialog("close");
-            },
-            "취소":function(){
-               $(this).dialog("close");
-            }
-         },
-         close:function(){}
-       });       
+       dialogInsert.dialog("open");
     });
     
+    var dialogInsert = $("#dialog-insert-form").dialog({
+        autoOpen: false,
+        width:300,
+        height:220,
+        modal:true,
+        buttons:{
+            "추가": function(){
+            	var lang = $(".lang option:selected").val();
+            	$(".fileName-input").attr("placeholder",'.'+lang+');
+                var filename = $(".fileName-input").val();
+                var filename2 =filename.replace(/(\s*)/g,""); 
+                if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
+                   alert("잘못된 형식입니다");
+                   return;
+                }
+                fileName = filename2;
+                
+                $.ajax({
+                   url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
+                   async: true,
+                   type: 'post',
+                   dataType: 'json',
+                   data: {
+                      'savePathNo' : savePathNo,
+                      'language' : lang,
+                      'fileName' : fileName,
+                      'subProblemNo':subProblemNo
+                   },
+                   success: function(response) {
+                               
+                      if(response.data.result == 'no'){
+                         alert("이미 파일이 존재합니다.");//메시지 처리 필요
+                         return;
+                      }
+                      $(".file-tree__subtree").remove();
+
+                      fileFetchList();
+                      
+                   },
+                   error: function(xhr, status, e) {
+                      console.error(status + ":" + e);
+                   }
+                });
+                $(this).dialog("close");
+             },
+             "취소":function(){
+                $(this).dialog("close");
+             }        	
+        },
+        close: function(){}
+    });
     
     $(document).on('click','#userfile-delete',function(){
        console.log("userfile-delete   >>codeNo",codeNo);       
@@ -1523,7 +1527,10 @@ window.onload = function() {
      </div>
       
    </div>
-   
+   		
+   		<div id="dialog-insert-form" title="파일 추가" style="display:none">
+   			<input type="text" class="fileName-input"/>
+   		</div>   
          <div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
             <p class="validateTips"></p>  
          </div>
