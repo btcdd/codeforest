@@ -113,6 +113,7 @@ public class CodeTreeController {
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		Map<String,Object> map = new HashMap<>();
 		
+		map.put("savePathNo", savePathNo);
 		if(!exist) {
 			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);

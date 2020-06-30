@@ -703,7 +703,7 @@ $(function() {
                        },
                        success: function(response) {
                   
-                    	   
+                    	   console.log("response.data.savePathNo>>>",response.data.savePathNo);
                            layoutId = "layout-"+codeNo;
                            
                            
