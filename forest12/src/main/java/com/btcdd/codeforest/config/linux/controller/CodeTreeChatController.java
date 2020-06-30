@@ -128,9 +128,6 @@ public class CodeTreeChatController {
 						writer.flush();
 						readBuffer.setLength(0);
 					} 
-//					// 지술이형 코드!!
-//					else 
-					
 					if( (submitPandan == false || submitPandan.equals("null")) && input == null) {
 						return;
 					}

@@ -394,7 +394,7 @@ $(function() {
 ////////////////파일 추가/////////////////////
     
     var savePathNo = null;
-    var subProblemNo = null;
+    var subProblemNo = null;   
     var codeNo = null;
     var prevFileName = null;
     var str='<div id="file-insert"><li>파일 추가</li></div>';
@@ -414,6 +414,8 @@ $(function() {
             //tempFile = $(this);
             savePathNo = $(this).data("no");
              subProblemNo = $(this).data("no2");
+             console.log("savePathNo>>>",savePathNo);
+             console.log("subProblemNo>>>",subProblemNo);             
               //Get window size:
               var winWidth = $(document).width();
               var winHeight = $(document).height();
@@ -458,10 +460,19 @@ $(function() {
       });
 
       
-      $(document).on('mousedown','.userFile',function(e){
+      $(document).on('mousedown','.file',function(e){
          $(".contextmenu").hide();
          if(e.which == 3){
-            //tempFile = $(this);
+        	 
+             savePathNo = $(this).data("no2");
+             subProblemNo = $(this).data("no3");              
+            console.log('$(this).data("no2")>>',$(this).data("no2"));
+            console.log('$(this).data("no3")>>',$(this).data("no3"));
+            console.log("no>>>",$(this).data("no"));
+            console.log("subproblem-no>>>",$(this).data("subproblem-no"));
+            console.log("language>>>",$(this).data("language"));
+            console.log("file-name>>>",$(this).data("file-name"));
+            console.log("package-path>>>",$(this).data("package-path"));
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
             if(currentFileNameSplit != "Test"){
@@ -535,64 +546,80 @@ $(function() {
     $(document).click(function(){
        $(".userfile-menu").hide();
     });   
+   
+    
     
     $(document).on('click','#file-insert',function(){
-       console.log("savePathNo!!!"+savePathNo);
-       console.log("subProblemNo!!!"+subProblemNo);
-       var lang = $(".lang option:selected").val();
-       var fileName = null;
-       $('<div> <input type="text" style="z-index:10000" class="fileName-input"  placeholder='+'.'+lang+' > </div>')
-           .attr("title","파일 추가")
-          .dialog({
-          modal: true,
-         buttons:{
-            "추가": function(){
-               var filename = $(this).find(".fileName-input").val();
-               var filename2 =filename.replace(/(\s*)/g,""); 
-               if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
-                  alert("잘못된 형식입니다");
-                  return;
-               }
-               fileName = filename2;
-               
-               $.ajax({
-                  url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
-                  async: true,
-                  type: 'post',
-                  dataType: 'json',
-                  data: {
-                     'savePathNo' : savePathNo,
-                     'language' : lang,
-                     'fileName' : fileName,
-                     'subProblemNo':subProblemNo
-                  },
-                  success: function(response) {
+       console.log("savePathNo!!!",savePathNo);
+       console.log("subProblemNo!!!",subProblemNo);
+       $(".insertErrorMessage").html("<p></p>");
+       var lang = $(".lang option:selected").val();   
+       $(".fileName-insert").attr("placeholder","."+lang);
+       dialogInsert.dialog("open");
+    });
+     
+    var dialogInsert = $("#dialog-insert-form").dialog({
+        autoOpen: false,
+        width:300,
+        height:220,
+        modal:true,
+        buttons:[
+        		{
+        			text:"추가",
+        			id:"fileInsertButton",
+        			click:function(){
+                    	var lang = $(".lang option:selected").val();
+                        var filename = $(".fileName-insert").val();
+                        var filename2 =filename.replace(/(\s*)/g,"");
+                        if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
+                           alert("잘못된 형식입니다");
+                           return;
+                        }
+                        var fileName = filename2;
+                        
+                        $.ajax({
+                           url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
+                           async: true,
+                           type: 'post',
+                           dataType: 'json',
+                           data: {
+                              'savePathNo' : savePathNo,
+                              'language' : lang,
+                              'fileName' : fileName,
+                              'subProblemNo':subProblemNo
+                           },
+                           success: function(response) {
+                                       
+                              if(response.data.result == 'no'){
+                              	 $(".insertErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
+                                   return;
+                              }
+                              $("#CloseInsertButton").click();
+                              $(".insertErrorMessage").html("<p></p>");                              
+                              $(".file-tree__subtree").remove();	
+                              fileFetchList();
                               
-                     if(response.data.result == 'no'){
-                        alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                        return;
-                     }
-                     $(".file-tree__subtree").remove();
-
-                     fileFetchList();
-                     
-                  },
-                  error: function(xhr, status, e) {
-                     console.error(status + ":" + e);
-                  }
-               });
-               $(this).dialog("close");
-            },
-            "취소":function(){
-               $(this).dialog("close");
-            }
-         },
-         close:function(){}
-       });       
+                           },
+                           error: function(xhr, status, e) {
+                              console.error(status + ":" + e);
+                           }
+                        });       				
+        			}
+        		},
+        		{
+        			text:"취소",
+        			id:"CloseInsertButton",        			
+        			click:function(){
+        				$(".fileName-insert").val("");	
+        				$(this).dialog("close");
+        			}
+        		}
+        	]       	
+        ,
+        close: function(){}
     });
     
-    
-    $(document).on('click','#userfile-delete',function(){
+    $(document).on('click','#userfile-delete',function(){    	
        console.log("userfile-delete   >>codeNo",codeNo);       
        $(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
        dialogDelete.dialog("open");
@@ -604,118 +631,137 @@ $(function() {
          width:300,
          height:220,
          modal:true,
-         buttons:{
-            "삭제":function(){
-               
-               $.ajax({
-                  url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
-                  async: true,
-                  type: 'delete',
-                  dataType:'json',
-                  data:'',
-                  success: function(response) {
-                     
-                     if(response.result != "success"){
-                        console.error(response.message);
-                        return;
-                     }
-                     
-                     if(response.data != -1){
-                         
-                        $(".userFile[data-no="+response.data+"]").remove();
-                        
-                        dialogDelete.dialog('close');
-                        return;
-                     }                     
-                     
-                     $(".validateTips").css("color","red").html("<p>삭제실패</p>");
-                  },
-                  error: function(xhr, status, e) {
-                     console.error(status + ":" + e);
-                  }                     
-               });
-            },
-            "취소":function(){
-               $(this).dialog("close");
-            }
-         },
+         buttons:[
+     		{
+    			text:"삭제",
+    			id:"fileDeleteButton",
+    			click:function(){
+    				$.ajax({
+    	                  url: '${pageContext.servletContext.contextPath }/api/codetree/fileDelete/'+codeNo,
+    	                  async: true,
+    	                  type: 'delete',
+    	                  dataType:'json',
+    	                  data:'',
+    	                  success: function(response) {
+    	                     
+    	                     if(response.result != "success"){
+    	                        console.error(response.message);
+    	                        return;
+    	                     }
+    	                     
+    	                     if(response.data != -1){
+    	                         
+    	                        $(".userFile[data-no="+response.data+"]").remove();
+    	                        
+    	                        dialogDelete.dialog('close');
+    	                        return;
+    	                     }                     
+    	                     
+    	                     $(".validateTips").css("color","red").html("<p>삭제실패</p>");
+    	                  },
+    	                  error: function(xhr, status, e) {
+    	                     console.error(status + ":" + e);
+    	                  }    					
+    				});
+    			}
+    		},
+    		{
+    			text:"취소",
+    			click:function(){
+    				$(this).dialog("close");
+    			}
+    		}
+    	]  ,
          close:function(){}
     });    
     
+    
+    $(document).on('click','#userfile-update',function(){
+        console.log("update  savePathNo!!!",savePathNo);
+        console.log("update  subProblemNo!!!",subProblemNo);
+        
+    	$(".updateErrorMessage").html("<p></p>");
+        var lang = $(".lang option:selected").val();   
+        $(".fileName-update").attr("placeholder","."+lang);
+        dialogUpdate.dialog("open");
+     });    
+
     var layoutId = null;
     var tempLayout = null;
 
-    $(document).on("click", "#userfile-update", function() {
-       var lang = $(".lang option:selected").val();
-       var fileName = null;
-       /* codeNo = fileNo; */
-       $('<div class="FileUpdate"> <input type="text" style="z-index:10000" class="fileName-update" placeholder='+'.'+lang+'></div>')
-          .attr("title","파일 수정")
-          .dialog({
-             modal: true,
-             buttons:{
-                "수정":function(){
-                
-                  var filename = $(this).find(".fileName-update").val();
-                  var filename2 =filename.replace(/(\s*)/g,""); 
-                  if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
-                     alert("잘못된 형식입니다");
-                     return;
-                  }
-                  fileName = filename2;
-                  console.log("fileName>>>>>>>>>>>>>>>>>",fileName);
-                  $.ajax({
-                     url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
-                     async: true,
-                     type: 'post',
-                     dataType: 'json',
-                     data: {
-                        'savePathNo' : savePathNo,
-                        'codeNo' : codeNo,
-                        'fileName' : fileName,
-                        'subProblemNo':subProblemNo,
-                        'prevFileName':prevFileName
-                     },
-                     success: function(response) {
-            
-                        layoutId = "layout-"+codeNo;
-                     
-                        
-                         if(root != null){
-                            console.log("root가 있을경우 해당");
-                            tempLayout = root.getItemsById(layoutId)[0]; 
-                           if(tempLayout != null){
-                              tempLayout.setTitle(fileName);
+    var dialogUpdate = $("#dialog-update-form").dialog({
+        autoOpen: false,
+        width:300,
+        height:220,
+        modal:true,
+        buttons:[
+    		{
+    			text:"수정",
+    			id:"fileUpdateButton",
+    			click:function(){
+                	var lang = $(".lang option:selected").val();
+                    var filename = $(".fileName-update").val();
+                    var filename2 =filename.replace(/(\s*)/g,""); 
+                    if(filename2.split(".").length >2 || filename2.split(".")[1] !=lang || filename2.split(".")[0] ==""){
+                       alert("잘못된 형식입니다");
+                       return;
+                    }
+                    var fileName = filename2;
+                    $.ajax({
+                       url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
+                       async: true,
+                       type: 'post',
+                       dataType: 'json',
+                       data: {
+                          'savePathNo' : savePathNo,
+                          'codeNo' : codeNo,
+                          'fileName' : fileName,
+                          'subProblemNo':subProblemNo,
+                          'prevFileName':prevFileName
+                       },
+                       success: function(response) {
+                  
+                    	  
+                           layoutId = "layout-"+codeNo;
+                           
+                           
+                           if(root != null){
+                              console.log("root가 있을경우 해당");
+                              tempLayout = root.getItemsById(layoutId)[0]; 
+                             if(tempLayout != null){
+                                tempLayout.setTitle(fileName);
+                             }
                            }
-                         }
-                        
-                         if(response.data.result == 'no'){
-                           alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                           return;
-                        }
-                        $(".file-tree__subtree").remove();
-
-                        fileFetchList(); 
-                        
-                        
-                        
-                     },
-                     error: function(xhr, status, e) {
-                        console.error(status + ":" + e);
-                     }
-                  });
-                  $(this).dialog("close");                   
-                },
-               "취소":function(){
-                  $(this).dialog("close");
-               }
-             },
-             close:function(){}
-          });
-         
+                           
+                           if(response.data.result == 'no'){
+                        	 $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
+                             return;
+                          }
+                          $("#CloseUpdateButton").click();
+                          $(".updateErrorMessage").html("<p></p>");
+                          $(".file-tree__subtree").remove();
+                          fileFetchList();                     	   
+      
+                       },
+                       error: function(xhr, status, e) {
+                          console.error(status + ":" + e);
+                       }
+                    });    				
+    			}
+    		},
+    		{
+    			text:"취소",
+    			id:"CloseUpdateButton",
+    			click:function(){
+    				$(".fileName-update").val("");	
+    				$(this).dialog("close");
+    			}
+    		}
+    	],
+        close:function(){}
     });
     
-    
+
     
     // 파일을 더블클릭 하면...
     var fileNo = null;
@@ -959,9 +1005,27 @@ $(function() {
                $("#Save").trigger("click");
                break;
            } 
-        }
+        }else if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)){ //enter
+        	switch(event.target.className){
+        	case 'fileName-insert':
+        		console.log('$(".fileName-insert").val()>>>>>>>',$(".fileName-insert").val());
+        		$("#fileInsertButton").click();
+        		break;
+        	case 'fileName-update':
+        		console.log('$(".fileName-update").val()>>>>>>>',$(".fileName-update").val());
+        		$("#fileUpdateButton").click();
+        	}
+        }else if((event.which && event.which == 27) || (event.keyCode && event.keyCode == 27)){//esc
+        	switch(event.target.className){
+        	case 'fileName-insert':
+        		$("#CloseInsertButton").click();
+        		break;
+        	case 'fileName-update':
+        		$("#CloseUpdateButton").click();
+        	}
+        } 
     });
-     
+      
    $(document).on("propertychange change keyup paste", function(e){
 
       if(e.target.nodeName == "TEXTAREA" && e.target.className != "fileName-update" && e.target.className != "terminal"){
@@ -1514,7 +1578,15 @@ window.onload = function() {
      </div>
       
    </div>
-   
+   		
+   		<div id="dialog-insert-form" title="파일 추가" style="display:none">
+   			<input type="text" class="fileName-insert" />
+   			<p class="insertErrorMessage"></p>
+   		</div>
+   		<div id="dialog-update-form" title="파일 수정" style="display:none">
+   			<input type="text" class="fileName-update" />
+   			<p class="updateErrorMessage"></p>
+   		</div>   		   
          <div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
             <p class="validateTips"></p>  
          </div>
