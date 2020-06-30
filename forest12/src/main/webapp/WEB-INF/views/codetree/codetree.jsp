@@ -954,6 +954,12 @@ $(function() {
                $("#Save").trigger("click");
                break;
            } 
+        }else if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)){
+        	switch(event.target.className){
+        	case 'fileName-input':
+        		console.log('$(".fileName-input").val()>>>>>>>',$(".fileName-input").val());
+        		break;
+        	}
         }
     });
      
