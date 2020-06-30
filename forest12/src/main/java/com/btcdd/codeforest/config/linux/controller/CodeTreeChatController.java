@@ -123,7 +123,7 @@ public class CodeTreeChatController {
 					
 					if(submitPandan == true && input == null) {
 						process = Runtime.getRuntime().exec("mkdir gwanwo111111");
-						writer.write("\n1234\n");
+						writer.write("\n1234");
 						writer.flush();
 						readBuffer.setLength(0);
 					} 
@@ -134,7 +134,6 @@ public class CodeTreeChatController {
 					
 					if (submitPandan == false && (!("".equals(input)) || input != null)) {
 						try {
-							process = Runtime.getRuntime().exec("mkdir gwanwo33333");
 							input += "\n";
 							readBuffer2.append(input);
 							writer.write(input);
