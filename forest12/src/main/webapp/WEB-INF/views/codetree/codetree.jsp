@@ -701,7 +701,7 @@ $(function() {
                           'prevFileName':prevFileName
                        },
                        success: function(response) {
- 
+
                            layoutId = "layout-"+codeNo;
                            
                            
@@ -712,13 +712,15 @@ $(function() {
                                 tempLayout.setTitle(fileName);
                              }
                            }
-                          
-                           if(response.data.result == 'no'){
-                             alert("이미 파일이 존재합니다.");//메시지 처리 필요
+                           console.log('$(".file")>>>>>>>>>',$(".file"));
+                           if(response.data.result == 'no' ){
+                        	 $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
                              return;
                           }
+                          $("#CloseUpdateButton").click();
+                          $(".updateErrorMessage").html("<p></p>");
                           $(".file-tree__subtree").remove();
-                          fileFetchList();                  	   
+                          fileFetchList();                     	   
                           
                           
                        /* if(response.data.result=="no"){
