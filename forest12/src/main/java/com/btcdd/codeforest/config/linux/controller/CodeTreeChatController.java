@@ -125,7 +125,7 @@ public class CodeTreeChatController {
 						String in = codetreeService.getExamInput(subProblemNo);
 						
 						Thread.sleep(5000);
-						process = Runtime.getRuntime().exec("mkdir " + in);
+						process = Runtime.getRuntime().exec("mkdir hihihihii" + in + "123123123123123");
 						
 						Thread.sleep(100);
 						writer.write(in);
