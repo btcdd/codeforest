@@ -660,6 +660,7 @@ $(function() {
     
     
     $(document).on('click','#userfile-update',function(){
+    	$(".updateErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
         $(".fileName-update").attr("placeholder","."+lang);
         dialogUpdate.dialog("open");
