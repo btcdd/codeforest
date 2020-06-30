@@ -301,7 +301,6 @@ public class CodingTestController {
 			userSubmitTime = TransFormat.format(SubmitTime);
 			userSubmitTime2 = TransFormat.parse(userSubmitTime);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		long hours=0,min=0,sec = 0;
