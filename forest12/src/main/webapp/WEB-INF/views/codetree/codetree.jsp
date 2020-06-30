@@ -58,7 +58,9 @@ var outputResult = '';
 //채팅 시작하기
 function connect(event) {
 	
+	console.log('output:1111111:,', outputResult);
 	outputReuslt = '';
+	console.log('output:2222222:', outputResult);
 	
    if(currentEditor == null){ 
       return;
@@ -84,6 +86,7 @@ function connect(event) {
 
 
 function onConnected() {
+	console.log('output:3333333:', outputResult);
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
     
@@ -112,6 +115,7 @@ function onError(error) {
 }
 
 function sendMessage(event, res) {
+	console.log('output:44444:', outputResult);
    
    tmp = res;
    
@@ -128,6 +132,9 @@ function sendMessage(event, res) {
 }
 
 function onMessageReceived(payload) {
+	
+	console.log('output:555555:', outputResult);
+	
     message = JSON.parse(payload.body);
     
     prevText = '';
@@ -141,11 +148,15 @@ function onMessageReceived(payload) {
    
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
+   console.log('output:66666:', outputResult);
+   
    // 프로그램 끝!
    if(message.programPandan) {
+	   console.log('output:77777:', outputResult);
        $('.terminal').attr("readonly", true);
        outputResult = outputResult.substring(0, outputResult.length - 16);
        submitPandan = false;
+       console.log('output:88888:', outputResult);
        socket.close();
    }
 }
@@ -1131,10 +1142,7 @@ $(function() {
                   } else {
                      alert("오답입니다.");
                   }
-                  console.log('output:>>>>>>>>>', outputResult);
                   outputResult = '';
-                  console.log('output:>>>222222222>>>>>>', outputResult);
-                  
                },
                error: function(xhr, status, e) {
                   console.error(status + ":" + e);
