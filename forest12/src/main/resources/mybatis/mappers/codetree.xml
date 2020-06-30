@@ -172,10 +172,10 @@
 		]]>
 	</insert>
 
-	<select id="findByFileName" parameterType="map" resultType="long">
+	<select id="findByFileName" parameterType="map" resultType="codevo">
 		<![CDATA[
 			select 
-				count(file_name)
+				*
 			from code 
 			where file_name = binary(#{fileName}) and save_path_no = #{savePathNo}
 			 

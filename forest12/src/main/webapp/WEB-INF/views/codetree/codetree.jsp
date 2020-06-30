@@ -455,7 +455,10 @@ $(function() {
       $(document).on('mousedown','.userFile',function(e){
          $(".contextmenu").hide();
          if(e.which == 3){
-            //tempFile = $(this);
+            
+          	savePathNo = $(this).data("no");
+            subProblemNo = $(this).data("no2");            
+            
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
             if(currentFileNameSplit != "Test"){
@@ -701,7 +704,8 @@ $(function() {
                           'prevFileName':prevFileName
                        },
                        success: function(response) {
-                    	   console.log("response.data.existCount>>>>>",response.data.existCount);//존재하면 true
+                  
+                    	   
                            layoutId = "layout-"+codeNo;
                            
                            
