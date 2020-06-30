@@ -174,9 +174,6 @@ var fileFetchList = function(){
 };
 
 var userStartTime = "${userStartTime}";
-console.log("userStartTime>>>>",userStartTime);
-
-
 var currentEditor = null;
 
 var editorArray = new Array();
