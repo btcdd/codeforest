@@ -1136,6 +1136,9 @@ $(function() {
                   var compileResult = response.data.compileResult;
                   var compileError = response.data.compileError;
                   
+                  
+                  console.log('asdfasdfasdfadf');
+                  
                   if(compileError == true) {
                      alert("컴파일 오류입니다.");
                      return;
