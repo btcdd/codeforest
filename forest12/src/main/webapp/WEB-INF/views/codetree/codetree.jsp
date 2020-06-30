@@ -1094,6 +1094,8 @@ $(function() {
          }
          
          submitPandan = true;
+         
+         $('#Save').trigger("click");
          $("#Run").trigger("click");
          var problemNo = "${saveVo.problemNo }";
          
