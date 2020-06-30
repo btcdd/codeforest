@@ -391,7 +391,6 @@ $(function() {
     // 폰트 사이즈 변경
    $(document).on("click", '#font-size', function(){   
       var fontSize = $("#font-size option:selected").val();
-      console.log("font-size:"+fontSize);
       $(".CodeMirror").css("font-size", fontSize);
    });
    
@@ -414,7 +413,6 @@ $(function() {
     
 
    $(document).on('mouseenter','.ui__sidebar',function() {
-      console.log("hi");
       $(document).on('mousedown','#folder',function(e) {
          $(".userfile-menu").hide();
          if(e.which == 3){
@@ -526,7 +524,6 @@ $(function() {
       
       
    }).on('mouseleave','.ui__sidebar',function(){
-      console.log("bye");
    }).on('contextmenu','.ui__sidebar',function(){
       return false;
    }).on('userfile-menu','.ui__sidebar',function(){
@@ -1095,9 +1092,7 @@ $(function() {
          
          setTimeout(function(){
         	 
-			console.log('message.errorPandan:', message.errorPandan);	
-        	 
-               var problemNo = "${saveVo.problemNo }";
+              var problemNo = "${saveVo.problemNo }";
              $.ajax({
                url: '${pageContext.servletContext.contextPath }/api/codetree/submit',
                async: true,
@@ -1118,9 +1113,7 @@ $(function() {
                   var compileResult = response.data.compileResult;
                   var compileError = response.data.compileError;
                   var locationtest = response.data.locationtest;
-                  console.log("compileResult>>>>",compileResult);
-                  console.log("compileError>>>>",compileError);
-                  console.log("locationtest>>>>",locationtest);
+                  
                   if(compileError == true) {
                      alert("컴파일 오류입니다.");
                      return;
@@ -1216,14 +1209,7 @@ $(function() {
 ////// function 끝부분
 });
 
-   
-
-
-
-   
-
 /////////////////////////////////////////////////////////////////////////////////////////////////   
-   
    
    if (typeof Resizer === 'undefined') {
 
@@ -1355,14 +1341,9 @@ window.onload = function() {
       var el4 = document.getElementById("box_4");
       el4.style = "flex: 0.461282 1.08793 0px;";
   };
-  
-
-
 </script>
 </head>
 <body>
-
-
 
 <nav role="navigation" class='main-nav'>
     <div class="main-nav-wrapper">
