@@ -462,7 +462,11 @@ $(function() {
              savePathNo2 = $(this).data("no2");
              subProblemNo2 = $(this).data("no3");          
             console.log("savePathNo2>>>",savePathNo2);
-            console.log("subProblemNo2>>>",subProblemNo2);
+            console.log("subProblemNo2>>>",$(this).data("no"));
+            console.log("subProblemNo2>>>",$(this).data("subproblem-no"));
+            console.log("subProblemNo2>>>",$(this).data("language"));
+            console.log("subProblemNo2>>>",$(this).data("file-name"));
+            console.log("subProblemNo2>>>",$(this).data("package-path"));
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
             if(currentFileNameSplit != "Test"){
