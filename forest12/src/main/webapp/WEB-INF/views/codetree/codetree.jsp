@@ -387,9 +387,7 @@ $(function() {
 ////////////////파일 추가/////////////////////
     
     var savePathNo = null;
-    var subProblemNo = null;
-    var savePathNo2 = null;
-    var subProblemNo2 = null;    
+    var subProblemNo = null;   
     var codeNo = null;
     var prevFileName = null;
     var str='<div id="file-insert"><li>파일 추가</li></div>';
@@ -460,8 +458,8 @@ $(function() {
          $(".contextmenu").hide();
          if(e.which == 3){
         	 
-             savePathNo2 = $(this).data("no2");
-             subProblemNo2 = $(this).data("no3");              
+             savePathNo = $(this).data("no2");
+             subProblemNo = $(this).data("no3");              
             console.log('$(this).data("no2")>>',$(this).data("no2"));
             console.log('$(this).data("no3")>>',$(this).data("no3"));
             console.log("no>>>",$(this).data("no"));
