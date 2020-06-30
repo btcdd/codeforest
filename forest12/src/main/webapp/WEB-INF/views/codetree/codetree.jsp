@@ -732,7 +732,7 @@ $(function() {
     		},
     		{
     			text:"취소",
-    			id:"CloseUpdateButton"
+    			id:"CloseUpdateButton",
     			click:function(){
     				$(".fileName-update").val("");	
     				$(this).dialog("close");
