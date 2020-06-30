@@ -236,43 +236,37 @@ public class CodeTreeController {
 		
 		boolean compileResult = true;
 		boolean compileError = false;
- 		String test = "기본";
 		
 		Map<String, Object> map = new HashMap<>();
 		
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] outputResultSplit =outputResult.split("\n");
 		
-		
-			if(compileResult2 == false) {
-				for(int i = 0; i < examOutputSplit.length; i++) {
-					if(i == examOutputSplit.length-1) {
-						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
-							compileResult = false;
-							compileError = false;
-							test = "여깅2";
-							break;
-						}
+		if(compileResult2 == false) {
+			for(int i = 0; i < examOutputSplit.length; i++) {
+				if(i == examOutputSplit.length-1) {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
 					}
-					else {
-						if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
-							compileResult = false;
-							compileError = false;
-							test = "여깅3";
-							break;
-						}
+				}
+				else {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
 					}
 				}
 			}
-			else {
-				test = "여깅4";
-				compileError = true;
-				compileResult = false;
-			}
+		}
+		else {
+			compileError = true;
+			compileResult = false;
+		}
 		
 		map.put("compileError", compileError);
 		map.put("compileResult", compileResult);
-		map.put("locationtest", test);
 
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult);//정보 삽입
 		
