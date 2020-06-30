@@ -234,8 +234,6 @@ public class CodeTreeController {
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
 		
-		
-		
 		boolean compileResult = true;
 		boolean compileError = false;
  		
@@ -248,7 +246,7 @@ public class CodeTreeController {
 			compileResult = false;
 		}
 		else {
-			if(compileResult2 == null) {
+			if(compileResult2 == false) {
 				for(int i = 0; i < examOutputSplit.length; i++) {
 					if(i == examOutputSplit.length-1) {
 						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
