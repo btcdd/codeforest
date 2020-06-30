@@ -2,8 +2,6 @@ package com.btcdd.codeforest.config.linux.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,6 +33,9 @@ public class CodeTreeChatController {
 	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
 
+	@Autowired
+	CodeTreeService codetreeService = new CodeTreeService();
+	
 	@MessageMapping("/codetree")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
@@ -57,16 +58,6 @@ public class CodeTreeChatController {
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
 		
-		CodeTreeService codetreeService = new CodeTreeService();
-		
-		String test = codetreeService.getExamInput(subProblemNo);
-		try {
-			Thread.sleep(3000);
-			process = Runtime.getRuntime().exec("mkdir hihihihii" + test + "123123123123123");
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		try {
 			if(pandan) {
@@ -132,13 +123,7 @@ public class CodeTreeChatController {
 					String input = chatMessage.getContent();
 					
 					if(submitPandan == true && input == null) {
-						String in = codetreeService.getExamInput(subProblemNo);
-						
-						Thread.sleep(3000);
-						process = Runtime.getRuntime().exec("mkdir hihihihii" + in + "123123123123123");
-						
-						Thread.sleep(100);
-						writer.write(in);
+						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
 						writer.flush();
 						readBuffer.setLength(0);
 					} 
