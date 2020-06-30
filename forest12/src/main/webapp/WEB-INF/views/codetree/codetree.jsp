@@ -455,9 +455,7 @@ $(function() {
       $(document).on('mousedown','.userFile',function(e){
          $(".contextmenu").hide();
          if(e.which == 3){
-            
-          	savePathNo = $(this).data("no");
-            subProblemNo = $(this).data("no2");            
+                    
             
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
