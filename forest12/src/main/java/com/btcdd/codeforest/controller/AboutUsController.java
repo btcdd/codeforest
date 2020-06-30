@@ -5,12 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MainController {
+public class AboutUsController {
 	
-//	@Auth
-	@RequestMapping({"", "/main"})
-	public String index(Model model) {
-		return "main/main";
+	@RequestMapping("/about-us")
+	public String aboutUs() {
+		return "aboutus/about-us";
 	}
 	
 }
