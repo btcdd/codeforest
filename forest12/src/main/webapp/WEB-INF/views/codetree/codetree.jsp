@@ -536,8 +536,8 @@ $(function() {
     
     
     $(document).on('click','#file-insert',function(){
-       console.log("savePathNo!!!"+savePathNo);
-       console.log("subProblemNo!!!"+subProblemNo);
+       console.log("savePathNo!!!",savePathNo);
+       console.log("subProblemNo!!!",subProblemNo);
        var lang = $(".lang option:selected").val();   
        $(".fileName-input").attr("placeholder","."+lang);
        dialogInsert.dialog("open");
@@ -670,7 +670,7 @@ $(function() {
         $(".fileName-update").attr("placeholder","."+lang);
         dialogUpdate.dialog("open");
      });    
-    
+
     var layoutId = null;
     var tempLayout = null;
 
