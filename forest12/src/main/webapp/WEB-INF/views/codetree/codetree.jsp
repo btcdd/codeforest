@@ -700,7 +700,7 @@ $(function() {
                        },
                        success: function(response) {
               			  
-                    	  if(response.data.result != "no"){
+                    	  if(response.data.result == "yes"){
                               layoutId = "layout-"+codeNo;
                               
                               
@@ -716,7 +716,7 @@ $(function() {
                               $(".fileName-update").val("");
                               fileFetchList(); 
                               $("#CloseUpdateButton").click();
-                    	  }else{
+                    	  }else if(response.data.result=="no"){
                     		  $(".fileName-update").val("");
                               $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");	  
                     	  }                  
