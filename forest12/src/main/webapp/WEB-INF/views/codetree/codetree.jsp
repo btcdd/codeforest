@@ -575,6 +575,7 @@ $(function() {
                                        
                               if(response.data.result == 'no'){
                                  alert("이미 파일이 존재합니다.");//메시지 처리 필요
+                                 $(".fileName-input").val("");
                                  return;
                               }
                               $(".file-tree__subtree").remove();
@@ -659,7 +660,7 @@ $(function() {
     
     
     $(document).on('click','#userfile-update',function(){
-    	$(".updateErrorMessage").remove();
+    	$(".updateErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
         $(".fileName-update").attr("placeholder","."+lang);
         dialogUpdate.dialog("open");
@@ -712,7 +713,6 @@ $(function() {
                                    tempLayout.setTitle(fileName);
                                 }
                               }  
-                              
                               $(".file-tree__subtree").remove();
                               $(".fileName-update").val("");
                               fileFetchList(); 
