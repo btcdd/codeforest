@@ -337,7 +337,7 @@ public class Test{
                      <textarea name="" id="result" class="res" readonly></textarea>
                   </td>
                   <td>
-                     <textarea name="" id="tmp" class="tmp" readonly></textarea>
+                     <textarea name="" id="tmp" class="tmp"></textarea>
                   </td>
                </tr>
             </table>
