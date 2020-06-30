@@ -1131,9 +1131,9 @@ $(function() {
                   } else {
                      alert("오답입니다.");
                   }
+                  console.log('output:>>>>>>>>>', outputResult);
                   outputResult = '';
                   
-                  console.log('output:>>>>>>>>>', outputResult);
                },
                error: function(xhr, status, e) {
                   console.error(status + ":" + e);
