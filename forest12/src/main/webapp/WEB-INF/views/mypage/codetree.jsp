@@ -40,7 +40,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
 
-
 var result = '';
 var tmp = '';
 var lang;
