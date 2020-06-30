@@ -662,8 +662,8 @@ $(function() {
     
     
     $(document).on('click','#userfile-update',function(){
-        console.log("update  savePathNo!!!"+savePathNo);
-        console.log("update  subProblemNo!!!"+subProblemNo);
+        console.log("update  savePathNo!!!",savePathNo);
+        console.log("update  subProblemNo!!!",subProblemNo);
         
     	$(".updateErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
