@@ -459,11 +459,10 @@ $(function() {
       $(document).on('mousedown','.file',function(e){
          $(".contextmenu").hide();
          if(e.which == 3){
-             savePathNo2 = $(this).data("vono");
-             subProblemNo2 = $(this).data("voprono");  
- 
-            console.log('vono>>>',savePathNo2);
-            console.log("voprono>>>",subProblemNo2);
+             savePathNo2 = $(this).data("no-2");
+             subProblemNo2 = $(this).data("no2-3");              
+            console.log("savePathNo2>>>",savePathNo2);
+            console.log("subProblemNo2>>>",subProblemNo2);
             console.log("no>>>",$(this).data("no"));
             console.log("subproblem-no>>>",$(this).data("subproblem-no"));
             console.log("language>>>",$(this).data("language"));
