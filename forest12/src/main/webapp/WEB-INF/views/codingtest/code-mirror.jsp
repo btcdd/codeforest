@@ -47,7 +47,7 @@ var prevCursor;
 var message;
 var tempFile = null;
 var socket;
-var prevText = '';
+var prevText = ''; 
 
 //채팅 시작하기
 function connect(event) {
