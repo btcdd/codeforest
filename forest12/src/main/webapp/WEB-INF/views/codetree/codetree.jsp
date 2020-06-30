@@ -596,7 +596,7 @@ $(function() {
         			}
         		}
         	]       	
-        },
+        ,
         close: function(){}
     });
     
