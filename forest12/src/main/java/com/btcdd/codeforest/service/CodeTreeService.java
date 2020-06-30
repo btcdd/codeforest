@@ -122,8 +122,8 @@ public class CodeTreeService {
 		
 	}
 
-	public boolean existFile(String fileName,Long savePathNo) {
-		return codetreeRepository.findByFileName(fileName,savePathNo) != null;
+	public Long existFile(String fileName,Long savePathNo) {
+		return codetreeRepository.findByFileName(fileName,savePathNo);
   }
 	public Long findProblemNo(Long subProblemNo) {
 		return codetreeRepository.findProblemNo(subProblemNo);

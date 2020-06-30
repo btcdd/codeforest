@@ -687,7 +687,6 @@ $(function() {
                        return;
                     }
                     var fileName = filename2;
-                    console.log("fileName>>>>>>>>>>>>>>>>>",fileName);
                     $.ajax({
                        url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
                        async: true,
@@ -701,7 +700,7 @@ $(function() {
                           'prevFileName':prevFileName
                        },
                        success: function(response) {
-                    	   console.log("response.data.exist>>>>>",response.data.exist);
+                    	   console.log("response.data.existCount>>>>>",response.data.existCount);//존재하면 true
                            layoutId = "layout-"+codeNo;
                            
                            

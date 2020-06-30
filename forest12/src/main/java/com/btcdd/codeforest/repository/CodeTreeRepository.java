@@ -91,7 +91,7 @@ public class CodeTreeRepository {
 	}
 
 
-	public CodeVo findByFileName(String fileName,Long savePathNo) {
+	public Long findByFileName(String fileName,Long savePathNo) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("fileName", fileName);
 		map.put("savePathNo", savePathNo);
