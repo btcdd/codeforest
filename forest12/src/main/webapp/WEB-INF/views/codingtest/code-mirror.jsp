@@ -574,6 +574,7 @@ $(function() {
     $(document).on('click','#file-insert',function(){
         console.log("savePathNo!!!",savePathNo);
         console.log("subProblemNo!!!",subProblemNo);
+        $(".insertErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
         $(".fileName-insert").attr("placeholder","."+lang);
         dialogInsert.dialog("open");
@@ -612,24 +613,24 @@ $(function() {
                            success: function(response) {
                                        
                               if(response.data.result == 'no'){
-                                 alert("이미 파일이 존재합니다.");//메시지 처리 필요
-                                 $(".fileName-insert").val("");
+                            	 $(".insertErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");
                                  return;
                               }
-                              $(".file-tree__subtree").remove();
-                              $(".fileName-insert").val("");	
+                              $("#CloseInsertButton").click();
+                              $(".insertErrorMessage").html("<p></p>");                              
+                              $(".file-tree__subtree").remove();	
                               fileFetchList();
-                              
+
                            },
                            error: function(xhr, status, e) {
                               console.error(status + ":" + e);
                            }
-                        });
-                        $(this).dialog("close");        				
+                        });      				
         			}
         		},
         		{
         			text:"취소",
+        			id:"CloseInsertButton",
         			click:function(){
         				$(".fileName-insert").val("");	
         				$(this).dialog("close");
@@ -1613,6 +1614,7 @@ window.onload = function() {
    </div>
    		<div id="dialog-insert-form" title="파일 추가" style="display:none">
    			<input type="text" class="fileName-insert" />
+   			<p class="insertErrorMessage"></p>
    		</div>
    		<div id="dialog-update-form" title="파일 수정" style="display:none">
    			<input type="text" class="fileName-update" />
