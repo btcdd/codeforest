@@ -183,6 +183,7 @@ $(function() {
       if(diff <0){
           alert("시험 종료");
           clearInterval(timer);
+          window.open('','_self').close();
           return;
        }
       
