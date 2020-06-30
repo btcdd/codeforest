@@ -247,6 +247,7 @@ public class CodeTreeController {
 		}
 		else {
 			if(compileResult2 == false) {
+				compileError = false;
 				for(int i = 0; i < examOutputSplit.length; i++) {
 					if(i == examOutputSplit.length-1) {
 						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
