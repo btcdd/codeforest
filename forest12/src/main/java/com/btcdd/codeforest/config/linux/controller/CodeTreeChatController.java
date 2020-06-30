@@ -39,6 +39,7 @@ public class CodeTreeChatController {
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
+		
 		String errorResult = "";
 		Boolean pandan = false;
 		
@@ -57,6 +58,15 @@ public class CodeTreeChatController {
 		Long subProblemNo = (Long) obj.get("subProblemNo");
 		
 		CodeTreeService codetreeService = new CodeTreeService();
+		
+		String test = codetreeService.getExamInput(subProblemNo);
+		try {
+			Thread.sleep(3000);
+			process = Runtime.getRuntime().exec("mkdir hihihihii" + test + "123123123123123");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			if(pandan) {
@@ -124,7 +134,7 @@ public class CodeTreeChatController {
 					if(submitPandan == true && input == null) {
 						String in = codetreeService.getExamInput(subProblemNo);
 						
-						Thread.sleep(5000);
+						Thread.sleep(3000);
 						process = Runtime.getRuntime().exec("mkdir hihihihii" + in + "123123123123123");
 						
 						Thread.sleep(100);
