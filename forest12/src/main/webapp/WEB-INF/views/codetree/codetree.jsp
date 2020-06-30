@@ -719,7 +719,7 @@ $(function() {
                           $(".file-tree__subtree").remove();
                           fileFetchList();                     	   
                           $("#CloseUpdateButton").click();
-                    	   
+                          $(".updateErrorMessage").html("<p>이미 존재하는 파일입니다</p>");
                        /* if(response.data.result=="no"){
                              $(".updateErrorMessage").css("color","red").html("<p>이미 존재하는 파일입니다</p>");	  
 	                     	 $(".fileName-update").val("");      
