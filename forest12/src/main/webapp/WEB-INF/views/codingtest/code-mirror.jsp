@@ -208,7 +208,7 @@ $(function() {
          }
          
          var sec = diff;
-         
+         console.log("diff>>>",diff);
          $(".countdown table td:first").text("남은 시간  ");
        $(".countdown table td+td").text("[ "+hours+"시");
       $(".countdown table td+td+td").text(min+"분");
