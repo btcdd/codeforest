@@ -286,7 +286,7 @@ public class CodingTestController {
 	@PostMapping("/submit")
 	public JsonResult Submit(String language, String fileName, String packagePath,
 			Long subProblemNo,String codeValue, Long problemNo,
-			String compileResult1, String compileResult2,String userStartTime,HttpSession session) {
+			String compileResult1, Boolean compileResult2, String outputResult, String userStartTime,HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		
 		Date userStartTimeTransFormat = null;
@@ -329,36 +329,34 @@ public class CodingTestController {
 		boolean compileError = false;
 		
 		String[] examOutputSplit = examOutput.split("\n");
-		String[] compileResult1Split =compileResult1.split("\n");
+		String[] outputResultSplit = outputResult.split("\n");
 		
-		if(examOutputSplit.length != compileResult1Split.length) {
-			compileResult = false;
-		}
-		else {
-			if(compileResult2 == null || compileResult2.equals("")) {
-				for(int i = 0; i < examOutputSplit.length; i++) {
-					if(i == examOutputSplit.length-1) {
-						if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
-							compileResult = false;
-							break;
-						}
+		if(compileResult2 == false) {
+			for(int i = 0; i < examOutputSplit.length; i++) {
+				if(i == examOutputSplit.length-1) {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
 					}
-					else {
-						if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(compileResult1Split[i].substring(0, compileResult1Split[i].length())) == false) {
-							compileResult = false;
-							break;
-						}
+				}
+				else {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
 					}
 				}
 			}
-			else {
-				compileResult = false;
-				compileError = true;
-			}
 		}
-		map.put("compileError", compileError);
+		else {
+			compileError = true;
+			compileResult = false;
+		}
 		
+		map.put("compileError", compileError);
 		map.put("compileResult", compileResult);
+		
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가

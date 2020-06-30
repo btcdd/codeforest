@@ -47,10 +47,15 @@ var prevCursor;
 var message;
 var tempFile = null;
 var socket;
-var prevText = ''; 
+var prevText = '';
+var submitPandan;
+var outputResult = '';
 
 //채팅 시작하기
 function connect(event) {
+	
+	outputResult = '';
+	
    if(currentEditor == null){
       return;
    }
@@ -80,13 +85,16 @@ function onConnected() {
     
     execPandan = true;
     var chatMessage = {
-            language: tempFile.data("language"),
-          code: code,
-          execPandan: execPandan,
-          fileName: tempFile.data("file-name"),
-          packagePath: tempFile.data("package-path"),
-            type: 'CHAT'
-        };
+    	language: tempFile.data("language"),
+        code: code,
+      	execPandan: execPandan,
+      	fileName: tempFile.data("file-name"),
+      	packagePath: tempFile.data("package-path"),
+      	submitPandan: submitPandan,
+       	subProblemNo: tempFile.data("subproblem-no"),
+        type: 'CHAT'
+    };
+    
     execPandan = false;
     // Tell your username to the server
     stompClient.send("/app/codingtest",
@@ -99,7 +107,6 @@ function onError(error) {
 }
 
 function sendMessage(event, res) {
-   
    tmp = res;
    
     var messageContent = res;
@@ -107,6 +114,7 @@ function sendMessage(event, res) {
         content: messageContent,
         language:$(".lang option:selected").val(),
       code:code,
+      submitPandan: submitPandan,
       execPandan: execPandan,
         type: 'CHAT'
     };
@@ -117,15 +125,22 @@ function sendMessage(event, res) {
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
     
+    prevText = '';
    prevText = $('.terminal').val() + '\n';
+   
    $('.terminal').val(prevText + message.content);
+   
+   outputResult = message.content;
    
    prevCursor = $('.terminal').prop('selectionStart') - 1;
    
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
+   // 프로그램 끝!!
    if(message.programPandan) {
        $('.terminal').attr("readonly", true);
+       outputResult = outputResult.substring(0, outputResult.length - 16);
+       submitPandan = false;
        socket.close();
    }
 }
@@ -159,9 +174,6 @@ var fileFetchList = function(){
 };
 
 var userStartTime = "${userStartTime}";
-console.log("userStartTime>>>>",userStartTime);
-
-
 var currentEditor = null;
 
 var editorArray = new Array();
@@ -177,6 +189,7 @@ var sec=0;
 $(function() {
    fileFetchList();
    
+   submitPandan = false;
    
    var timer = setInterval(function(){
       var diff = (Date.parse(new Date(endTime)) - Date.parse(new Date())) / 1000; 
@@ -364,9 +377,6 @@ $(function() {
       
        $(".file-tree__subtree").remove();
       fileFetchList();
-
-      
-      
       
    });
    
@@ -401,11 +411,11 @@ $(function() {
         */
     });   
     
- // 파일 열고 닫기
+ 	// 파일 열고 닫기
     $(document).on('click','#folder',function() {
        if ($(this).hasClass("folder--open")) {
           $("#file"+$(this).data("no")).show();
-        } else {           
+        } else {
            $("#file"+$(this).data("no")).hide();
         }
     });
@@ -414,7 +424,6 @@ $(function() {
     // 폰트 사이즈 변경
    $(document).on("click", '#font-size', function(){   
       var fontSize = $("#font-size option:selected").val();
-      console.log("font-size:"+fontSize);
       $(".CodeMirror").css("font-size", fontSize);
    });
    
@@ -430,13 +439,8 @@ $(function() {
     $(".contextmenu").append(str);
     var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
     $(".userfile-menu").append(str2);
-    
-    
-    
-    
 
    $(document).on('mouseenter','.ui__sidebar',function() {
-      console.log("hi");
       $(document).on('mousedown','#folder',function(e) {
          $(".userfile-menu").hide();
          if(e.which == 3){
@@ -486,7 +490,6 @@ $(function() {
               return false;               
          }      
       });
-
       
       $(document).on('mousedown','.file',function(e){
          $(".contextmenu").hide();
@@ -552,10 +555,7 @@ $(function() {
          }         
       });
       
-      
-      
    }).on('mouseleave','.ui__sidebar',function(){
-      console.log("bye");
    }).on('contextmenu','.ui__sidebar',function(){
       return false;
    }).on('userfile-menu','.ui__sidebar',function(){
@@ -1064,16 +1064,11 @@ $(function() {
          if(tempFile == null){
             return;
          }        
-        console.log("Save tempFile>>>>>>>",tempFile.data("fileName"));
-        
         $(this).addClass("SaveClick");   
         setTimeout(function(){
            $("#Save").removeClass("SaveClick");
            $("#Save").addClass("Save");
         },100);
-        
-        
-        console.log("editor.getValue()>>>>>>",currentEditor.getValue());
         var problemNo = "${saveVo.problemNo }";
         
        $.ajax({
@@ -1110,14 +1105,13 @@ $(function() {
       $(document).on("click","#Submit",function(){
          if(currentEditor == null){
             return;
-         }         
+         }
+         
+         submitPandan = true;
+         
+         $('#Save').trigger("click");
          $("#Run").trigger("click");
          var problemNo = "${saveVo.problemNo }";
-         console.log("currentEditor.getValue()>>>>",currentEditor.getValue());
-         console.log('tempFile.data("subproblem-no")>>>>>>>>>>>>',tempFile.data("subproblem-no"));
-         console.log('tempFile.data("language")>>>>>>>>>>>>>>>>>>>>',tempFile.data("language"));
-         
-         console.log("Submit userStartTime>>",userStartTime);
          
          setTimeout(function(){
 
@@ -1128,24 +1122,21 @@ $(function() {
                type: 'post',
                dataType:'json',
                data: {
-                  'language' : tempFile.data("language"),
-                  'fileName' : tempFile.data("file-name"),
-                  'packagePath' : tempFile.data("package-path"),
-                  'subProblemNo':tempFile.data("subproblem-no"),
-                  'codeValue' : currentEditor.getValue(),
-                  'problemNo' : problemNo,
-                  'compileResult1':compileResult1,
-                  'compileResult2':compileResult2,
-                  'userStartTime':userStartTime
+            	   'language' : tempFile.data("language"),
+                   'fileName' : tempFile.data("file-name"),
+                   'packagePath' : tempFile.data("package-path"),
+                   'subProblemNo': tempFile.data("subproblem-no"),
+                   'codeValue' : currentEditor.getValue(),
+                   'problemNo' : problemNo,
+                   'compileResult1': compileResult1,
+                   'compileResult2': message.errorPandan,
+                   'outputResult': outputResult,
+                   'userStartTime':userStartTime
                },
                success: function(response) {
-      
-                  
-                  console.log("response.data.solveTime>>>",response.data.solveTime);
-                  
-                  
                   var compileResult = response.data.compileResult;
                   var compileError = response.data.compileError;
+                  
                   if(compileError == true) {
                      alert("컴파일 오류입니다.");
                      return;
@@ -1155,6 +1146,7 @@ $(function() {
                   } else {
                      alert("오답입니다.");
                   }
+                  outputResult = '';
                },
                error: function(xhr, status, e) {
                   console.error(status + ":" + e);
