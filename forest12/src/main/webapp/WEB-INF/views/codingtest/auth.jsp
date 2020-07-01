@@ -17,6 +17,16 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 </head>
 <script>
+var checkBirth = function CheckBirth(str){
+	var regBirth = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+	if(!regBirth.test(str)){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+
 var FullendTime = "${problemVo.endTime}";
 var FullendTimeSplit = FullendTime.split(" ");
 var FullHours = FullendTimeSplit[1];
@@ -46,15 +56,6 @@ var messageBox = function(title,message,message2,callback){
 		});
 };
 
-function numberMaxLength(e){
-
-    if(e.value.length > e.maxLength){
-		slide("wrong-birth");
-		$("#birth").val("");
-		return;
-    }
-
-}
 
 $(function(){
 
@@ -73,6 +74,12 @@ $(function(){
 			$("#birth").focus();
 			return;
 		}
+		if(!checkBirth($("#birth").val())){
+			slide("wrong-birth");
+			$("#birth").val("");
+			return;			
+		}
+		
 		if($("#tempKey").val() ==''){
 			slide("empty-tempKey");
 			$("#tempKey").focus();
@@ -124,7 +131,7 @@ $(function(){
 						<input type="text" id="name" name="name" value="" placeholder="이름"/>
 					</div>
 					<div class="birth">
-						<input type="date" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);"/>
+						<input type="text" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);" placeholder="생년월일ex)0000-00-00"/>
 					</div>
 					<div class="tempKey">
 						<input type="text" id="tempKey" name="tempKey" value="" placeholder="인증번호"/>
