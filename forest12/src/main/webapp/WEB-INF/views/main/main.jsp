@@ -34,6 +34,11 @@
 
 <script>
 
+var cursor;
+var setter;
+var writer;
+var terminal;
+
 var result = '';
 var tmp = '';
 var lang;
@@ -134,6 +139,32 @@ function onMessageReceived(payload) {
     }
 }
 
+function nl2br(txt){
+    return txt.replace(/\n/g, '<br /><i class="fa fa-terminal" aria-hidden="true"></i>:');
+  }
+  function writeit(from, e){
+    e = e || window.event;
+    var w = $(writer);
+    var tw = from.value;
+    w.html(nl2br(tw));
+  }
+  function moveIt(count, e){
+    e = e || window.event;
+    var keycode = e.keyCode || e.which;
+    if(keycode == 37 && parseInt($(cursor).css("left")) >= (0-((count-1)*10))){
+      $(cursor).css("left", parseInt($(cursor).css("left")) - 10 + "px");
+    } else if(keycode == 39 && (parseInt($(cursor).css("left")) + 10) <= 0){
+      $(cursor).css("left", parseInt($(cursor).css("left")) + 10 + "px");
+    }
+  }
+  function blink(){ 
+    if($(cursor).css("display") == "none"){ 
+      $(cursor).css("display","inline");
+    } else {
+      $(cursor).css("display","none");
+    }
+  }
+
 $(function() {
 	
    $(window).scroll(function() {
@@ -162,7 +193,7 @@ $(function() {
    editor = CodeMirror.fromTextArea(code, {
          lineNumbers: true,
          mode: 'text/x-java',
-         theme: 'duotone-light',
+         theme: 'panda-syntax',
          matchBrackets: true
    });
    
@@ -261,6 +292,28 @@ $(function() {
     	});
     });   
 
+    
+    cursor = $("#cursor");
+    setter = $("#result");
+    writer = $("#writer");
+    terminal = $("#terminal");
+    $(cursor).css("left", "0px");
+    
+    setInterval("blink()", 500);
+    $(terminal).click(function(){
+      $(setter).focus();
+    });
+    $(setter).keydown(function(event){
+      writeit(this, event);
+      moveIt(this.value.length, event);
+    });
+    $(setter).keyup(function(event){
+      writeit(this, event);
+    });
+    $(setter).keypress(function(event){
+      writeit(this, event);
+    });
+    
 });
 
 </script>
@@ -303,10 +356,10 @@ $(function() {
                          <option value="blackboard">blackboard</option>
                          <option value="dracula">dracula</option>
                          <option value="moxer">moxer</option>
-                         <option value="panda-syntax">panda-syntax</option>
+                         <option value="panda-syntax" selected="selected">panda-syntax</option>
                        </optgroup>
                        <optgroup label="light">
-                         <option value="duotone-light" selected="selected">duotone-light</option>
+                         <option value="duotone-light">duotone-light</option>
                          <option value="eclipse">eclipse</option>
                          <option value="neat">neat</option>
                          <option value="ttcn">ttcn</option>
@@ -334,7 +387,15 @@ public class Test{
 }</textarea>
                   </td>
                   <td>
-                     <textarea name="" id="result" class="res" readonly></textarea>
+<!--                      <textarea name="" id="result" class="res"></textarea> -->
+                     <div id="terminal">
+						  <textarea type="text" id="result" class="res"></textarea>
+						  <div id="getter">
+						    <i class="fa fa-terminal" aria-hidden="true"></i>
+						    <b>:</b><span id="writer"></span>
+						    <b class="cursor" id="cursor">_</b>
+						  </div>
+					</div>
                   </td>
                </tr>
             </table>

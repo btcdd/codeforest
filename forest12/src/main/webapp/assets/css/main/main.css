@@ -166,19 +166,20 @@ select {
 	padding: 0 10px;
 }
 
-#result {
-	width: 600px;
-	height: 500px;
-	background-color: #FAF8F5;
-	color: #3C3C3C;
-	font-family: Consolas, sans-serif;
-	line-height: 2em;
-	font-stretch: ultra-expanded;
-	padding: 0 10px;
-	border: none;
-	resize: none;
-	margin-top: 5px;
-}
+/* #result { */
+/* 	width: 600px; */
+/* 	height: 500px; */
+/* 	background-color: #292A2B; */
+/*     color: #fff; */
+/* 	font-family: Consolas, sans-serif; */
+/* 	line-height: 2em; */
+/* 	font-stretch: ultra-expanded; */
+/* 	padding: 0 10px; */
+/* 	border: none; */
+/* 	resize: none; */
+/* 	margin-top: 5px; */
+	
+/* } */
 
 #result:focus {
 	outline: none;
@@ -258,4 +259,32 @@ select {
 .tmp {
 	width: 296px;
     height: 374px;
+}
+
+
+
+
+textarea#result  {
+  left: -1000px;
+  position: absolute;
+}
+.cursor {
+  font-size: 12px;
+  background-color: black;
+  color: black;
+  position: relative;
+}
+#terminal {
+  margin: 8px;
+  cursor: text;
+  height: 500px;
+  overflow: auto;
+  width: 600px;
+}
+#writer {
+  font-family: cursor, courier;
+  font-weight: bold;
+}
+#getter {
+  margin: 5px;
 }
