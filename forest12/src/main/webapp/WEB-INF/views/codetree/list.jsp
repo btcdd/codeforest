@@ -182,27 +182,7 @@ $(function() {
             	</div>
             </div>
         </div>
-<%-- 				<div class="list">		
-					<c:forEach items="${saveVoList}" var="vo" varStatus="status">
-						<div class="problem-box">
-							<div class="problem-no">
-							${vo.problemNo }<br/>
-							</div>
-							<div class="problem-title">
-								<h4>${vo.title }</h4>
-							</div>
-							<div class="problem-user">
-								${vo.kind }&nbsp;&nbsp;&nbsp;${vo.nickname }
-							</div>															
-						</div>
-					</c:forEach>
-				</div>
- --%>				<!-- pager 추가 -->
-<!-- 				<div class ="pager">
-					
-				</div>				
- -->				
 	</div>
-<%-- 	<c:import url="/WEB-INF/views/include/footer.jsp" /> --%>
+	<c:import url="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

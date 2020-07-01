@@ -87,7 +87,7 @@
 			</when>
 			<otherwise>
 			 <![CDATA[				 	
-                    select s.no as no, s.user_no as userNo, s.problem_no as problemNo, p.title as title, k.name as kind, u.nickname as nickname
+                    select count(*)
 					  from save s, problem p, kind k, user u
 				     where s.user_no = #{authUserNo }
 					   and s.user_no = u.no
@@ -124,12 +124,12 @@
 			   where s.user_no = #{authUserNo }
 				 and s.user_no = u.no
 				 and s.problem_no = p.no
-				 and p.kind_no = k.no 
+				 and p.kind_no = k.no
 				 and p.state ='y'
 				 and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
-                and (p.title like '%${keyword}%' or u.nickname like '%${keyword}%' or k.name like '%${keyword}%' )
+                and (p.title like '%${keyword}%' or u.nickname like '%${keyword}%' or k.name like '%${keyword}%')
                 order by s.no desc
-               limit #{displayPost}, #{postNum}			 	
+               limit #{displayPost}, #{postNum}
 			 ]]>
 			</otherwise>			
 		</choose>		
