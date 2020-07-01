@@ -46,11 +46,14 @@ var messageBox = function(title,message,message2,callback){
 		});
 };
 
-var birthLength =function numberMaxLength(e){
-	if(e.value.length > e.maxLength){
-		alert("생일 다시 입력");
-		//e.value = e.value.slice(0, e.maxLength);
-	}
+function numberMaxLength(e){
+
+    if(e.value.length > e.maxLength){
+		alert("값 길다");
+        e.value = e.value.slice(0, e.maxLength);
+
+    }
+
 }
 
 $(function(){
@@ -80,7 +83,7 @@ $(function(){
 			$("#tempKey").focus();			
 			return;
 		}
-		birthLength();
+		
 		messageBox("Coding Test","코딩 테스트를 시작합니다",FullHoursSplit[0]+"시 "+FullHoursSplit[1]+"분에 시험이 종료됩니다. ",function(){
 			_this.submit();
 		});
