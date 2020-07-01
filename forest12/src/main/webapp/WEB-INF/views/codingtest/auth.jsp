@@ -113,11 +113,10 @@ $(function(){
 	<div class="wrong" id="empty-tempKey" style="display: none">
 		<p class="wrong-ptag">인증번호가 비었습니다</p>
 	</div>
-		<div class="wrong" id="wrong-tempKey" style="display: none">
+	<div class="wrong" id="wrong-tempKey" style="display: none">
 		<p class="wrong-ptag">인증번호가 틀렸습니다</p>
 	</div>
-	</div>
-		<div class="wrong" id="wrong-birth" style="display: none">
+	<div class="wrong" id="wrong-birth" style="display: none">
 		<p class="wrong-ptag">생일을 다시 확인해주세요</p>
 	</div>	
 	<div id="container">
