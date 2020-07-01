@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
 
 body {
     margin: 0;
@@ -13,9 +14,55 @@ body {
     margin-top: 3.5%;
 }
 
-.about {
-	background-color: #E0E0E0;
-	height: 93vh;
+.navigation-div {
+    position: fixed;
+    z-index: 10;
+    top: 24em;
+    left: 2em;
+}
+
+.navigation-ul {
+   list-style: none;
+   padding-left: 0px;
+   text-align: left;
+   color: #828282;
+}
+
+.navigation-li {
+	margin: 2em 0;
+	font-family: 'Raleway', Arial, sans-serif;
+    font-weight: bold;
+}
+
+#codetree-li:hover {
+	color: #548235
+}
+
+#codingtest-li:hover {
+	color: #C55A11
+}
+
+#training-li:hover {
+	color: #2F5597
+}
+
+.navigation-codingtest-img {
+	width: 3.5em;
+}
+
+.navigation-codetree-span {
+	margin-left: 1em;
+    vertical-align: super;
+}
+
+.navigation-codingtest-span {
+	margin-left: 1em;
+    vertical-align: super;
+}
+
+.navigation-training-span {
+    vertical-align: super;
+	margin-left: 1em;
 }
 
 .codetree {
@@ -23,14 +70,57 @@ body {
 	height: 93vh;
 }
 
+.codetree-start-div {
+    display: inline-block;
+    z-index: 1;
+    position: absolute;
+    top: 19em;
+    left: 19.5em;
+}
+
+.codetree-start {
+    font-size: 1.1em;
+    color: #8E8E8E;
+}
+
+.codetree-start:hover {
+	font-size: 1.1em;
+	color: #2080D0;
+}
+
+.codetree-img-div {
+    margin-left: 17em;
+}
+
+.codetree-img {
+	width: 74vw;
+}
+
 .codingtest {
 	background-color: #E0E0E0;
 	height: 93vh;
 }
 
+.codingtest-start-div {
+    display: inline-block;
+    z-index: 1;
+    position: absolute;
+    top: 75em;
+    left: 86.7em;
+}
+
+.codingtest-start {
+    font-size: 1.1em;
+    color: #8E8E8E;
+}
+
+.codingtest-start:hover {
+	font-size: 1.1em;
+	color: #2080D0;
+}
+
 .codingtest-img-div {
     margin-left: 13em;
-    padding-top: 2em;
 }
 
 .codingtest-img {
@@ -42,9 +132,26 @@ body {
 	height: 93vh;
 }
 
+.training-start-div {
+    display: inline-block;
+    z-index: 1;
+    position: absolute;
+    top: 131.5em;
+    left: 19.3em;
+}
+
+.training-start {
+    font-size: 1.1em;
+    color: #8E8E8E;
+}
+
+.training-start:hover {
+	font-size: 1.1em;
+	color: #2080D0;
+}
+
 .training-img-div {
     margin-left: 17em;
-    padding-top: 2em;
 }
 
 .training-img {
