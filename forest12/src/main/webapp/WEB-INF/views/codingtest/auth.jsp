@@ -83,7 +83,7 @@ $(function(){
 			$("#tempKey").focus();			
 			return;
 		}
-		
+		 
 		messageBox("Coding Test","코딩 테스트를 시작합니다",FullHoursSplit[0]+"시 "+FullHoursSplit[1]+"분에 시험이 종료됩니다. ",function(){
 			_this.submit();
 		});
