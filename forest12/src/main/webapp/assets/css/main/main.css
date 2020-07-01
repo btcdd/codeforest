@@ -113,7 +113,6 @@ body {
 .codeTest {
 	margin: auto;
 	padding: 100px 0 70px 0;
-	background-color: #fff;
 }
 
 .leftImg {
@@ -169,8 +168,8 @@ select {
 #result {
 	width: 600px;
 	height: 500px;
-	background-color: #FAF8F5;
-	color: #3C3C3C;
+	background-color: #292A2B;
+	color: #fff;
 	font-family: Consolas, sans-serif;
 	line-height: 2em;
 	font-stretch: ultra-expanded;
@@ -221,14 +220,17 @@ select {
 	left: 0;
 	bottom: 0;
 	width: 74%;
-	background-color: #fff;
-	color: #3C3C3C;
+	color: #fff;
 	text-align: center;
 	border-top: 1px solid #BFBFBf
 }
 
+h3 {
+	color: #fff !important;
+}
+
 #codeforest {
-	color: #3C3C3C;
+	color: #fff !important;
 }
 
 select {
