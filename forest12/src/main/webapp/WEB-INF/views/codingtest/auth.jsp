@@ -46,6 +46,13 @@ var messageBox = function(title,message,message2,callback){
 		});
 };
 
+var birthLength =function numberMaxLength(e){
+	if(e.value.length > e.maxLength){
+		alert("생일 다시 입력");
+		//e.value = e.value.slice(0, e.maxLength);
+	}
+}
+
 $(function(){
 
 	
@@ -57,7 +64,7 @@ $(function(){
 			slide("empty-name");
 			$("#name").focus();
 			return;
-		}	
+		}
 		if($("#birth").val() ==''){
 			slide("empty-birth");
 			$("#birth").focus();
@@ -73,6 +80,7 @@ $(function(){
 			$("#tempKey").focus();			
 			return;
 		}
+		birthLength();
 		messageBox("Coding Test","코딩 테스트를 시작합니다",FullHoursSplit[0]+"시 "+FullHoursSplit[1]+"분에 시험이 종료됩니다. ",function(){
 			_this.submit();
 		});
@@ -109,7 +117,7 @@ $(function(){
 						<input type="text" id="name" name="name" value="" placeholder="이름"/>
 					</div>
 					<div class="birth">
-						<input type="date" id="birth" name="birth" value="" maxlength="4" />
+						<input type="date" id="birth" name="birth" value="" maxlength="4" oninput="numberMaxLength(this);"/>
 					</div>
 					<div class="tempKey">
 						<input type="text" id="tempKey" name="tempKey" value="" placeholder="인증번호"/>
