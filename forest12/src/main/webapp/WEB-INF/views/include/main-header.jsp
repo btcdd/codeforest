@@ -10,10 +10,10 @@
         </div>
         <div class="menulist clearfix">
         	<ul class="menu">
-			  <li><a href="${pageContext.servletContext.contextPath }/about-us" data-hover="About Us">About Us</a></li>
-			  <li><a href="${pageContext.servletContext.contextPath }/codetree/list" data-hover="Code Tree">Code Tree</a></li>
-			  <li><a href="${pageContext.servletContext.contextPath }/codingtest" data-hover="Coding Test">Coding Test</a></li>
-			  <li><a href="${pageContext.servletContext.contextPath }/training" data-hover="Coding Training">Coding Training</a></li>
+			  <li><a href="${pageContext.servletContext.contextPath }/about-us" data-hover="About Us" class="menu-aboutus">About Us</a></li>
+			  <li><a href="${pageContext.servletContext.contextPath }/codetree/list" data-hover="Code Tree" class="menu-codetree">Code Tree</a></li>
+			  <li><a href="${pageContext.servletContext.contextPath }/codingtest" data-hover="Coding Test" class="menu-codingtest">Coding Test</a></li>
+			  <li><a href="${pageContext.servletContext.contextPath }/training" data-hover="Coding Training" class="menu-training">Coding Training</a></li>
 			</ul>
         </div>
         <div class="menu-user clearfix">
