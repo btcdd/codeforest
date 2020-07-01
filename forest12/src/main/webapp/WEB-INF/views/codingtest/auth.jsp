@@ -120,7 +120,7 @@ $(function(){
 						<input type="text" id="name" name="name" value="" placeholder="이름"/>
 					</div>
 					<div class="birth">
-						<input type="date" id="birth" name="birth" value="" maxlength="8" oninput="numberMaxLength(this);"/>
+						<input type="date" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);"/>
 					</div>
 					<div class="tempKey">
 						<input type="text" id="tempKey" name="tempKey" value="" placeholder="인증번호"/>
