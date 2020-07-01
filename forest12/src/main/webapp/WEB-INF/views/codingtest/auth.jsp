@@ -46,6 +46,16 @@ var messageBox = function(title,message,message2,callback){
 		});
 };
 
+function numberMaxLength(e){
+
+    if(e.value.length > e.maxLength){
+		slide("wrong-birth");
+		$("#birth").val("");
+		return;
+    }
+
+}
+
 $(function(){
 
 	
@@ -57,7 +67,7 @@ $(function(){
 			slide("empty-name");
 			$("#name").focus();
 			return;
-		}	
+		}
 		if($("#birth").val() ==''){
 			slide("empty-birth");
 			$("#birth").focus();
@@ -73,6 +83,7 @@ $(function(){
 			$("#tempKey").focus();			
 			return;
 		}
+		
 		messageBox("Coding Test","코딩 테스트를 시작합니다",FullHoursSplit[0]+"시 "+FullHoursSplit[1]+"분에 시험이 종료됩니다. ",function(){
 			_this.submit();
 		});
@@ -95,9 +106,13 @@ $(function(){
 	<div class="wrong" id="empty-tempKey" style="display: none">
 		<p class="wrong-ptag">인증번호가 비었습니다</p>
 	</div>
-			<div class="wrong" id="wrong-tempKey" style="display: none">
+		<div class="wrong" id="wrong-tempKey" style="display: none">
 		<p class="wrong-ptag">인증번호가 틀렸습니다</p>
 	</div>
+	</div>
+		<div class="wrong" id="wrong-birth" style="display: none">
+		<p class="wrong-ptag">생일을 다시 확인해주세요</p>
+	</div>	
 	<div id="container">
 		<div id="content">
 	     	<div class="logo">
@@ -109,7 +124,7 @@ $(function(){
 						<input type="text" id="name" name="name" value="" placeholder="이름"/>
 					</div>
 					<div class="birth">
-						<input type="date" id="birth" name="birth" value="" />
+						<input type="date" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);"/>
 					</div>
 					<div class="tempKey">
 						<input type="text" id="tempKey" name="tempKey" value="" placeholder="인증번호"/>
