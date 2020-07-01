@@ -4,7 +4,18 @@
        		var vo = data.savePathList[i];
        %> 
 	       <li class="file-tree__item">
-	       		<div id="folder" class="folder folder--open" data-no="<%=vo.no %>" data-no2="<%=vo.subProblemNo%>" >subproblem/<%=i+1 %></div>
+	       		<%
+	       			if(i+1 < 10) {
+	       		%>	
+	       				<div id="folder" class="folder folder--open" data-no="<%=vo.no %>" data-no2="<%=vo.subProblemNo%>" >subproblem0<%=i+1 %>_<%=vo.subProblemNo%></div>
+	       		<%
+	       			}
+	       			else {
+	       		%>
+	       				<div id="folder" class="folder folder--open" data-no="<%=vo.no %>" data-no2="<%=vo.subProblemNo%>" >subproblem<%=i+1 %>_<%=vo.subProblemNo%></div>
+	       		<%
+	       			}
+	       		%>
 	       		<ul class="file-tree__subtree" id="file<%=vo.no %>">
 					<%
 						for(var j = 0; j < data.codeList.length; j++) {

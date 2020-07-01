@@ -1246,7 +1246,7 @@ $(function() {
     
     
      
-   
+   // 헤더 버튼
    $(document).on("click",".sub-menu > li:first-child",function(){
       $("#Save").trigger("click");
    });
@@ -1515,7 +1515,7 @@ window.onload = function() {
           <div class="ui__sidebar">
               <ul class="file-tree">
                   <li class="file-tree__item file-tree__item--open">
-                      <div class="folder folder--open">problem${saveVo.no }</div>      
+                      <div class="folder folder--open">problem${saveVo.problemNo }</div>      
                       <ul class="file-tree__subtree">
 <%--                          <c:forEach items='${savePathList }' var='vo' varStatus='status'>
                              <li class="file-tree__item">
