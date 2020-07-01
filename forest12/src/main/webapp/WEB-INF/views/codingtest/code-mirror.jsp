@@ -451,7 +451,6 @@ $(function() {
          $(".userfile-menu").hide();
          if(e.which == 3){
             //tempFile = $(this);
-            console.log("folder   $(this)>>>>>",$(this));
             savePathNo = $(this).data("no");
              subProblemNo = $(this).data("no2");
               //Get window size:
@@ -502,8 +501,6 @@ $(function() {
          if(e.which == 3){            
              savePathNo = $(this).data("no2");
              subProblemNo = $(this).data("no3");  
-             console.log('$(this).data("no2")>>',$(this).data("no2"));
-             console.log('$(this).data("no3")>>',$(this).data("no3"));             
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
             if(currentFileNameSplit != "Test"){
@@ -580,8 +577,6 @@ $(function() {
     });   
 
     $(document).on('click','#file-insert',function(){
-        console.log("savePathNo!!!",savePathNo);
-        console.log("subProblemNo!!!",subProblemNo);
         $(".insertErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
         $(".fileName-insert").attr("placeholder","."+lang);
@@ -651,7 +646,6 @@ $(function() {
     
     
     $(document).on('click','#userfile-delete',function(){    	
-        console.log("userfile-delete   >>codeNo",codeNo);       
         $(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
         dialogDelete.dialog("open");
      });
@@ -708,9 +702,6 @@ $(function() {
    
     
     $(document).on('click','#userfile-update',function(){
-        console.log("update  savePathNo!!!",savePathNo);
-        console.log("update  subProblemNo!!!",subProblemNo);
-        
     	$(".updateErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
         $(".fileName-update").attr("placeholder","."+lang);
@@ -757,7 +748,6 @@ $(function() {
                            
                            
                            if(root != null){
-                              console.log("root가 있을경우 해당");
                               tempLayout = root.getItemsById(layoutId)[0]; 
                              if(tempLayout != null){
                                 tempLayout.setTitle(fileName);
@@ -804,7 +794,6 @@ $(function() {
     
     $(document).on("dblclick", ".file", function() {      
        tempFile = $(this);
-       console.log("dblclick tempFile>>>>>>>",tempFile);
        var language = $(this).data("language");
        var fileName = $(this).data("file-name");
        var packagePath = $(this).data("package-path");
@@ -816,7 +805,6 @@ $(function() {
           
           
            fileMap.set(fileNo+"", tempFile);
-           console.log($("#cm"+fileNo).length);
           
           root = myLayout.root.contentItems[0] || myLayout.root;
          
@@ -838,7 +826,6 @@ $(function() {
             matchBrackets : true
          });         
          editorArray[editorArrayIndex++]=editor;
-         console.log("editor : " + editor);
          currentEditor = editor;
          HashMap.set("editor"+fileNo, editor);
          
@@ -901,7 +888,6 @@ $(function() {
                      currentEditor.setValue(face);
                   }   
                }
-               console.log("code : " + response.data);
                SavedCode.set(fileNo+"",response.data);
             },
             error: function(xhr, status, e) {
@@ -918,12 +904,9 @@ $(function() {
           tempFile = fileMap.get(fileNo+"");
          tempLayout = root.getItemsById(layoutId)[0];
           
-         console.log("tempLayout",tempLayout);
           root.setActiveContentItem(tempLayout);   
              
           currentEditor = HashMap.get("editor"+fileNo);
-          
-          console.log("map>>>",HashMap.get("editor"+fileNo));
        }
        
        
