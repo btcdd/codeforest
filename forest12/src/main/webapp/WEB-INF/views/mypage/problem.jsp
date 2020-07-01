@@ -492,7 +492,7 @@ $(function() {
     
     <div id="dialog-delete" title="문제 모음 삭제" style="display: none">
        <p>
-          <span class="ui-icon ui-icon-alert" style="float: left; margin: 12px 12px 20px 0;">   
+          <span class="ui-icon ui-icon-alert" style="float: left; margin: 4px 12px 0 0;">   
           </span>
           해당 문제 모음을 삭제하시겠습니까?
        </p>
