@@ -12,6 +12,31 @@ body {
 	border-bottom: 1px solid #E3E3E3;
 }
 
+.menu-training:before{
+	bottom: 0 !important;
+	display: block !important;
+	height: 3px !important;
+	background-color: #244C1E !important;
+	opacity: 1 !important;
+	width: 100% !important;
+}
+
+.menu-training:after{
+	left: 0 !important;
+	top: 0 !important;
+	padding: 0.5em 0 !important;
+	position: absolute !important;
+	color: #244C1E !important; 
+	white-space: nowrap !important;
+	max-width: 0% !important;
+	opacity: 1 !important;
+	width: 100% !important;
+}
+
+.menu-training:visited {
+	color: #244C1E !important; 
+}
+
 .logo {
 	float: left;
 	margin-right: 40px;

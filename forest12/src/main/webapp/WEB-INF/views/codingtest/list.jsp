@@ -49,6 +49,7 @@ var scrollbar = function() {
 
 $(function(){
 
+	
 	scrollbar();
 	
 	$('#search').on("propertychange change keyup paste", function(){		

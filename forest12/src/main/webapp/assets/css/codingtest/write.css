@@ -6,6 +6,31 @@ body {
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+.menu-codingtest:before{
+	bottom: 0 !important;
+	display: block !important;
+	height: 3px !important;
+	background-color: #244C1E !important;
+	opacity: 1 !important;
+	width: 100% !important;
+}
+
+.menu-codingtest:after{
+	left: 0 !important;
+	top: 0 !important;
+	padding: 0.5em 0 !important;
+	position: absolute !important;
+	color: #244C1E !important; 
+	white-space: nowrap !important;
+	max-width: 0% !important;
+	opacity: 1 !important;
+	width: 100% !important;
+}
+
+.menu-codingtest:visited {
+	color: #244C1E !important; 
+}
+
 .make-coding-test-problem-info {
 	margin-left: 2em;
 }
