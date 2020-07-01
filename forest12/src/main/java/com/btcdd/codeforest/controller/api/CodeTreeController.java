@@ -62,8 +62,6 @@ public class CodeTreeController {
 		Long problemNo = codetreeService.findProblemNo(subProblemNo);
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		
-		System.out.println("exist>>>>"+exist);
-		
 		Map<String,Object> map = new HashMap<>();
 				
 		if(!exist) {
@@ -74,7 +72,6 @@ public class CodeTreeController {
 //			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
 			
 			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
-			System.out.println("codeNo>>"+codeNo);
 			map.put("fileName", fileName);
 			map.put("savePathNo", savePathNo);
 			map.put("codeNo",codeNo);
@@ -93,11 +90,9 @@ public class CodeTreeController {
 		boolean result = codetreeService.deleteFile(codeNo);
 		
 		SavePathVo savePathVo = codetreeService.findSavePathVo(codeVo.getSavePathNo());
-		
 
 		CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
 		codeTreeLinux.deleteCode(savePathVo.getPackagePath(), codeVo.getLanguage(), codeVo.getFileName());
-
 
 		return JsonResult.success(result ? codeNo : -1);
 	}	
@@ -105,10 +100,6 @@ public class CodeTreeController {
 	@Auth
 	@PostMapping("/fileUpdate")
 	public JsonResult fileUpdate(Long savePathNo,Long codeNo,String fileName,Long subProblemNo,String prevFileName) {
-		System.out.println("savePathNo>>"+savePathNo);
-		System.out.println("codeNo>>"+codeNo);
-		System.out.println("fileName>>"+fileName);
-		System.out.println("prevFileName"+prevFileName);
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		Map<String,Object> map = new HashMap<>();
 
@@ -144,7 +135,6 @@ public class CodeTreeController {
 				iterator.remove();
 			}
 		}
-		System.out.println(">>>>123123>>>>>>>>>>>>>>>>>>"+codeList);
 		List<SubProblemVo> subProblemList = codetreeService.findSubProblemList(saveVo.getProblemNo());
 		
 		Map<String,Object> map = new HashMap<>();
