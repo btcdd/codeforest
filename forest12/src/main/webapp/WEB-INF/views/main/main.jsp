@@ -131,8 +131,10 @@ function onMessageReceived(payload) {
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
     
-   	var e = jQuery.Event( "keydown", { keyCode: 35 } );
-    $('#result').trigger( e );
+   	setTimeout(function() {
+   		var e = jQuery.Event( "keydown", { keyCode: 35 } );
+	    $('#result').trigger( e );
+   	}, 1000);
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
