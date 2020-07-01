@@ -1,4 +1,11 @@
-html, body{height:100%;}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
 .content {
     width: 60vw;
     margin: auto;
@@ -18,21 +25,22 @@ html, body{height:100%;}
 
 .problems {
 	margin: 1em;
-    height: 60vh;
+    height: 83vh;
     border: 1px solid #b2b2b2;
     border-radius: 0.5rem;
-    padding: 2em;
+    padding: 1.5em 2em 2em 2em;
 }
 
  .problem-box {
     float: left;
     width: 305px;
     height: 150px;
-    margin: 15px 23px;
+    margin: 15px 11px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     cursor: pointer;
     overflow: hidden;
     border-top: 1px solid #cfcfcf;
+    padding: 12px;
 }
 .problem-box:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -43,17 +51,17 @@ html, body{height:100%;}
     border: 1px #7A8B9B;
     color: #000;
     border-radius: 15px;
-    margin-top: 7px;
     font-weight: bold;
 }
 .problem-title {
 	margin:20px auto;
 	margin-left: 5px;
+	margin-top: 7px;
 }
 
 .problem-user {
 	float:right;
-	margin: 28px auto 8px;
+	margin: 0px auto 8px;
 	margin-right: 4px;
 } 
 
@@ -105,6 +113,7 @@ input[type=text] {
     transition-duration: 0.4s;
     border: 1.5px #dfdfdf solid;
     cursor: pointer;
+    margin-left: 1em;
 }
 
 #search:hover {
@@ -130,6 +139,76 @@ input[type=text] {
 	cursor: pointer;
 }
 
-.sub-problem-count {
+.subproblem-category-writer-content {
+	margin-left: 26px;
+	margin-top: 34px;
+}
+
+.sub-problem-count-title {
 	float: left;
+	color: #0078FF;
+	text-align: center;
+	font-size: 0.9em;
+}
+
+.sub-problem-count {
+	color: #222;
+    margin-top: 11px;
+    text-align: center
+}
+
+.category {
+	margin-left: 20px;
+    float: left;
+    color: #0078FF;
+    border-left: 0.0625rem solid #D7E2EB;
+    width: 4em;
+    padding-left: 20px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.category-title {
+	color: #222;
+    margin-top: 11px;
+    text-align: center;
+}
+
+.writer {
+	margin-left: 20px;
+    float: left;
+    color: #0078FF;
+    border-left: 0.0625rem solid #D7E2EB;
+    width: 4em;
+    padding-left: 20px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.writer-title {
+	color: #222;
+    margin-top: 11px;
+    text-align: center;
+}
+
+.img {
+	width: 11em;
+	float: right;
+	margin-right: 5em;
+}
+
+.explain-div {
+	height: 11em;
+}
+
+.explain {
+	display: inline-block;
+    width: 41em;
+    margin-left: 1.3em;
+    margin-top: 1.5em;
+}
+
+.title-strong {
+	font-weight: bold;
+    font-size: 1.5em;
 }

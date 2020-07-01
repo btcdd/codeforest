@@ -40,7 +40,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
 
-
 var result = '';
 var tmp = '';
 var lang;
@@ -184,10 +183,16 @@ $(function() {
    var theme = 'panda-syntax';
    $('.theme').click(function() {
 	   theme = $(".theme option:selected").val();
+	   var containers = document.getElementsByClassName('lm_item_container');
 	   if(currentEditor != null) {
-// 		   currentEditor.setOption("theme", theme);
 		   for (var i = 0; i < editorArray.length; i++ ) {
-			   editorArray[i].setOption("theme", theme);
+			   if(containers[i].style.display == "none"){
+					containers[i].style.display = '';
+					editorArray[i].setOption("theme", theme);
+					containers[i].style.display = 'none';
+				} else {
+					editorArray[i].setOption("theme", theme);
+				}
 			}
 	   }	   
 	   var backgroundColor = null;

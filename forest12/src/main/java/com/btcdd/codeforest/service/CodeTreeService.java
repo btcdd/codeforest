@@ -17,7 +17,7 @@ import com.btcdd.codeforest.vo.SubmitVo;
 
 @Service
 public class CodeTreeService {
-	private static final int postNum = 10; //한 페이지에 출력할 게시물 갯수
+	private static final int postNum = 9; //한 페이지에 출력할 게시물 갯수
 	private static final int pageNum_cnt = 5; 		//한번에 표시할 페이징 번호의 갯수
 	
 	@Autowired
