@@ -127,12 +127,13 @@ function onMessageReceived(payload) {
     
     outputResult += message.content;
     
-//     var e = jQuery.Event( "keydown", { keyCode: 39 } );
-//     $('#result').trigger( e );
     
     prevCursor = $('#result').prop('selectionStart') - 1;
     
     $('#result').scrollTop($('#result').prop('scrollHeight'));
+    
+    var e = jQuery.Event( "keydown", { keyCode: 39 } );
+    $('#result').trigger( e );
     
     if(message.programPandan) {
     	$('#result').attr("readonly", true);
