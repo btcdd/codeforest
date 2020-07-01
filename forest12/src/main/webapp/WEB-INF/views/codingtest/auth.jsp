@@ -50,7 +50,7 @@ function numberMaxLength(e){
 
     if(e.value.length > e.maxLength){
 		slide("wrong-birth");
-		$("#birth").focus();
+		$("#birth").val("");
 		return;
     }
 
