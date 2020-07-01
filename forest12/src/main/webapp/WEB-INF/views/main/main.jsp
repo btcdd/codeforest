@@ -260,7 +260,6 @@ $(function() {
     		return false;
     	});
     });   
-
 });
 
 </script>
