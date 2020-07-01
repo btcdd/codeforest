@@ -17,6 +17,16 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 </head>
 <script>
+var checkBirth = function CheckBirth(str){
+	var regBirth = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+	if(!regBirth.test(str)){
+		return false;
+	}else{
+		return true;
+	}
+}
+ 
+
 var FullendTime = "${problemVo.endTime}";
 var FullendTimeSplit = FullendTime.split(" ");
 var FullHours = FullendTimeSplit[1];
@@ -46,15 +56,6 @@ var messageBox = function(title,message,message2,callback){
 		});
 };
 
-function numberMaxLength(e){
-
-    if(e.value.length > e.maxLength){
-		slide("wrong-birth");
-		$("#birth").val("");
-		return;
-    }
-
-}
 
 $(function(){
 
@@ -73,6 +74,12 @@ $(function(){
 			$("#birth").focus();
 			return;
 		}
+		if(!checkBirth($("#birth").val())){
+			slide("wrong-birth");
+			$("#birth").val("");
+			return;			
+		}
+		
 		if($("#tempKey").val() ==''){
 			slide("empty-tempKey");
 			$("#tempKey").focus();
@@ -83,7 +90,7 @@ $(function(){
 			$("#tempKey").focus();			
 			return;
 		}
-		
+		 
 		messageBox("Coding Test","코딩 테스트를 시작합니다",FullHoursSplit[0]+"시 "+FullHoursSplit[1]+"분에 시험이 종료됩니다. ",function(){
 			_this.submit();
 		});
@@ -106,11 +113,10 @@ $(function(){
 	<div class="wrong" id="empty-tempKey" style="display: none">
 		<p class="wrong-ptag">인증번호가 비었습니다</p>
 	</div>
-		<div class="wrong" id="wrong-tempKey" style="display: none">
+	<div class="wrong" id="wrong-tempKey" style="display: none">
 		<p class="wrong-ptag">인증번호가 틀렸습니다</p>
 	</div>
-	</div>
-		<div class="wrong" id="wrong-birth" style="display: none">
+	<div class="wrong" id="wrong-birth" style="display: none">
 		<p class="wrong-ptag">생일을 다시 확인해주세요</p>
 	</div>	
 	<div id="container">
@@ -124,7 +130,7 @@ $(function(){
 						<input type="text" id="name" name="name" value="" placeholder="이름"/>
 					</div>
 					<div class="birth">
-						<input type="date" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);"/>
+						<input type="text" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);" placeholder="생년월일ex)0000-00-00"/>
 					</div>
 					<div class="tempKey">
 						<input type="text" id="tempKey" name="tempKey" value="" placeholder="인증번호"/>
