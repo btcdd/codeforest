@@ -134,7 +134,54 @@ function onMessageReceived(payload) {
     }
 }
 
+$(document).scroll(function()
+{
+	if($(this).scrollTop() < 100) {
+		$('body').css('background-color', 'rgba(0,0,0,0)');
+	} else if($(this).scrollTop() < 200) {
+		$('body').css('background-color', 'rgba(0,0,0,0.1)');
+	} else if($(this).scrollTop() < 300) {
+		$('body').css('background-color', 'rgba(0,0,0,0.2)');
+	} else if($(this).scrollTop() < 400) {
+		$('body').css('background-color', 'rgba(0,0,0,0.3)');
+	} else if($(this).scrollTop() < 500) {
+		$('body').css('background-color', 'rgba(0,0,0,0.4)');
+	} else if($(this).scrollTop() < 600) {
+		$('body').css('background-color', 'rgba(0,0,0,0.5)');
+	} else if($(this).scrollTop() < 700) {
+		$('body').css('background-color', 'rgba(0,0,0,0.6)');
+	} else if($(this).scrollTop() < 800) {
+		$('body').css('background-color', 'rgba(0,0,0,0.7)');
+	} else if($(this).scrollTop() < 900) {
+		$('body').css('background-color', 'rgba(0,0,0,0.8)');
+	} else if($(this).scrollTop() < 1000) {
+		$('body').css('background-color', 'rgba(0,0,0,0.9)');
+	}
+});
+
 $(function() {
+	
+	if($(this).scrollTop() < 100) {
+		$('body').css('background-color', 'rgba(0,0,0,0)');
+	} else if($(this).scrollTop() < 200) {
+		$('body').css('background-color', 'rgba(0,0,0,0.1)');
+	} else if($(this).scrollTop() < 300) {
+		$('body').css('background-color', 'rgba(0,0,0,0.2)');
+	} else if($(this).scrollTop() < 400) {
+		$('body').css('background-color', 'rgba(0,0,0,0.3)');
+	} else if($(this).scrollTop() < 500) {
+		$('body').css('background-color', 'rgba(0,0,0,0.4)');
+	} else if($(this).scrollTop() < 600) {
+		$('body').css('background-color', 'rgba(0,0,0,0.5)');
+	} else if($(this).scrollTop() < 700) {
+		$('body').css('background-color', 'rgba(0,0,0,0.6)');
+	} else if($(this).scrollTop() < 800) {
+		$('body').css('background-color', 'rgba(0,0,0,0.7)');
+	} else if($(this).scrollTop() < 900) {
+		$('body').css('background-color', 'rgba(0,0,0,0.8)');
+	} else if($(this).scrollTop() >= 900) {
+		$('body').css('background-color', 'rgba(0,0,0,0.9)');
+	}
 	
    $(window).scroll(function() {
         if ($(this).scrollTop() > 500) {
@@ -162,7 +209,7 @@ $(function() {
    editor = CodeMirror.fromTextArea(code, {
          lineNumbers: true,
          mode: 'text/x-java',
-         theme: 'duotone-light',
+         theme: 'panda-syntax',
          matchBrackets: true
    });
    
@@ -302,10 +349,10 @@ $(function() {
                          <option value="blackboard">blackboard</option>
                          <option value="dracula">dracula</option>
                          <option value="moxer">moxer</option>
-                         <option value="panda-syntax">panda-syntax</option>
+                         <option value="panda-syntax" selected="selected">panda-syntax</option>
                        </optgroup>
                        <optgroup label="light">
-                         <option value="duotone-light" selected="selected">duotone-light</option>
+                         <option value="duotone-light">duotone-light</option>
                          <option value="eclipse">eclipse</option>
                          <option value="neat">neat</option>
                          <option value="ttcn">ttcn</option>
