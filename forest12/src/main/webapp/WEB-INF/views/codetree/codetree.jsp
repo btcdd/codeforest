@@ -1247,16 +1247,53 @@ $(function() {
     
      
    // 헤더 버튼
-   $(document).on("click",".sub-menu > li:first-child",function(){
+   $(document).on("click","#menu-1 > li:first-child",function(){
       $("#Save").trigger("click");
    });
-   $(document).on("click",".sub-menu > li + li",function(){
+   $(document).on("click","#menu-1 > li + li",function(){
       $("#Run").trigger("click");
    });
-   $(document).on("click",".sub-menu > li:last-child",function(){
+   $(document).on("click","#menu-1 > li:last-child",function(){
       $("#Submit").trigger("click");
    });
    
+   $(document).on("click","#menu-2 > li:first-child",function(){
+	  $("#Run").trigger("click");
+   });
+   
+   $(document).on("click","#menu-3 > li:first-child",function(){
+// 	   var e = jQuery.Event("keydown");
+// 	   e.ctrlkey = true;     // control key pressed
+// 	   $(document).trigger(e);
+// 	   e.which = 70;       // # F1 code value
+// 	   $(document).trigger(e);// trigger event on document
+// 		$("body").bind("keydown", "ctrl+f");
+		console.log("1234");
+		
+// 	    var event = new KeyboardEvent('keydown', {
+// 	    	 ctrlKey: true,
+// 	        key: 'f'
+// 	      });
+// 	    console.log(event);
+// 	      // dispatch the alt+n key press event
+// 	      document.dispatchEvent(event);
+// 	    $(document).trigger(event);
+// 		event.ctrlkey = true;
+// 		event.which = 70; 
+// 	   if (event.ctrlKey) {
+//            switch (String.fromCharCode(event.which).toLowerCase()) {
+//            case 'f':
+//         	   $(document).trigger(event);
+//         	   $(document).bind("keydown", "ctrl+f");
+//         	   console.log("zz")
+//                break;
+//           } 
+// 	   }
+	var e = jQuery.Event( "keypress", { keyCode: 70 } ); 
+	e.ctrlkey = true;
+	$(".terminal").trigger(e);
+
+   });
    
 ////// function 끝부분
 });
@@ -1405,26 +1442,26 @@ window.onload = function() {
        <div class="menu-cool-container">
         <ul>
           <li><a>File</a>
-            <ul class="sub-menu">
+            <ul class="sub-menu" id="menu-1">
               <li>Save</li>
               <li>Run</li>
               <li>Submit</li>              
             </ul>
           </li>
           <li><a>Run</a>
-            <ul class="sub-menu">
+            <ul class="sub-menu" id="menu-2">
               <li>Run</li>            
             </ul>
           </li>
           <li>
              <a>Search</a>
-             <ul class="sub-menu">
+             <ul class="sub-menu" id="menu-3">
               <li>Search</li>            
             </ul>
           </li>
           <li>
              <a>Setting</a>
-             <ul class="sub-menu">
+             <ul class="sub-menu" id="menu-4">
               <li>Language</li>
               <li>Theme</li>
               <li>Font-Size</li>              
