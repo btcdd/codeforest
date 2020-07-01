@@ -25,7 +25,7 @@ var checkBirth = function CheckBirth(str){
 		return true;
 	}
 }
-
+ 
 
 var FullendTime = "${problemVo.endTime}";
 var FullendTimeSplit = FullendTime.split(" ");
