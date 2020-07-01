@@ -67,8 +67,9 @@ var fetchList = function() {
 			'<div><div class="problem-no">'+map.list[i].problemNo+'</div>'+
 			'<img class="top-right-arrow" src="${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow.png"></div>'+
 			'<div class="problem-title">'+map.list[i].title+'</div>'+
-			'<div><div class="sub-problem-count">문제 개수 '+ map.subProblemNoCountList[i] +'</div>'+
-			'<div class="problem-user">'+map.list[i].kind +" "+ map.list[i].nickname+'</div></div>'+
+			'<div class="subproblem-category-writer-content"><div class="sub-problem-count-title">문제 개수<div class="sub-problem-count">'+ map.subProblemNoCountList[i] +'</div></div>'+
+			'<div class="category">카테고리<div class="category-title">' + map.list[i].kind + '</div></div>'+
+			'<div class="writer">작성자<div class="writer-title">' + map.list[i].nickname + '</div></div></div>'+
 		'</div>';
 	}
 	$(".problems").append(str);
@@ -91,6 +92,12 @@ var fetchList = function() {
 	}	
 	str2 += "</div>";
 	$(".problems").after(str2);
+	
+	$('.problem-box').hover(function() {
+		$(this).children().children('img').attr("src", '${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow-hover.png');
+	}, function(){
+		$(this).children().children('img').attr("src", '${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow.png');
+	});
 }
 var nextRemove = function() {
 	var endPage = map.endPageNum - 1;
@@ -155,19 +162,12 @@ $(function() {
 	          }
 	       }); 
 	});
-	
-	$('.problem-box').hover(function() {
-		$(this).children().children('img').attr("src", '${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow-hover.png');
-	}, function(){
-		$(this).children().children('img').attr("src", '${pageContext.servletContext.contextPath }/assets/images/codetree/top-right-arrow.png');
-	});
 });
 
 </script>   
 </head>
 <body>
 	<c:import url="/WEB-INF/views/include/main-header.jsp" />
-	<!-- <div id="code-tree" class="menu-item"><a>Code Tree</a></div> -->
 	<div class="content">
         <div class="search">
             <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();">
@@ -175,8 +175,13 @@ $(function() {
         </div>
         <div class="list">
             <div class="problems">
+            	<div class="explain-div">
+            		<div class="explain"><strong class="title-strong">CODE TREE</strong><br/><br/>
+회원님이 어려워 하는 알고리즘/자료구조는 무엇인가요?<br/>회원님이 직접 저장한 문제들을 풀어보면서, 회원님의 알고리즘 능력을 향상시켜 보세요. </div>
+            		<img class="img" src="${pageContext.request.contextPath }/assets/images/codetree/codetree-logo.png">
+            	</div>
             </div>
-        </div>			
+        </div>
 <%-- 				<div class="list">		
 					<c:forEach items="${saveVoList}" var="vo" varStatus="status">
 						<div class="problem-box">
