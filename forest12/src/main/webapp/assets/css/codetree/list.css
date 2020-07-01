@@ -28,11 +28,12 @@ html, body{height:100%;}
     float: left;
     width: 305px;
     height: 150px;
-    margin: 15px 23px;
+    margin: 15px 11px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     cursor: pointer;
     overflow: hidden;
     border-top: 1px solid #cfcfcf;
+    padding: 12px;
 }
 .problem-box:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
