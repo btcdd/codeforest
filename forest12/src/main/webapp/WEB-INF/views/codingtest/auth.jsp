@@ -49,9 +49,9 @@ var messageBox = function(title,message,message2,callback){
 function numberMaxLength(e){
 
     if(e.value.length > e.maxLength){
-		alert("값 길다");
-        e.value = e.value.slice(0, e.maxLength);
-
+		slide("wrong-birth");
+		$("#birth").focus();
+		return;
     }
 
 }
@@ -106,9 +106,13 @@ $(function(){
 	<div class="wrong" id="empty-tempKey" style="display: none">
 		<p class="wrong-ptag">인증번호가 비었습니다</p>
 	</div>
-			<div class="wrong" id="wrong-tempKey" style="display: none">
+		<div class="wrong" id="wrong-tempKey" style="display: none">
 		<p class="wrong-ptag">인증번호가 틀렸습니다</p>
 	</div>
+	</div>
+		<div class="wrong" id="wrong-birth" style="display: none">
+		<p class="wrong-ptag">생일을 다시 확인해주세요</p>
+	</div>	
 	<div id="container">
 		<div id="content">
 	     	<div class="logo">
