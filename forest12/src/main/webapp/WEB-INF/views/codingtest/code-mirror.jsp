@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codingtest/code-mirror.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
@@ -221,13 +222,11 @@ $(function() {
            	diff -= min * 60;
          }else if(diff < 60){
         	 min = 0;
-        	 $(".countdown table").css("color","red");
+        	 $("#tiles").removeClass('color-full');
+        	 $("#tiles").addClass('color-empty');
          }
          var sec = diff;
-     $(".countdown table td:first").text("남은 시간  ");
-     $(".countdown table td+td").text("[ "+hours+"시");
-     $(".countdown table td+td+td").text(min+"분");
-     $(".countdown table td:last").text(sec+"초"+" ]"); 
+		 $(".timer").html("<span>" + hours + ":</span><span>" + min + ":</span><span>" + sec + "</span>");
 
    },1000);   
    
@@ -1463,14 +1462,10 @@ window.onload = function() {
         </ul>
       </div> 
       <div class="countdown">
-         <table>
-            <tr>
-               <td></td>
-               <td></td>
-               <td></td>
-               <td></td>
-            </tr>
-         </table>         
+		 <div id='tiles' class="color-full">
+		 	<div class="timer"></div>
+		 </div>
+         <div class="countdown-label">Time Remaining</div>
       </div>         
     </div>
  </nav>

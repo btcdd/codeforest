@@ -56,7 +56,7 @@ public class RunCLinux {
 		try {
 			
 			process = Runtime.getRuntime().exec(
-					"gcc -o " + packagePath + "/" + language + "/Test.exe " + packagePath + "/" + language + "/Test.c");	
+					"gcc -o " + packagePath + "/" + language + "/Test.exe " + packagePath + "/" + language + "/Main/Test.c");
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
