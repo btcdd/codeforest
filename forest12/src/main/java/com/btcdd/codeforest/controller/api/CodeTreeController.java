@@ -57,15 +57,12 @@ public class CodeTreeController {
 	@Auth
 	@PostMapping("/fileInsert")
 	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, String packagePath, HttpSession session) {
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
 
-		Long problemNo = codetreeService.findProblemNo(subProblemNo);
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		
 		Map<String,Object> map = new HashMap<>();
 				
 		if(!exist) {
-			System.out.println("기존 존재하지 않는다");
 			codetreeService.insertFile(savePathNo,language,fileName);
 			
 			
@@ -74,15 +71,11 @@ public class CodeTreeController {
 			String codeValue = "public class " + split[0] + " {\n\n}";
 			codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
 			
-//			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
-//			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
-			
 			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
 			map.put("fileName", fileName);
 			map.put("savePathNo", savePathNo);
 			map.put("codeNo",codeNo);
 		}else {
-			System.out.println("기존파일이 존재한다");
 			map.put("result", "no");
 		}
 		
@@ -110,11 +103,9 @@ public class CodeTreeController {
 		Map<String,Object> map = new HashMap<>();
 
 		if(!exist) {
-			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);
 			// 여기!!
 		}else {
-			System.out.println("기존파일이 존재한다");
 			map.put("result", "no");
 		}
 

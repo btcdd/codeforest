@@ -97,10 +97,25 @@ $(function(){
 		
 	});	
 	
-	
-	
-	
-	
+	$('#birth').keyup(function(key) {
+		var birth = $(this).val();
+		
+		if(birth.length == 4) {
+			$(this).val(birth + '-');
+		}
+		else if(birth.length == 5 && key.keyCode == 8) {
+			var tmp = $(this).val().substring(0, birth.length - 1);
+			$(this).val(tmp);
+		}
+		
+		if(birth.length == 7) {
+			$(this).val(birth + '-');
+		}
+		else if(birth.length == 8 && key.keyCode == 8) {
+			var tmp = $(this).val().substring(0, birth.length - 1);
+			$(this).val(tmp);
+		}
+	});
 });
 </script>
 <body>
@@ -130,7 +145,7 @@ $(function(){
 						<input type="text" id="name" name="name" value="" placeholder="이름"/>
 					</div>
 					<div class="birth">
-						<input type="text" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);" placeholder="생년월일ex)0000-00-00"/>
+						<input type="text" id="birth" name="birth" value="" maxlength="10" placeholder="생년월일 8자리"/>
 					</div>
 					<div class="tempKey">
 						<input type="text" id="tempKey" name="tempKey" value="" placeholder="인증번호"/>
