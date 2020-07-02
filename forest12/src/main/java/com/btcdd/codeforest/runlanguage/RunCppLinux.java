@@ -56,7 +56,7 @@ public class RunCppLinux {
 		try {
 			
 			process = Runtime.getRuntime().exec(
-					"g++ -o " + packagePath + "/" + language + "/Test.exe " + packagePath + "/" + language + "/Test.cpp");	
+					"g++ -o " + packagePath + "/" + language + "/Test.exe " + packagePath + "/" + language + "/Main/Test.cpp");	
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
