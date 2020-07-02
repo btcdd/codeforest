@@ -5,7 +5,20 @@
 
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/problem-list.css">
 <script>
+//스크롤
+var scrollbar = function() {
+	$("#box_1").mCustomScrollbar({
+	    theme:"inset"
+	});
+}
+
 $(function() {
+	
+	scrollbar();
+	
+	$('#0').addClass("active");
+	$('#0').next().toggleClass("open");
+	
 	  var items = $(".accordion__items");
 
 	  items.on("click",function(){
@@ -24,24 +37,15 @@ $(function() {
 
 
 <div class="accordion">
-  <h1 class="accordion__title">${saveVo.problemNo }. ${saveVo.title }</h1>
   <c:forEach items='${subProblemList }' var='subproblemvo' varStatus='status'>
-  	  <c:choose>
-  	  	<c:when test="${status.index + 1 < 10}">
-  	  		<h2 class="accordion__items">#${subproblemvo.no } &nbsp;&nbsp;&nbsp; 문제 0${status.index + 1}</h2>
-  	  	</c:when>
-  	  	<c:otherwise>
-  	  		<h2 class="accordion__items">#${subproblemvo.no } &nbsp;&nbsp;&nbsp; 문제 ${status.index + 1}</h2>
-  	  	</c:otherwise>
-  	  </c:choose>	  
+ 		<h2 class="accordion__items" id="${status.index }"># ${subproblemvo.no } &nbsp;&nbsp;&nbsp; ${subproblemvo.title }</h2>
 	  <div class="accordion__content">
-	    <h3 class="accordion__content__caption">&nbsp;&nbsp;${subproblemvo.title }</h3>
 	    <h3 class="accordion__content__caption">문제 내용</h3>
 	    <div class="accordion__content__txt">${subproblemvo.contents }</div>
 	    <h3 class="accordion__content__caption">예제 입력</h3>
 	    <pre class="accordion__content__txt">${subproblemvo.examInput }</pre>
 	    <h3 class="accordion__content__caption">예제 출력</h3>
-	    <pre class="accordion__content__txt">${subproblemvo.examOutput }</pre>
+	    <pre class="accordion__content__txt" style="margin-bottom: 2.5em;">${subproblemvo.examOutput }</pre>
 	  </div>
   </c:forEach>
 
