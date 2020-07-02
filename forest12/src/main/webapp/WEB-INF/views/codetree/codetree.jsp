@@ -419,10 +419,6 @@ $(function() {
             savePathNo = $(this).data("no");
              subProblemNo = $(this).data("no2");
              InsertPackagePath = $(this).data("package-path");
-             console.log('$(this).data("package-path")>>>>',$(this).data("package-path"));
-             console.log("InsertPackagePath>>>",InsertPackagePath);
-             console.log("savePathNo>>>",savePathNo);
-             console.log("subProblemNo>>>",subProblemNo);             
               //Get window size:
               var winWidth = $(document).width();
               var winHeight = $(document).height();
@@ -473,13 +469,6 @@ $(function() {
         	 
              savePathNo = $(this).data("no2");
              subProblemNo = $(this).data("no3");              
-            console.log('$(this).data("no2")>>',$(this).data("no2"));
-            console.log('$(this).data("no3")>>',$(this).data("no3"));
-            console.log("no>>>",$(this).data("no"));
-            console.log("subproblem-no>>>",$(this).data("subproblem-no"));
-            console.log("language>>>",$(this).data("language"));
-            console.log("file-name>>>",$(this).data("file-name"));
-            console.log("package-path>>>",$(this).data("package-path"));
             var currentFileName = $(this).data("file-name");
             var currentFileNameSplit = currentFileName.split(".")[0];
             if(currentFileNameSplit != "Test"){
@@ -557,8 +546,6 @@ $(function() {
     
     
     $(document).on('click','#file-insert',function(){
-       console.log("savePathNo!!!",savePathNo);
-       console.log("subProblemNo!!!",subProblemNo);
        $(".insertErrorMessage").html("<p></p>");
        var lang = $(".lang option:selected").val();   
        $(".fileName-insert").attr("placeholder","."+lang);
@@ -583,8 +570,6 @@ $(function() {
                            return;
                         }
                         var fileName = filename2;
-                        console.log("InsertPackagePath>>>>",InsertPackagePath);
-                        console.log("fileName>>>>", fileName);
                         $.ajax({
                            url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
                            async: true,
@@ -629,7 +614,6 @@ $(function() {
     });
     
     $(document).on('click','#userfile-delete',function(){    	
-       console.log("userfile-delete   >>codeNo",codeNo);       
        $(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
        dialogDelete.dialog("open");
     });
@@ -686,8 +670,6 @@ $(function() {
     
     
     $(document).on('click','#userfile-update',function(){
-        console.log("update  savePathNo!!!",savePathNo);
-        console.log("update  subProblemNo!!!",subProblemNo);
         
     	$(".updateErrorMessage").html("<p></p>");
         var lang = $(".lang option:selected").val();   
@@ -735,7 +717,6 @@ $(function() {
                            
                            
                            if(root != null){
-                              console.log("root가 있을경우 해당");
                               tempLayout = root.getItemsById(layoutId)[0]; 
                              if(tempLayout != null){
                                 tempLayout.setTitle(fileName);
@@ -793,7 +774,6 @@ $(function() {
           
           
            fileMap.set(fileNo+"", tempFile);
-           console.log($("#cm"+fileNo).length);
           
           root = myLayout.root.contentItems[0] || myLayout.root;
          
@@ -815,7 +795,6 @@ $(function() {
             matchBrackets : true
          });         
          editorArray[editorArrayIndex++]=editor;
-         console.log("editor : " + editor);
          currentEditor = editor;
          HashMap.set("editor"+fileNo, editor);
          
@@ -832,9 +811,7 @@ $(function() {
             success: function(response) {    
                var face = '';
                if(fileName.split(".")[0] == "Test") {
-                  console.log("1");
                   if(response.data == "" || response.data == null) {
-                     console.log("2");
                      if(language === 'c') {
                            face = '#include <stdio.h>\n\n' + 
                               'int main() {\n' + 
@@ -876,13 +853,11 @@ $(function() {
                      SavedCode.set(fileNo+"",face);
                   }
                   else {
-                     console.log("3");
                      currentEditor.setValue(response.data);
                      SavedCode.set(fileNo+"",response.data);
                   } 
                }
                else {
-                  console.log("4");
                   if(language === 'java' && (response.data == "" || response.data == null)) {
                      face = 'public class ' + fileName.split(".")[0] + '{\n\n' + 
 
@@ -895,60 +870,6 @@ $(function() {
                      SavedCode.set(fileNo+"",response.data);   
                   }
                }
-               
-               
-//                if(response.data != "" || response.data != null) {
-//                face = response.data;
-               
-//                console.log("response.data: ", response.data);
-//                console.log("if  fileName.split('.')[0] :", fileName.split(".")[0]);
-//                }
-//                else {
-//                   console.log("else   fileName.split('.')[0] :", fileName.split(".")[0]);
-//                   if(fileName.split(".")[0] == "Test") {
-//                      if(language === 'c') {
-//                         face = '#include <stdio.h>\n\n' + 
-//                            'int main() {\n' + 
-//                               '\tprintf("Hello CodeForest!\\n");\n\n' + 
-//                               '\treturn 0;\n' + 
-//                            '}';
-//                      } else if(language === 'cpp') {
-//                         face = '#include <iostream>\n\n' + 
-//                                  'using namespace std;\n\n' + 
-//                            'int main()\n' + 
-//                            '{\n' + 
-//                                '\tcout << "Hello CodeForest!" << endl;\n\n' + 
-//                                '\treturn 0;\n' + 
-//                            '}';
-//                      } else if(language === 'cs') {
-//                         face = 'using System;\n\n' + 
-//                                  'class HelloWorld {\n\n' + 
-//                                 '\tstatic void Main() {\n' +  
-//                                '\t\tConsole.WriteLine("Hello CodeForest");\n' + 
-//                              '\t}\n' + 
-//                            '}';
-//                      } else if(language === 'java') {
-//                         face = '/*\n' + 
-//                            "* 기본 언어 : 'JAVA'\n" + 
-//                         "* 기본 테마 : 'panda-syntax'\n" + 
-//                         '*/\n' + 
-//                        'public class Test{\n' + 
-//                              '\tpublic static void main(String[] args) {\n' + 
-//                                  '\t\tSystem.out.println("Hello CodeForest!");\n' + 
-//                            '\t}\n' + 
-//                        '}\n';
-//                      } else if(language === 'js') {
-//                         face = 'var str = "Hello CodeForest";\n\n' + 
-//                                  'console.log(str);';
-//                      } else if(language === 'py') {
-//                         face = 'print("Hello World")';
-//                      }
-   
-//                   }
-//                }
-//                currentEditor.setValue(face);
-               console.log("code : " + response.data);
-               
             },
             error: function(xhr, status, e) {
                console.error(status + ":" + e);
@@ -959,33 +880,23 @@ $(function() {
    
        }
        else {
-          
           layoutId = "layout-"+fileNo;
           tempFile = fileMap.get(fileNo+"");
          tempLayout = root.getItemsById(layoutId)[0];
           
-         console.log("tempLayout",tempLayout);
           root.setActiveContentItem(tempLayout);   
              
           currentEditor = HashMap.get("editor"+fileNo);
-          
-          console.log("map>>>",HashMap.get("editor"+fileNo));
        }
        
        
     });
    $(document).on("mousedown", ".lm_title", function() {
 
-      console.log("title>>>",$(this));
-      console.log("getActiveContentItem()>>",root.getActiveContentItem());
-      console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id);
-      console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id.split("-")[0]);
-      console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id.split("-")[1]);
       var tabFileNo = root.getActiveContentItem().config.id.split("-")[1];
       fileNo = tabFileNo;
        tempFile = fileMap.get(tabFileNo+"");
       $(this).parent().attr("id", "tab"+tabFileNo); //dom 분리시 작업 코드 진행중
-       console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
        currentEditor = HashMap.get("editor"+tabFileNo);
       
        
@@ -993,11 +904,6 @@ $(function() {
    });
    
    $(document).on("click", ".CodeMirror-scroll", function(e) {
-      console.log("root>>>>>>>>>>",root);
-      console.log("클릭한곳:", $(this));
-      console.log("this.parent()>>",$(this).parent());
-      console.log("this.parent().parent>>",$(this).parent().parent().attr("id"));
-      console.log("this.parent().parent>>",$(this).parent().parent().attr("id").split("cm"));
        var cmNo = $(this).parent().parent().attr("id").split("cm")[1];
        fileNo = cmNo;
        tempFile = fileMap.get(cmNo+"");
