@@ -88,7 +88,7 @@ public class ChatController {
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy(time);
 					rpy.createFileAsSource(code);
-					errorResult = rpy.execCompile();
+//					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s python3 /mainCompile/py" + time + "/Test.py");
 				}
 				readBuffer.setLength(0);
@@ -150,13 +150,20 @@ public class ChatController {
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
 					InputStreamReader is = new InputStreamReader(stdout, "utf-8");
-					InputStreamReader error = new InputStreamReader(process.getErrorStream());
+					InputStreamReader error = new InputStreamReader(process.getErrorStream(), "utf-8");
 					
 					int c = 0;
 					readBuffer.setLength(0);
-					while ((c = is.read()) != -1) {
+					
+					while ((c = error.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
+					}
+					if(error != null) {
+						while ((c = is.read()) != -1) {
+							char line = (char) c;
+							readBuffer.append(line);
+						}
 					}
 					//reader.reset();
 				} catch (Exception e) {
