@@ -356,7 +356,7 @@ public class CodingTestController {
 		map.put("compileError", compileError);
 		map.put("compileResult", true);
 		
-		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
+//		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
 		
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		
