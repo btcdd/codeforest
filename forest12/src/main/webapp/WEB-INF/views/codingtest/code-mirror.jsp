@@ -1142,27 +1142,8 @@ $(function() {
             });            
             
          },1500);
-/*       var subProblemNo = tempFile.data("subproblem-no");
-        var result = new Array();
-         <c:forEach items="${subProblemList}" var="info">
-            var json = new Object();
-            json.no = "${info.no}";
-            
-            result.push(json);
-         </c:forEach>
-         var selected = null;
-         for(var i=0;i<result.length;i++){
-            if(result[i].no == subProblemNo){
-               selected = result[i];
-            }
-         } */
-         
-
-         
     });       
 
-    
-    
     //////////////////////////// golden layout /////////////////////////////   
    var config = {
        settings: {
