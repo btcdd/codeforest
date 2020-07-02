@@ -41,6 +41,7 @@ public class CodeTreeChatController {
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
 		chatMessage.setProgramPandan(false);
+		chatMessage.setErrorPandan(false);
 		
 		String errorResult = "";
 		Boolean pandan = false;
