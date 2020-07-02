@@ -94,21 +94,19 @@ $(function(){
 		
 	});	
 	
-	$('#birth').keyup(function(key) {
+	$('#birth').keydown(function(key) {
 		var birth = $(this).val();
 		
 		if(birth.length == 4) {
 			$(this).val(birth + '-');
-		}
-		else if(birth.length == 5 && key.keyCode == 8) {
+		} else if(birth.length == 5 && key.keyCode == 8) {
 			var tmp = $(this).val().substring(0, birth.length - 1);
 			$(this).val(tmp);
 		}
 		
 		if(birth.length == 7) {
 			$(this).val(birth + '-');
-		}
-		else if(birth.length == 8 && key.keyCode == 8) {
+		} else if(birth.length == 8 && key.keyCode == 8) {
 			var tmp = $(this).val().substring(0, birth.length - 1);
 			$(this).val(tmp);
 		}
