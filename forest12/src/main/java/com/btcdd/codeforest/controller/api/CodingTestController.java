@@ -360,7 +360,7 @@ public class CodingTestController {
 		
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		
-//		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 //		
 		/////// [User] AnserCount increase method
 		if(compileResult == true) {
