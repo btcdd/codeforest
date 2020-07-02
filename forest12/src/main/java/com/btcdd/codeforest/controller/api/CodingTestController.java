@@ -326,12 +326,12 @@ public class CodingTestController {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
-//		 
-//		boolean compileResult = true;
-//		boolean compileError = false;
-//		
-//		String[] examOutputSplit = examOutput.split("\n");
-//		String[] outputResultSplit = outputResult.split("\n");
+		 
+		boolean compileResult = true;
+		boolean compileError = false;
+		
+		String[] examOutputSplit = examOutput.split("\n");
+		String[] outputResultSplit = outputResult.split("\n");
 //		
 //		if(compileResult2 == false) {
 //			for(int i = 0; i < examOutputSplit.length; i++) {
