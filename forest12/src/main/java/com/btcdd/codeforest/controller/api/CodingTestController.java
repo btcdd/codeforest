@@ -323,9 +323,9 @@ public class CodingTestController {
 		String solveTime = hours+"시간 "+min+"분 "+sec+"초";
 		map.put("solveTime", solveTime);
 		
-//		UserVo authUser = (UserVo)session.getAttribute("authUser");	
-//		
-//		String examOutput = codetreeService.getExamOutput(subProblemNo);
+		UserVo authUser = (UserVo)session.getAttribute("authUser");	
+		
+		String examOutput = codetreeService.getExamOutput(subProblemNo);
 //		 
 //		boolean compileResult = true;
 //		boolean compileError = false;
