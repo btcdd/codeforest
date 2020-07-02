@@ -89,13 +89,13 @@ public class ChatController {
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy(time);
 					rpy.createFileAsSource(code);
-					errorResult = rpy.execCompile();
+//					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s python3 /mainCompile/py" + time + "/Test.py");
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) { 
 					chatMessage.setContent(errorResult);
-					chatMessage.setErrorPandan(true);
+					chatMessage.setProgramPandan(true);
 					return chatMessage;
 				}
 			}
