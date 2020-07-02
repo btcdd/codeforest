@@ -50,7 +50,7 @@ var setStyle = function(index2) {
 	setTimeout(function() {
 		var ckeContents2 = document.getElementsByClassName("cke_contents")[index2];
 		ckeContents2.style = "height: 400px";
-	}, 70);
+	}, 200);
 }
 
 function leadingZeros(n, digits) {
@@ -218,7 +218,7 @@ window.onload = function(){
 	setTimeout(function() {
 		var ckeContents = document.getElementsByClassName("cke_contents")[0];
 		ckeContents.style = "height: 400px";
-	}, 70);
+	}, 100);
 };
 
 function captureReturnKey(e) { 
