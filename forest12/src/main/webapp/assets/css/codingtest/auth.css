@@ -1,18 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Bigshot+One&family=Noto+Sans+KR:wght@900&family=Pacifico&family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
 body {
-	height: 100%;
-	background-color: #F5F1DE;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.content {
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    background-color: #fff;
+	display: table;
+    border: 1px solid #b2b2b2;
+    border-radius: 1rem;
+    width: 65em;
+    margin: 12em auto 0 auto;
+    padding: 2em 1.5em;
+}
+
+.explain {
+	float:left;
+    width: 60%;
+}
+
+.explain-content {
+	margin: 3em auto 3em 3.5em;
+}
+
+.user {
+	float: left;
+    margin-left: 3em;
 }
 
 .logo {
-	margin-left: auto;
-    margin-right: auto;
-    margin-top: 230px;
-    width: 300px;
+    margin: auto;
+    text-align: center;
+    border-bottom: 1px solid #bebebe;
+    padding-bottom: 1em;
 }
 
 .logo a {
-    font-size: 3.5em;
+    font-size: 2em;
     color: #244C1E;
     text-decoration: none;
     font-family: 'Pacifico', cursive;
@@ -24,47 +53,59 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 35px;
-    border: 1px solid #E3E3E3;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 90%);
 }
-#name {
-	margin-top:15px;
-    margin-left: 23px;
-    width: 295px;
-    height: 18px;
-    font-size: 1em;
-    border: none;
-    background: none;
-    border-bottom: 2px solid #c4c5c4;
+
+.name {
+	background-color: #f00;
 }
+
+/* #name { */
+/* 	margin-top:15px; */
+/*     margin-left: 23px; */
+/*     width: 295px; */
+/*     height: 18px; */
+/*     font-size: 1em; */
+/*     border: none; */
+/*     background: none; */
+/*     border-bottom: 2px solid #c4c5c4; */
+/* } */
 #name:focus {
 	outline: none;
 }
-#birth {
-	margin-top:15px;
-    margin-left: 23px;
-    width: 295px;
-    height: 18px;
-    font-size: 1em;
-    border: none;
-    background: none;
-    border-bottom: 2px solid #c4c5c4;
+
+.birth {
+	background-color: #0f0;
 }
+
+/* #birth { */
+/* 	margin-top:15px; */
+/*     margin-left: 23px; */
+/*     width: 295px; */
+/*     height: 18px; */
+/*     font-size: 1em; */
+/*     border: none; */
+/*     background: none; */
+/*     border-bottom: 2px solid #c4c5c4; */
+/* } */
 
 #birth:focus {
 	outline: none;
 }
-#tempKey {
-	margin-top:15px;
-    margin-left: 23px;
-    width: 295px;
-    height: 18px;
-    font-size: 1em;
-    border: none;
-    background: none;
-    border-bottom: 2px solid #c4c5c4;
+
+.tempKey {
+	
 }
+
+/* #tempKey { */
+/* 	margin-top:15px; */
+/*     margin-left: 23px; */
+/*     width: 295px; */
+/*     height: 18px; */
+/*     font-size: 1em; */
+/*     border: none; */
+/*     background: none; */
+/*     border-bottom: 2px solid #c4c5c4; */
+/* } */
 
 #tempKey:focus {
 	outline: none;
