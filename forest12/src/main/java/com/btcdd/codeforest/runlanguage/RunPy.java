@@ -27,7 +27,7 @@ public class RunPy {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("timeout 120s python3 /mainCompile/py" + time + "/Test.py");
+		buffer.append("timeout 120s python /mainCompile/py" + time + "/Test.py");
 		
 		return buffer.toString();
 	}
@@ -62,6 +62,10 @@ public class RunPy {
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
 			readBuffer = new StringBuffer();
+			
+			if(bufferedReader.readLine() == null) {
+				process.destroy();
+			}
 			
 			while((line = bufferedReader.readLine()) != null) {
 				readBuffer.append(line);
