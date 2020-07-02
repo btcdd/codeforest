@@ -413,6 +413,8 @@ $(function() {
             savePathNo = $(this).data("no");
              subProblemNo = $(this).data("no2");
              InsertPackagePath = $(this).data("package-path");
+             console.log('$(this).data("package-path")>>>>',$(this).data("package-path"));
+             console.log("InsertPackagePath>>>",InsertPackagePath);
              console.log("savePathNo>>>",savePathNo);
              console.log("subProblemNo>>>",subProblemNo);             
               //Get window size:
