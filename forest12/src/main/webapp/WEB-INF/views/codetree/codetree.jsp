@@ -138,7 +138,7 @@ function onMessageReceived(payload) {
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
    // 프로그램 끝!!
-   if(message.programPandan || message.errorPandan) {
+   if(message.programPandan) {
        $('.terminal').attr("readonly", true);
        outputResult = outputResult.substring(0, outputResult.length - 16);
        submitPandan = false;
