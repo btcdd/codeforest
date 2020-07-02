@@ -90,6 +90,7 @@ public class ChatController {
 					RunPy rpy = new RunPy(time);
 					rpy.createFileAsSource(code);
 					errorResult = rpy.execCompile();
+					Thread.sleep(2000);
 					process = Runtime.getRuntime().exec("timeout 120s python3 /mainCompile/py" + time + "/Test.py");
 				}
 				readBuffer.setLength(0);
