@@ -12,9 +12,9 @@ body {
 }
 
 .content {
-	background-color: #fff;
+    background-color: #fff;
     display: table;
-    border: 1px solid #b2b2b2;
+    border: 1px solid rgba(134,197,229,0.6);
     border-radius: 1rem;
     width: 65em;
     margin: 18em auto 0 auto;
@@ -41,6 +41,7 @@ body {
 }
 
 .logo {
+    width: 35em;
     margin: auto;
     text-align: center;
     border-bottom: 1px solid #bebebe;

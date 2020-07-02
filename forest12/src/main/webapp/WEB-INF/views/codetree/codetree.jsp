@@ -13,6 +13,9 @@
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.js"></script>
 <!-- code mirror -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/abcdef.css">
@@ -35,6 +38,7 @@
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script>
 
 var result = '';
@@ -1156,6 +1160,7 @@ $(function() {
       $("#Submit").trigger("click");
    });
    
+   scrollbar();
    
 ////// function 끝부분
 });
@@ -1299,8 +1304,14 @@ window.onload = function() {
 <nav role="navigation" class='main-nav'>
     <div class="main-nav-wrapper">
       <div class="header-logo">
-        Code Forest
+        ${saveVo.title }
       </div>
+      	<div class="setting-div">
+      		<i class="fas fa-cog"></i>
+      	</div>
+		<div class="info-div">
+			<i class="fas fa-info-circle"></i>
+		</div>
     </div>
  </nav>
 
