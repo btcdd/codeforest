@@ -409,7 +409,13 @@ $(function() {
       $(document).on('mousedown','#folder',function(e) {
          $(".userfile-menu").hide();
          if(e.which == 3){
-            //tempFile = $(this);
+        	 
+        	 var lang = $(".lang option:selected").val();
+        	 
+        	 if(lang != "java"){
+        		 return false;
+        	 }
+           
             savePathNo = $(this).data("no");
              subProblemNo = $(this).data("no2");
              InsertPackagePath = $(this).data("package-path");
