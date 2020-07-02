@@ -332,29 +332,29 @@ public class CodingTestController {
 		
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] outputResultSplit = outputResult.split("\n");
-//		
-//		if(compileResult2 == false) {
-//			for(int i = 0; i < examOutputSplit.length; i++) {
-//				if(i == examOutputSplit.length-1) {
-//					if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
-//						compileResult = false;
-//						compileError = false;
-//						break;
-//					}
-//				}
-//				else {
-//					if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
-//						compileResult = false;
-//						compileError = false;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		else {
-//			compileError = true;
-//			compileResult = false;
-//		}
+		
+		if(compileResult2 == false) {
+			for(int i = 0; i < examOutputSplit.length; i++) {
+				if(i == examOutputSplit.length-1) {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
+					}
+				}
+				else {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
+					}
+				}
+			}
+		}
+		else {
+			compileError = true;
+			compileResult = false;
+		}
 //		
 //		map.put("compileError", compileError);
 //		map.put("compileResult", compileResult);
