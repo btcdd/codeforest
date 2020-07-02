@@ -202,11 +202,11 @@ public class CodeTreeController {
 			try {
 				Runtime.getRuntime().exec("mkdir " + packagePath + "/" + language + "/Main");
 				
-				Thread.sleep(200);
+				Thread.sleep(300);
 				
 				codeTreeLinux.createFileAsSourceFake(codeValue, packagePath + "/" + language + "/Main/" + fileName);
 				
-				Thread.sleep(700);
+				Thread.sleep(800);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
