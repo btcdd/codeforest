@@ -127,7 +127,7 @@ function onMessageReceived(payload) {
    
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
-   if(message.programPandan) {
+   if(message.programPandan || message.errorPandan) {
        $('.terminal').attr("readonly", true);
        socket.close();
    }
