@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Coding Test Auth</title>
+	<title>Code Forest</title>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 	<link href="${pageContext.servletContext.contextPath }/assets/css/codingtest/auth.css" rel="stylesheet" type="text/css">	
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -25,7 +25,6 @@ var checkBirth = function CheckBirth(str){
 		return true;
 	}
 }
- 
 
 var FullendTime = "${problemVo.endTime}";
 var FullendTimeSplit = FullendTime.split(" ");
@@ -56,10 +55,7 @@ var messageBox = function(title,message,message2,callback){
 		});
 };
 
-
 $(function(){
-
-	
 	$("#auth-form").submit(function(e){
 		e.preventDefault();
 		
@@ -97,10 +93,6 @@ $(function(){
 		
 	});	
 	
-	
-	
-	
-	
 });
 </script>
 <body>
@@ -120,11 +112,19 @@ $(function(){
 		<p class="wrong-ptag">생일을 다시 확인해주세요</p>
 	</div>	
 	<div id="container">
-		<div id="content">
-	     	<div class="logo">
-				<a href="${pageContext.servletContext.contextPath }">Code Forest</a>
+		<div class="content" id="content">
+	     	<div class="explain">
+	     		<div class="logo">
+					<a href="${pageContext.servletContext.contextPath }">Code Forest</a>
+				</div>
+				<div class="explain-content">
+					<p>어서오세요!</p>
+					<p>코딩테스트를 시작하기 전에 먼저 개인정보 입력이 필요합니다.</p>
+					<p>이름과 생년월일 그리고 해당 코딩테스트의 입력 코드를 입력해주세요.</p>
+					<p>마감시간이되면 화면이 자동으로 꺼지니 주의하시기 바랍니다.</p>
+				</div>
 			</div>					
-			<div id="user">
+			<div class="user" id="user">
 				<form id="auth-form" method="POST" action="${pageContext.servletContext.contextPath }/codingtest/codemirror/${problemNo }">
 					<div class="name">
 						<input type="text" id="name" name="name" value="" placeholder="이름"/>
@@ -143,8 +143,8 @@ $(function(){
   				<p></p>
   				<p></p>
 			</div>	
-					
-		</div>
-	</div>
+			
+		</div>	<!-- content -->
+	</div> <!--  container  -->
 </body>
 </html>
