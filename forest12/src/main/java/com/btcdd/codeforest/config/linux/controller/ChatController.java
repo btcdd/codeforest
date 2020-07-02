@@ -149,8 +149,16 @@ public class ChatController {
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
 					InputStreamReader is = new InputStreamReader(stdout, "utf-8");
+					InputStreamReader error = new InputStreamReader(process.getErrorStream());
+					
 					int c = 0;
 					readBuffer.setLength(0);
+					
+					while ((c = error.read()) != -1) {
+						char line = (char) c;
+						readBuffer.append(line);
+					}
+					
 					while ((c = is.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
