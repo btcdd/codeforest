@@ -40,7 +40,7 @@ public class CodeTreeController {
 	}
 	
 	@Auth
-	@RequestMapping("/codemirror/{saveNo}")
+	@RequestMapping("/{saveNo}")
 	public String mirror(@PathVariable("saveNo") Long saveNo, Model model, HttpSession session) {
 		SaveVo saveVo = codeTreeService.findSaveVo(saveNo);
 		List<SavePathVo> savePathList = codeTreeService.findSavePathList(saveVo.getNo());
@@ -64,7 +64,6 @@ public class CodeTreeController {
 		return "codetree/codetree";
 	}
 }
-
 /*
  @PostMapping("/list/{userEmail}") //code tree Home화면 띄울때 경로(리스트출력위해 필요)
 public JsonResult codeTreeList(@PathVariable("userEmail") String userEmail) {
