@@ -658,3 +658,106 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
 	float:right;
 	margin-right:2%;
 }
+
+/* -------------------- setting dialog ---------------------- */
+.show {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -75px;
+  background: #e74c3c;
+  color: #fff;
+  border-radius: 5px;
+  border: 0;
+  border-bottom: 2px solid #c0392b;
+  cursor: pointer;
+}
+.show:hover {
+  background: #c0392b;
+}
+.show:active {
+  transform: scale(0.9);
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 30px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(52, 62, 72, 0.8);
+  z-index: 50;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.7s;
+}
+
+.modal {
+  position: fixed;
+  top: 30%;
+  left: 45%;
+  width: 600px;
+  height: 700px;
+  margin-left: -200px;
+  margin-top: -150px;
+  background: #bdc3c7;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s ease-out;
+  transform: translateY(45px);
+}
+
+.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.active + .modal {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.preference {
+	width: 100%;
+	height: 10%;
+	display: inline-block;
+	border-bottom: 1px solid black;
+}
+
+.language-area {
+	float: left;
+	width: 50%;	
+	height: 80%;
+	border-right: 0.5px solid black;
+}
+
+.editor-area {
+	float: left;
+	width: 50%;
+	height: 80%;
+	border-left: 0.5px solid black;
+}
+
+.preference-footer {
+	width: 100%;
+	height: 10%;
+	display: inline-block;
+	border-top: 1px solid black;
+}

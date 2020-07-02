@@ -35,6 +35,7 @@
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 <script>
 
 var result = '';
@@ -1244,57 +1245,29 @@ $(function() {
 //    glCm5.style = "";
     
     
-    
-     
-   // 헤더 버튼
-   $(document).on("click","#menu-1 > li:first-child",function(){
-      $("#Save").trigger("click");
+	//setting 버튼 눌렀을때
+// Click function for show the Modal
+   $(".show").on("click", function(){
+     $(".mask").addClass("active");
    });
-   $(document).on("click","#menu-1 > li + li",function(){
-      $("#Run").trigger("click");
-   });
-   $(document).on("click","#menu-1 > li:last-child",function(){
-      $("#Submit").trigger("click");
-   });
-   
-   $(document).on("click","#menu-2 > li:first-child",function(){
-	  $("#Run").trigger("click");
-   });
-   
-   $(document).on("click","#menu-3 > li:first-child",function(){
-// 	   var e = jQuery.Event("keydown");
-// 	   e.ctrlkey = true;     // control key pressed
-// 	   $(document).trigger(e);
-// 	   e.which = 70;       // # F1 code value
-// 	   $(document).trigger(e);// trigger event on document
-// 		$("body").bind("keydown", "ctrl+f");
-		console.log("1234");
-		
-// 	    var event = new KeyboardEvent('keydown', {
-// 	    	 ctrlKey: true,
-// 	        key: 'f'
-// 	      });
-// 	    console.log(event);
-// 	      // dispatch the alt+n key press event
-// 	      document.dispatchEvent(event);
-// 	    $(document).trigger(event);
-// 		event.ctrlkey = true;
-// 		event.which = 70; 
-// 	   if (event.ctrlKey) {
-//            switch (String.fromCharCode(event.which).toLowerCase()) {
-//            case 'f':
-//         	   $(document).trigger(event);
-//         	   $(document).bind("keydown", "ctrl+f");
-//         	   console.log("zz")
-//                break;
-//           } 
-// 	   }
-	var e = jQuery.Event( "keypress", { keyCode: 70 } ); 
-	e.ctrlkey = true;
-	$(".terminal").trigger(e);
 
+   // Function for close the Modal
+   function closeModal(){
+     $(".mask").removeClass("active");
+   }
+
+   // Call the closeModal function on the clicks/keyboard
+   $(".close, .mask").on("click", function(){
+     closeModal();
    });
-   
+
+   $(document).keyup(function(e) {
+     if (e.keyCode == 27) {
+       closeModal();
+     }
+   });
+
+
 ////// function 끝부분
 });
 
@@ -1458,15 +1431,12 @@ window.onload = function() {
              <ul class="sub-menu" id="menu-3">
               <li>Search</li>            
             </ul>
+
           </li>
           <li>
-             <a>Setting</a>
-             <ul class="sub-menu" id="menu-4">
-              <li>Language</li>
-              <li>Theme</li>
-              <li>Font-Size</li>              
-            </ul>
-          </li>          
+				<button class="show" aria-haspopup="true">Setting</button>
+          </li>        
+            
 <!--           <li><a>Mobile Apps</a>
             <ul class="sub-menu">
               <li><a>Cordova/PhoneGap</a></li>
@@ -1627,5 +1597,27 @@ window.onload = function() {
             </ul> 
          </div>
 </div>
+
+<div class="mask" role="dialog"></div>
+<div class="modal" role="alert">
+  <button class="close" role="button">X</button>
+  <div class="preference">환경 설정</div>
+  <div class="language-area">
+  	언어 영역
+  	<div class="language-setting">
+  		언어 선택
+  	</div>
+  </div>
+  <div class="editor-area">
+  	에디터 영역
+  	<div class="editor-setting">
+  	
+  	</div>
+  </div>
+  <div class="preference-footer">
+  
+  </div>
+</div>
+	
 </body>
 </html>
