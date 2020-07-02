@@ -63,14 +63,6 @@ public class TrainingService {
 				list.remove(i);
 			}
 		}
-		System.out.println(list);
-		
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getExamInput() == "") {
-				list.get(i).setExamInput("null");
-			}
-		}
-		
 		map.put("subProblemList", list);
 		
 		trainingRepository.insertSubProblem(map);
@@ -157,13 +149,6 @@ public class TrainingService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("problemNo", problemNo);
 		map.put("listSize", list.size());
-		
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getExamInput() == "") {
-				list.get(i).setExamInput("null");
-			}
-		}
-		
 		map.put("subProblemList", list);
 		
 		trainingRepository.modify(map);

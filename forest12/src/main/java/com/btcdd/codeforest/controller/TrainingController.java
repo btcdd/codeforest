@@ -52,9 +52,9 @@ public class TrainingController {
 		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
-		System.out.println("problemVo:" + problemVo);
-		
 		trainingService.insert(subProblemList, problemVo, authUser.getNo());
+		
+		System.out.println("subProblemList:" + subProblemList);
 
 		return "redirect:/training";
 	}
@@ -136,6 +136,8 @@ public class TrainingController {
 		trainingService.modifyProblem(problemVo);
 		
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
+		
+		System.out.println("subProblemList:" + subProblemList);
 
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getTitle() == null) {

@@ -124,13 +124,12 @@ public class CodingTestController {
 			for(int i = 1; i < savePathList.size(); i++) {
 				codeList.addAll(testService.findCodeList(savePathList.get(i).getNo()));
 			}
-			model.addAttribute("problemVo",problemVo);
-			model.addAttribute("subProblemList",subProblemList);
+			model.addAttribute("problemVo", problemVo);
+			model.addAttribute("subProblemList", subProblemList);
 			model.addAttribute("saveVo", saveVo);
 			model.addAttribute("savePathList", savePathList);
-			model.addAttribute("codeList", codeList);			
-			
-			model.addAttribute("userStartTime",saveVO.getEnterTime());
+			model.addAttribute("codeList", codeList);
+			model.addAttribute("userStartTime", saveVO.getEnterTime());
 			
 			return "codingtest/code-mirror";
 		}
@@ -169,7 +168,6 @@ public class CodingTestController {
 				try {
 					userStartTime2 = format.parse(userStartTime);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				 
@@ -180,7 +178,7 @@ public class CodingTestController {
 					subProblemNoArray[i] = subProblemList.get(i).getNo();
 					System.out.println("subProblemNoArray[i]>>>>"+subProblemNoArray[i]);
 				}				
-				testService.insertSaveProblemNo(authUser.getNo(), problemNo,userStartTime2); //save에 저장 처음입장시간값 저장
+				testService.insertSaveProblemNo(authUser.getNo(), problemNo, userStartTime2); //save에 저장 처음입장시간값 저장
 				
 				saveVO = testService.findSaveVoByProblemNo(authUser.getNo(), problemNo);
 				
@@ -260,6 +258,6 @@ public class CodingTestController {
 //		}
 //		map.put("result", "no");
 //		return JsonResult.success(map);
-//	}		
+//	}
 	
 }

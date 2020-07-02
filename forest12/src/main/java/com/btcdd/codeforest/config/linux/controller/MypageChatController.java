@@ -35,6 +35,9 @@ public class MypageChatController {
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
+		chatMessage.setProgramPandan(false);
+		chatMessage.setErrorPandan(false);
+		
 		String errorResult = "";
 		Boolean pandan = false;
 		
@@ -52,6 +55,7 @@ public class MypageChatController {
 		
 		try {
 			if(pandan) {
+				Thread.sleep(500);
 				if("c".equals(language)) {
 					RunCLinux runCLinux = new RunCLinux(fileName, packagePath, language);
 				    errorResult = runCLinux.execCompile();
@@ -70,18 +74,14 @@ public class MypageChatController {
 				    String[] split = fileName.split("\\.");
 					process = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
 				} else if("js".equals(language)) {
-					RunJsLinux runJsLinux = new RunJsLinux(fileName, packagePath, language);
-					errorResult = runJsLinux.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s node " + packagePath + "/" + language + "/Test.js");
 				} else if("py".equals(language)) {
-					RunPyLinux runPyLinux = new RunPyLinux(fileName, packagePath, language);
-					errorResult = runPyLinux.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s python3 " + packagePath + "/" + language + "/Test.py");
 				}
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
-					chatMessage.setProgramPandan(true);
+					chatMessage.setErrorPandan(true);
 					return chatMessage;
 				}
 			}
@@ -90,8 +90,6 @@ public class MypageChatController {
 			InputStream stderr = process.getErrorStream();
 			InputStream stdout = process.getInputStream();
 
-			StringBuffer readBuffer2 = new StringBuffer();
-
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
@@ -99,7 +97,8 @@ public class MypageChatController {
 					int c = 0;
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
-						readBuffer2.append(line);
+						readBuffer.append(line);
+						chatMessage.setErrorPandan(true);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -120,7 +119,6 @@ public class MypageChatController {
 					if (!("".equals(input)) || input != null) {
 						try {
 							input += "\n";
-							readBuffer2.append(input);
 							writer.write(input);
 							writer.flush();
 							readBuffer.setLength(0);

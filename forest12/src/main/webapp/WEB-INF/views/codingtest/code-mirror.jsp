@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codingtest/code-mirror.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
@@ -137,7 +138,7 @@ function onMessageReceived(payload) {
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
    // 프로그램 끝!!
-   if(message.programPandan) {
+   if(message.programPandan || message.errorPandan) {
        $('.terminal').attr("readonly", true);
        outputResult = outputResult.substring(0, outputResult.length - 16);
        submitPandan = false;
@@ -221,13 +222,11 @@ $(function() {
            	diff -= min * 60;
          }else if(diff < 60){
         	 min = 0;
-        	 $(".countdown table").css("color","red");
+        	 $("#tiles").removeClass('color-full');
+        	 $("#tiles").addClass('color-empty');
          }
          var sec = diff;
-     $(".countdown table td:first").text("남은 시간  ");
-     $(".countdown table td+td").text("[ "+hours+"시");
-     $(".countdown table td+td+td").text(min+"분");
-     $(".countdown table td:last").text(sec+"초"+" ]"); 
+		 $(".timer").html("<span>" + hours + ":</span><span>" + min + ":</span><span>" + sec + "</span>");
 
    },1000);   
    
@@ -1123,8 +1122,10 @@ $(function() {
                    'userStartTime':userStartTime
                },
                success: function(response) {
-                  var compileResult = response.data.compileResult;
-                  var compileError = response.data.compileError;
+            	   console.log('response.data:>>>>', response.data);
+            	   
+            	   var compileResult = response.data.compileResult;
+                   var compileError = response.data.compileError;
                   
                   if(compileError == true) {
                      alert("컴파일 오류입니다.");
@@ -1143,27 +1144,8 @@ $(function() {
             });            
             
          },1500);
-/*       var subProblemNo = tempFile.data("subproblem-no");
-        var result = new Array();
-         <c:forEach items="${subProblemList}" var="info">
-            var json = new Object();
-            json.no = "${info.no}";
-            
-            result.push(json);
-         </c:forEach>
-         var selected = null;
-         for(var i=0;i<result.length;i++){
-            if(result[i].no == subProblemNo){
-               selected = result[i];
-            }
-         } */
-         
-
-         
     });       
 
-    
-    
     //////////////////////////// golden layout /////////////////////////////   
    var config = {
        settings: {
@@ -1463,14 +1445,10 @@ window.onload = function() {
         </ul>
       </div> 
       <div class="countdown">
-         <table>
-            <tr>
-               <td></td>
-               <td></td>
-               <td></td>
-               <td></td>
-            </tr>
-         </table>         
+		 <div id='tiles' class="color-full">
+		 	<div class="timer"></div>
+		 </div>
+         <div class="countdown-label">Time Remaining</div>
       </div>         
     </div>
  </nav>

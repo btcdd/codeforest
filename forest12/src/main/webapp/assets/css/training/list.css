@@ -424,3 +424,8 @@ input {
 	outline: none;
 	border: none;
 }
+
+
+#algorithm-toggle, #category-toggle, #rank-toggle {
+	cursor:pointer;
+}
