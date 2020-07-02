@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Code Forest</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/list.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
@@ -146,7 +146,7 @@ $(function() {
 	$(document).on("click",".problem-box",function(){
 		var saveNo = $(this).data('no');
 		$.ajax({
-	          url:'${pageContext.request.contextPath }/api/codetree/codemirror/',
+	          url:'${pageContext.request.contextPath }/api/codetree/codemirror',
 	          async:false,
 	          type:'post',
 	          dataType:'json',
@@ -154,7 +154,7 @@ $(function() {
 	        	  'saveNo':saveNo
 	        	  },
 	          success:function(response){
- 				 var codetreeURL = '${pageContext.request.contextPath }/codetree/codemirror/' + response.data.saveNo
+ 				 var codetreeURL = '${pageContext.request.contextPath }/codetree/' + response.data.saveNo
 			     window.open(codetreeURL,'_blank');  
 	          },
 	          error: function(xhr, status, e) {

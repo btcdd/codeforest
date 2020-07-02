@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>CODE TREE</title>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
@@ -1402,49 +1402,6 @@ window.onload = function() {
       <div class="header-logo">
         Code Forest
       </div>
-       <div class="menu-cool-container">
-        <ul>
-          <li><a>File</a>
-            <ul class="sub-menu">
-              <li>Save</li>
-              <li>Run</li>
-              <li>Submit</li>              
-            </ul>
-          </li>
-          <li><a>Run</a>
-            <ul class="sub-menu">
-              <li>Run</li>            
-            </ul>
-          </li>
-          <li>
-             <a>Search</a>
-             <ul class="sub-menu">
-              <li>Search</li>            
-            </ul>
-          </li>
-          <li>
-             <a>Setting</a>
-             <ul class="sub-menu">
-              <li>Language</li>
-              <li>Theme</li>
-              <li>Font-Size</li>              
-            </ul>
-          </li>          
-<!--           <li><a>Mobile Apps</a>
-            <ul class="sub-menu">
-              <li><a>Cordova/PhoneGap</a></li>
-              <li><a>Ionic Framework</a></li>
-            </ul>
-          </li>
-          <li><a>Video</a>
-            <ul class="sub-menu">
-              <li><a>After Effects</a></li>
-              <li><a>Adobe Premiere Pro</a></li>
-            </ul>
-          </li> -->
-        </ul>
-      </div> 
-               
     </div>
  </nav>
 
