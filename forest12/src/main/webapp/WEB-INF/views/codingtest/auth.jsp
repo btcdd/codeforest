@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 <script>
 var checkBirth = function CheckBirth(str){
@@ -118,24 +119,30 @@ $(function(){
 					<a href="${pageContext.servletContext.contextPath }">Code Forest</a>
 				</div>
 				<div class="explain-content">
-					<p>어서오세요!</p>
+					<p>어서 오세요!</p>
 					<p>코딩테스트를 시작하기 전에 먼저 개인정보 입력이 필요합니다.</p>
-					<p>이름과 생년월일 그리고 해당 코딩테스트의 입력 코드를 입력해주세요.</p>
-					<p>마감시간이되면 화면이 자동으로 꺼지니 주의하시기 바랍니다.</p>
+					<p><strong>이름</strong>과 <strong>생년월일</strong> 그리고 해당 코딩테스트의 <strong>입력 코드</strong>를 입력해주세요.</p>
+					<p>마감 시간이 되면 화면이 자동으로 꺼지니 주의하시기 바랍니다.</p>
 				</div>
 			</div>					
 			<div class="user" id="user">
 				<form id="auth-form" method="POST" action="${pageContext.servletContext.contextPath }/codingtest/codemirror/${problemNo }">
+					<div class="personal">
+						<span>개인정보 입력</span>
+					</div>
+					<div class="personal-info">
+						<span><i class="fas fa-info-circle info" style="margin-right:3px"></i>입력된 개인정보는 주최자 외에는 확인할 수 없습니다</span>
+					</div>
 					<div class="name">
-						<input type="text" id="name" name="name" value="" placeholder="이름"/>
+						<input type="text" id="name" name="name" value="" placeholder="이름" autocomplete="off"/>
 					</div>
 					<div class="birth">
-						<input type="text" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);" placeholder="생년월일ex)0000-00-00"/>
+						<input type="text" id="birth" name="birth" value="" maxlength="10" oninput="numberMaxLength(this);" placeholder="생년월일 8자리" autocomplete="off"/>
 					</div>
 					<div class="tempKey">
-						<input type="text" id="tempKey" name="tempKey" value="" placeholder="인증번호"/>
+						<input type="text" id="tempKey" name="tempKey" value="" placeholder="인증번호" autocomplete="off"/>
 					</div>
-					<input class="auth-button" type="submit" value="테스트 시작"/>
+					<input class="auth-button" type="submit" value=""/>
 				</form>
 			</div>
 
