@@ -155,15 +155,13 @@ public class ChatController {
 					int c = 0;
 					readBuffer.setLength(0);
 					
-					while ((c = error.read()) != -1) {
+					while ((c = is.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
 					}
-					if(error != null) {
-						while ((c = is.read()) != -1) {
-							char line = (char) c;
-							readBuffer.append(line);
-						}
+					while ((c = error.read()) != -1) {
+						char line = (char) c;
+						readBuffer.append(line);
 					}
 					//reader.reset();
 				} catch (Exception e) {
