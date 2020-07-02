@@ -138,7 +138,7 @@ function onMessageReceived(payload) {
    $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
    
    // 프로그램 끝!!
-   if(message.programPandan) {
+   if(message.programPandan || message.errorPandan) {
        $('.terminal').attr("readonly", true);
        outputResult = outputResult.substring(0, outputResult.length - 16);
        submitPandan = false;
@@ -1122,8 +1122,10 @@ $(function() {
                    'userStartTime':userStartTime
                },
                success: function(response) {
-                  var compileResult = response.data.compileResult;
-                  var compileError = response.data.compileError;
+            	   console.log('response.data:>>>>', response.data);
+            	   
+            	   var compileResult = response.data.compileResult;
+                   var compileError = response.data.compileError;
                   
                   if(compileError == true) {
                      alert("컴파일 오류입니다.");
@@ -1142,27 +1144,8 @@ $(function() {
             });            
             
          },1500);
-/*       var subProblemNo = tempFile.data("subproblem-no");
-        var result = new Array();
-         <c:forEach items="${subProblemList}" var="info">
-            var json = new Object();
-            json.no = "${info.no}";
-            
-            result.push(json);
-         </c:forEach>
-         var selected = null;
-         for(var i=0;i<result.length;i++){
-            if(result[i].no == subProblemNo){
-               selected = result[i];
-            }
-         } */
-         
-
-         
     });       
 
-    
-    
     //////////////////////////// golden layout /////////////////////////////   
    var config = {
        settings: {

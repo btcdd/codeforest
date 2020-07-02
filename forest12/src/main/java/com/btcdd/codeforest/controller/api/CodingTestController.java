@@ -301,7 +301,6 @@ public class CodingTestController {
 			userSubmitTime = TransFormat.format(SubmitTime);
 			userSubmitTime2 = TransFormat.parse(userSubmitTime);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		long hours=0,min=0,sec = 0;
@@ -358,14 +357,16 @@ public class CodingTestController {
 		map.put("compileResult", compileResult);
 		
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
-		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
-		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 		
+		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+		
+		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
+//		
 		/////// [User] AnserCount increase method
 		if(compileResult == true) {
 			codetreeService.updateUserAnswerCount(authUser.getNo());
 		}
-		/////////////////////////////////////////
+//		/////////////////////////////////////////
 		
 		return JsonResult.success(map);
 	}			
