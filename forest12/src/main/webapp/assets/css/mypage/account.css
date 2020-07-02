@@ -277,3 +277,12 @@ button {
 	border-width: 8px;
 	margin-left: -8px;
 }
+
+.open-span, .no-open-span {
+	cursor: pointer;
+}
+
+#open, #no-open {
+	cursor: pointer;
+	outline: none;
+}

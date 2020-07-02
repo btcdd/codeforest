@@ -15,6 +15,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script>
+
 var slide = function Slide(str) {
 	$("#" + str).slideDown(500);
 	$("#" + str).delay(2000).slideUp(500);
@@ -45,11 +46,13 @@ var passwordSecond_pandan = false;
 
 var no = '${authUser.no}';
 var email = '${authUser.email}';
-var currentURL = '${pageContext.request.contextPath }/mypage/account'
+var currentURL = '${pageContext.request.contextPath }/mypage/account';
 
 var pandan = false;
 
 var privacy;
+
+var privacyDialog = '${authUser.privacy}';
 
 var changeNickname = function(nickname) {
 	$.ajax({
@@ -110,7 +113,7 @@ var deleteUser = function(password) {
         success: function(response){
            if(response.data == 0) {
         	   pandan =  false;            	   
-           } else {w
+           } else {
         	   pandan = true;
         	   $("#delete-user").dialog("close");
         	   window.location = "${pageContext.request.contextPath }";
@@ -137,7 +140,7 @@ var privacyChange = function() {
         type: 'post',
         dataType: 'json',
         data: {
-        	"privacy" : privacy	
+        	"privacy" : privacy
         },
         success: function(response){
            
@@ -222,6 +225,7 @@ $(function() {
             }
         }
     });
+    
     $(document).on("click", "#nickname-btn", function(event) {
     	event.preventDefault();
     	
@@ -265,7 +269,6 @@ $(function() {
         $("#delete-user").dialog("open");
         
         var hi2 = $('.ui-dialog-buttonset').eq(1).eq(1);
-        console.log(hi2);
         hi2.removeClass('ui-dialog-buttonset');
         hi2.addClass('delete-user');
     });
@@ -279,9 +282,7 @@ $(function() {
         buttons: {
             "변경": function() {
             	if(password_pandan == false || passwordSecond_pandan == false){
-            		console.log("password-pandan : " + password_pandan + " / passwordSecond_pandan : " + passwordSecond_pandan);
 					slide('wrong-password');
-// 					$(this).dialog.dismiss();
             	} else {
 	            	changePassword($('#password').val());
 	                $(this).dialog("close");
@@ -295,6 +296,11 @@ $(function() {
     $("#password-btn").on("click", function(event) {
     	event.preventDefault();
     	
+    	$('#password').val('');
+    	$('#passwordSecond').val('');
+    	$('#password').css('background-image', '');
+    	$('#passwordSecond').css('background-image', '');
+    	
         $("#change-password").dialog("open");
     });
     
@@ -307,6 +313,15 @@ $(function() {
         buttons: {
             "확인": function() {
             	privacyChange();
+            	
+            	if(privacyDialog == 'y') {
+            		$("#no-open").prop('checked', true); // 선택하기
+            		privacyDialog = 'n';
+            	} else {
+            		$("#open").prop('checked', true); // 선택하기
+            		privacyDialog = 'y';
+            	}
+            	
             	$(this).dialog("close");
             },
             "취소": function() {
@@ -316,18 +331,99 @@ $(function() {
 	});
     
     $('#open').click(function() {
+    	event.preventDefault();
+		
+    	if(privacyDialog == 'y') {
+    		return false;
+    	}
+    	
     	privacy = $(this).val();
-    	console.log(privacy);
     	
     	$("#privacy").dialog("open");
     })
     
     $('#no-open').click(function() {
+		event.preventDefault();
+		
+    	if(privacyDialog == 'n') {
+    		return false;
+    	}
+    	
     	privacy = $(this).val();
-    	console.log(privacy);
+    	
+    	$("#privacy").dialog("open");
+    });
+    
+    $('.open-span').click(function() {
+    	event.preventDefault();
+		
+    	if(privacyDialog == 'y') {
+    		return false;
+    	}
+    	
+    	privacy = $('#open').val();
     	
     	$("#privacy").dialog("open");
     })
+    
+    $('.no-open-span').click(function() {
+		event.preventDefault();
+		
+    	if(privacyDialog == 'n') {
+    		return false;
+    	}
+    	
+    	privacy = $('#no-open').val();
+    	
+    	$("#privacy").dialog("open");
+    });
+    
+    
+    $(document).keydown(function(key) {
+    	if(key.keyCode == 13) {
+    		event.preventDefault();
+    		
+    		if($('#change-nickname').is(":visible")) {
+    			changeNickname($('#nickname').val());
+            	$("#change-nickname").dialog("close");
+    		} else if($('#change-password').is(":visible")) {
+    			if(password_pandan == false || passwordSecond_pandan == false){
+					slide('wrong-password');
+            	} else {
+	            	changePassword($('#password').val());
+	                $("#change-password").dialog("close");
+            	}
+    		} else if($('#privacy').is(":visible")) {
+				privacyChange();
+            	
+            	if(privacyDialog == 'y') {
+            		$("#no-open").prop('checked', true); // 선택하기
+            		privacyDialog = 'n';
+            	} else {
+            		$("#open").prop('checked', true); // 선택하기
+            		privacyDialog = 'y';
+            	}
+            	
+            	$("#privacy").dialog("close");
+    		} else if($("#delete-user").is(":visible")) {
+    			if(deleteUser($('#delete').val())) {
+            		$('#delete').val('');
+            		$('#delete-user').dialog("close");
+            	} else {
+            		if(passwordIncorrect) {
+            			$("#delete-user").append("<pre id=passwordIncorrect>비밀번호가 맞지 않습니다.</pre>");
+            			passwordIncorrect = false;
+            		}
+            	}
+    		}
+    	}
+    });
+    
+    if(privacyDialog == 'y') {
+    	$("#open").prop('checked', true);
+    } else {
+    	$("#no-open").prop('checked', true);
+    }
 });
 </script>
 </head>
@@ -358,8 +454,8 @@ $(function() {
             <strong style="font-size: 0.9em">계정 비공개를 설정하시겠습니까?</strong>
             <div class="safe-password">계정 공개를 설정하시면 문제를 푼 기록, 팔로우와 관련된 모든 기록을 다른 사람이 열람 할 수 있습니다.</div>
 			<div class="privacy-div">
-	            <input id="open" type="radio" name="chk_info" value="open" checked="checked">공개
-	            <input id="no-open" type="radio" name="chk_info" value="private">비공개
+	            <input id="open" type="radio" name="chk_info" value="open"><span class="open-span">공개</span></iuput>
+	            <input id="no-open" type="radio" name="chk_info" value="private"><span class="no-open-span">비공개</span>
 			</div>
         </div>
         <div class="delete">
