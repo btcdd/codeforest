@@ -1465,7 +1465,7 @@ window.onload = function() {
 		 <div id='tiles' class="color-full">
 		 	<div class="timer"></div>
 		 </div>
-         <div class="countdown-label">Time Remaining</div>
+         <!-- <div class="countdown-label">Time Remaining</div> -->
       </div>         
     </div>
  </nav>

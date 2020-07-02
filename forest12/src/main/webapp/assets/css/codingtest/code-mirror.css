@@ -11,12 +11,13 @@
 	float:right;
 	box-shadow: 0 1px 2px 0 rgba(1, 1, 1, 0.4);
 	width: 200px;
-	height: 50px;
+	height: 100%;
 	text-align: center;
 	background: #f1f1f1;
 	border-radius: 5px;
-	margin-right:2%;
-	margin-bottom:2px;
+	/* margin-right:2px;
+	margin-top:2px; */
+	
 }
 .countdown #tiles{
   	color: #fff;
@@ -25,23 +26,23 @@
 	display: inline-block;
   	font-family: Arial, sans-serif;
 	text-align: center;
- 	height:30px;
+ 	height:100%;
  	border-radius: 5px 5px 0 0;
   	display: block;	
 }
-.countdown-label {
-  	font: thin 15px Arial, sans-serif;
+/* .countdown-label {
+  	font: thin 10px Arial, sans-serif;
 	color: #65584c;
 	text-align: center;
 	text-transform: uppercase;
 	display: inline-block;
  	letter-spacing: 2px;
  	margin-bottom: 2px;
- 	width: 200px;
- 	height:20px;
-}
+ 	width: 220px;
+ 	height:10px;
+} */
 .timer > span{
-	font-size: 30px;
+	font-size: 35px;
   	font-weight: thin;
   	text-shadow: 1px 1px 0px #ccc;
   	font-family: Arial, sans-serif;
