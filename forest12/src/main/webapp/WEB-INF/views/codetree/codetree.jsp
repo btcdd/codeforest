@@ -404,7 +404,7 @@ $(function() {
     $(".contextmenu").append(str);
     var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
     $(".userfile-menu").append(str2);
-	var packagePath = null;
+	var InsertPackagePath = null;
    $(document).on('mouseenter','.ui__sidebar',function() {
       $(document).on('mousedown','#folder',function(e) {
          $(".userfile-menu").hide();
@@ -412,7 +412,7 @@ $(function() {
             //tempFile = $(this);
             savePathNo = $(this).data("no");
              subProblemNo = $(this).data("no2");
-             packagePath = $(this).data("package-path");
+             InsertPackagePath = $(this).data("package-path");
              console.log("savePathNo>>>",savePathNo);
              console.log("subProblemNo>>>",subProblemNo);             
               //Get window size:
@@ -575,7 +575,7 @@ $(function() {
                            return;
                         }
                         var fileName = filename2;
-                        console.log("packagePath>>>>",packagePath);
+                        console.log("InsertPackagePath>>>>",InsertPackagePath);
                         console.log("fileName>>>>", fileName);
                         $.ajax({
                            url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
@@ -587,7 +587,7 @@ $(function() {
                               'language' : lang,
                               'fileName' : fileName,
                               'subProblemNo':subProblemNo,
-                              'packagePath' : packagePath
+                              'packagePath' : InsertPackagePath
                            },
                            success: function(response) {
                                        
