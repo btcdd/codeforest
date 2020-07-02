@@ -357,8 +357,8 @@ public class CodingTestController {
 		map.put("compileResult", compileResult);
 		
 		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
-//		
-//		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
+		
+		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 //		
 //		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
 //		
