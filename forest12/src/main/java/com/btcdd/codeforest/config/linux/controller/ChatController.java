@@ -88,6 +88,7 @@ public class ChatController {
 				} else if("py".equals(language)) {
 					RunPy rpy = new RunPy(time);
 					rpy.createFileAsSource(code);
+					errorResult = rpy.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s python3 /mainCompile/py" + time + "/Test.py");
 				}
 				readBuffer.setLength(0);
@@ -153,12 +154,6 @@ public class ChatController {
 					
 					int c = 0;
 					readBuffer.setLength(0);
-					
-					while ((c = error.read()) != -1) {
-						char line = (char) c;
-						readBuffer.append(line);
-					}
-					
 					while ((c = is.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);

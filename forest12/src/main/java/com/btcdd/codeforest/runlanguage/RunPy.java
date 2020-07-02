@@ -63,6 +63,10 @@ public class RunPy {
 			String line = null;
 			readBuffer = new StringBuffer();
 			
+			if(bufferedReader.readLine() == null) {
+				process.destroy();
+			}
+			
 			while((line = bufferedReader.readLine()) != null) {
 				readBuffer.append(line);
 				readBuffer.append("\n");
