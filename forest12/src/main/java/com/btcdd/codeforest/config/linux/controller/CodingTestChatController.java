@@ -40,6 +40,7 @@ public class CodingTestChatController {
 	@SendTo("/topic/public")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
+		chatMessage.setProgramPandan(false);
 		chatMessage.setErrorPandan(false);
 		
 		String errorResult = "";
@@ -61,6 +62,7 @@ public class CodingTestChatController {
 		
 		try {
 			if(pandan) {
+				Thread.sleep(500);
 				if("c".equals(language)) {
 					RunCLinux runCLinux = new RunCLinux(fileName, packagePath, language);
 				    errorResult = runCLinux.execCompile();
@@ -79,12 +81,8 @@ public class CodingTestChatController {
 				    String[] split = fileName.split("\\.");
 					process = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
 				} else if("js".equals(language)) {
-					RunJsLinux runJsLinux = new RunJsLinux(fileName, packagePath, language);
-					errorResult = runJsLinux.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s node " + packagePath + "/" + language + "/Test.js");
 				} else if("py".equals(language)) {
-					RunPyLinux runPyLinux = new RunPyLinux(fileName, packagePath, language);
-					errorResult = runPyLinux.execCompile();
 					process = Runtime.getRuntime().exec("timeout 120s python3 " + packagePath + "/" + language + "/Test.py");
 				}
 				readBuffer.setLength(0);
@@ -106,6 +104,8 @@ public class CodingTestChatController {
 					int c = 0;
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
+						readBuffer.append(line);
+						chatMessage.setErrorPandan(true);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
