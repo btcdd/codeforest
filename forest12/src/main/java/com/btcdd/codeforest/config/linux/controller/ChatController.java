@@ -102,8 +102,6 @@ public class ChatController {
 			InputStream stderr = process.getErrorStream();
 			InputStream stdout = process.getInputStream();
 
-			StringBuffer readBuffer2 = new StringBuffer();
-
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
@@ -111,7 +109,6 @@ public class ChatController {
 					int c = 0;
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
-						readBuffer2.append(line);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -132,7 +129,6 @@ public class ChatController {
 					if (!("".equals(input)) || input != null) {
 						try {
 							input += "\n";
-							readBuffer2.append(input);
 							writer.write(input);
 							writer.flush();
 							readBuffer.setLength(0);

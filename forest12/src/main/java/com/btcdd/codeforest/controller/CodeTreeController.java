@@ -64,13 +64,6 @@ public class CodeTreeController {
 		return "codetree/codetree";
 	}
 }
-/*
- * @RequestMapping(value="", method=RequestMethod.GET) public String mypage() {
- * return "codetree/codetree"; }
- */
-
-
-
 
 /*
  @PostMapping("/list/{userEmail}") //code tree Home화면 띄울때 경로(리스트출력위해 필요)
