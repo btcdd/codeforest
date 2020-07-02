@@ -1081,6 +1081,8 @@ $(function() {
                   'outputResult': outputResult
                },
                success: function(response) {
+            	  console.log('response.data:>>>>', response.data); 
+            	  
                   var compileResult = response.data.compileResult;
                   var compileError = response.data.compileError;
                   
