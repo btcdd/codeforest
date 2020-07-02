@@ -575,7 +575,8 @@ $(function() {
                            return;
                         }
                         var fileName = filename2;
-                        
+                        console.log("packagePath>>>>",packagePath);
+                        console.log("fileName>>>>", fileName);
                         $.ajax({
                            url: '${pageContext.servletContext.contextPath }/api/codetree/fileInsert',
                            async: true,
