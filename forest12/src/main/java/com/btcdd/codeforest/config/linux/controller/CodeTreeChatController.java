@@ -91,7 +91,7 @@ public class CodeTreeChatController {
 				readBuffer.setLength(0);
 				if(!("".equals(errorResult))) {
 					chatMessage.setContent(errorResult);
-					chatMessage.setProgramPandan(true);
+					chatMessage.setErrorPandan(true);
 					return chatMessage;
 				}
 			}
@@ -109,6 +109,7 @@ public class CodeTreeChatController {
 						char line = (char) c;
 						readBuffer.append(line);
 					}
+					chatMessage.setErrorPandan(true);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
