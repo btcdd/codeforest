@@ -1122,9 +1122,8 @@ $(function() {
                    'userStartTime':userStartTime
                },
                success: function(response) {
-            	   console.log('compileResult>>>>', response.data)
-                  var compileResult = response.data.compileResult;
-                  var compileError = response.data.compileError;
+            	   var compileResult = response.data.compileResult;
+                   var compileError = response.data.compileError;
                   
                   if(compileError == true) {
                      alert("컴파일 오류입니다.");
