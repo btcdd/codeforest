@@ -109,8 +109,8 @@ public class CodeTreeChatController {
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
+						chatMessage.setErrorPandan(true);
 					}
-					chatMessage.setErrorPandan(true);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
