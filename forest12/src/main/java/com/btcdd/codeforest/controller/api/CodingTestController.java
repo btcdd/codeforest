@@ -289,9 +289,6 @@ public class CodingTestController {
 			String compileResult1, Boolean compileResult2, String outputResult, String userStartTime,HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("compileError", true);
-		map.put("compileResult", true);
-		
 		Date userStartTimeTransFormat = null;
 		String userSubmitTime = null;
 		Date userSubmitTime2 = null;
@@ -355,9 +352,9 @@ public class CodingTestController {
 			compileError = true;
 			compileResult = false;
 		}
-//		
-//		map.put("compileError", compileError);
-//		map.put("compileResult", compileResult);
+		
+		map.put("compileError", compileError);
+		map.put("compileResult", compileResult);
 //		
 ////		codetreeService.submitSubProblem(authUser.getNo(),subProblemNo,codeValue,language, compileResult,solveTime);//정보 삽입
 //		
