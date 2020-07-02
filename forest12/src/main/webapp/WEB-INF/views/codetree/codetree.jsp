@@ -60,6 +60,7 @@ function connect(event) {
       return;
    }
    $("#Save").trigger("click");
+   
    $("#Run").blur();
    
    $('.terminal').val('');

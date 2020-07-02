@@ -206,7 +206,7 @@ public class CodeTreeController {
 				
 				codeTreeLinux.createFileAsSourceFake(codeValue, packagePath + "/" + language + "/Main/" + fileName);
 				
-				Thread.sleep(800);
+				Thread.sleep(500);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

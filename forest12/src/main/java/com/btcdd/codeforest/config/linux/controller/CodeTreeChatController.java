@@ -62,6 +62,7 @@ public class CodeTreeChatController {
 		
 		
 		try {
+			Thread.sleep(500);
 			if(pandan) {
 				if("c".equals(language)) {
 					RunCLinux runCLinux = new RunCLinux(fileName, packagePath, language);
