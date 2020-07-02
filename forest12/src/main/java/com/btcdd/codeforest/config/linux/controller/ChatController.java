@@ -112,7 +112,7 @@ public class ChatController {
 					int c = 0;
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
-						readBuffer2.append(line);
+						readBuffer.append(line);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -150,16 +150,11 @@ public class ChatController {
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
 					InputStreamReader is = new InputStreamReader(stdout, "utf-8");
-					InputStreamReader error = new InputStreamReader(process.getErrorStream(), "utf-8");
 					
 					int c = 0;
 					readBuffer.setLength(0);
 					
 					while ((c = is.read()) != -1) {
-						char line = (char) c;
-						readBuffer.append(line);
-					}
-					while ((c = error.read()) != -1) {
 						char line = (char) c;
 						readBuffer.append(line);
 					}
