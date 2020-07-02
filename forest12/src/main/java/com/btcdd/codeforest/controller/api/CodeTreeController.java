@@ -204,10 +204,12 @@ public class CodeTreeController {
 				
 				Thread.sleep(200);
 				
+				codeTreeLinux.createFileAsSourceFake(codeValue, packagePath + "/" + language + "/Main/" + fileName);
+				
+				Thread.sleep(200);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			codeTreeLinux.createFileAsSourceFake(codeValue, packagePath + "/" + language + "/Main/" + fileName);
 		}
 		codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
 		
