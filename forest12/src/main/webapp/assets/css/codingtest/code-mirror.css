@@ -1,0 +1,50 @@
+.color-full {
+  background: #53bb74;
+} 
+.color-half {
+  background: #ebc85d;
+}
+.color-empty {
+  background: #e5554e;
+}
+.countdown{
+	float:right;
+	box-shadow: 0 1px 2px 0 rgba(1, 1, 1, 0.4);
+	width: 200px;
+	height: 100%;
+	text-align: center;
+	background: #f1f1f1;
+	border-radius: 5px;
+	/* margin-right:2px;
+	margin-top:2px; */
+	
+}
+.countdown #tiles{
+  	color: #fff;
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+  	font-family: Arial, sans-serif;
+	text-align: center;
+ 	height:100%;
+ 	border-radius: 5px 5px 0 0;
+  	display: block;	
+}
+/* .countdown-label {
+  	font: thin 10px Arial, sans-serif;
+	color: #65584c;
+	text-align: center;
+	text-transform: uppercase;
+	display: inline-block;
+ 	letter-spacing: 2px;
+ 	margin-bottom: 2px;
+ 	width: 220px;
+ 	height:10px;
+} */
+.timer > span{
+	font-size: 35px;
+  	font-weight: thin;
+  	text-shadow: 1px 1px 0px #ccc;
+  	font-family: Arial, sans-serif;
+  	letter-spacing: 4px;
+}
