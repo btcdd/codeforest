@@ -74,30 +74,36 @@ $(function(){
 	});	
 	
 	$('#birth').keydown(function(key) {
-		var birth = $(this).val();
 		
-		if(birth.length == 4 && key.keyCode == 8) {
-			return;
-		}
-		if(birth.length == 7 && key.keyCode == 8) {
-			return;
-		}
-		if(birth.length == 4 && key.keyCode == 8) {
-			return;
-		}
-		
-		if(birth.length == 4) {
-			$(this).val(birth + '-');
-		} else if(birth.length == 5 && key.keyCode == 8) {
-			var tmp = $(this).val().substring(0, birth.length - 1);
-			$(this).val(tmp);
-		}
-		
-		if(birth.length == 7) {
-			$(this).val(birth + '-');
-		} else if(birth.length == 8 && key.keyCode == 8) {
-			var tmp = $(this).val().substring(0, birth.length - 1);
-			$(this).val(tmp);
+		if((key.keyCode > 47 && key.keyCode < 58) || (key.keyCode > 95 && key.keyCode < 106) || key.keyCode == 8 || key.keyCode == 13) {
+			var birth = $(this).val();
+			
+			if(birth.length == 4 && key.keyCode == 8) {
+				return;
+			}
+			if(birth.length == 7 && key.keyCode == 8) {
+				return;
+			}
+			if(birth.length == 4 && key.keyCode == 8) {
+				return;
+			}
+			
+			if(birth.length == 4) {
+				$(this).val(birth + '-');
+			} else if(birth.length == 5 && key.keyCode == 8) {
+				var tmp = $(this).val().substring(0, birth.length - 1);
+				$(this).val(tmp);
+			}
+			
+			if(birth.length == 7) {
+				$(this).val(birth + '-');
+			} else if(birth.length == 8 && key.keyCode == 8) {
+				var tmp = $(this).val().substring(0, birth.length - 1);
+				$(this).val(tmp);
+			}
+		} else {
+			console.log('dd');
+			return false;
 		}
 	});
 });
