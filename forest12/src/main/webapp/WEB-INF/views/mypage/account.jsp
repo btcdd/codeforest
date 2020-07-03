@@ -218,6 +218,9 @@ $(function() {
         buttons: {
             "변경": function() {
             	changeNickname($('#nickname').val());
+            	var headerNicknameStr = '<a style="color: #fff">' + $('#nickname').val() + '<i class="fas fa-cog account-icon"></i></a>';
+            	$('.menu-item-user').children().remove();
+            	$('.menu-item-user').append(headerNicknameStr);
             	$(this).dialog("close");
             },
             "취소": function() {
@@ -385,6 +388,9 @@ $(function() {
     		
     		if($('#change-nickname').is(":visible")) {
     			changeNickname($('#nickname').val());
+    			var headerNicknameStr = '<a style="color: #fff">' + $('#nickname').val() + '<i class="fas fa-cog account-icon"></i></a>';
+            	$('.menu-item-user').children().remove();
+            	$('.menu-item-user').append(headerNicknameStr);
             	$("#change-nickname").dialog("close");
     		} else if($('#change-password').is(":visible")) {
     			if(password_pandan == false || passwordSecond_pandan == false){
@@ -422,8 +428,10 @@ $(function() {
     if(privacyDialog == 'y') {
     	$("#open").prop('checked', true);
     } else {
-    	$("#no-open").prop('checked', true);
+    	$("#no-open").prop('checked', true);	
     }
+    
+    console.log();
 });
 </script>
 </head>
