@@ -1110,25 +1110,6 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-//    var glCm4 = document.getElementsByClassName("lm_item_container")[0];
-//    glCm4.style = "";
-   
-//    var glCm5 = document.getElementsByClassName("lm_content")[0];
-//    glCm5.style = "";
-    
-    
-    
-     
-   
-   $(document).on("click",".sub-menu > li:first-child",function(){
-      $("#Save").trigger("click");
-   });
-   $(document).on("click",".sub-menu > li + li",function(){
-      $("#Run").trigger("click");
-   });
-   $(document).on("click",".sub-menu > li:last-child",function(){
-      $("#Submit").trigger("click");
-   });
 ////// function 끝부분    
 
 
