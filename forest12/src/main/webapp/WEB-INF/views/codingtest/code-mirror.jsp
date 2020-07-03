@@ -1457,17 +1457,6 @@ window.onload = function() {
                
          <div id="box_3" class="box">
          
-<!--                <textarea name="code" class="CodeMirror code"> -->
-<!-- /* -->
-<!-- * 기본 언어 : 'JAVA' -->
-<!-- * 기본 테마 : 'panda-syntax' -->
-<!-- */ -->
-<!-- public class Test{ -->
-<!--    public static void main(String[] args) { -->
-<!--       System.out.println("Hello CodeForest!"); -->
-<!--    } -->
-<!-- } -->
-<!--             </textarea>          -->
             <div class="gl-cover" id="gl-cover">
             
             </div>
