@@ -1,7 +1,7 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Bigshot+One&family=Pacifico&family=Roboto:wght@300&display=swap')
 	;
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap');
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800)
 	;
 body {
@@ -10,6 +10,32 @@ body {
   height: 100vh;
   width: 100vw;
   
+}
+
+.setting-div {
+float: right;
+    font-size: 1.4em;
+    margin-right: 0.5em;
+    padding-top: 4px;
+    color: #AAAAAA;
+    cursor: pointer;
+}
+
+.setting-div:hover {
+	color: #0A93E2;
+}
+
+.info-div {
+	float: right;
+    font-size: 1.4em;
+    margin-right: 0.5em;
+    padding-top: 4px;
+    color: #AAAAAA;
+    cursor: pointer;
+}
+
+.info-div:hover {
+	color: #0A93E2;
 }
 
 .test {
@@ -40,7 +66,7 @@ body {
 }
 .box {
   flex: 1 1 auto;
-  background: linear-gradient(45deg, #1D1F20, #2F3031) repeat scroll 0% 0% transparent !important;
+  background: #444;
   display: flex;
 /*   justify-content: center; */
 /*   align-items: center; */
@@ -66,28 +92,30 @@ body {
 }
 .resizer[data-resizer-type=H] {
   width: 5px;
-  background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% transparent;
+  background: #444;
   cursor: col-resize;
-  box-shadow: 1px 0px 0px #6E6E6E inset, 2px 0px 2px rgba(0, 0, 0, 0.4);
 }
 .resizer[data-resizer-type=V] {
   height: 5px;
 /*   background: linear-gradient(to bottom, #505050, #383838) repeat scroll 0% 0% transparent; */
-background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% transparent;
+background: #444;
   cursor: row-resize;
-  box-shadow: 0px 1px 0px #6E6E6E inset, 0px 2px 2px rgba(0, 0, 0, 0.4);
+/*   box-shadow: 0px 1px 0px #6E6E6E inset, 0px 2px 2px rgba(0, 0, 0, 0.4); */
 }
 
 
 /* ---------------- header -------------------- */
 .header-logo {
-	float: left;
-	display: inline-block;
-	font-family: 'Pacifico', cursive;
-	text-decoration: none;
-	color: #244C1E;
-	font-size: 1.3em;
-	margin-left: 10px;
+    float: left;
+    display: inline-block;
+    font-family: 'Noto Sans KR', sans-serif !important;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.15em;
+    margin-left: 1em;
+    padding-top: 1px;
+    font-weight: bold;
+    margin-top: 4px;
 }
 .main-nav {
   display: block;
@@ -193,11 +221,11 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
 }
 
 .main-nav-wrapper {
-  background: #ebefe6;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  display: flex;
+    background: #292B2C;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    border-bottom: 1px solid #444;
 }
 
 .logo img {
@@ -225,12 +253,7 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
   position: relative;
 }
 
-.user-description {
-	margin-top : 5px;
-	float: left;
-	width: 60%;
-	text-align: center;
-}
+
 
 
 
@@ -241,7 +264,7 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
 /* ------------- navigator ------------------ */
 .navigator {
 /*     background-color: #E8E9E7; */
-	background: #253141;
+	background: #444;
     width: 100%;
     height: 4%;
 }
@@ -249,157 +272,59 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
 /* ----------------- navigator selector ------------------------ */
 .language-selector {
     float: left;
-    margin-left:5px;
-	margin-top: 4px;
+    margin-left: 0.2em;
+    margin-top: 4px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
 
+.lang:hover {
+	background-color: #ebebeb;
 }
 
 .theme-selector {
     float: left;
-    margin-left:3px;
-    margin-top:4px;
+    margin-left: 0.2em;
+    margin-top: 4px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.theme:hover {
+	background-color: #ebebeb;
 }
 
 .font-size {
     float: left;
-    margin-left:3px;
-    margin-top:4px;
+    margin-left: 0.2em;
+    margin-top: 4px;
+    font-family: 'Noto Sans KR', sans-serif;
 } 
 
-.dropdown {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  height: auto;
-  width: 110px;
-  background: #f2f2f2;
-  border: 1px solid;
-  border-color: white #f7f7f7 whitesmoke;
-  border-radius: 3px;
-  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-  background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-  background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-}
-
-.dropdown:before, .dropdown:after {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  top: 9px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 4px dashed;
-  border-color: #888888 transparent;
-  pointer-events: none;
-}
-
-.dropdown:before {
-  border-bottom-style: solid;
-  border-top: none;
-}
-
-.dropdown:after {
-  margin-top: 7px;
-  border-top-style: solid;
-  border-bottom: none;
+.size:hover {
+	background-color: #ebebeb;
 }
 
 .dropdown-select {
-  position: relative;
-  width: 130%;
-  margin: 0;
-  padding: 6px 8px 6px 10px;
-  height: 28px;
-  line-height: 14px;
-  font-size: 12px;
-  color: #62717a;
-  text-shadow: 0 1px white;
-  background: #f2f2f2; /* Fallback for IE 8 */
-  background: rgba(0, 0, 0, 0) !important; /* "transparent" doesn't work with Opera */
-  border: 0;
-  border-radius: 0;
-  -webkit-appearance: none;
+	padding: 5px;
+	border-radius: 0.25rem;
+	outline:none;
+	font-size: 0.9em;
 }
 
-.dropdown-select:focus {
-  z-index: 3;
-  width: 100%;
-  color: #394349;
-  outline: 2px solid #49aff2;
-  outline: 2px solid -webkit-focus-ring-color;
-  outline-offset: -2px;
+.langlang {
+	font-size: 1em !important;
+}
+
+optgroup {
+	font-size: 1.1em;
 }
 
 .dropdown-select > option {
-  margin: 3px;
-  padding: 6px 8px;
-  text-shadow: none;
-  background: #f2f2f2;
-  border-radius: 3px;
-  cursor: pointer;
+	padding: 1em;
+	margin-top: 1em;
+    font-size: 1.2em;
+	font-family: 'Noto Sans KR', sans-serif;
+	cursor: pointer;
 }
-
-.lt-ie9 .dropdown {
-  z-index: 1;
-}
-
-.lt-ie9 .dropdown-select {
-  z-index: -1;
-}
-
-.lt-ie9 .dropdown-select:focus {
-  z-index: 3;
-}
-
-@-moz-document url-prefix() {
-  .dropdown-select {
-    padding-left: 6px;
-  }
-}
-
-.dropdown-dark {
-  background: #444;
-  border-color: #111111 #0a0a0a black;
-  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-dark:before {
-  border-bottom-color: #aaa;
-}
-
-.dropdown-dark:after {
-  border-top-color: #aaa;
-}
-
-.dropdown-dark .dropdown-select {
-  color: #aaa;
-  text-shadow: 0 1px black;
-  background: #444;  /* Fallback for IE 8 */
-}
-
-.dropdown-dark .dropdown-select:focus {
-  color: #ccc;
-}
-
-.dropdown-dark .dropdown-select > option {
-  background: #444;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.4);
-}
-
-.dropdown-dark .dropdown-select > optgroup {
-  background: #444;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.4);
-}
-
 
 /* ------------------- code-mirror ----------------- */
 
@@ -421,6 +346,7 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
 .lm_content {
 	height: 500px;
 	max-width: 100%;
+    border-radius: 0 0 0.5rem;
 }
 
 /* ---------------------- file-list ------------------------- */
@@ -432,7 +358,7 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
   overflow: auto;
   width: 100%;
   height: 100%;
-  border-radius : 0.3rem
+  border-radius : 0.5rem
 }
 .file-tree {
   display: block;
@@ -588,75 +514,76 @@ background: linear-gradient(to right, #9DBFE3, #4E5F70) repeat scroll 0% 0% tran
 /* --------------- 실행 버튼 --------------------- */
 
 .buttons{
-	display: inline-block;
-	float: right;
-	margin-right:2%;
-	margin-top: 5px;
-	
+    display: inline-block;
+    float: right;
+    margin-right: 0.3em;
+    margin-top: 2px;
 }
+
 .animate
 {
 	transition: all 0.1s;
 	-webkit-transition: all 0.1s;
 }
 
-.action-button
-{	
-	position: relative;
-	padding: 2.5px 10px;
- 	/* margin: 5px 10px 10px 0px; */
- 	/* float: right; */
-	border-radius: 10px;
-	font-size: 12px;
-	color: #FFF;
-	text-decoration: none;	
+.action-button {	    
+    font-family: 'Noto Sans KR', sans-serif;
+    position: relative;
+    padding: 3px 0.8em;
+    font-size: 0.9em;
+    border-radius: 0.5rem;
+    background-color: linear-gradient(0deg, #d8d8d8, #ececec);
+    color: #086EAA;
+    font-weight: 450;
+    border-color: dimgrey;
 } 
 
-#Save
-{
-	background-color: #E74C3C;
-	border-bottom: 3px solid #BD3E31;
-	text-shadow: 0px -1px #BD3E31;
-	cursor:pointer;
+.action-button:hover {
+	filter: drop-shadow(0 0 2px rgba(240, 240, 240, 0.7));
+	background-color: #ebebeb;
 }
 
-#Run
-{
-	background-color: #3498DB;
-	border-bottom: 3px solid #2980B9;
-	text-shadow: 0px -1px #2980B9;
-	cursor:pointer;
+.action-button:active {
 }
 
-#Submit
-{
-	background-color: #82BF56;
-	border-bottom: 3px solid #669644;
-	text-shadow: 0px -1px #669644;
-	cursor:pointer;
-}
-.action-button:active
-{
-	transform: translate(0px,2px);
-  -webkit-transform: translate(0px,2px);
-	border-bottom: 1px solid;
-}
-
-.SaveClick{
-	transform: translate(0px,2px);
-  -webkit-transform: translate(0px,2px);
-  border-bottom: 1px solid;	
+.user-description {
+    margin-top: 5px;
+    float: left;
+    text-align: center;
+    color: #fff;
+    margin-left: 45.5em;
 }
 
 /* -------------------- golden layout ---------------------- */
 .gl-cover {
-	width: 100%;
+	width: 99.6%;
 	height: 100%;
 	display: flex;
 }
 
 .lm_goldenlayout {
-    width: 100%;
+	width: 100%;
     height: 100%;
+    border-radius: 0.5rem;
 }
 
+/* .countdown{
+	float:right;
+	margin-right:2%;
+} */
+
+.lm_item_container {
+	width: 100% !important;
+}
+
+.lm_header .lm_tab.lm_active {
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.lm_selected .lm_header {
+    border-radius: 0.5rem !important;
+}
+
+.lm_header .lm_tab {
+	border-radius: 0.5rem 0.5rem 0 0 !important; 
+}

@@ -7,15 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>Code Tree</title>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/codetree.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <!-- code mirror -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/abcdef.css">
@@ -241,40 +240,21 @@ $(function() {
 		   
 		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css");
 		   
-		   $(".accordion").css("background-color", "#F3F3F3");
+		   $(".navigator").css("background-color", "rgb(220, 220, 220)");
+		   $(".navigator").css("background ", "rgb(220, 220, 220)");
+		   $(".box").css("background","rgb(220, 220, 220) !important");
 		   
-		   $(".accordion__title").css("background-color", "#F3F3F3");
-		   $(".accordion__title").css("border-bottom", "#f3f3f3");
-		   $(".accordion__title").css("color", "#414141");
+		   $(".resizer[data-resizer-type=H]").css("background", "rgb(220, 220, 220)");
+		   $(".resizer[data-resizer-type=V]").css("background", "rgb(220, 220, 220)");
 		   
-		   $(".navigator").css("background-color", "#F3F3F3");
-		   $(".navigator").css("background ", "#F3F3F3");
-		   
-		   $(".accordion__items").css("background-color", "#E2E2E2");
-		   $(".accordion__items").css("border-bottom", "2px solid #CDCDCD");
-		   $(".accordion__items").css("color", "#414141");
-		   $(".accordion__items").css("box-shadow", "0 0 10px rgba(150, 150, 150, 1)");
-		   
-		   $(".accordion__items:nth-of-type(even)").css("background-color", "#D8D8D8");
-		   
-		   $(".accordion__content").css("background-color", "#fff");
-		   $(".accordion__content").css("border-bottom", "2px solid #D8D8D8");
-		   
-		   $(".accordion__content__caption").css("color", "#414141");
-		   
-		   $(".accordion__content__txt").css("color", "#414141");
-		   
-		   $(".accordion__items.active ").css("background-color", "#CDCDCD");
-		   
-		   $(".accordion__items:hover").css("background-color", " #CDCDCD");
-		   
-		   $(".resizer[data-resizer-type=H]").css("background", "#bebebe");
-		   $(".resizer[data-resizer-type=V]").css("background", "#bebebe");
+		   $(".action-button").css("border-color","gainsboro");
+		   $(".action-button").css("color","#0A93E2");
 		   
 		   $(".box").css("background", "");
-		   $(".box").css("background", "#bebebe");
+		   $(".box").css("background", "rgb(220, 220, 220)");
 		   
 		   $(".dropdown").removeClass("dropdown-dark");
+		   $(".lm_selected .lm_header").css("background-color","#F4F4F4 !important");
 	   }
 	   else {
 		   $(".window .terminal").css('color', "#FFFFFF");
@@ -286,32 +266,11 @@ $(function() {
 		   
 		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css");
 		   
-		   $(".accordion").css("background-color", "#18202a");
+		   $(".navigator").css("background-color", "#444");
+		   $(".navigator").css("background ", "#444");
 		   
-		   $(".accordion__title").css("background-color", "#253141");
-		   $(".accordion__title").css("border-bottom", "#11161d");
-		   $(".accordion__title").css("color", "#fff");
-		   
-		   $(".navigator").css("background-color", "#253141");
-		   $(".navigator").css("background ", "#253141");
-		   
-		   $(".accordion__items").css("background-color", "#18202a");
-		   $(".accordion__items").css("border-bottom", "2px solid #090c10");
-		   $(".accordion__items").css("color", "#fff");
-		   $(".accordion__items").css("box-shadow", "");
-		   
-		   $(".accordion__items:nth-of-type(even)").css("background-color", "#0d1117");
-		   
-		   $(".accordion__content").css("background-color", "#18202a");
-		   $(".accordion__content").css("border-bottom", "");
-		   
-		   $(".accordion__content__caption").css("color", "#ffe");
-		   
-		   $(".accordion__content__txt").css("color", "#D0CECE");
-		   
-		   $(".accordion__items.active ").css("background-color", "#000");
-		   
-		   $(".accordion__items:hover").css("background-color", " #000");
+		   $(".action-button").css("border-color","rgb(118, 118, 118)");
+		   $(".action-button").css("color","#086EAA");
 		   
 		   $(".resizer[data-resizer-type=H]").css("background", "");
 		   $(".resizer[data-resizer-type=V]").css("background", "");
@@ -321,6 +280,10 @@ $(function() {
 		   $(".box").css("background", "linear-gradient(45deg, #1D1F20, #2F3031) repeat scroll 0% 0% transparent !important");
 		   
 		   $(".dropdown").addClass("dropdown-dark");
+		   
+		   $(".box").css("background", "");
+		   $(".box").css("background", "#444");
+		   $(".lm_selected .lm_header").css("background-color","#000 !important");
 	   }
    });
    
@@ -1134,48 +1097,19 @@ window.onload = function() {
 </head>
 <body>
 
-
-
 <nav role="navigation" class='main-nav'>
     <div class="main-nav-wrapper">
-      <div class="header-logo">
-        Code Forest
-      </div>
-       <div class="menu-cool-container">
-        <ul>
-          <li><a>File</a>
-            <ul class="sub-menu">
-              <li>Run</li>           
-            </ul>
-          </li>
-          <li><a>Run</a>
-            <ul class="sub-menu">
-              <li>Run</li>            
-            </ul>
-          </li>
-          <li>
-          	<a>Search</a>
-          	<ul class="sub-menu">
-              <li>Search</li>            
-            </ul>
-          </li>
-          <li>
-          	<a>Setting</a>
-          	<ul class="sub-menu">
-              <li>Language</li>
-              <li>Theme</li>
-              <li>Font-Size</li>              
-            </ul>
-          </li>          
-        </ul>
-      </div> 
-      
-      <div class="user-description">
-      	${saveVo.userName }(${saveVo.userEmail })님의 코드입니다
-      </div>
+		<div class="header-logo">
+		  ${saveVo.title }
+		</div>
+		<div class="user-description">
+      		${saveVo.userName } [ ${saveVo.userEmail } ]님의 코드입니다
+      	</div>
+		<div class="info-div">
+			<i class="fas fa-info-circle"></i>
+		</div>
     </div>
  </nav>
-
 
 <div class="container">
 

@@ -26,7 +26,7 @@ textarea, input, button {
     border-top: 1px solid white;
     border-bottom: 1px solid #b3b3b3;
     color: rgba(0, 0, 0, 0.7);
-    font-family: Helvetica, sans-serif;
+    font-family: consolas;
     font-size: 13px;
     line-height: 22px;
     text-align: center;
@@ -50,10 +50,10 @@ textarea, input, button {
 .window .terminal {
     padding: 4px;
     background-color: #292A2B;
-    height: 89%;
+    height: calc(100% - 2.3em);
     width: 99.65%;
     color: white;
-    font-family: 'Source Code Pro', monospace;
+    font-family: consolas;
     font-weight: 200;
     font-size: 14px;
     white-space: pre-wrap;
@@ -67,6 +67,7 @@ textarea, input, button {
     resize: none;
     outline: none;
     border: none;
+    padding: 1em;
 }
 
 .window .terminal::after {

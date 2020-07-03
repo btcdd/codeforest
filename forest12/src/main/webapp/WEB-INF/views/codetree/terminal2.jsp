@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/terminal2.css">
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:200' rel='stylesheet' type='text/css'>
 
@@ -177,11 +179,12 @@ $(document).keypress(function(e) {
 });
 */
 //Set the window title
-title.text(email +": ~ ("+nickname+")");
+title.text(email);
 //Get the date for our fake last-login
 var date = new Date().toString(); date = date.substr(0, date.indexOf("GMT") - 1);
 //Display last-login and promt
-terminal.append("login: " + date + " on ttys000\n"); 
+terminal.append("(c) 2020 Code Forest. All rights reserved.\n"); 
+terminal.append("현재 시간 [ " + date + " ]"); 
 // displayPrompt();
 });
 
