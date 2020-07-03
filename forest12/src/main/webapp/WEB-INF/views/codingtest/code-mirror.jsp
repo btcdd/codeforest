@@ -1357,7 +1357,7 @@ window.onload = function() {
         ${saveVo.title }
       </div>
 		<div class="info-div">
-			<i class="fas fa-info-circle"></i>
+			<i class="fas fa-info-circle" id="info"></i>
 		</div>
       <div class="countdown">
 		 <div id='tiles' class="color-full">

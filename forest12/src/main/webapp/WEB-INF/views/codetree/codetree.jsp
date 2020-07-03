@@ -1095,7 +1095,6 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-   
    $("#info-div").dialog({
        autoOpen: false,
        resizable: false,
