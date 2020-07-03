@@ -226,7 +226,6 @@ $(function() {
 		   backgroundColor = "#FFFFFF";
 	   }
 	   // 터미널 색 변경
-// 	   $(".window .terminal").css('background-color', $(".cm-s-" + theme).css("background-color"));
 	   $(".window .terminal").css('background-color', backgroundColor);
 	   $(".ui__sidebar").css('background-color', backgroundColor);
 	  
@@ -298,7 +297,6 @@ $(function() {
 	   
    });
    
-//  	$('.CodeMirror').addClass('code');
 
  	
 ///////////////////////////// problem-list //////////////////////////////////
@@ -319,14 +317,6 @@ $(function() {
  	        tree.addClass("file-tree__item--open");
  	    }
  
- 	    // Close all siblings
- 	    /*
- 	    tree
- 	        .siblings()
- 	        .removeClass("file-tree__item--open")
- 	        .find(".folder--open")
- 	        .removeClass("folder--open");
- 	    */
  	});	
  	
  // 파일 열고 닫기
@@ -358,122 +348,6 @@ $(function() {
  	$(".contextmenu").append(str);
  	var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
  	$(".userfile-menu").append(str2);
- 	
- 	
- 	
- 	
-
-// 	$(document).on('mouseenter','#folder',function() {
-// 		console.log("hi");
-// 		$(document).on('mousedown','#folder',function(e) {
-// 			$(".userfile-menu").hide();
-// 			if(e.which == 3){
-// 				//tempFile = $(this);
-// 				savePathNo = $(this).data("no");
-// 	 			subProblemNo = $(this).data("no2");
-// 	 		    //Get window size:
-// 	 		    var winWidth = $(document).width();
-// 	 		    var winHeight = $(document).height();
-// 	 		    //Get pointer position:
-// 	 		    var posX = e.pageX;
-// 	 		    var posY = e.pageY;
-// 	 		    //Get contextmenu size:
-// 	 		    var menuWidth = $(".contextmenu").width();
-// 	 		    var menuHeight = $(".contextmenu").height();
-// 	 		    //Security margin:
-// 	 		    var secMargin = 10;
-// 	 		    //Prevent page overflow:
-// 	 		    if(posX + menuWidth + secMargin >= winWidth
-// 	 		    && posY + menuHeight + secMargin >= winHeight){
-// 	 		      //Case 1: right-bottom overflow:
-// 	 		      posLeft = posX - menuWidth - secMargin + "px";
-// 	 		      posTop = posY - menuHeight - secMargin + "px";
-// 	 		    }
-// 	 		    else if(posX + menuWidth + secMargin >= winWidth){
-// 	 		      //Case 2: right overflow:
-// 	 		      posLeft = posX - menuWidth - secMargin + "px";
-// 	 		      posTop = posY + secMargin + "px";
-// 	 		    }
-// 	 		    else if(posY + menuHeight + secMargin >= winHeight){
-// 	 		      //Case 3: bottom overflow:
-// 	 		      posLeft = posX + secMargin + "px";
-// 	 		      posTop = posY - menuHeight - secMargin + "px";
-// 	 		    }
-// 	 		    else {
-// 	 		      //Case 4: default values:
-// 	 		      posLeft = posX + secMargin + "px";
-// 	 		      posTop = posY + secMargin + "px";
-// 	 		    };
-// 	 		    //Display contextmenu:
-// 	 		    $(".contextmenu").css({
-// 	 		      "left": posLeft,
-// 	 		      "top": posTop
-// 	 		    }).show();
-// 	 		    //Prevent browser default contextmenu.
-// 	 		    return false;					
-// 			}		
-// 		});
-
-		
-// 		$(document).on('mousedown','.userFile',function(e){
-// 			$(".contextmenu").hide();
-// 			if(e.which == 3){
-// 				//tempFile = $(this);
-// 				codeNo = $(this).data("no");
-// 				prevFileName = $(this).data("file-name");
-// 	 		    //Get window size:
-// 	 		    var winWidth = $(document).width();
-// 	 		    var winHeight = $(document).height();
-// 	 		    //Get pointer position:
-// 	 		    var posX = e.pageX;
-// 	 		    var posY = e.pageY;
-// 	 		    //Get contextmenu size:
-// 	 		    var menuWidth = $(".userfile-menu").width();
-// 	 		    var menuHeight = $(".userfile-menu").height();
-// 	 		    //Security margin:
-// 	 		    var secMargin = 10;
-// 	 		    //Prevent page overflow:
-// 	 		    if(posX + menuWidth + secMargin >= winWidth
-// 	 		    && posY + menuHeight + secMargin >= winHeight){
-// 	 		      //Case 1: right-bottom overflow:
-// 	 		      posLeft = posX - menuWidth - secMargin + "px";
-// 	 		      posTop = posY - menuHeight - secMargin + "px";
-// 	 		    }
-// 	 		    else if(posX + menuWidth + secMargin >= winWidth){
-// 	 		      //Case 2: right overflow:
-// 	 		      posLeft = posX - menuWidth - secMargin + "px";
-// 	 		      posTop = posY + secMargin + "px";
-// 	 		    }
-// 	 		    else if(posY + menuHeight + secMargin >= winHeight){
-// 	 		      //Case 3: bottom overflow:
-// 	 		      posLeft = posX + secMargin + "px";
-// 	 		      posTop = posY - menuHeight - secMargin + "px";
-// 	 		    }
-// 	 		    else {
-// 	 		      //Case 4: default values:
-// 	 		      posLeft = posX + secMargin + "px";
-// 	 		      posTop = posY + secMargin + "px";
-// 	 		    };
-// 	 		    //Display contextmenu:
-// 	 		    $(".userfile-menu").css({
-// 	 		      "left": posLeft,
-// 	 		      "top": posTop
-// 	 		    }).show();
-// 	 		    //Prevent browser default contextmenu.
-// 	 		    return false;				
-// 			}			
-// 		});
-		
-		
-		
-// 	}).on('mouseleave','.ui__sidebar',function(){
-// 		console.log("bye");
-// 	}).on('contextmenu','.ui__sidebar',function(){
-// 		return false;
-// 	}).on('userfile-menu','.ui__sidebar',function(){
-// 		return false;
-// 	});
-	
  	
  	//Hide contextmenu:
  	$(document).click(function(){
@@ -890,16 +764,6 @@ $(function() {
 	var glCm3 = document.getElementsByClassName("lm_items")[0];
 	glCm3.style = "";
 	
-// 	var glCm4 = document.getElementsByClassName("lm_item_container")[0];
-// 	glCm4.style = "";
-	
-// 	var glCm5 = document.getElementsByClassName("lm_content")[0];
-// 	glCm5.style = "";
- 	
- 	
- 	
- 	 
-	
 	$(document).on("click",".sub-menu > li:first-child",function(){
 		$("#Save").trigger("click");
 	});
@@ -909,8 +773,6 @@ $(function() {
 	$(document).on("click",".sub-menu > li:last-child",function(){
 		$("#Submit").trigger("click");
 	});
-////// function 끝부분 	
-
 
 	var d = document.querySelector('#Run');
     d.addEventListener('click', connect, true);
@@ -955,6 +817,50 @@ $(function() {
           return false;
        });
     }); 
+    
+    $("#info-div").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        show: {
+            effect: "toggle",
+            duration: 270
+          },
+          hide: {
+            effect: "toggle",
+            duration: 270
+          },
+        buttons: {
+            "확인": function() {
+         	   $(this).dialog("close");
+            }
+        }
+    });
+    
+    var button;
+    $('#info').click(function() {
+ 	   button = document.getElementsByClassName('ui-button')[10];
+ 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+ 	   
+ 	   $("#info-div").dialog("open");
+    });
+    
+    $('.ui-button').eq(10).hover(function() {
+ 	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+    }, function() {
+ 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+    })
+    
+    var uiDialogButtonpane = document.getElementsByClassName('ui-dialog-buttonpane')[2];
+    uiDialogButtonpane.style = "margin-left: 23px; padding: 0";
+    
+    var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
+    uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
+    
+//////function 끝부분 	
+
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -1106,7 +1012,7 @@ window.onload = function() {
       		${saveVo.userName } [ ${saveVo.userEmail } ]님의 코드입니다
       	</div>
 		<div class="info-div">
-			<i class="fas fa-info-circle"></i>
+			<i class="fas fa-info-circle" id="info"></i>
 		</div>
     </div>
  </nav>
@@ -1184,20 +1090,6 @@ window.onload = function() {
 		            <li class="file-tree__item file-tree__item--open">
 		                <div class="folder folder--open">problem${saveVo.problemNo }</div>		
 		                <ul class="file-tree__subtree">
-<%-- 			                <c:forEach items='${savePathList }' var='vo' varStatus='status'>
-			                    <li class="file-tree__item">
-			                        <div id="folder" class="folder folder--open" data-no="${vo.no}" data-no2="${vo.subProblemNo}" >${saveVo.title}/${status.index+1}</div>
-									<ul class="file-tree__subtree" id="file${vo.no}">
-										<c:forEach items='${codeList}' var='codevo' varStatus='status'>
-											<c:if test="${vo.no == codeList[status.index].savePathNo && codeList[status.index].language == 'java' }">
-												<li class='userFile' data-no="${codeList[status.index].no}">
-													<div class="file">${codevo.fileName}</div>
-												</li>
-											</c:if>	
-										</c:forEach>
-									</ul>
-								</li>			                        
-			                </c:forEach> --%>
 		                </ul>
 		                <!-- /.file-subtree -->
 		            </li>
@@ -1213,17 +1105,6 @@ window.onload = function() {
 	            
 	      <div id="box_3" class="box">
 	      
-<!-- 	      		<textarea name="code" class="CodeMirror code"> -->
-<!-- /* -->
-<!-- * 기본 언어 : 'JAVA' -->
-<!-- * 기본 테마 : 'panda-syntax' -->
-<!-- */ -->
-<!-- public class Test{ -->
-<!-- 	public static void main(String[] args) { -->
-<!-- 		System.out.println("Hello CodeForest!"); -->
-<!-- 	} -->
-<!-- } -->
-<!-- 				</textarea>			 -->
          	<div class="gl-cover" id="gl-cover">
          	
          	</div>
@@ -1248,6 +1129,30 @@ window.onload = function() {
 				<ul class="userfile-menu">
 				</ul> 
 			</div>
+</div>
+<div class="info-div-class" id="info-div" title="Compiler Version" style="display:none" >
+	<div class="info-content">
+		<table border="0" class="info-table">
+			<thead>
+				<tr>
+					<th>
+						<span>언어</span>
+					</th>
+					<th>
+						<span>버전</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
+				<tr><td>C</td><td>gcc 9.2</td></tr>
+				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
+				<tr><td>C</td><td>gcc 9.2</td></tr>
+				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
+				<tr><td>C</td><td>gcc 9.2</td></tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 </body>
 </html>
