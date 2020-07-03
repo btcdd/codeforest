@@ -587,3 +587,109 @@ optgroup {
 .lm_header .lm_tab {
 	border-radius: 0.5rem 0.5rem 0 0 !important; 
 }
+
+.info-table {
+	border: 0;
+    border-collapse: collapse;
+    text-align: center;
+    border-collapse: collapse;
+    line-height: 1.5;
+    font-size: 0.9em;
+}
+
+.info-table tr {
+	border-bottom: 1px solid #CED0DA;
+}
+
+.info-table th {
+	padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.info-table td {
+	width: 180px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    text-align: center;
+}
+
+.info-content {
+	maring-top: -6px !important;
+}
+
+
+.line {
+	background: #f3f6f7 !important;
+}
+
+.ui-dialog-titlebar {
+	border: none !important;
+    background-color: #fff !important;
+}
+
+.ui-widget-content {
+	border: none !important;
+}
+
+.ui-dialog-buttonset {
+	margin-top: -17px !important;
+}
+
+.ui-dialog-titlebar {
+	margin-top: 15px !important;
+}
+
+.ui-button {
+	border: none !important;
+	background-color: #fff !important;
+}
+
+#fileUpdateButton, #fileDeleteButton {
+	background-color: #0A93E2 !important;
+	color: #fff !important;
+}
+
+#fileUpdateButton:hover, #fileDeleteButton:hover {
+	background-color: #A6A6A6 !important;
+}
+
+#dialog-update-form, #dialog-delete-form {
+	height: 44px !important;
+    overflow: hidden;
+}
+
+.fileName-update {
+	width: 265px;
+}
+
+.ui-dialog-title {
+	margin-top: -13px !important;
+}
+
+.ui-dialog-titlebar-close {
+	margin-top: -23px !important;
+}
+
+.validateTips {
+	margin-top: 1px;
+}
+
+#cancelButton, #CloseUpdateButton {
+	background-color: #aaa !important;
+	color: #fff;
+}
+
+#cancelButton:hover, #CloseUpdateButton:hover {
+	color: #EBEBEB;
+}
+
+#ui-id-4 {
+	font-size: 1.3em;
+	margin-top: -4px !important;
+}
+
+.ui-dialog-buttonpane {
+	height: 0 !important;
+}
