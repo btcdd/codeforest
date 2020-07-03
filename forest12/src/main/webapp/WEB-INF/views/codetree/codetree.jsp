@@ -257,32 +257,32 @@ $(function() {
 		   
 		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css");
 		   
-		   $(".accordion").css("background-color", "#F3F3F3");
-		   
-		   $(".accordion__title").css("background-color", "#F3F3F3");
-		   $(".accordion__title").css("border-bottom", "#f3f3f3");
-		   $(".accordion__title").css("color", "#414141");
+// 		   $(".accordion").css("background-color", "#F3F3F3");
 		   
 		   $(".navigator").css("background-color", "#F3F3F3");
 		   $(".navigator").css("background ", "#F3F3F3");
 		   
-		   $(".accordion__items").css("background-color", "#E2E2E2");
-		   $(".accordion__items").css("border-bottom", "2px solid #CDCDCD");
-		   $(".accordion__items").css("color", "#414141");
-		   $(".accordion__items").css("box-shadow", "0 0 10px rgba(150, 150, 150, 1)");
+// 		   $(".accordion__title").css("background-color", "#F3F3F3");
+// 		   $(".accordion__title").css("border-bottom", "#f3f3f3");
+// 		   $(".accordion__title").css("color", "#414141");
 		   
-		   $(".accordion__items:nth-of-type(even)").css("background-color", "#D8D8D8");
+// 		   $(".accordion__items").css("background-color", "#E2E2E2");
+// 		   $(".accordion__items").css("border-bottom", "2px solid #CDCDCD");
+// 		   $(".accordion__items").css("color", "#414141");
+// 		   $(".accordion__items").css("box-shadow", "0 0 10px rgba(150, 150, 150, 1)");
 		   
-		   $(".accordion__content").css("background-color", "#fff");
-		   $(".accordion__content").css("border-bottom", "2px solid #D8D8D8");
+// 		   $(".accordion__items:nth-of-type(even)").css("background-color", "#D8D8D8");
 		   
-		   $(".accordion__content__caption").css("color", "#414141");
+// 		   $(".accordion__content").css("background-color", "#fff");
+// 		   $(".accordion__content").css("border-bottom", "2px solid #D8D8D8");
 		   
-		   $(".accordion__content__txt").css("color", "#414141");
+// 		   $(".accordion__content__caption").css("color", "#414141");
 		   
-		   $(".accordion__items.active ").css("background-color", "#CDCDCD");
+// 		   $(".accordion__content__txt").css("color", "#414141");
 		   
-		   $(".accordion__items:hover").css("background-color", " #CDCDCD");
+// 		   $(".accordion__items.active ").css("background-color", "#CDCDCD");
+		   
+// 		   $(".accordion__items:hover").css("background-color", " #CDCDCD");
 		   
 		   $(".resizer[data-resizer-type=H]").css("background", "#bebebe");
 		   $(".resizer[data-resizer-type=V]").css("background", "#bebebe");
@@ -302,32 +302,32 @@ $(function() {
 		   
 		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css");
 		   
-		   $(".accordion").css("background-color", "#18202a");
-		   
-		   $(".accordion__title").css("background-color", "#253141");
-		   $(".accordion__title").css("border-bottom", "#11161d");
-		   $(".accordion__title").css("color", "#fff");
-		   
 		   $(".navigator").css("background-color", "#253141");
 		   $(".navigator").css("background ", "#253141");
 		   
-		   $(".accordion__items").css("background-color", "#18202a");
-		   $(".accordion__items").css("border-bottom", "2px solid #090c10");
-		   $(".accordion__items").css("color", "#fff");
-		   $(".accordion__items").css("box-shadow", "");
+// 		   $(".accordion").css("background-color", "#18202a");
 		   
-		   $(".accordion__items:nth-of-type(even)").css("background-color", "#0d1117");
+// 		   $(".accordion__title").css("background-color", "#253141");
+// 		   $(".accordion__title").css("border-bottom", "#11161d");
+// 		   $(".accordion__title").css("color", "#fff");
 		   
-		   $(".accordion__content").css("background-color", "#18202a");
-		   $(".accordion__content").css("border-bottom", "");
+// 		   $(".accordion__items").css("background-color", "#18202a");
+// 		   $(".accordion__items").css("border-bottom", "2px solid #090c10");
+// 		   $(".accordion__items").css("color", "#fff");
+// 		   $(".accordion__items").css("box-shadow", "");
 		   
-		   $(".accordion__content__caption").css("color", "#ffe");
+// 		   $(".accordion__items:nth-of-type(even)").css("background-color", "#0d1117");
 		   
-		   $(".accordion__content__txt").css("color", "#D0CECE");
+// 		   $(".accordion__content").css("background-color", "#18202a");
+// 		   $(".accordion__content").css("border-bottom", "");
 		   
-		   $(".accordion__items.active ").css("background-color", "#000");
+// 		   $(".accordion__content__caption").css("color", "#ffe");
 		   
-		   $(".accordion__items:hover").css("background-color", " #000");
+// 		   $(".accordion__content__txt").css("color", "#D0CECE");
+		   
+// 		   $(".accordion__items.active ").css("background-color", "#000");
+		   
+// 		   $(".accordion__items:hover").css("background-color", " #000");
 		   
 		   $(".resizer[data-resizer-type=H]").css("background", "");
 		   $(".resizer[data-resizer-type=V]").css("background", "");
@@ -1013,9 +1013,7 @@ $(function() {
          if(tempFile == null){
             return;
          }        
-        $(this).addClass("SaveClick");   
         setTimeout(function(){
-           $("#Save").removeClass("SaveClick");
            $("#Save").addClass("Save");
         },100);
         
@@ -1303,9 +1301,6 @@ window.onload = function() {
       <div class="header-logo">
         ${saveVo.title }
       </div>
-      	<div class="setting-div">
-      		<i class="fas fa-cog"></i>
-      	</div>
 		<div class="info-div">
 			<i class="fas fa-info-circle"></i>
 		</div>
