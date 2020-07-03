@@ -58,12 +58,20 @@
 		<h2 class="accordion__items" id="${status.index }">#
 			${subproblemvo.no } &nbsp;&nbsp;&nbsp; ${subproblemvo.title }</h2>
 		<div class="accordion__content">
-			<h3 class="accordion__content__caption">문제 내용</h3>
-			<div class="accordion__content__txt">${subproblemvo.contents }</div>
-			<h3 class="accordion__content__caption">예제 입력</h3>
-			<pre class="accordion__content__txt">${subproblemvo.examInput }</pre>
-			<h3 class="accordion__content__caption">예제 출력</h3>
-			<pre class="accordion__content__txt" style="margin-bottom: 2.5em;">${subproblemvo.examOutput }</pre>
+			<div class="problem-content">
+				<h3 class="accordion__content__caption">문제 내용</h3>
+				<div class="accordion__content__txt">${subproblemvo.contents }</div>
+			</div>
+			<div class="exam-input-content-large-div">
+				<div class="examinput-content">
+					<h3 class="accordion__content__caption">예제 입력</h3>
+					<pre class="accordion__content__txt consolas">${subproblemvo.examInput }</pre>
+				</div>
+			</div>
+				<div class="examoutput-content">
+					<h3 class="accordion__content__caption">예제 출력</h3>
+					<pre class="accordion__content__txt consolas" style="margin-bottom: 2.5em;">${subproblemvo.examOutput }</pre>
+				</div>
 		</div>
 	</c:forEach>
 

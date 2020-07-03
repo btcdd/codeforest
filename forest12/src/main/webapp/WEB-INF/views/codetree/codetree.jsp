@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODE TREE</title>
+<title>Code Tree</title>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
@@ -257,40 +257,21 @@ $(function() {
 		   
 		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css");
 		   
-// 		   $(".accordion").css("background-color", "#F3F3F3");
+		   $(".navigator").css("background-color", "rgb(220, 220, 220)");
+		   $(".navigator").css("background ", "rgb(220, 220, 220)");
+		   $(".box").css("background","rgb(220, 220, 220) !important");
 		   
-		   $(".navigator").css("background-color", "#F3F3F3");
-		   $(".navigator").css("background ", "#F3F3F3");
+		   $(".resizer[data-resizer-type=H]").css("background", "rgb(220, 220, 220)");
+		   $(".resizer[data-resizer-type=V]").css("background", "rgb(220, 220, 220)");
 		   
-// 		   $(".accordion__title").css("background-color", "#F3F3F3");
-// 		   $(".accordion__title").css("border-bottom", "#f3f3f3");
-// 		   $(".accordion__title").css("color", "#414141");
-		   
-// 		   $(".accordion__items").css("background-color", "#E2E2E2");
-// 		   $(".accordion__items").css("border-bottom", "2px solid #CDCDCD");
-// 		   $(".accordion__items").css("color", "#414141");
-// 		   $(".accordion__items").css("box-shadow", "0 0 10px rgba(150, 150, 150, 1)");
-		   
-// 		   $(".accordion__items:nth-of-type(even)").css("background-color", "#D8D8D8");
-		   
-// 		   $(".accordion__content").css("background-color", "#fff");
-// 		   $(".accordion__content").css("border-bottom", "2px solid #D8D8D8");
-		   
-// 		   $(".accordion__content__caption").css("color", "#414141");
-		   
-// 		   $(".accordion__content__txt").css("color", "#414141");
-		   
-// 		   $(".accordion__items.active ").css("background-color", "#CDCDCD");
-		   
-// 		   $(".accordion__items:hover").css("background-color", " #CDCDCD");
-		   
-		   $(".resizer[data-resizer-type=H]").css("background", "#bebebe");
-		   $(".resizer[data-resizer-type=V]").css("background", "#bebebe");
+		   $(".action-button").css("border-color","gainsboro");
+		   $(".action-button").css("color","#0A93E2");
 		   
 		   $(".box").css("background", "");
-		   $(".box").css("background", "#bebebe");
+		   $(".box").css("background", "rgb(220, 220, 220)");
 		   
 		   $(".dropdown").removeClass("dropdown-dark");
+		   $(".lm_selected .lm_header").css("background-color","#F4F4F4 !important");
 	   }
 	   else {
 		   $(".window .terminal").css('color', "#FFFFFF");
@@ -302,32 +283,11 @@ $(function() {
 		   
 		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css");
 		   
-		   $(".navigator").css("background-color", "#253141");
-		   $(".navigator").css("background ", "#253141");
+		   $(".navigator").css("background-color", "#444");
+		   $(".navigator").css("background ", "#444");
 		   
-// 		   $(".accordion").css("background-color", "#18202a");
-		   
-// 		   $(".accordion__title").css("background-color", "#253141");
-// 		   $(".accordion__title").css("border-bottom", "#11161d");
-// 		   $(".accordion__title").css("color", "#fff");
-		   
-// 		   $(".accordion__items").css("background-color", "#18202a");
-// 		   $(".accordion__items").css("border-bottom", "2px solid #090c10");
-// 		   $(".accordion__items").css("color", "#fff");
-// 		   $(".accordion__items").css("box-shadow", "");
-		   
-// 		   $(".accordion__items:nth-of-type(even)").css("background-color", "#0d1117");
-		   
-// 		   $(".accordion__content").css("background-color", "#18202a");
-// 		   $(".accordion__content").css("border-bottom", "");
-		   
-// 		   $(".accordion__content__caption").css("color", "#ffe");
-		   
-// 		   $(".accordion__content__txt").css("color", "#D0CECE");
-		   
-// 		   $(".accordion__items.active ").css("background-color", "#000");
-		   
-// 		   $(".accordion__items:hover").css("background-color", " #000");
+		   $(".action-button").css("border-color","rgb(118, 118, 118)");
+		   $(".action-button").css("color","#086EAA");
 		   
 		   $(".resizer[data-resizer-type=H]").css("background", "");
 		   $(".resizer[data-resizer-type=V]").css("background", "");
@@ -337,12 +297,14 @@ $(function() {
 		   $(".box").css("background", "linear-gradient(45deg, #1D1F20, #2F3031) repeat scroll 0% 0% transparent !important");
 		   
 		   $(".dropdown").addClass("dropdown-dark");
+		   
+		   $(".box").css("background", "");
+		   $(".box").css("background", "#444");
+		   $(".lm_selected .lm_header").css("background-color","#000 !important");
 	   }
    });
    
    $('.lang').change(function() {
-     
-      
        $(".file-tree__subtree").remove();
       fileFetchList();
       
@@ -1318,12 +1280,12 @@ window.onload = function() {
         <div class='navigator'>
               <div class='language-selector dropdown dropdown-dark'>
                 <select class="lang dropdown-select" name="lang">
-                    <option value="c">C</option>
-                    <option value="cpp">C++</option>
-                    <option value="cs">C#</option>
-                    <option value="java" selected="selected">JAVA</option>
-                    <option value="js">JavaScript</option>
-                    <option value="py">Python</option>
+                    <option class="langlang" value="c">C</option>
+                    <option class="langlang" value="cpp">C++</option>
+                    <option class="langlang" value="cs">C#</option>
+                    <option class="langlang" value="java" selected="selected">JAVA</option>
+                    <option class="langlang" value="js">JavaScript</option>
+                    <option class="langlang" value="py">Python</option>
                 </select>
               </div>
               <div class='theme-selector dropdown dropdown-dark'>
@@ -1347,24 +1309,25 @@ window.onload = function() {
               
               <div class='font-size dropdown dropdown-dark'>
                   <select class="size dropdown-select" id="font-size" name="size">
-                    <option value="10px">10px</option>
-                    <option value="12px">12px</option>
-                    <option value="15px">15px</option>
-                    <option value="16px" selected="selected">16px</option>
-                    <option value="17px">17px</option>
-                    <option value="18px">18px</option>
-                    <option value="19px">19px</option>
-                    <option value="20px">20px</option>
-                    <option value="25px">25px</option>
-                    <option value="30px">30px</option>
-                    <option value="35px">35px</option>
+                    <option class="langlang" value="9px">9</option>
+                    <option class="langlang" value="10px">10</option>
+                    <option class="langlang" value="12px">12</option>
+                    <option class="langlang" value="14px">14</option>
+                    <option class="langlang" value="16px" selected="selected">16</option>
+                    <option class="langlang" value="18px">18</option>
+                    <option class="langlang" value="20px">20</option>
+                    <option class="langlang" value="22px">22</option>
+                    <option class="langlang" value="24px">24</option>
+                    <option class="langlang" value="26px">26</option>
+                    <option class="langlang" value="28px">28</option>
+                    <option class="langlang" value="36px">36</option>
                 </select>
               </div>
               
            <div class="buttons">
-                  <button class="action-button shadow animate Save" id="Save">Save</button>   
-                    <button class="action-button shadow animate Run" id="Run">Run</button>
-                    <button class="action-button shadow animate Submit" id="Submit">Submit</button>
+                  <button class="action-button shadow animate Save" id="Save">저장</button>   
+                    <button class="action-button shadow animate Run" id="Run">실행</button>
+                    <button class="action-button shadow animate Submit" id="Submit">제출</button>
             </div>
           </div> 
   

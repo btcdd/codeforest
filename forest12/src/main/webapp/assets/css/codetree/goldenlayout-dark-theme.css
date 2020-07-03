@@ -89,7 +89,8 @@
 }
 
 .lm_selected .lm_header {
-	background-color: #452500
+/* 	background-color: #452500 */
+	background-color: #000
 }
 
 .lm_tab:hover, .lm_tab.lm_active {
