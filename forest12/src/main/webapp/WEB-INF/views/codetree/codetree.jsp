@@ -13,9 +13,8 @@
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
 <!-- code mirror -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/abcdef.css">
@@ -30,6 +29,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/ttcn.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/js/codemirror.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/mode/clike.js"></script>
+
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
@@ -38,7 +38,6 @@
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script>
 
 var result = '';
@@ -198,7 +197,7 @@ $(function() {
 
    
    var theme = 'panda-syntax';
-   $('.theme').click(function() {
+   $(document).on("change", '.theme', function() {
 	   theme = $(".theme option:selected").val();
 	   var containers = document.getElementsByClassName('lm_item_container');
 	   if(currentEditor != null) {
@@ -258,32 +257,32 @@ $(function() {
 		   
 		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-light-theme.css");
 		   
-		   $(".accordion").css("background-color", "#F3F3F3");
-		   
-		   $(".accordion__title").css("background-color", "#F3F3F3");
-		   $(".accordion__title").css("border-bottom", "#f3f3f3");
-		   $(".accordion__title").css("color", "#414141");
+// 		   $(".accordion").css("background-color", "#F3F3F3");
 		   
 		   $(".navigator").css("background-color", "#F3F3F3");
 		   $(".navigator").css("background ", "#F3F3F3");
 		   
-		   $(".accordion__items").css("background-color", "#E2E2E2");
-		   $(".accordion__items").css("border-bottom", "2px solid #CDCDCD");
-		   $(".accordion__items").css("color", "#414141");
-		   $(".accordion__items").css("box-shadow", "0 0 10px rgba(150, 150, 150, 1)");
+// 		   $(".accordion__title").css("background-color", "#F3F3F3");
+// 		   $(".accordion__title").css("border-bottom", "#f3f3f3");
+// 		   $(".accordion__title").css("color", "#414141");
 		   
-		   $(".accordion__items:nth-of-type(even)").css("background-color", "#D8D8D8");
+// 		   $(".accordion__items").css("background-color", "#E2E2E2");
+// 		   $(".accordion__items").css("border-bottom", "2px solid #CDCDCD");
+// 		   $(".accordion__items").css("color", "#414141");
+// 		   $(".accordion__items").css("box-shadow", "0 0 10px rgba(150, 150, 150, 1)");
 		   
-		   $(".accordion__content").css("background-color", "#fff");
-		   $(".accordion__content").css("border-bottom", "2px solid #D8D8D8");
+// 		   $(".accordion__items:nth-of-type(even)").css("background-color", "#D8D8D8");
 		   
-		   $(".accordion__content__caption").css("color", "#414141");
+// 		   $(".accordion__content").css("background-color", "#fff");
+// 		   $(".accordion__content").css("border-bottom", "2px solid #D8D8D8");
 		   
-		   $(".accordion__content__txt").css("color", "#414141");
+// 		   $(".accordion__content__caption").css("color", "#414141");
 		   
-		   $(".accordion__items.active ").css("background-color", "#CDCDCD");
+// 		   $(".accordion__content__txt").css("color", "#414141");
 		   
-		   $(".accordion__items:hover").css("background-color", " #CDCDCD");
+// 		   $(".accordion__items.active ").css("background-color", "#CDCDCD");
+		   
+// 		   $(".accordion__items:hover").css("background-color", " #CDCDCD");
 		   
 		   $(".resizer[data-resizer-type=H]").css("background", "#bebebe");
 		   $(".resizer[data-resizer-type=V]").css("background", "#bebebe");
@@ -303,32 +302,32 @@ $(function() {
 		   
 		   $("#goldenlayout-theme").attr("href", "${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css");
 		   
-		   $(".accordion").css("background-color", "#18202a");
-		   
-		   $(".accordion__title").css("background-color", "#253141");
-		   $(".accordion__title").css("border-bottom", "#11161d");
-		   $(".accordion__title").css("color", "#fff");
-		   
 		   $(".navigator").css("background-color", "#253141");
 		   $(".navigator").css("background ", "#253141");
 		   
-		   $(".accordion__items").css("background-color", "#18202a");
-		   $(".accordion__items").css("border-bottom", "2px solid #090c10");
-		   $(".accordion__items").css("color", "#fff");
-		   $(".accordion__items").css("box-shadow", "");
+// 		   $(".accordion").css("background-color", "#18202a");
 		   
-		   $(".accordion__items:nth-of-type(even)").css("background-color", "#0d1117");
+// 		   $(".accordion__title").css("background-color", "#253141");
+// 		   $(".accordion__title").css("border-bottom", "#11161d");
+// 		   $(".accordion__title").css("color", "#fff");
 		   
-		   $(".accordion__content").css("background-color", "#18202a");
-		   $(".accordion__content").css("border-bottom", "");
+// 		   $(".accordion__items").css("background-color", "#18202a");
+// 		   $(".accordion__items").css("border-bottom", "2px solid #090c10");
+// 		   $(".accordion__items").css("color", "#fff");
+// 		   $(".accordion__items").css("box-shadow", "");
 		   
-		   $(".accordion__content__caption").css("color", "#ffe");
+// 		   $(".accordion__items:nth-of-type(even)").css("background-color", "#0d1117");
 		   
-		   $(".accordion__content__txt").css("color", "#D0CECE");
+// 		   $(".accordion__content").css("background-color", "#18202a");
+// 		   $(".accordion__content").css("border-bottom", "");
 		   
-		   $(".accordion__items.active ").css("background-color", "#000");
+// 		   $(".accordion__content__caption").css("color", "#ffe");
 		   
-		   $(".accordion__items:hover").css("background-color", " #000");
+// 		   $(".accordion__content__txt").css("color", "#D0CECE");
+		   
+// 		   $(".accordion__items.active ").css("background-color", "#000");
+		   
+// 		   $(".accordion__items:hover").css("background-color", " #000");
 		   
 		   $(".resizer[data-resizer-type=H]").css("background", "");
 		   $(".resizer[data-resizer-type=V]").css("background", "");
@@ -1014,9 +1013,7 @@ $(function() {
          if(tempFile == null){
             return;
          }        
-        $(this).addClass("SaveClick");   
         setTimeout(function(){
-           $("#Save").removeClass("SaveClick");
            $("#Save").addClass("Save");
         },100);
         
@@ -1159,8 +1156,6 @@ $(function() {
    $(document).on("click",".sub-menu > li:last-child",function(){
       $("#Submit").trigger("click");
    });
-   
-   scrollbar();
    
 ////// function 끝부분
 });
@@ -1306,9 +1301,6 @@ window.onload = function() {
       <div class="header-logo">
         ${saveVo.title }
       </div>
-      	<div class="setting-div">
-      		<i class="fas fa-cog"></i>
-      	</div>
 		<div class="info-div">
 			<i class="fas fa-info-circle"></i>
 		</div>
@@ -1370,9 +1362,9 @@ window.onload = function() {
               </div>
               
            <div class="buttons">
-                  <button class="action-button shadow animate" id="Save" class="Save">Save</button>   
-                    <button class="action-button shadow animate" id="Run" class="Run">Run</button>
-                    <button class="action-button shadow animate" id="Submit" class="Submit">Submit</button>
+                  <button class="action-button shadow animate Save" id="Save">Save</button>   
+                    <button class="action-button shadow animate Run" id="Run">Run</button>
+                    <button class="action-button shadow animate Submit" id="Submit">Submit</button>
             </div>
           </div> 
   

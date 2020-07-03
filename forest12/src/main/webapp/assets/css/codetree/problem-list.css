@@ -6,7 +6,7 @@
 
 .accordion {
   width: 100%;
-  background-color: #18202a;
+  background-color: #ebebeb;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.75);
   font-size: 1rem;
   line-height: 1.5;
@@ -34,7 +34,7 @@
     border-bottom: 1px solid #888;
 }
 .accordion__items:nth-of-type(even) {
-  background-color: #0d1117;
+  background-color: #fff;
 }
 .accordion__items:after {
     content: '';
@@ -61,6 +61,7 @@
 	transition: opacity 1s ease 0.25s, height 0.25s ease;
     background-size: cover;
     background-color: #fafafa;
+    border-bottom: 1px solid #888;
     padding: 0 20px;
     height: 0;
     overflow: hidden;

@@ -21,18 +21,18 @@ textarea, input, button {
   height: 100%;
 }
 .window .handle {
-  height: 27px;
-  background: linear-gradient(0deg, #d8d8d8, #ececec);
-  border-top: 1px solid white;
-  border-bottom: 1px solid #b3b3b3;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  color: rgba(0, 0, 0, 0.7);
-  font-family: Helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 22px;
-  text-align: center;
-  overflow: hidden;
+    height: 27px;
+    background: linear-gradient(0deg, #d8d8d8, #ececec);
+    border-top: 1px solid white;
+    border-bottom: 1px solid #b3b3b3;
+    color: rgba(0, 0, 0, 0.7);
+    font-family: Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 22px;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 0.5rem 0.5rem 0 0;
+    width: 99.65%;
 }
 .window .buttons {
   float: left;
@@ -48,23 +48,25 @@ textarea, input, button {
   background-color: #25cc3e;
 }
 .window .terminal {
-  padding: 4px;
-  background-color: #292A2B;
-  height: 89%;
-  width: 100%;
-  color: white;
-  font-family: 'Source Code Pro', monospace;
-  font-weight: 200;
-  font-size: 14px;
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  overflow-y: auto;
-  resize: none;
+    padding: 4px;
+    background-color: #292A2B;
+    height: 89%;
+    width: 99.65%;
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 200;
+    font-size: 14px;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow-y: auto;
+    resize: none;
+    outline: none;
+    border: none;
 }
 
 .window .terminal::after {
