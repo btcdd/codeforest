@@ -410,60 +410,68 @@ $(function() {
     var subProblemNo = null;
     var codeNo = null;
     var prevFileName = null;
+    var InsertPackagePath = null;
     var str='<div id="file-insert"><li>파일 추가</li></div>';
     $(".contextmenu").append(str);
     var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
     $(".userfile-menu").append(str2);
 
-   $(document).on('mouseenter','.ui__sidebar',function() {
-      $(document).on('mousedown','#folder',function(e) {
-         $(".userfile-menu").hide();
-         if(e.which == 3){
-            //tempFile = $(this);
-            savePathNo = $(this).data("no");
-             subProblemNo = $(this).data("no2");
-              //Get window size:
-              var winWidth = $(document).width();
-              var winHeight = $(document).height();
-              //Get pointer position:
-              var posX = e.pageX;
-              var posY = e.pageY;
-              //Get contextmenu size:
-              var menuWidth = $(".contextmenu").width();
-              var menuHeight = $(".contextmenu").height();
-              //Security margin:
-              var secMargin = 10;
-              //Prevent page overflow:
-              if(posX + menuWidth + secMargin >= winWidth
-              && posY + menuHeight + secMargin >= winHeight){
-                //Case 1: right-bottom overflow:
-                posLeft = posX - menuWidth - secMargin + "px";
-                posTop = posY - menuHeight - secMargin + "px";
-              }
-              else if(posX + menuWidth + secMargin >= winWidth){
-                //Case 2: right overflow:
-                posLeft = posX - menuWidth - secMargin + "px";
-                posTop = posY + secMargin + "px";
-              }
-              else if(posY + menuHeight + secMargin >= winHeight){
-                //Case 3: bottom overflow:
-                posLeft = posX + secMargin + "px";
-                posTop = posY - menuHeight - secMargin + "px";
-              }
-              else {
-                //Case 4: default values:
-                posLeft = posX + secMargin + "px";
-                posTop = posY + secMargin + "px";
-              };
-              //Display contextmenu:
-              $(".contextmenu").css({
-                "left": posLeft,
-                "top": posTop
-              }).show();
-              //Prevent browser default contextmenu.
-              return false;               
-         }      
-      });
+    $(document).on('mouseenter','.ui__sidebar',function() {
+        $(document).on('mousedown','#folder',function(e) {
+           $(".userfile-menu").hide();
+           if(e.which == 3){
+          	 
+          	 var lang = $(".lang option:selected").val();
+          	 
+          	 if(lang != "java"){
+          		 return false;
+          	 }
+             
+              savePathNo = $(this).data("no");
+               subProblemNo = $(this).data("no2");
+               InsertPackagePath = $(this).data("package-path");
+                //Get window size:
+                var winWidth = $(document).width();
+                var winHeight = $(document).height();
+                //Get pointer position:
+                var posX = e.pageX;
+                var posY = e.pageY;
+                //Get contextmenu size:
+                var menuWidth = $(".contextmenu").width();
+                var menuHeight = $(".contextmenu").height();
+                //Security margin:
+                var secMargin = 10;
+                //Prevent page overflow:
+                if(posX + menuWidth + secMargin >= winWidth
+                && posY + menuHeight + secMargin >= winHeight){
+                  //Case 1: right-bottom overflow:
+                  posLeft = posX - menuWidth - secMargin + "px";
+                  posTop = posY - menuHeight - secMargin + "px";
+                }
+                else if(posX + menuWidth + secMargin >= winWidth){
+                  //Case 2: right overflow:
+                  posLeft = posX - menuWidth - secMargin + "px";
+                  posTop = posY + secMargin + "px";
+                }
+                else if(posY + menuHeight + secMargin >= winHeight){
+                  //Case 3: bottom overflow:
+                  posLeft = posX + secMargin + "px";
+                  posTop = posY - menuHeight - secMargin + "px";
+                }
+                else {
+                  //Case 4: default values:
+                  posLeft = posX + secMargin + "px";
+                  posTop = posY + secMargin + "px";
+                };
+                //Display contextmenu:
+                $(".contextmenu").css({
+                  "left": posLeft,
+                  "top": posTop
+                }).show();
+                //Prevent browser default contextmenu.
+                return false;               
+           }      
+        });
       
       $(document).on('mousedown','.file',function(e){
          $(".contextmenu").hide();
@@ -580,7 +588,8 @@ $(function() {
                               'savePathNo' : savePathNo,
                               'language' : lang,
                               'fileName' : fileName,
-                              'subProblemNo':subProblemNo
+                              'subProblemNo':subProblemNo,
+                              'packagePath' : InsertPackagePath
                            },
                            success: function(response) {
                                         
