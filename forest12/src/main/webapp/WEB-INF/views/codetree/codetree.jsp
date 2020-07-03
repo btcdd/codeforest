@@ -38,7 +38,7 @@
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script>
+	<script>
 
 var result = '';
 var tmp = '';
@@ -579,10 +579,9 @@ $(function() {
     });
     
     $(document).on('click','#userfile-delete',function(){    	
-       $(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
+       $(".validateTips").css("color","black").text("정말로 삭제하시겠습니까?");
        dialogDelete.dialog("open");
     });
-    
     
     var dialogDelete = $("#dialog-delete-form").dialog({
          autoOpen: false,
@@ -625,6 +624,7 @@ $(function() {
     		},
     		{
     			text:"취소",
+    			id:"cancelButton",
     			click:function(){
     				$(this).dialog("close");
     			}
@@ -857,15 +857,11 @@ $(function() {
        
     });
    $(document).on("mousedown", ".lm_title", function() {
-
       var tabFileNo = root.getActiveContentItem().config.id.split("-")[1];
       fileNo = tabFileNo;
        tempFile = fileMap.get(tabFileNo+"");
       $(this).parent().attr("id", "tab"+tabFileNo); //dom 분리시 작업 코드 진행중
        currentEditor = HashMap.get("editor"+tabFileNo);
-      
-       
-            
    });
    
    $(document).on("click", ".CodeMirror-scroll", function(e) {
@@ -1099,25 +1095,47 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-//    var glCm4 = document.getElementsByClassName("lm_item_container")[0];
-//    glCm4.style = "";
    
-//    var glCm5 = document.getElementsByClassName("lm_content")[0];
-//    glCm5.style = "";
-    
-    
-    
-     
-   // 헤더 버튼
-   $(document).on("click",".sub-menu > li:first-child",function(){
-      $("#Save").trigger("click");
+   $("#info-div").dialog({
+       autoOpen: false,
+       resizable: false,
+       height: "auto",
+       width: 400,
+       modal: true,
+       show: {
+           effect: "toggle",
+           duration: 270
+         },
+         hide: {
+           effect: "toggle",
+           duration: 270
+         },
+       buttons: {
+           "확인": function() {
+        	   $(this).dialog("close");
+           }
+       }
    });
-   $(document).on("click",".sub-menu > li + li",function(){
-      $("#Run").trigger("click");
+   
+   var button;
+   $('#info').click(function() {
+	   button = document.getElementsByClassName('ui-button')[10];
+	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+	   
+	   $("#info-div").dialog("open");
    });
-   $(document).on("click",".sub-menu > li:last-child",function(){
-      $("#Submit").trigger("click");
-   });
+   
+   $('.ui-button').eq(10).hover(function() {
+	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+   }, function() {
+	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+   })
+   
+   var uiDialogButtonpane = document.getElementsByClassName('ui-dialog-buttonpane')[2];
+   uiDialogButtonpane.style = "margin-left: 23px; padding: 0";
+   
+   var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
+   uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
    
 ////// function 끝부분
 });
@@ -1264,7 +1282,7 @@ window.onload = function() {
         ${saveVo.title }
       </div>
 		<div class="info-div">
-			<i class="fas fa-info-circle"></i>
+			<i class="fas fa-info-circle" id="info"></i>
 		</div>
     </div>
  </nav>
@@ -1402,7 +1420,7 @@ window.onload = function() {
    			<p class="updateErrorMessage"></p>
    		</div>   		   
          <div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
-            <p class="validateTips"></p>  
+            <p class="validateTips"></p>
          </div>
          <div>
             <ul class="contextmenu">
@@ -1410,6 +1428,30 @@ window.onload = function() {
             <ul class="userfile-menu">
             </ul> 
          </div>
+</div>
+<div class="info-div-class" id="info-div" title="Compiler Version" style="display:none" >
+	<div class="info-content">
+		<table border="0" class="info-table">
+			<thead>
+				<tr>
+					<th>
+						<span>언어</span>
+					</th>
+					<th>
+						<span>버전</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
+				<tr><td>C</td><td>gcc 9.2</td></tr>
+				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
+				<tr><td>C</td><td>gcc 9.2</td></tr>
+				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
+				<tr><td>C</td><td>gcc 9.2</td></tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 </body>
 </html>
