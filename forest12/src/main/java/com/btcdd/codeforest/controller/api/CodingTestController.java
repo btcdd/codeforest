@@ -125,7 +125,7 @@ public class CodingTestController {
 	
 	@Auth
 	@PostMapping("/fileInsert")
-	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, HttpSession session) {
+	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, String packagePath,HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 
 		Long problemNo = codetreeService.findProblemNo(subProblemNo);
@@ -136,9 +136,11 @@ public class CodingTestController {
 		if(!exist) {
 			codetreeService.insertFile(savePathNo,language,fileName);
 			
-			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
-			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
+			String[] split = fileName.split("\\.");
 			
+			String codeValue = "public class " + split[0] + " {\n\n}";
+			codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
+				
 			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
 			map.put("fileName", fileName);
 			map.put("savePathNo", savePathNo);
