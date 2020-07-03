@@ -1438,7 +1438,6 @@ window.onload = function() {
      </div>
       
    </div>
-   		
    		<div id="dialog-insert-form" title="파일 추가" style="display:none">
    			<input type="text" class="fileName-insert" />
    			<p class="insertErrorMessage"></p>

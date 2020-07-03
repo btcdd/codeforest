@@ -38,24 +38,6 @@ var slide = function Slide(str){
 	$("#" + str).delay(2000).slideUp(500);
 };
 
-var messageBox = function(title,message,message2,callback){
-	$('#dialog-message p').text(message);
-	$('#dialog-message p+p').css({
-		'color':'red'
-	}).text(message2);
-	$('#dialog-message')
-		.attr("title",title)
-		.dialog({
-			modal:true,
-			buttons:{
-				"OK" : function(){
-					callback();
-				}, 
-			},
-			close:function(){}
-		});
-};
-
 $(function(){
 	$("#auth-form").submit(function(e){
 		e.preventDefault();
@@ -88,14 +70,21 @@ $(function(){
 			return;
 		}
 		 
-		messageBox("Coding Test","코딩 테스트를 시작합니다",FullHoursSplit[0]+"시 "+FullHoursSplit[1]+"분에 시험이 종료됩니다. ",function(){
 			_this.submit();
-		});
-		
 	});	
 	
 	$('#birth').keydown(function(key) {
 		var birth = $(this).val();
+		
+		if(birth.length == 4 && key.keyCode == 8) {
+			return;
+		}
+		if(birth.length == 7 && key.keyCode == 8) {
+			return;
+		}
+		if(birth.length == 4 && key.keyCode == 8) {
+			return;
+		}
 		
 		if(birth.length == 4) {
 			$(this).val(birth + '-');
@@ -139,7 +128,7 @@ $(function(){
 					<p>어서 오세요!</p>
 					<p>코딩테스트를 시작하기 전에 먼저 개인정보 입력이 필요합니다.</p>
 					<p><strong>이름</strong>과 <strong>생년월일</strong> 그리고 해당 코딩테스트의 <strong>입력 코드</strong>를 입력해주세요.</p>
-					<p>마감 시간이 되면 화면이 자동으로 꺼지니 주의하시기 바랍니다.</p>
+					<p style="color: #f00">마감 시간이 되면 화면이 자동으로 꺼지니 주의하시기 바랍니다.</p>
 				</div>
 			</div>					
 			<div class="user" id="user">
