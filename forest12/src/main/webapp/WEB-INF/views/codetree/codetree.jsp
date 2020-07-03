@@ -1367,9 +1367,9 @@ window.onload = function() {
               </div>
               
            <div class="buttons">
-                  <button class="action-button shadow animate" id="Save" class="Save">Save</button>   
-                    <button class="action-button shadow animate" id="Run" class="Run">Run</button>
-                    <button class="action-button shadow animate" id="Submit" class="Submit">Submit</button>
+                  <button class="action-button shadow animate Save" id="Save">Save</button>   
+                    <button class="action-button shadow animate Run" id="Run">Run</button>
+                    <button class="action-button shadow animate Submit" id="Submit">Submit</button>
             </div>
           </div> 
   
