@@ -10,11 +10,11 @@
 <title>CODE TREE</title>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.js"></script>
 <!-- code mirror -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
