@@ -430,8 +430,6 @@ $(function() {
     } else {
     	$("#no-open").prop('checked', true);	
     }
-    
-    console.log();
 });
 </script>
 </head>
