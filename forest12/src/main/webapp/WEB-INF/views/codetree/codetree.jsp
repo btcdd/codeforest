@@ -617,7 +617,7 @@ $(function() {
     });
     
     $(document).on('click','#userfile-delete',function(){    	
-       $(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
+       $(".validateTips").css("color","black").text("정말로 삭제하시겠습니까?");
        dialogDelete.dialog("open");
     });
     
@@ -662,6 +662,7 @@ $(function() {
     		},
     		{
     			text:"취소",
+    			id:"cancelButton",
     			click:function(){
     				$(this).dialog("close");
     			}
@@ -1171,6 +1172,9 @@ $(function() {
    var uiDialogButtonpane = document.getElementsByClassName('ui-dialog-buttonpane')[2];
    uiDialogButtonpane.style = "margin-left: 23px; padding: 0";
    
+   var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
+   uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
+   
 ////// function 끝부분
 });
 
@@ -1453,7 +1457,7 @@ window.onload = function() {
    			<p class="updateErrorMessage"></p>
    		</div>   		   
          <div id="dialog-delete-form" class="delete-form" title="메세지 삭제" style="display:none">
-            <p class="validateTips"></p>  
+            <p class="validateTips"></p>
          </div>
          <div>
             <ul class="contextmenu">
@@ -1462,7 +1466,7 @@ window.onload = function() {
             </ul> 
          </div>
 </div>
-<div id="info-div" title="컴파일러 버전" style="display:none" >
+<div class="info-div-class" id="info-div" title="Compiler Version" style="display:none" >
 	<div class="info-content">
 		<table border="0" class="info-table">
 			<thead>

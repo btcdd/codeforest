@@ -543,7 +543,7 @@ background: #555;
 .userfile-menu {
   display: none;
   position: absolute;
-  width: 200px;
+  width: 108px;
   margin: 0;
   padding: 0;
   background: #FFFFFF;
@@ -583,7 +583,7 @@ background: #555;
 .contextmenu {
   display: none;
   position: absolute;
-  width: 200px;
+  width: 108px;
   margin: 0;
   padding: 0;
   background: #FFFFFF;
@@ -726,7 +726,7 @@ background: #555;
 }
 
 .ui-dialog-buttonset {
-	margin-top: -18px !important;
+	margin-top: -17px !important;
 }
 
 .ui-dialog-titlebar {
@@ -738,16 +738,16 @@ background: #555;
 	background-color: #fff !important;
 }
 
-#fileUpdateButton {
+#fileUpdateButton, #fileDeleteButton {
 	background-color: #0A93E2 !important;
 	color: #fff !important;
 }
 
-#fileUpdateButton:hover {
+#fileUpdateButton:hover, #fileDeleteButton:hover {
 	background-color: #A6A6A6 !important;
 }
 
-#dialog-update-form {
+#dialog-update-form, #dialog-delete-form {
 	height: 44px !important;
     overflow: hidden;
 }
@@ -762,4 +762,26 @@ background: #555;
 
 .ui-dialog-titlebar-close {
 	margin-top: -23px !important;
+}
+
+.validateTips {
+	margin-top: 1px;
+}
+
+#cancelButton, #CloseUpdateButton {
+	background-color: #aaa !important;
+	color: #fff;
+}
+
+#cancelButton:hover, #CloseUpdateButton:hover {
+	color: #EBEBEB;
+}
+
+#ui-id-4 {
+	font-size: 1.3em;
+	margin-top: -4px !important;
+}
+
+.ui-dialog-buttonpane {
+	height: 0 !important;
 }
