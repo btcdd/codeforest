@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="${pageContext.servletContext.contextPath }/assets/scroll/jquery.mCustomScrollbar.js"></script>
 <!-- code mirror -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
@@ -1159,8 +1159,6 @@ $(function() {
    $(document).on("click",".sub-menu > li:last-child",function(){
       $("#Submit").trigger("click");
    });
-   
-   scrollbar();
    
 ////// function 끝부분
 });
