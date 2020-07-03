@@ -197,7 +197,7 @@ $(function() {
 
    
    var theme = 'panda-syntax';
-   $('.theme').click(function() {
+   $(document).on("change", '.theme', function() {
 	   theme = $(".theme option:selected").val();
 	   var containers = document.getElementsByClassName('lm_item_container');
 	   if(currentEditor != null) {
