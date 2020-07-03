@@ -979,55 +979,6 @@ $(function() {
     var compileResult1 = "";
     var compileResult2 = "";
     
-//     $(document).on("click","#Run",function(){
-//        $("#Save").trigger("click");
-//        if(currentEditor == null){
-//           return;
-//        }       
-       
-//        console.log("editor.getValue()>>>>>>",currentEditor.getValue());
-//        var problemNo = "${saveVo.problemNo }";
-//        $("#Run").blur();
-//        $.ajax({
-//          url: '${pageContext.servletContext.contextPath }/api/codingtest/run',
-//          async: true,
-//          type: 'post',
-//          dataType:'json',
-//          data: {
-//             'language' : tempFile.data("language"),
-//             'fileName' : tempFile.data("file-name"),
-//             'packagePath' : tempFile.data("package-path"),
-//             'subProblemNo':tempFile.data("subproblem-no"),
-//             'codeValue' : currentEditor.getValue(),
-//             'problemNo' : problemNo
-//          },
-//          success: function(response) {
-            
-//             console.log("ok");
-            
-//             console.log(response.data.result);
-//             compileResult1 = response.data.result[0];
-//             compileResult2 = response.data.result[1];
-            
-//             if(response.data.result[1] == "") {
-//                $(".terminal").append("<pre>"+response.data.result[0]+"</pre>");
-//             }
-//             else {
-//                $(".terminal").append("<pre>"+response.data.result[1]+"</pre>");
-               
-//             }
-//             $(".terminal").append("<span class=\"prompt\">-></span> ");
-//             $(".terminal").append("<span class=\"path\">~</span> ");
-//             $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
-//          },
-//          error: function(xhr, status, e) {
-//             console.error(status + ":" + e);
-//          }                     
-//       });       
-//     });
-
-    
-         
      $(document).on("click","#Save",function(){
          if(tempFile == null){
             return;
@@ -1226,6 +1177,27 @@ $(function() {
          return false;
       });
    }); 
+   
+   $("#info-div").dialog({
+       autoOpen: false,
+       resizable: false,
+       height: "auto",
+       width: 400,
+       modal: true,
+       show: {
+           effect: "toggle",
+           duration: 270
+         },
+         hide: {
+           effect: "toggle",
+           duration: 270
+         },
+       buttons: {
+           "확인": function() {
+        	   $(this).dialog("close");
+           }
+       }
+   });
    
    var button;
    $('#info').click(function() {
