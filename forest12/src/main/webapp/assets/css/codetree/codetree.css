@@ -631,29 +631,6 @@ background: #4E5F70;
 	text-decoration: none;	
 } 
 
-#Save
-{
-	background-color: #E74C3C;
-	border-bottom: 3px solid #BD3E31;
-	text-shadow: 0px -1px #BD3E31;
-	cursor:pointer;
-}
-
-#Run
-{
-	background-color: #3498DB;
-	border-bottom: 3px solid #2980B9;
-	text-shadow: 0px -1px #2980B9;
-	cursor:pointer;
-}
-
-#Submit
-{
-	background-color: #82BF56;
-	border-bottom: 3px solid #669644;
-	text-shadow: 0px -1px #669644;
-	cursor:pointer;
-}
 .action-button:active
 {
 	transform: translate(0px,2px);
