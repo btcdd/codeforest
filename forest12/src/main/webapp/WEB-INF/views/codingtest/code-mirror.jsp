@@ -624,7 +624,7 @@ $(function() {
     
     
     $(document).on('click','#userfile-delete',function(){    	
-        $(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
+        $(".validateTips").css("color","black").text("정말로 삭제하시겠습니까?");
         dialogDelete.dialog("open");
      });
     
