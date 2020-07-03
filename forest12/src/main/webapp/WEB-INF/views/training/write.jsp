@@ -11,17 +11,18 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/write.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/ckeditor/ckeditor.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <title>Code Forest</title>
 <script>
 var index = 1;
-
 var str;
-
 var buttonStr;
+var ind;
+var deleteDialogPandan = false;
 
 var problemAdd = function() {
 
@@ -79,6 +80,43 @@ function getTimeStamp() {
 }
 
 $(function() {
+	
+	$("#delete-sub-problem").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "확인": function() {
+            	$("#" + ind).remove();
+        		$('.prob' + ind).remove();
+        		
+        		for(var i = 0; i < index; i++) {
+        			if(!($('#' + i).attr('id'))) {
+        				for(var j = i + 1; j < index; j++) {
+        					$('#' + j).text(j.toString());
+        					$('#' + j).append('<span class="delete" style="display:none"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span>');
+        					
+        					// li id 설정
+        					$('#' + j).attr('id', (j-1).toString());
+        					// prob class 설정
+        					$('.prob' + j).attr('class', 'prob' + (j-1).toString());
+        					$('#prob-content-text' + j).attr('id', 'prob-content-text' + (j-1).toString());
+        				}
+        			}
+        		}
+        		
+        		index--;
+        		
+        		$('#' + (index-1)).trigger('click');
+        		$(this).dialog("close");
+            },
+            "취소": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
 	
 	$('#addSubProblem').click(function() {
 		event.preventDefault();
@@ -141,29 +179,11 @@ $(function() {
 			alert('최소 1문제는 등록하셔야 합니다.');
 			return;
 		}
+		deleteDialogPandan = true;
+		ind = $(this).parent().attr('id');
 		
-		var ind = $(this).parent().attr('id');
-		$("#" + ind).remove();
-		$('.prob' + ind).remove();
-		
-		for(var i = 0; i < index; i++) {
-			if(!($('#' + i).attr('id'))) {
-				for(var j = i + 1; j < index; j++) {
-					$('#' + j).text(j.toString());
-					$('#' + j).append('<span class="delete" style="display:none"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span>');
-					
-					// li id 설정
-					$('#' + j).attr('id', (j-1).toString());
-					// prob class 설정
-					$('.prob' + j).attr('class', 'prob' + (j-1).toString());
-					$('#prob-content-text' + j).attr('id', 'prob-content-text' + (j-1).toString());
-				}
-			}
-		}
-		
-		index--;
-		
-		$('#' + (index-1)).trigger('click');
+		$("#delete-sub-problem").dialog("open");
+		$('.ui-dialog').focus();
 	});
 	
 	$('#fake-submit').click(function() {
@@ -220,6 +240,36 @@ $(function() {
 			$(this).val('');
 		}
 	});
+	
+	$(document).keydown(function(key) {
+		if(key.keyCode == 13) {
+			
+			if(deleteDialogPandan) {
+				$("#" + ind).remove();
+        		$('.prob' + ind).remove();
+        		
+        		for(var i = 0; i < index; i++) {
+        			if(!($('#' + i).attr('id'))) {
+        				for(var j = i + 1; j < index; j++) {
+        					$('#' + j).text(j.toString());
+        					$('#' + j).append('<span class="delete" style="display:none"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span>');
+        					
+        					// li id 설정
+        					$('#' + j).attr('id', (j-1).toString());
+        					// prob class 설정
+        					$('.prob' + j).attr('class', 'prob' + (j-1).toString());
+        					$('#prob-content-text' + j).attr('id', 'prob-content-text' + (j-1).toString());
+        				}
+        			}
+        		}
+        		
+        		index--;
+        		
+        		$('#' + (index-1)).trigger('click');
+        		$('#delete-sub-problem').dialog("close");
+			}
+		}
+	});
 });
 
 window.onload = function(){
@@ -259,7 +309,7 @@ function captureReturnKey(e) {
 				<input name="kindNo" value="4" type="radio" />학교
 			</div>
 			<div class="title">
-				<input id="title-text" type="text" name="title" placeholder="문제집 제목을 입력하세요" autocomplete="off"/>
+				<input id="title-text" type="text" name="title" placeholder="문제집 제목을 입력하세요" autocomplete="off" required/>
 				<a id="btn-cancel"
 					href="${pageContext.servletContext.contextPath }/training">취소</a> 
 				<input id="fake-submit" type="submit" value="등록">
@@ -298,6 +348,12 @@ function captureReturnKey(e) {
 			</div>
 		</div>
 	</form>
+	<div id="delete-sub-problem" title="문제 삭제" style="display:none" >
+	        <pre class="delete-pre">문제를 삭제하시겠습니까?
+삭제를 하시면 문제 작성 내용이 모두 사라집니다.</pre>
+	        <form>
+	        </form>
+	    </div>
 	<c:import url="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>
