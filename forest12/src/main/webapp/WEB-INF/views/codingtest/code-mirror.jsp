@@ -1443,24 +1443,9 @@ window.onload = function() {
                   <li class="file-tree__item file-tree__item--open">
                       <div class="folder folder--open">problem${saveVo.problemNo }</div>      
                       <ul class="file-tree__subtree">
-<%--                          <c:forEach items='${savePathList }' var='vo' varStatus='status'>
-                             <li class="file-tree__item">
-                                 <div id="folder" class="folder folder--open" data-no="${vo.no}" data-no2="${vo.subProblemNo}" >${saveVo.title}/${status.index+1}</div>
-                           <ul class="file-tree__subtree" id="file${vo.no}">
-                              <c:forEach items='${codeList}' var='codevo' varStatus='status'>
-                                 <c:if test="${vo.no == codeList[status.index].savePathNo && codeList[status.index].language == 'java' }">
-                                    <li class='userFile' data-no="${codeList[status.index].no}">
-                                       <div class="file">${codevo.fileName}</div>
-                                    </li>
-                                 </c:if>   
-                              </c:forEach>
-                           </ul>
-                        </li>                                 
-                         </c:forEach> --%>
                       </ul>
                       <!-- /.file-subtree -->
                   </li>
-                  
               </ul>
               <!-- /.file-tree -->
           </div>
