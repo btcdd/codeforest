@@ -851,13 +851,7 @@ $(function() {
     }, function() {
  	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
     })
-    
-    var uiDialogButtonpane = document.getElementsByClassName('ui-dialog-buttonpane')[2];
-    uiDialogButtonpane.style = "margin-left: 23px; padding: 0";
-    
-    var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
-    uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
-    
+	    
 //////function 끝부분 	
 
 });
