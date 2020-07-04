@@ -1095,7 +1095,6 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-   
    $("#info-div").dialog({
        autoOpen: false,
        resizable: false,
@@ -1357,20 +1356,6 @@ window.onload = function() {
                   <li class="file-tree__item file-tree__item--open">
                       <div class="folder folder--open">problem${saveVo.problemNo }</div>      
                       <ul class="file-tree__subtree">
-<%--                          <c:forEach items='${savePathList }' var='vo' varStatus='status'>
-                             <li class="file-tree__item">
-                                 <div id="folder" class="folder folder--open" data-no="${vo.no}" data-no2="${vo.subProblemNo}" >${saveVo.title}/${status.index+1}</div>
-                           <ul class="file-tree__subtree" id="file${vo.no}">
-                              <c:forEach items='${codeList}' var='codevo' varStatus='status'>
-                                 <c:if test="${vo.no == codeList[status.index].savePathNo && codeList[status.index].language == 'java' }">
-                                    <li class='userFile' data-no="${codeList[status.index].no}">
-                                       <div class="file">${codevo.fileName}</div>
-                                    </li>
-                                 </c:if>   
-                              </c:forEach>
-                           </ul>
-                        </li>                                 
-                         </c:forEach> --%>
                       </ul>
                       <!-- /.file-subtree -->
                   </li>
@@ -1386,17 +1371,6 @@ window.onload = function() {
                
          <div id="box_3" class="box">
          
-<!--                <textarea name="code" class="CodeMirror code"> -->
-<!-- /* -->
-<!-- * 기본 언어 : 'JAVA' -->
-<!-- * 기본 테마 : 'panda-syntax' -->
-<!-- */ -->
-<!-- public class Test{ -->
-<!--    public static void main(String[] args) { -->
-<!--       System.out.println("Hello CodeForest!"); -->
-<!--    } -->
-<!-- } -->
-<!--             </textarea>          -->
             <div class="gl-cover" id="gl-cover">
             
             </div>

@@ -125,25 +125,23 @@ public class CodingTestController {
 	
 	@Auth
 	@PostMapping("/fileInsert")
-	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, HttpSession session) {
+	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, String packagePath,HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 
 		Long problemNo = codetreeService.findProblemNo(subProblemNo);
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		
-		System.out.println("exist>>>>"+exist);
-		
 		Map<String,Object> map = new HashMap<>();
 				
 		if(!exist) {
-			System.out.println("기존 존재하지 않는다");
 			codetreeService.insertFile(savePathNo,language,fileName);
 			
-			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
-			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
+			String[] split = fileName.split("\\.");
 			
+			String codeValue = "public class " + split[0] + " {\n\n}";
+			codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
+				
 			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
-			System.out.println("codeNo>>"+codeNo);
 			map.put("fileName", fileName);
 			map.put("savePathNo", savePathNo);
 			map.put("codeNo",codeNo);

@@ -65,7 +65,6 @@ public class CodeTreeController {
 		if(!exist) {
 			codetreeService.insertFile(savePathNo,language,fileName);
 			
-			
 			String[] split = fileName.split("\\.");
 			
 			String codeValue = "public class " + split[0] + " {\n\n}";
