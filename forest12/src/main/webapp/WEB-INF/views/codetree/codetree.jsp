@@ -53,7 +53,7 @@ var socket;
 var prevText = '';
 var submitPandan;
 var outputResult = '';
-
+ 
 //채팅 시작하기
 function connect(event) {
 	
