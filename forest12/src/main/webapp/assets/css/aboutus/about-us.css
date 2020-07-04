@@ -108,12 +108,11 @@ body {
 
 .codetree-start {
     font-size: 1.1em;
-    color: #8E8E8E;
+    color: #2080D0;
 }
 
 .codetree-start:hover {
-	font-size: 1.1em;
-	color: #2080D0;
+	text-decoration: underline;
 }
 
 .codetree-img-div {
@@ -139,12 +138,11 @@ body {
 
 .codingtest-start {
     font-size: 1.1em;
-    color: #8E8E8E;
+    color: #2080D0;
 }
 
 .codingtest-start:hover {
-	font-size: 1.1em;
-	color: #2080D0;
+	text-decoration: underline;
 }
 
 .codingtest-img-div {
@@ -170,12 +168,11 @@ body {
 
 .training-start {
     font-size: 1.1em;
-    color: #8E8E8E;
+    color: #2080D0;
 }
 
 .training-start:hover {
-	font-size: 1.1em;
-	color: #2080D0;
+	text-decoration: underline;
 }
 
 .training-img-div {

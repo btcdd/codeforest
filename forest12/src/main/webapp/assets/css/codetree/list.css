@@ -60,6 +60,28 @@ body {
 	margin-top: 10em;
 }
 
+.nothing-save-problem {
+    width: 20em;
+    margin: 7em auto;
+    color: #777;
+    text-align: center;
+}
+
+.move-to-training {
+    margin-top: 1em;
+    font-size: 0.95em;
+}
+
+.training-start {
+	color: #0A93E2;
+	text-decoration: none;
+	font-size: 0.95em;
+}
+
+.training-start:hover {
+	text-decoration: underline;
+}
+
 .problems {
 	margin: 1em;
     height: 83vh;

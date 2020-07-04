@@ -62,6 +62,12 @@ var fetchList = function() {
 	$(".list .problem-box").remove();
 	$(".list .pager").remove();
 	var str="";
+	
+	if(map.list.length == 0) {
+		str = '<div class="nothing-save-problem"><div><i class="fas fa-hourglass-half fa-rotate-180" style="margin-right: 0.5em"></i><span>아직 저장된 문제가 존재하지 않습니다</span></div><div class="move-to-training"><a class="training-start" href="${pageContext.servletContext.contextPath }/training">CODING TRAINING 시작하기</a></div></div>';
+		$(".problems").css('height','45vh');
+	}
+	
 	for(var i=0;i<map.list.length;i++){
 		str+= '<div data-user="'+map.list[i].userNo+'" data-no="'+map.list[i].no+'" class="problem-box" >'+
 			'<div><div class="problem-no">'+map.list[i].problemNo+'</div>'+
