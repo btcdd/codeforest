@@ -83,7 +83,7 @@ $(function(){
 			loadingWithMask();
 			
 			$.ajax({
-				url:'${pageContext.request.contextPath}/api/user/emailAuth',
+				url:'${pageContext.request.contextPath}/api/user/findPassword',
 				async:true,
 				type:'post',
 				dataType:'json',
