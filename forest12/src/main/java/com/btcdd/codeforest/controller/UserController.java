@@ -2,6 +2,7 @@ package com.btcdd.codeforest.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class UserController {
 	private UserService userService;	
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join(@ModelAttribute UserVo vo) {
+	public String join(@ModelAttribute UserVo vo, HttpSession session) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser != null) {
+			return "redirect:/main";
+		}
 		return "user/join";
 	}
 	
@@ -41,7 +46,11 @@ public class UserController {
 	}
 		
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login() {
+	public String login(HttpSession session) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser != null) {
+			return "redirect:/main";
+		}
 		return "user/login";
 	}
 	
@@ -60,7 +69,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/find",method = RequestMethod.GET)
-	public String find() {
+	public String find(HttpSession session) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser != null) {
+			return "redirect:/main";
+		}
 		return "/user/find-password";
 	}
 	
