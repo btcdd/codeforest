@@ -46,7 +46,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@PostMapping("fintPassword")
+	@PostMapping("findPassword")
 	public JsonResult findPassword(
 			@RequestParam(value="email",required=true,defaultValue="") String email,
 			String pandan) {
