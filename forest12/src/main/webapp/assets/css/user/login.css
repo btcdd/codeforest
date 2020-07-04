@@ -64,7 +64,7 @@ body{
     text-decoration: none;
     font-family: 'Pacifico', cursive;
     font-weight: bold;
-/*     text-shadow: 3px 2px 2px black; */
+    text-shadow: 3px 2px 2px rgba(0,0,0,0.2);
 }
 
 #login-form{
@@ -76,6 +76,7 @@ body{
     border: 1px solid #E3E3E3;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 90%);
+    box-shadow: 0 0px 1px rgba(0,0,0,0.16), 0 6px 10px rgba(0,0,0,0.23);
 }
 
 #email {
@@ -94,6 +95,7 @@ body{
 
 #email:focus {
 	outline: none;
+	border-bottom-color: #244C1E;
 }
 
 .input-email-pattern:after, .input-email-pattern:before {
@@ -147,6 +149,7 @@ body{
 
 #password:focus {
 	outline: none;
+	border-bottom-color: #244C1E;
 }
 
 .input-password-pattern {
@@ -203,6 +206,10 @@ body{
     padding: 10px 0 16px;
 }
 
+.login-button:hover {
+	background-color: #7B6437;
+}
+
 .login-button:focus {
 	outline: none;
 }
@@ -217,11 +224,15 @@ body{
 .join-link {
 	margin: 0 5px;
 	text-decoration: none;
-	color:#494949;
+	color:#0A93E2;
+}
+
+.join-link:hover {
+	text-decoration: underline;
 }
 
 .join-link:visited {
-	color:#494949;
+	color:#0A93E2;
 }
 
 .findpassword {
