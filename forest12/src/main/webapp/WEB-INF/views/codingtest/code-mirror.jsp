@@ -1110,10 +1110,6 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-////// function 끝부분    
-
-
-
 
    var d = document.querySelector('#Run');
    d.addEventListener('click', connect, true);
@@ -1199,6 +1195,12 @@ $(function() {
    
    var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
    uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
+   
+   var uiDialogButtonpane3 = document.getElementsByClassName('ui-dialog-buttonpane')[0];
+   uiDialogButtonpane3.style = "margin-left: 23px; padding: 0 !important";
+   
+   var uiDialogButtonset = document.getElementsByClassName('ui-dialog-buttonset')[0];
+   uiDialogButtonset.style = "margin-top: -13px !important;";
    
 ////// function 끝부분
 });

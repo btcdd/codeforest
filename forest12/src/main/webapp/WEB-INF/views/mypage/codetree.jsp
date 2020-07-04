@@ -840,24 +840,18 @@ $(function() {
     
     var button;
     $('#info').click(function() {
- 	   button = document.getElementsByClassName('ui-button')[10];
+ 	   button = document.getElementsByClassName('ui-button')[4];
  	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
  	   
  	   $("#info-div").dialog("open");
     });
     
-    $('.ui-button').eq(10).hover(function() {
+    $('.ui-button').eq(4).hover(function() {
  	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
     }, function() {
  	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
     })
-    
-    var uiDialogButtonpane = document.getElementsByClassName('ui-dialog-buttonpane')[2];
-    uiDialogButtonpane.style = "margin-left: 23px; padding: 0";
-    
-    var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
-    uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
-    
+	    
 //////function 끝부분 	
 
 });
