@@ -229,7 +229,7 @@ $(function() {
          } else if(diff < 60 && hours == 0){
         	 min = 0;
         	 $("#tiles").removeClass('color-full');
-        	 $(".timer").addClass('color-empty');
+        	 $("#tiles").addClass('color-empty');
          }
          var sec = diff;
 		 $(".timer").html("<span>" + pad(hours,2) + ":</span><span>" + pad(min,2) + ":</span><span>" + pad(sec,2) + "</span>");
