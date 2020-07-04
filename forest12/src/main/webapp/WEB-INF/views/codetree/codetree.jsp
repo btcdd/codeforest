@@ -38,7 +38,7 @@
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-	<script>
+<script>
 
 var result = '';
 var tmp = '';
@@ -53,6 +53,7 @@ var socket;
 var prevText = '';
 var submitPandan;
 var outputResult = '';
+var authUserNo = ${authUserNo };
 
 //채팅 시작하기
 function connect(event) {
@@ -73,7 +74,8 @@ function connect(event) {
    code = currentEditor.getValue();
    
    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-   socket = new SockJS('${pageContext.request.contextPath }/ws');
+   
+   socket = new SockJS('${pageContext.request.contextPath }/' + authUserNo);
    
    // 전역 변수에 세션 설정
    stompClient = Stomp.over(socket);
@@ -632,7 +634,6 @@ $(function() {
     	]  ,
          close:function(){}
     });    
-    
     
     $(document).on('click','#userfile-update',function(){
         

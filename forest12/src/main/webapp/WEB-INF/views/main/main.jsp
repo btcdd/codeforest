@@ -58,9 +58,8 @@ function connect(event) {
 	
 	code = editor.getValue();
 	
-	var a = 1;
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-    socket = new SockJS('${pageContext.request.contextPath }/' + a);
+    socket = new SockJS('${pageContext.request.contextPath }/ws');
    
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
