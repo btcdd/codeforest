@@ -226,7 +226,7 @@ $(function() {
          if (diff >= 60) {
           	min = Math.floor(diff / 60);
            	diff -= min * 60;
-         }else if(diff < 60){
+         } else if(diff < 60 && hours == 0){
         	 min = 0;
         	 $("#tiles").removeClass('color-full');
         	 $("#tiles").addClass('color-empty');

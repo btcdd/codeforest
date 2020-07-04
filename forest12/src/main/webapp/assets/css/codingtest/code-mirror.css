@@ -4,7 +4,7 @@
   background: #ebc85d;
 }
 .color-empty {
-  background: #e5554e;
+  color: #e5554e;
 }
 .countdown{
 	float: right;
@@ -35,7 +35,6 @@
 .timer > span{
 	font-size: 20px;
   	font-weight: thin;
-  	text-shadow: 1px 1px 0px #ccc;
   	font-family: Arial, sans-serif;
   	letter-spacing: 4px;
 }
