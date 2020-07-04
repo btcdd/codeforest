@@ -43,7 +43,21 @@ public class UserController {
 			userService.sendMail(email,tempKey);
 			return JsonResult.success(tempKey);
 		}
-		
+	}
+	
+	@ResponseBody
+	@PostMapping("fintPassword")
+	public JsonResult findPassword(
+			@RequestParam(value="email",required=true,defaultValue="") String email,
+			String pandan) {
+		Boolean emailCheck = userService.existUser(email);
+		if(!emailCheck && pandan == null) {
+			return JsonResult.success(false);
+		} else {
+			int tempKey = userService.getTempKey();
+			userService.sendMailForFindPassword(email,tempKey);
+			return JsonResult.success(tempKey);
+		}
 	}
 
 }
