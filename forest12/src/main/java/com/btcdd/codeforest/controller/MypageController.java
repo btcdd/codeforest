@@ -86,6 +86,7 @@ public class MypageController {
 		model.addAttribute("savePathList", savePathList);
 		model.addAttribute("codeList", codeList);
 		model.addAttribute("subProblemList", subProblemList);
+		model.addAttribute("authUserNo", authUser.getNo());
 
 		return "mypage/codetree";
 	}

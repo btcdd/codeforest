@@ -207,6 +207,7 @@ public class CodingTestController {
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);
 			model.addAttribute("userStartTime",saveVO.getEnterTime());
+			model.addAttribute("authUser", authUser.getNo());
 			
 			return "codingtest/code-mirror"; //이동
 		}
