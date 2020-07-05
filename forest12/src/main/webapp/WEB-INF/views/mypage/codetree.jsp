@@ -49,6 +49,7 @@ var message;
 var tempFile = null;
 var socket;
 var prevText = '';
+var authUserNo = ${authUserNo };
 
 //채팅 시작하기
 function connect(event) {
@@ -65,7 +66,7 @@ function connect(event) {
    code = currentEditor.getValue();
    
    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-   socket = new SockJS('${pageContext.request.contextPath }/ws');
+   socket = new SockJS('${pageContext.request.contextPath }/' + authUserNo);
    
    // 전역 변수에 세션 설정
    stompClient = Stomp.over(socket);
@@ -1137,12 +1138,12 @@ window.onload = function() {
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
+				<tr class="line"><td>C</td><td>gcc 4.8.5</td></tr>
+				<tr><td>C++</td><td>gcc 4.8.5</td></tr>
+				<tr class="line"><td>C#</td><td>.NET Core 5.16</td></tr>
+				<tr><td>Java</td><td>OpenJDK 1.8.0</td></tr>
+				<tr class="line"><td>JavaScript</td><td>Node.js 8.17.0</td></tr>
+				<tr><td>Python</td><td>2.7.5</td></tr>
 			</tbody>
 		</table>
 	</div>

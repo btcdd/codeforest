@@ -40,7 +40,10 @@ public class CodingTestController {
 	
 	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String training(Model model) {
+	public String training(Model model, HttpSession session) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
 		List<ProblemVo> list = testService.selectTestList();
 		
 		List<ProblemVo> list1 = new ArrayList<ProblemVo>();
@@ -86,6 +89,7 @@ public class CodingTestController {
 		}
 		
 		model.addAttribute("dday", map);
+		model.addAttribute("authUserNo", authUser.getNo());
 
 		return "codingtest/list";
 	}
@@ -108,6 +112,8 @@ public class CodingTestController {
 	public String Auth(@PathVariable("problemNo") Long problemNo,Model model,HttpSession session) {
 		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		model.addAttribute("authUserNo", authUser.getNo());
 		
 		ProblemVo problemVo = testService.selectProblemOne(problemNo);
 		
@@ -151,6 +157,8 @@ public class CodingTestController {
 		 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
+		model.addAttribute("authUserNo", authUser.getNo());
+		
 		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나 이상
 		
 		if(problemVo.getState().equals("y") && problemVo.getPassword().equals(tempKey)) {
@@ -185,9 +193,6 @@ public class CodingTestController {
 				testService.insertCode(saveVO.getNo());
 				
 				trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);				
-				
-				/////////////////////////////////////////////////////////////////////////////////////				
-				
 			}
 			
 			//태성 코드
@@ -204,10 +209,10 @@ public class CodingTestController {
 			model.addAttribute("savePathList", savePathList);
 			model.addAttribute("codeList", codeList);
 			model.addAttribute("userStartTime",saveVO.getEnterTime());
+			model.addAttribute("authUser", authUser.getNo());
 			
 			return "codingtest/code-mirror"; //이동
 		}
 		return "codingtest/";
 	}	
-	
 }
