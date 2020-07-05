@@ -52,7 +52,6 @@ public class CodeTreeController {
 		map.put("saveNo",saveNo);				
 		return JsonResult.success(map);
 	}
-	
 
 	@Auth
 	@PostMapping("/fileInsert")
@@ -71,6 +70,7 @@ public class CodeTreeController {
 			codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
 			
 			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
+			
 			map.put("fileName", fileName);
 			map.put("savePathNo", savePathNo);
 			map.put("codeNo",codeNo);
@@ -103,15 +103,11 @@ public class CodeTreeController {
 
 		if(!exist) {
 			codetreeService.updateFile(codeNo,fileName);
-			// 여기!!
-		}else {
+		} else {
 			map.put("result", "no");
 		}
-
 		return JsonResult.success(map);
 	}		
-	
-	
 	
 	@Auth
 	@PostMapping("/file-list")
@@ -122,7 +118,6 @@ public class CodeTreeController {
 		for(int i = 1; i < savePathList.size(); i++) {
 			codeList.addAll(codetreeService.findCodeList(savePathList.get(i).getNo()));
 		}
-
 		
 		Iterator<CodeVo> iterator = codeList.iterator();
 		while(iterator.hasNext()) {
@@ -141,8 +136,6 @@ public class CodeTreeController {
 		
 		return JsonResult.success(map);
 	}	
-
-	
 
 	@Auth
 	@PostMapping("/find-code")
@@ -181,7 +174,6 @@ public class CodeTreeController {
 			map = codeTreeLinux.pyCompile(fileName, packagePath, language);
 			break;
 		}
-		
 		//////////////////////
 		
 		return JsonResult.success(map);
@@ -190,8 +182,6 @@ public class CodeTreeController {
 	@Auth
 	@PostMapping("/save")
 	public JsonResult Save(String language, String fileName, String packagePath,Long subProblemNo,String codeValue, Long problemNo) {
-		//db에 저장 필요
-		
 		// 관우 유진 코드
 		//////////
 		if("c".equals(language) || "cpp".equals(language)) {
