@@ -40,7 +40,10 @@ public class CodingTestController {
 	
 	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String training(Model model) {
+	public String training(Model model, HttpSession session) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
 		List<ProblemVo> list = testService.selectTestList();
 		
 		List<ProblemVo> list1 = new ArrayList<ProblemVo>();
@@ -86,6 +89,7 @@ public class CodingTestController {
 		}
 		
 		model.addAttribute("dday", map);
+		model.addAttribute("authUserNo", authUser.getNo());
 
 		return "codingtest/list";
 	}
@@ -109,6 +113,8 @@ public class CodingTestController {
 	public String Auth(@PathVariable("problemNo") Long problemNo,Model model,HttpSession session) {
 		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		model.addAttribute("authUserNo", authUser.getNo());
 		
 		ProblemVo problemVo = testService.selectProblemOne(problemNo);
 		
@@ -152,6 +158,8 @@ public class CodingTestController {
 		 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
+		model.addAttribute("authUserNo", authUser.getNo());
+		
 		ProblemVo problemVo = testService.selectProblemOne(problemNo); //하나 이상
 		
 		if(problemVo.getState().equals("y") && problemVo.getPassword().equals(tempKey)) {
@@ -187,9 +195,6 @@ public class CodingTestController {
 				testService.insertCode(saveVO.getNo());
 				
 				trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);				
-				
-				/////////////////////////////////////////////////////////////////////////////////////				
-				
 			}
 			
 
@@ -213,52 +218,4 @@ public class CodingTestController {
 		}
 		return "codingtest/";
 	}	
-//	@PostMapping("/auth/{userEmail}/{problemNo}")
-//	public JsonResult auth(@PathVariable("userEmail") String userEmail, @PathVariable("problemNo") Long problemNo,
-//			@RequestBody Map<String, Object> user) {
-//		
-//		// 관우 코드
-//		////////////////////////////
-//				
-//		UserVo authUser = testService.findUserByEmail(userEmail);
-//		_authUser = authUser;
-//				
-//		///////////////
-//		
-//		Map<String, Object> map = new HashMap<>();
-//		JSONParser parser = new JSONParser();
-//		JSONObject obj = null;
-//		try {
-//			obj = (JSONObject) parser.parse((String) user.get("body"));
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println("obj>>>" + obj);
-//		String userName = (String) obj.get("name");
-//		String userBirth = (String) obj.get("birth");
-//		if (userBirth.equals("") || userName.equals("")) {
-//			map.put("result", "empty");
-//			return JsonResult.success(map);
-//		}
-//		String tempKey = (String) obj.get("tempKey");
-//		boolean exist = trainingService.existUser(userEmail); // 유저가 있는지 체크
-//		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
-//		if (problemVo == null || problemVo.getState().equals("n")) {
-//			System.out.println(
-//					"http://localhost:9999/?userEmail=2sang@gmail.com&problemNo=123123134 처럼 직접 경로타고 번호 아무렇게나 쓰고 올경우");
-//			map.put("result", "delete");
-//			return JsonResult.success(map);
-//		}
-//		// 유저가 존재하는데 상태가 n이면 삭제 상태
-//		if (exist && problemVo.getPassword().equals(tempKey)) { // 인증키가 맞고 유저가 존재한다면
-//			trainingService.insertUserInfo(userName, userBirth, userEmail);
-//			codeTreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo);
-//			
-//			map.put("result", "ok");
-//			return JsonResult.success(map);
-//		}
-//		map.put("result", "no");
-//		return JsonResult.success(map);
-//	}
-	
 }

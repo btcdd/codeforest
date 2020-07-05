@@ -1138,12 +1138,12 @@ window.onload = function() {
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
+				<tr class="line"><td>C</td><td>gcc 4.8.5</td></tr>
+				<tr><td>C++</td><td>gcc 4.8.5</td></tr>
+				<tr class="line"><td>C#</td><td>.NET Core 5.16</td></tr>
+				<tr><td>Java</td><td>OpenJDK 1.8.0</td></tr>
+				<tr class="line"><td>JavaScript</td><td>Node.js 8.17.0</td></tr>
+				<tr><td>Python</td><td>2.7.5</td></tr>
 			</tbody>
 		</table>
 	</div>
