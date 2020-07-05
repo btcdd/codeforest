@@ -1137,7 +1137,12 @@ $(function() {
    var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
    uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
    
-////// function 끝부분
+	////// function 끝부분
+	var problemContentLength = $('.problem-content').length;
+	for(i = 0; i < problemContentLength; i++) {
+		var problemContentHeight = $('.problem-content').eq(i).height();
+		$('.problem-content').eq(i).css('height', problemContentHeight);
+	}
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////   

@@ -33,7 +33,6 @@ public class TrainingController {
 	@Auth
 	@RequestMapping(value={"","/list"}, method=RequestMethod.GET)
 	public String training() {
-
 		return "training/list";
 	}
 
@@ -54,8 +53,6 @@ public class TrainingController {
 		
 		trainingService.insert(subProblemList, problemVo, authUser.getNo());
 		
-		System.out.println("subProblemList:" + subProblemList);
-
 		return "redirect:/training";
 	}
 	
@@ -114,9 +111,7 @@ public class TrainingController {
 		}
 
 		map.put("problemVo", problemVo);
-		
 		map.put("list", list);
-		
 		map.put("listSize", list.size());
 
 		model.addAllAttributes(map);
@@ -137,8 +132,6 @@ public class TrainingController {
 		
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
 		
-		System.out.println("subProblemList:" + subProblemList);
-
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getTitle() == null) {
 				list.remove(i);

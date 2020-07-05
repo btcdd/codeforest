@@ -52,7 +52,6 @@ public class MypageController {
 	public String account(HttpSession session, Model model) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
-		System.out.println(authUser);
 		model.addAttribute("authUser", authUser);
 		
 		return "mypage/account";
