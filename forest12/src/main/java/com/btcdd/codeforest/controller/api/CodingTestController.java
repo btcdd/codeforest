@@ -85,6 +85,8 @@ public class CodingTestController {
 		List<ProblemVo> list3 = new ArrayList<ProblemVo>();
 
 		for(ProblemVo vo : list) {
+			vo.setStartTime(vo.getStartTime().substring(2, 4) + "년 " + vo.getStartTime().substring(5,7)+"월 " + vo.getStartTime().substring(8,10) + "일" + vo.getStartTime().substring(10,16));
+			vo.setEndTime(vo.getEndTime().substring(5,7)+"월 " + vo.getEndTime().substring(8,10) + "일" + vo.getEndTime().substring(10,16));
 			if(keyword.equals("")) {
 				if(vo.getPriority() == 1) {
 					list1.add(vo);
@@ -96,7 +98,6 @@ public class CodingTestController {
 					list3.add(vo);
 				}
 			} else if(!keyword.equals("") && vo.getTitle().contains(keyword) || vo.getNickname().contains(keyword) || vo.getStartTime().contains(keyword) || vo.getEndTime().contains(keyword)) {
-
 				vo.setStartTime((vo.getStartTime()+"").replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
 				vo.setEndTime(vo.getEndTime().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
 				vo.setTitle(vo.getTitle().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
@@ -123,7 +124,7 @@ public class CodingTestController {
 	
 	@Auth
 	@PostMapping("/fileInsert")
-	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, HttpSession session) {
+	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, String packagePath,HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 
 		Long problemNo = codetreeService.findProblemNo(subProblemNo);
@@ -134,9 +135,11 @@ public class CodingTestController {
 		if(!exist) {
 			codetreeService.insertFile(savePathNo,language,fileName);
 			
-			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
-			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
+			String[] split = fileName.split("\\.");
 			
+			String codeValue = "public class " + split[0] + " {\n\n}";
+			codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
+				
 			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
 			map.put("fileName", fileName);
 			map.put("savePathNo", savePathNo);

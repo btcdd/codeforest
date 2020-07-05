@@ -148,6 +148,7 @@ public class TrainingController {
 		return "redirect:/training/view/" + problemNo;
 	}
 	
+	@Auth
 	@RequestMapping(value="/statistics/{problemNo}", method=RequestMethod.GET)
 	public String problemStatistics(
 			@PathVariable("problemNo") Long problemNo,
@@ -168,6 +169,7 @@ public class TrainingController {
 		return "training/statistics";
 	}
 	
+	@Auth
 	@RequestMapping(value="/answerlist/{index}/{subProblemNo}", method=RequestMethod.GET)
 	public String problemAnswerList(
 			@PathVariable("index") Long index,

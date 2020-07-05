@@ -10,8 +10,8 @@
 <title>Coding Test</title>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/codetree.css">
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codingtest/code-mirror.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -411,60 +411,68 @@ $(function() {
     var subProblemNo = null;
     var codeNo = null;
     var prevFileName = null;
+    var InsertPackagePath = null;
     var str='<div id="file-insert"><li>파일 추가</li></div>';
     $(".contextmenu").append(str);
     var str2='<div><li id="userfile-delete">파일 삭제</li><li id="userfile-update">이름변경</li></div>';
     $(".userfile-menu").append(str2);
 
-   $(document).on('mouseenter','.ui__sidebar',function() {
-      $(document).on('mousedown','#folder',function(e) {
-         $(".userfile-menu").hide();
-         if(e.which == 3){
-            //tempFile = $(this);
-            savePathNo = $(this).data("no");
-             subProblemNo = $(this).data("no2");
-              //Get window size:
-              var winWidth = $(document).width();
-              var winHeight = $(document).height();
-              //Get pointer position:
-              var posX = e.pageX;
-              var posY = e.pageY;
-              //Get contextmenu size:
-              var menuWidth = $(".contextmenu").width();
-              var menuHeight = $(".contextmenu").height();
-              //Security margin:
-              var secMargin = 10;
-              //Prevent page overflow:
-              if(posX + menuWidth + secMargin >= winWidth
-              && posY + menuHeight + secMargin >= winHeight){
-                //Case 1: right-bottom overflow:
-                posLeft = posX - menuWidth - secMargin + "px";
-                posTop = posY - menuHeight - secMargin + "px";
-              }
-              else if(posX + menuWidth + secMargin >= winWidth){
-                //Case 2: right overflow:
-                posLeft = posX - menuWidth - secMargin + "px";
-                posTop = posY + secMargin + "px";
-              }
-              else if(posY + menuHeight + secMargin >= winHeight){
-                //Case 3: bottom overflow:
-                posLeft = posX + secMargin + "px";
-                posTop = posY - menuHeight - secMargin + "px";
-              }
-              else {
-                //Case 4: default values:
-                posLeft = posX + secMargin + "px";
-                posTop = posY + secMargin + "px";
-              };
-              //Display contextmenu:
-              $(".contextmenu").css({
-                "left": posLeft,
-                "top": posTop
-              }).show();
-              //Prevent browser default contextmenu.
-              return false;               
-         }      
-      });
+    $(document).on('mouseenter','.ui__sidebar',function() {
+        $(document).on('mousedown','#folder',function(e) {
+           $(".userfile-menu").hide();
+           if(e.which == 3){
+          	 
+          	 var lang = $(".lang option:selected").val();
+          	 
+          	 if(lang != "java"){
+          		 return false;
+          	 }
+             
+              savePathNo = $(this).data("no");
+               subProblemNo = $(this).data("no2");
+               InsertPackagePath = $(this).data("package-path");
+                //Get window size:
+                var winWidth = $(document).width();
+                var winHeight = $(document).height();
+                //Get pointer position:
+                var posX = e.pageX;
+                var posY = e.pageY;
+                //Get contextmenu size:
+                var menuWidth = $(".contextmenu").width();
+                var menuHeight = $(".contextmenu").height();
+                //Security margin:
+                var secMargin = 10;
+                //Prevent page overflow:
+                if(posX + menuWidth + secMargin >= winWidth
+                && posY + menuHeight + secMargin >= winHeight){
+                  //Case 1: right-bottom overflow:
+                  posLeft = posX - menuWidth - secMargin + "px";
+                  posTop = posY - menuHeight - secMargin + "px";
+                }
+                else if(posX + menuWidth + secMargin >= winWidth){
+                  //Case 2: right overflow:
+                  posLeft = posX - menuWidth - secMargin + "px";
+                  posTop = posY + secMargin + "px";
+                }
+                else if(posY + menuHeight + secMargin >= winHeight){
+                  //Case 3: bottom overflow:
+                  posLeft = posX + secMargin + "px";
+                  posTop = posY - menuHeight - secMargin + "px";
+                }
+                else {
+                  //Case 4: default values:
+                  posLeft = posX + secMargin + "px";
+                  posTop = posY + secMargin + "px";
+                };
+                //Display contextmenu:
+                $(".contextmenu").css({
+                  "left": posLeft,
+                  "top": posTop
+                }).show();
+                //Prevent browser default contextmenu.
+                return false;               
+           }      
+        });
       
       $(document).on('mousedown','.file',function(e){
          $(".contextmenu").hide();
@@ -581,7 +589,8 @@ $(function() {
                               'savePathNo' : savePathNo,
                               'language' : lang,
                               'fileName' : fileName,
-                              'subProblemNo':subProblemNo
+                              'subProblemNo':subProblemNo,
+                              'packagePath' : InsertPackagePath
                            },
                            success: function(response) {
                                         
@@ -616,7 +625,7 @@ $(function() {
     
     
     $(document).on('click','#userfile-delete',function(){    	
-        $(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
+        $(".validateTips").css("color","black").text("정말로 삭제하시겠습니까?");
         dialogDelete.dialog("open");
      });
     
@@ -971,55 +980,6 @@ $(function() {
     var compileResult1 = "";
     var compileResult2 = "";
     
-//     $(document).on("click","#Run",function(){
-//        $("#Save").trigger("click");
-//        if(currentEditor == null){
-//           return;
-//        }       
-       
-//        console.log("editor.getValue()>>>>>>",currentEditor.getValue());
-//        var problemNo = "${saveVo.problemNo }";
-//        $("#Run").blur();
-//        $.ajax({
-//          url: '${pageContext.servletContext.contextPath }/api/codingtest/run',
-//          async: true,
-//          type: 'post',
-//          dataType:'json',
-//          data: {
-//             'language' : tempFile.data("language"),
-//             'fileName' : tempFile.data("file-name"),
-//             'packagePath' : tempFile.data("package-path"),
-//             'subProblemNo':tempFile.data("subproblem-no"),
-//             'codeValue' : currentEditor.getValue(),
-//             'problemNo' : problemNo
-//          },
-//          success: function(response) {
-            
-//             console.log("ok");
-            
-//             console.log(response.data.result);
-//             compileResult1 = response.data.result[0];
-//             compileResult2 = response.data.result[1];
-            
-//             if(response.data.result[1] == "") {
-//                $(".terminal").append("<pre>"+response.data.result[0]+"</pre>");
-//             }
-//             else {
-//                $(".terminal").append("<pre>"+response.data.result[1]+"</pre>");
-               
-//             }
-//             $(".terminal").append("<span class=\"prompt\">-></span> ");
-//             $(".terminal").append("<span class=\"path\">~</span> ");
-//             $('.terminal').scrollTop($('.terminal').prop('scrollHeight'));
-//          },
-//          error: function(xhr, status, e) {
-//             console.error(status + ":" + e);
-//          }                     
-//       });       
-//     });
-
-    
-         
      $(document).on("click","#Save",function(){
          if(tempFile == null){
             return;
@@ -1151,29 +1111,6 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-//    var glCm4 = document.getElementsByClassName("lm_item_container")[0];
-//    glCm4.style = "";
-   
-//    var glCm5 = document.getElementsByClassName("lm_content")[0];
-//    glCm5.style = "";
-    
-    
-    
-     
-   
-   $(document).on("click",".sub-menu > li:first-child",function(){
-      $("#Save").trigger("click");
-   });
-   $(document).on("click",".sub-menu > li + li",function(){
-      $("#Run").trigger("click");
-   });
-   $(document).on("click",".sub-menu > li:last-child",function(){
-      $("#Submit").trigger("click");
-   });
-////// function 끝부분    
-
-
-
 
    var d = document.querySelector('#Run');
    d.addEventListener('click', connect, true);
@@ -1219,6 +1156,27 @@ $(function() {
       });
    }); 
    
+   $("#info-div").dialog({
+       autoOpen: false,
+       resizable: false,
+       height: "auto",
+       width: 400,
+       modal: true,
+       show: {
+           effect: "toggle",
+           duration: 270
+         },
+         hide: {
+           effect: "toggle",
+           duration: 270
+         },
+       buttons: {
+           "확인": function() {
+        	   $(this).dialog("close");
+           }
+       }
+   });
+   
    var button;
    $('#info').click(function() {
 	   button = document.getElementsByClassName('ui-button')[10];
@@ -1238,6 +1196,12 @@ $(function() {
    
    var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
    uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
+   
+   var uiDialogButtonpane3 = document.getElementsByClassName('ui-dialog-buttonpane')[0];
+   uiDialogButtonpane3.style = "margin-left: 23px; padding: 0 !important";
+   
+   var uiDialogButtonset = document.getElementsByClassName('ui-dialog-buttonset')[0];
+   uiDialogButtonset.style = "margin-top: -13px !important;";
    
 ////// function 끝부분
 });
@@ -1396,7 +1360,7 @@ window.onload = function() {
         ${saveVo.title }
       </div>
 		<div class="info-div">
-			<i class="fas fa-info-circle"></i>
+			<i class="fas fa-info-circle" id="info"></i>
 		</div>
       <div class="countdown">
 		 <div id='tiles' class="color-full">
@@ -1482,24 +1446,9 @@ window.onload = function() {
                   <li class="file-tree__item file-tree__item--open">
                       <div class="folder folder--open">problem${saveVo.problemNo }</div>      
                       <ul class="file-tree__subtree">
-<%--                          <c:forEach items='${savePathList }' var='vo' varStatus='status'>
-                             <li class="file-tree__item">
-                                 <div id="folder" class="folder folder--open" data-no="${vo.no}" data-no2="${vo.subProblemNo}" >${saveVo.title}/${status.index+1}</div>
-                           <ul class="file-tree__subtree" id="file${vo.no}">
-                              <c:forEach items='${codeList}' var='codevo' varStatus='status'>
-                                 <c:if test="${vo.no == codeList[status.index].savePathNo && codeList[status.index].language == 'java' }">
-                                    <li class='userFile' data-no="${codeList[status.index].no}">
-                                       <div class="file">${codevo.fileName}</div>
-                                    </li>
-                                 </c:if>   
-                              </c:forEach>
-                           </ul>
-                        </li>                                 
-                         </c:forEach> --%>
                       </ul>
                       <!-- /.file-subtree -->
                   </li>
-                  
               </ul>
               <!-- /.file-tree -->
           </div>
@@ -1511,17 +1460,6 @@ window.onload = function() {
                
          <div id="box_3" class="box">
          
-<!--                <textarea name="code" class="CodeMirror code"> -->
-<!-- /* -->
-<!-- * 기본 언어 : 'JAVA' -->
-<!-- * 기본 테마 : 'panda-syntax' -->
-<!-- */ -->
-<!-- public class Test{ -->
-<!--    public static void main(String[] args) { -->
-<!--       System.out.println("Hello CodeForest!"); -->
-<!--    } -->
-<!-- } -->
-<!--             </textarea>          -->
             <div class="gl-cover" id="gl-cover">
             
             </div>
