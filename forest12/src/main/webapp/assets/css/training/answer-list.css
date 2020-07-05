@@ -86,18 +86,17 @@ table.type09 .even {
 }
 
 .correct-person-list {
-    float: left;
+	float: left;
     width: 30%;
     height: 100%;
-    margin-left: 5%;
+    margin-left: 3em;
 }
 
 .code-mirror {
     float: left;
     width: 45%;
-/*     height: 100%; */
     height: 70%;
-    margin-left: 3%;
+    margin-left: 4em;
 }
 
 .CodeMirror {
@@ -128,7 +127,7 @@ textarea {
 }
 
 #font-size {
-    width: 155px;
+    width: 60px;
     height: 35px;
     padding: .3em .3em;
     font-family: inherit;
@@ -140,6 +139,7 @@ textarea {
     display: block;
     margin-bottom: 10px;
     float: left;
+    margin-left: 1em;
 }
 
 .language {
@@ -153,7 +153,8 @@ textarea {
     border: 1px solid #999;
     border-radius: 0px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 1em;
+    margin-left: 2em;
 }
 
 #footer {
