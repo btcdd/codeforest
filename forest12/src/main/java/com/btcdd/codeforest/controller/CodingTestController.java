@@ -104,7 +104,6 @@ public class CodingTestController {
 	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String testWritePost() {
-
 		return "codingtest/write";
 	}
 	
@@ -184,7 +183,6 @@ public class CodingTestController {
 				Long[] subProblemNoArray = new Long[subProblemList.size()];
 				for(int i = 0; i < subProblemList.size(); i++) {
 					subProblemNoArray[i] = subProblemList.get(i).getNo();
-					System.out.println("subProblemNoArray[i]>>>>"+subProblemNoArray[i]);
 				}				
 				testService.insertSaveProblemNo(authUser.getNo(), problemNo, userStartTime2); //save에 저장 처음입장시간값 저장
 				
@@ -197,7 +195,6 @@ public class CodingTestController {
 				trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);				
 			}
 			
-
 			//태성 코드
 			SaveVo saveVo = testService.findSaveVo(saveVO.getNo());
 			List<SavePathVo> savePathList = testService.findSavePathList(saveVo.getNo());
