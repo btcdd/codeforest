@@ -147,22 +147,7 @@ var nextRemove = function() {
 }
 
 $(function() {
-	
-	$(window).scroll(function() {
-        if ($(this).scrollTop() > 500) {
-            $('#MOVE-TOP').fadeIn();
-        } else {
-            $('#MOVE-TOP').fadeOut();
-        }
-    });
-    
-    $("#MOVE-TOP").click(function() {
-        $('html, body').animate({
-            scrollTop : 0
-        }, 400);
-        return false;
-    });
-	
+
 	originList('1', '', '');
 	
 	nextRemove();
@@ -429,7 +414,6 @@ $(function() {
         </div> <!-- div list -->
     </div>
     <c:import url="/WEB-INF/views/include/footer.jsp" />
-    <span id="MOVE-TOP"><i class="fas fa-angle-up custom"></i></span>
 </body>
 
 </html>
