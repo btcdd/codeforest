@@ -38,7 +38,7 @@
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-	<script>
+<script>
 
 var result = '';
 var tmp = '';
@@ -53,7 +53,8 @@ var socket;
 var prevText = '';
 var submitPandan;
 var outputResult = '';
-   
+var authUserNo = ${authUserNo };
+  
 //채팅 시작하기
 function connect(event) {
 	
@@ -73,7 +74,8 @@ function connect(event) {
    code = currentEditor.getValue();
    
    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-   socket = new SockJS('${pageContext.request.contextPath }/ws');
+   
+   socket = new SockJS('${pageContext.request.contextPath }/' + authUserNo);
    
    // 전역 변수에 세션 설정
    stompClient = Stomp.over(socket);
@@ -633,7 +635,6 @@ $(function() {
          close:function(){}
     });    
     
-    
     $(document).on('click','#userfile-update',function(){
         
     	$(".updateErrorMessage").html("<p></p>");
@@ -1095,7 +1096,6 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-   
    $("#info-div").dialog({
        autoOpen: false,
        resizable: false,
@@ -1136,7 +1136,19 @@ $(function() {
    
    var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
    uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
+
+   var uiDialogButtonpane3 = document.getElementsByClassName('ui-dialog-buttonpane')[0];
+   uiDialogButtonpane3.style = "margin-left: 23px; padding: 0 !important";
    
+   var uiDialogButtonset = document.getElementsByClassName('ui-dialog-buttonset')[0];
+   uiDialogButtonset.style = "margin-top: -13px !important;";
+   
+  	var problemContentLength = $('.problem-content').length;
+	for(i = 0; i < problemContentLength; i++) {
+		var problemContentHeight = $('.problem-content').eq(i).height();
+		$('.problem-content').eq(i).css('height', problemContentHeight);
+	}
+  
 ////// function 끝부분
 });
 
@@ -1357,20 +1369,6 @@ window.onload = function() {
                   <li class="file-tree__item file-tree__item--open">
                       <div class="folder folder--open">problem${saveVo.problemNo }</div>      
                       <ul class="file-tree__subtree">
-<%--                          <c:forEach items='${savePathList }' var='vo' varStatus='status'>
-                             <li class="file-tree__item">
-                                 <div id="folder" class="folder folder--open" data-no="${vo.no}" data-no2="${vo.subProblemNo}" >${saveVo.title}/${status.index+1}</div>
-                           <ul class="file-tree__subtree" id="file${vo.no}">
-                              <c:forEach items='${codeList}' var='codevo' varStatus='status'>
-                                 <c:if test="${vo.no == codeList[status.index].savePathNo && codeList[status.index].language == 'java' }">
-                                    <li class='userFile' data-no="${codeList[status.index].no}">
-                                       <div class="file">${codevo.fileName}</div>
-                                    </li>
-                                 </c:if>   
-                              </c:forEach>
-                           </ul>
-                        </li>                                 
-                         </c:forEach> --%>
                       </ul>
                       <!-- /.file-subtree -->
                   </li>
@@ -1386,17 +1384,6 @@ window.onload = function() {
                
          <div id="box_3" class="box">
          
-<!--                <textarea name="code" class="CodeMirror code"> -->
-<!-- /* -->
-<!-- * 기본 언어 : 'JAVA' -->
-<!-- * 기본 테마 : 'panda-syntax' -->
-<!-- */ -->
-<!-- public class Test{ -->
-<!--    public static void main(String[] args) { -->
-<!--       System.out.println("Hello CodeForest!"); -->
-<!--    } -->
-<!-- } -->
-<!--             </textarea>          -->
             <div class="gl-cover" id="gl-cover">
             
             </div>
@@ -1443,12 +1430,12 @@ window.onload = function() {
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
-				<tr class="line"><td>C</td><td>gcc 9.2</td></tr>
-				<tr><td>C</td><td>gcc 9.2</td></tr>
+				<tr class="line"><td>C</td><td>gcc 4.8.5</td></tr>
+				<tr><td>C++</td><td>gcc 4.8.5</td></tr>
+				<tr class="line"><td>C#</td><td>.NET Core 5.16</td></tr>
+				<tr><td>Java</td><td>OpenJDK 1.8.0</td></tr>
+				<tr class="line"><td>JavaScript</td><td>Node.js 8.17.0</td></tr>
+				<tr><td>Python</td><td>2.7.5</td></tr>
 			</tbody>
 		</table>
 	</div>

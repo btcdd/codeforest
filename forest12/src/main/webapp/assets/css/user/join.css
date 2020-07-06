@@ -49,7 +49,7 @@ body{
     text-decoration: none;
     font-family: 'Pacifico', cursive;
     font-weight: bold;
-/*     text-shadow: 3px 2px 2px black; */
+    text-shadow: 3px 2px 2px rgba(0,0,0,0.2);
 }
 
 #user{
@@ -68,6 +68,7 @@ body{
     border: 1px solid #E3E3E3;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 90%);
+    box-shadow: 0 0px 1px rgba(0,0,0,0.16), 0 6px 10px rgba(0,0,0,0.23);
 }
 
 label {
@@ -87,6 +88,7 @@ label {
 
 #nickname:focus {
 	outline: none;
+	border-bottom-color: #244C1E;
 }
 
 .error-email-pattern:after, .error-email-pattern:before {
@@ -138,6 +140,7 @@ label {
 
 #email:focus {
 	outline: none;
+	border-bottom-color: #244C1E;
 }
 
 .error-password-pattern {
@@ -189,6 +192,7 @@ label {
 
 #password:focus {
 	outline: none;
+	border-bottom-color: #244C1E;
 }
 
 #passwordcheck {
@@ -204,6 +208,7 @@ label {
 
 #passwordcheck:focus {
 	outline: none;
+	border-bottom-color: #244C1E;
 }
 
 #auth-check {
@@ -218,6 +223,7 @@ label {
 
 #auth-check:focus {
 	outline: none;
+	border-bottom-color: #244C1E;
 }
 
 #btn-auth {
@@ -235,6 +241,10 @@ label {
     font-size: 15px;
     cursor: pointer;
     border-radius:10px;
+}
+
+#btn-auth:hover {
+	background-color: #DBDBDB;
 }
 
 #btn-auth:focus {
@@ -258,6 +268,10 @@ label {
     border-radius:10px;
 }
 
+#btn-auth-check:hover {
+	background-color: #DBDBDB;
+}
+
 #btn-auth-check:focus {
 	outline: none;
 }
@@ -279,6 +293,10 @@ label {
     border-radius:10px;
 }
 
+.cancel-button:hover {
+	background-color:#DBDBDB;
+}
+
 .cancel-button:focus {
 	outline: none;
 }
@@ -297,6 +315,10 @@ label {
     font-size: 15px;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.join-button:hover {
+	background-color: #7B6437;
 }
 
 .join-button:focus {
@@ -327,11 +349,15 @@ hr {
 .login-link {
 	margin: 0 5px;
 	text-decoration: none;
-	color:#494949;
+	color:#0A93E2;
+}
+
+.login-link:hover {
+	text-decoration: underline;
 }
 
 .login-link:visited {
-	color:#494949;
+	color:#0A93E2;
 }
 
 a {

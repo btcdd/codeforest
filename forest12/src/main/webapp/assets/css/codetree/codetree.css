@@ -638,12 +638,12 @@ optgroup {
 	background-color: #fff !important;
 }
 
-#fileUpdateButton, #fileDeleteButton {
+#fileUpdateButton, #fileDeleteButton, #fileInsertButton	 {
 	background-color: #0A93E2 !important;
 	color: #fff !important;
 }
 
-#fileUpdateButton:hover, #fileDeleteButton:hover {
+#fileUpdateButton:hover, #fileDeleteButton:hover, #fileInsertButton:hover {
 	background-color: #A6A6A6 !important;
 }
 
@@ -668,12 +668,13 @@ optgroup {
 	margin-top: 1px;
 }
 
-#cancelButton, #CloseUpdateButton {
+#cancelButton, #CloseUpdateButton, #CloseInsertButton {
+	margin-right: 0.8em !important;
 	background-color: #aaa !important;
 	color: #fff;
 }
 
-#cancelButton:hover, #CloseUpdateButton:hover {
+#cancelButton:hover, #CloseUpdateButton:hover, #CloseInsertButton:hover {
 	color: #EBEBEB;
 }
 
@@ -684,4 +685,13 @@ optgroup {
 
 .ui-dialog-buttonpane {
 	height: 0 !important;
+}
+
+#dialog-insert-form {
+	height: 38px !important;
+    overflow: hidden;
+}
+
+.fileName-insert {
+	width: 264px;
 }

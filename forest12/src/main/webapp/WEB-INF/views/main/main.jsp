@@ -44,8 +44,30 @@ var prevCursor;
 var message;
 var prevText = '';
 var socket;
-
 var outputResult = '';
+
+function leadingZeros(n, digits) {
+	  var zero = '';
+	  n = n.toString();
+
+	  if (n.length < digits) {
+	    for (i = 0; i < digits - n.length; i++)
+	      zero += '0';
+	  }
+	  return zero + n;
+}
+
+function getTimeStamp() {
+	  var d = new Date();
+	  var s = leadingZeros(d.getMilliseconds(), 2);
+
+	  return s;
+}
+
+var time = getTimeStamp();
+if(time.length == 2) {
+	time += '1';
+}
 
 //채팅 시작하기
 function connect(event) {
@@ -59,7 +81,7 @@ function connect(event) {
 	code = editor.getValue();
 	
 	// 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-    socket = new SockJS('${pageContext.request.contextPath }/ws');
+    socket = new SockJS('${pageContext.request.contextPath }/' + time);
    
     // 전역 변수에 세션 설정
     stompClient = Stomp.over(socket);
@@ -183,23 +205,6 @@ $(function() {
 		$('body').css('background-color', 'rgba(0,0,0,0.9)');
 	}
 	
-   $(window).scroll(function() {
-        if ($(this).scrollTop() > 500) {
-            $('#MOVE-TOP').fadeIn();
-        } else {
-            $('#MOVE-TOP').fadeOut();
-        }
-    });
-    
-    $("#MOVE-TOP").click(function() {
-        $('html, body').animate({
-            scrollTop : 0
-        }, 400);
-        return false;
-    });
-
-   
-    
    var save = false;
    
    var d = document.querySelector('.codeTest');
@@ -387,6 +392,6 @@ public class Test{
          </form>
     </div>
     <c:import url="/WEB-INF/views/include/footer.jsp" />
-    <span id="MOVE-TOP"><i class="fas fa-angle-up custom"></i></span>
+
 </body>
 </html>

@@ -52,7 +52,6 @@ public class MypageController {
 	public String account(HttpSession session, Model model) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
-		System.out.println(authUser);
 		model.addAttribute("authUser", authUser);
 		
 		return "mypage/account";
@@ -86,6 +85,7 @@ public class MypageController {
 		model.addAttribute("savePathList", savePathList);
 		model.addAttribute("codeList", codeList);
 		model.addAttribute("subProblemList", subProblemList);
+		model.addAttribute("authUserNo", authUser.getNo());
 
 		return "mypage/codetree";
 	}

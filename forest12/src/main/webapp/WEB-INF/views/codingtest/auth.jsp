@@ -75,6 +75,10 @@ $(function(){
 	
 	$('#birth').keydown(function(key) {
 		
+		if(key.keyCode == 9) {
+			return true;
+		}
+		
 		if((key.keyCode > 47 && key.keyCode < 58) || (key.keyCode > 95 && key.keyCode < 106) || key.keyCode == 8 || key.keyCode == 13) {
 			var birth = $(this).val();
 			

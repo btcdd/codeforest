@@ -224,6 +224,11 @@ $(function() {
 						// 삭제 추가해야하는 곳
 						$(".list-contents[data-no=" + no + "]").remove();
 						$(".sub-problem-contents" + no).remove();
+						
+						page = $('span b').parent().attr('id');
+						var kwd = $('#kwd').val();
+						
+						originList(page, kwd);
 					},
 					error: function(xhr, status, e) {
 						console.error(status + ":" + e);

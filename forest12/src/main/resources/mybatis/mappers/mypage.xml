@@ -116,6 +116,8 @@
 			   and p.no = sp.problem_no
 			   and s.user_no = #{no }
 			   and answer = 'y'
+               and (now() > p.end_time
+				or p.end_time is null)
 		]]>
 	</select>
 	
@@ -127,6 +129,8 @@
 			   and p.no = sp.problem_no
 			   and s.user_no = #{no }
 			   and answer = 'n'
+               and (now() > p.end_time
+				or p.end_time is null)
 		]]>
 	</select>
    

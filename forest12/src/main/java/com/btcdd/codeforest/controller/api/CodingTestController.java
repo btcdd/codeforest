@@ -43,8 +43,6 @@ public class CodingTestController {
 
 	CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
 	
-	
-	
 	@Autowired 
 	private CodeTreeService codetreeService;	
 	
@@ -126,30 +124,27 @@ public class CodingTestController {
 	
 	@Auth
 	@PostMapping("/fileInsert")
-	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, HttpSession session) {
+	public JsonResult fileInsert(Long savePathNo,String language,String fileName,Long subProblemNo, String packagePath,HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 
 		Long problemNo = codetreeService.findProblemNo(subProblemNo);
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		
-		System.out.println("exist>>>>"+exist);
-		
 		Map<String,Object> map = new HashMap<>();
 				
 		if(!exist) {
-			System.out.println("기존 존재하지 않는다");
 			codetreeService.insertFile(savePathNo,language,fileName);
 			
-			CodeTreeLinux codetreeLinux = new CodeTreeLinux();
-			codetreeLinux.insertCode(authUser.getNo(), problemNo, subProblemNo, language, fileName);
+			String[] split = fileName.split("\\.");
 			
+			String codeValue = "public class " + split[0] + " {\n\n}";
+			codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
+				
 			Long codeNo = codetreeService.findCodeNo(savePathNo,fileName);
-			System.out.println("codeNo>>"+codeNo);
 			map.put("fileName", fileName);
 			map.put("savePathNo", savePathNo);
 			map.put("codeNo",codeNo);
 		}else {
-			System.out.println("기존파일이 존재한다");
 			map.put("result", "no");
 		}
 		
@@ -163,11 +158,9 @@ public class CodingTestController {
 		boolean result = codetreeService.deleteFile(codeNo);
 		
 		SavePathVo savePathVo = codetreeService.findSavePathVo(codeVo.getSavePathNo());
-		
 
 		CodeTreeLinux codeTreeLinux = new CodeTreeLinux();
 		codeTreeLinux.deleteCode(savePathVo.getPackagePath(), codeVo.getLanguage(), codeVo.getFileName());
-
 
 		return JsonResult.success(result ? codeNo : -1);
 	}	
@@ -175,19 +168,13 @@ public class CodingTestController {
 	@Auth
 	@PostMapping("/fileUpdate")
 	public JsonResult fileUpdate(Long savePathNo,Long codeNo,String fileName,Long subProblemNo,String prevFileName,Model model) {
-		System.out.println("savePathNo>>"+savePathNo);
-		System.out.println("codeNo>>"+codeNo);
-		System.out.println("fileName>>"+fileName);
-		System.out.println("prevFileName"+prevFileName);
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		Map<String,Object> map = new HashMap<>();
 		
 		if(!exist) {
-			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);
 			// 여기!!
 		}else {
-			System.out.println("기존파일이 존재한다");
 			map.put("result", "no");
 		}
 		
@@ -205,7 +192,6 @@ public class CodingTestController {
 		for(int i = 1; i < savePathList.size(); i++) {
 			codeList.addAll(codetreeService.findCodeList(savePathList.get(i).getNo()));
 		}
-
 		
 		Iterator<CodeVo> iterator = codeList.iterator();
 		while(iterator.hasNext()) {
@@ -214,7 +200,6 @@ public class CodingTestController {
 				iterator.remove();
 			}
 		}
-		System.out.println(">>>>123123>>>>>>>>>>>>>>>>>>"+codeList);
 		List<SubProblemVo> subProblemList = codetreeService.findSubProblemList(saveVo.getProblemNo());
 		
 		Map<String,Object> map = new HashMap<>();
@@ -266,8 +251,6 @@ public class CodingTestController {
 			break;
 		}
 		
-		//////////////////////
-		
 		return JsonResult.success(map);
 	}
 	
@@ -275,11 +258,8 @@ public class CodingTestController {
 	@PostMapping("/save")
 	public JsonResult Save(String language, String fileName, String packagePath,Long subProblemNo,String codeValue, Long problemNo) {
 		//db에 저장 필요
-		
 		// 관우 유진 코드
-		//////////
 		codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
-		
 		//////////
 		return JsonResult.success(null);
 	}
@@ -362,33 +342,12 @@ public class CodingTestController {
 		SubmitVo submitVo = codetreeService.findSubmitNoBySubProblem(authUser.getNo(),subProblemNo, language);
 		
 		codetreeService.increaseAttemptCount(submitVo.getNo());//시도횟수 증가
-//		
 		/////// [User] AnserCount increase method
 		if(compileResult == true) {
 			codetreeService.updateUserAnswerCount(authUser.getNo());
 		}
 //		/////////////////////////////////////////
-		
 		return JsonResult.success(map);
 	}			
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
-
-
-
-

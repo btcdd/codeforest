@@ -60,6 +60,28 @@ body {
 	margin-top: 10em;
 }
 
+.nothing-save-problem {
+    width: 20em;
+    margin: 7em auto;
+    color: #777;
+    text-align: center;
+}
+
+.move-to-training {
+    margin-top: 1em;
+    font-size: 0.95em;
+}
+
+.training-start {
+	color: #0A93E2;
+	text-decoration: none;
+	font-size: 0.95em;
+}
+
+.training-start:hover {
+	text-decoration: underline;
+}
+
 .problems {
 	margin: 1em;
     height: 83vh;
@@ -135,6 +157,11 @@ input[type=text] {
 .search {
     margin-top: 10px;
     margin-left: 15px;
+}
+
+#kwd:focus {
+    outline: none;
+	box-shadow: 0 0 15px rgba(130,130,130,0.3);
 }
 
 #search {

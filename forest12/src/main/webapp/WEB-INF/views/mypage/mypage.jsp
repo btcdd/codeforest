@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/mypage.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 </head>
 <script>
 
@@ -42,6 +43,11 @@ function getTimeStamp() {
 }
 
 var time = getTimeStamp();
+
+$(function() {
+	$('#MOVE-TOP').remove();
+});
+
 </script>
 <body>
 	<c:import url="/WEB-INF/views/include/mypage-header.jsp" />
