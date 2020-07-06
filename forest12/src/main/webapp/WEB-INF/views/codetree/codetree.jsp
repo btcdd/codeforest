@@ -77,6 +77,8 @@ function connect(event) {
    
    socket = new SockJS('${pageContext.request.contextPath }/' + authUserNo);
    
+   console.log("@@@@@@@@@@@@@@@@@@@@@@@@@", authUserNo);
+   
    // 전역 변수에 세션 설정
    stompClient = Stomp.over(socket);
    stompClient.connect({}, onConnected, onError);
