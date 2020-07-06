@@ -1196,7 +1196,7 @@ $(function() {
    });
    
    $('#info').click(function() {
-	   var button = document.getElementsByClassName('ui-button')[16];
+	   var button = document.getElementsByClassName('ui-button')[11];
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
 	   
 	   $("#info-div").dialog("open");
