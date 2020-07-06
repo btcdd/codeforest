@@ -1195,6 +1195,7 @@ $(function() {
    uiDialogButtonset.style = "margin-top: -13px !important;";
    
    
+   
 ////// function 끝부분
 });
 
