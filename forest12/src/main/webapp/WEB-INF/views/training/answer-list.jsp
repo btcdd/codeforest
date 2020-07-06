@@ -222,6 +222,11 @@ $(function() {
    
 	$('.language').change(function() {
 		language = $(".language option:selected").val();
+		
+		if('all-language' == language) {
+			language = '';
+			originList(page, language);
+		}
 		originList(page, language);
 	});
 	
