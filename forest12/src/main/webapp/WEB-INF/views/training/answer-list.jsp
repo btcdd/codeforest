@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
 <!-- code mirror -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
@@ -34,9 +35,7 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-base.css" />
 <link id="goldenlayout-theme" rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/codetree/goldenlayout-dark-theme.css" />
 
-        <script type="text/javascript"
-     src="https://cdn.rawgit.com/meetselva/attrchange/master/js/attrchange.js"></script>
-
+<script type="text/javascript" src="https://cdn.rawgit.com/meetselva/attrchange/master/js/attrchange.js"></script>
 <script>
 var page = '1';
 var language = '';
@@ -388,17 +387,18 @@ $(function() {
 		       </select>	
 		       	       
                <select class="size" id="font-size" name="size">
-                 <option value="10px">10px</option>
-                 <option value="12px">12px</option>
-                 <option value="15px">15px</option>
-                 <option value="16px" selected="selected">16px</option>
-                 <option value="17px">17px</option>
-                 <option value="18px">18px</option>
-                 <option value="19px">19px</option>
-                 <option value="20px">20px</option>
-                 <option value="25px">25px</option>
-                 <option value="30px">30px</option>
-                 <option value="35px">35px</option>
+                 <option value="9px">9</option>
+                 <option value="10px">10</option>
+                 <option value="12px">12</option>
+                 <option value="14px">14</option>
+                 <option value="16px" selected="selected">16</option>
+                 <option value="18px">18</option>
+                 <option value="20px">20</option>
+                 <option value="22px">22</option>
+                 <option value="24px">24</option>
+                 <option value="26px">26</option>
+                 <option value="28px">28</option>
+                 <option value="36px">36</option>
              </select>
           	 </div>     
       </div>

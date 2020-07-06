@@ -238,24 +238,6 @@ select {
 	color: #3C3C3C;
 }
 
-#MOVE-TOP {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    cursor: pointer;
-    font-size: 2.2em;
-    text-align: center;
-    border: 2px solid #adbac0;
-    border-radius: 2rem;
-    width: 50px;
-    height: 50px;
-    background-color: #adbac0;
-}
-
-.custom {
-    text-align: center;
-    color: #fff;
-}
 
 .tmp {
 	width: 296px;

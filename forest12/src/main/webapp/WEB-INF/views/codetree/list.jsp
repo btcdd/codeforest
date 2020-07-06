@@ -64,7 +64,7 @@ var fetchList = function() {
 	var str="";
 	
 	if(map.list.length == 0) {
-		str = '<div class="nothing-save-problem"><div><i class="fas fa-hourglass-half fa-rotate-180" style="margin-right: 0.5em"></i><span>아직 저장된 문제가 존재하지 않습니다</span></div><div class="move-to-training"><a class="training-start" href="${pageContext.servletContext.contextPath }/training">CODING TRAINING 시작하기</a></div></div>';
+		str = '<div class="nothing-save-problem"><div><i class="fas fa-hourglass-half fa-rotate-180" style="margin-right: 0.5em"></i><span>아직 저장된 문제가 존재하지 않습니다</span></div><div class="move-to-training"><a class="training-start" href="${pageContext.servletContext.contextPath }/training">문제 저장하러 가기</a></div></div>';
 		$(".problems").css('height','45vh');
 	}
 	

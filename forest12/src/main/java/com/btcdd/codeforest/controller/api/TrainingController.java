@@ -123,12 +123,10 @@ public class TrainingController {
 		List<String> codes = new ArrayList();
 		Map<String, Object> map = new HashMap<>();
 		for(int i = 0; i < list.size(); i++) {
-//			map.put(list.get(i).getFileName(), codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
-//			map.put("file"+i, list.get(i).getFileName());
-//			map.put("code"+i, codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
 			fileNames.add(list.get(i).getFileName());
-//			codes.add(codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
-			codes.add("ㅋㅋㅋ");
+			codes.add(codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
+//			codes.add("ㅋㅋㅋ");
+
 		}
 		
 		map.put("fileNames", fileNames);	

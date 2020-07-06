@@ -36,26 +36,35 @@ public class UserService {
 	}
 
 	public String sendMail(String email,int tempKey) {
-
 		try {
-			
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			messageHelper.setTo(email);
 			messageHelper.setText("인증번호 : "+tempKey);
-			messageHelper.setFrom("codeforest2020@gmail.com");
-			messageHelper.setSubject("[회원가입 인증번호]");
+			messageHelper.setFrom("codeforest2020@gmail.com","코드의숲");
+			messageHelper.setSubject("[Code Forest] 회원가입 인증번호입니다");
 			
 			mailSender.send(message);
-
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return "success";
+	}
+	
+	public String sendMailForFindPassword(String email,int tempKey) {
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setTo(email);
+			messageHelper.setText("인증번호 : "+tempKey);
+			messageHelper.setFrom("codeforest2020@gmail.com","코드의숲");
+			messageHelper.setSubject("[Code Forest] 비밀번호 찾기 인증번호입니다");
+			
+			mailSender.send(message);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 		return "success";
-
-
-
 	}
 
 	public int getTempKey() {

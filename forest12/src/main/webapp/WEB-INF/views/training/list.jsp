@@ -147,22 +147,7 @@ var nextRemove = function() {
 }
 
 $(function() {
-	
-	$(window).scroll(function() {
-        if ($(this).scrollTop() > 500) {
-            $('#MOVE-TOP').fadeIn();
-        } else {
-            $('#MOVE-TOP').fadeOut();
-        }
-    });
-    
-    $("#MOVE-TOP").click(function() {
-        $('html, body').animate({
-            scrollTop : 0
-        }, 400);
-        return false;
-    });
-	
+
 	originList('1', '', '');
 	
 	nextRemove();
@@ -209,8 +194,9 @@ $(function() {
 				$('.hashtag').css('background-color', '#fff');
 				$('.hashtag').css('border', '1.5px #fff solid');
 				$('.hashtag').fadeIn(500);
-				$('.hashtag').css('background-color', '#ffd178');
-				$('.hashtag').css('border', '1.5px #ffd178 solid');
+				$('.hashtag').css('background-color', '#F0F0F0');
+				$('.hashtag').css('color', '#0A93E2');
+				$('.hashtag').css('border', '1.5px #F0F0F0 solid');
 			} else {
 				$('div[name=' + selectTag + ']').remove();
 			}
@@ -244,8 +230,9 @@ $(function() {
 				$('.hashtag').css('background-color', '#fff');
 				$('.hashtag').css('border', '1.5px #fff solid');
 				$('.hashtag').fadeIn(500);
-				$('.hashtag').css('background-color', '#ffd178');
-				$('.hashtag').css('border', '1.5px #ffd178 solid');
+				$('.hashtag').css('background-color', '#F0F0F0');
+				$('.hashtag').css('color', '#0A93E2');
+				$('.hashtag').css('border', '1.5px #F0F0F0 solid');
 			} else {
 				$('div[name=' + selectTag + ']').remove();
 			}
@@ -426,7 +413,6 @@ $(function() {
         </div> <!-- div list -->
     </div>
     <c:import url="/WEB-INF/views/include/footer.jsp" />
-    <span id="MOVE-TOP"><i class="fas fa-angle-up custom"></i></span>
 </body>
 
 </html>

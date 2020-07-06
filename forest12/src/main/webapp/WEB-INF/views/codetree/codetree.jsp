@@ -54,7 +54,7 @@ var prevText = '';
 var submitPandan;
 var outputResult = '';
 var authUserNo = ${authUserNo };
-
+  
 //채팅 시작하기
 function connect(event) {
 	
@@ -1168,7 +1168,7 @@ $(function() {
    
    var uiDialogButtonpane2 = document.getElementsByClassName('ui-dialog-buttonpane')[1];
    uiDialogButtonpane2.style = "margin-left: 23px; padding: 0";
-   
+
    var uiDialogButtonpane3 = document.getElementsByClassName('ui-dialog-buttonpane')[0];
    uiDialogButtonpane3.style = "margin-left: 23px; padding: 0 !important";
    
@@ -1181,6 +1181,12 @@ $(function() {
    uiButton4.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
    
    
+  	var problemContentLength = $('.problem-content').length;
+	for(i = 0; i < problemContentLength; i++) {
+		var problemContentHeight = $('.problem-content').eq(i).height();
+		$('.problem-content').eq(i).css('height', problemContentHeight);
+	}
+  
 ////// function 끝부분
 });
 

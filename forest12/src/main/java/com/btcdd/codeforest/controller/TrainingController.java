@@ -33,7 +33,6 @@ public class TrainingController {
 	@Auth
 	@RequestMapping(value={"","/list"}, method=RequestMethod.GET)
 	public String training() {
-
 		return "training/list";
 	}
 
@@ -112,9 +111,7 @@ public class TrainingController {
 		}
 
 		map.put("problemVo", problemVo);
-		
 		map.put("list", list);
-		
 		map.put("listSize", list.size());
 
 		model.addAllAttributes(map);
@@ -151,6 +148,7 @@ public class TrainingController {
 		return "redirect:/training/view/" + problemNo;
 	}
 	
+	@Auth
 	@RequestMapping(value="/statistics/{problemNo}", method=RequestMethod.GET)
 	public String problemStatistics(
 			@PathVariable("problemNo") Long problemNo,
@@ -171,6 +169,7 @@ public class TrainingController {
 		return "training/statistics";
 	}
 	
+	@Auth
 	@RequestMapping(value="/answerlist/{index}/{subProblemNo}", method=RequestMethod.GET)
 	public String problemAnswerList(
 			@PathVariable("index") Long index,

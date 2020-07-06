@@ -104,7 +104,6 @@ public class CodingTestController {
 	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String testWritePost() {
-
 		return "codingtest/write";
 	}
 	
@@ -196,7 +195,6 @@ public class CodingTestController {
 				trainingLinux.save(authUser.getNo(), problemNo, subProblemNoArray);				
 			}
 			
-
 			//태성 코드
 			SaveVo saveVo = testService.findSaveVo(saveVO.getNo());
 			List<SavePathVo> savePathList = testService.findSavePathList(saveVo.getNo());
