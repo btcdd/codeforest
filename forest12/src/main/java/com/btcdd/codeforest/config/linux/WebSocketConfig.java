@@ -1,21 +1,31 @@
 package com.btcdd.codeforest.config.linux;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+import com.btcdd.codeforest.vo.UserVo;
+import com.btcdd.security.Auth;
+
 @Configuration
 @EnableWebSocketMessageBroker//@EnableWebSocketMessageBroker is used to enable our WebSocket server
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+	UserVo userVo = null;
+	HttpSession session;
+	@Auth
+	public void auth() {
+		userVo = (UserVo) session.getAttribute("authUser");
+	}
+		
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        
-        for(int i = 1; i < 10; i++) {
-        	registry.addEndpoint("/" + i).setAllowedOrigins("*").withSockJS();
-        }
+        auth();
+    	registry.addEndpoint("/" + userVo.getNo()).setAllowedOrigins("*").withSockJS();
     }
 
     @Override
