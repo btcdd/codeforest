@@ -1010,6 +1010,28 @@ $(function() {
     }); 
      
      
+     $("#info-div").dialog({
+         autoOpen: false,
+         resizable: false,
+         height: "auto",
+         width: 400,
+         modal: true,
+         show: {
+             effect: "toggle",
+             duration: 270
+           },
+           hide: {
+             effect: "toggle",
+             duration: 270
+           },
+         buttons: {
+             "확인": function() {
+          	   $(this).dialog("close");
+             }
+         }
+     });
+    
+     
       $(document).on("click","#Submit",function(){
          if(currentEditor == null){
             return;
@@ -1045,13 +1067,16 @@ $(function() {
                   var compileError = response.data.compileError;
                   
                   if(compileError == true) {
-                     alert("컴파일 오류입니다.");
+//                      alert("컴파일 오류입니다.");
+                     $("#info-div").dialog("open");
                      return;
                   } else if(compileResult == true) {
-                     alert("정답입니다.");
+//                      alert("정답입니다.");
+                     $("#info-div").dialog("open");
                      return;
                   } else {
-                     alert("오답입니다.");
+//                      alert("오답입니다.");
+                     $("#info-div").dialog("open");
                   }
                   outputResult = '';
                },
