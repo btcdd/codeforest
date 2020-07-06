@@ -699,3 +699,7 @@ optgroup {
 .fileName-insert {
 	width: 264px;
 }
+
+.answer-content, .wrong-content, .compile-content {
+	text-align: center;
+}
