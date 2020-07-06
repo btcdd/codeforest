@@ -17,7 +17,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	UserVo userVo = null;
 	HttpSession session;
-	@Auth
 	public void auth(HttpSession session) {
 		userVo = (UserVo) session.getAttribute("authUser");
 		this.session = session;
