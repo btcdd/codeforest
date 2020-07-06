@@ -1016,9 +1016,6 @@ $(function() {
          width: 400,
          modal: true,
          buttons: {
-//              "확인": function() {
-//           	   $(this).dialog("close");
-//              }
          }
      });
      
@@ -1029,9 +1026,6 @@ $(function() {
          width: 400,
          modal: true,
          buttons: {
-//              "확인": function() {
-//           	   $(this).dialog("close");
-//              }
          }
      });
      
@@ -1042,9 +1036,6 @@ $(function() {
          width: 400,
          modal: true,
          buttons: {
-//              "확인": function() {
-//           	   $(this).dialog("close");
-//              }
          }
      });
      
@@ -1083,15 +1074,12 @@ $(function() {
                   var compileError = response.data.compileError;
                   
                   if(compileError == true) {
-//                      alert("컴파일 오류입니다.");
                      $("#compile-div").dialog("open");
                      return;
                   } else if(compileResult == true) {
-//                      alert("정답입니다.");
 					$("#answer-div").dialog("open");
                     return;
                   } else {
-//                     alert("오답입니다.");
                 	  $("#wrong-div").dialog("open");
                   }
                   outputResult = '';
@@ -1165,12 +1153,6 @@ $(function() {
 	   $("#info-div").dialog("open");
    });
    
-//    var button2 = document.getElementsByClassName('ui-button')[10];
-//    $('.ui-button').eq(10).hover(function() {
-// 	   button2.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
-//    }, function() {
-// 	   button2.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
-//    })
    var button3 = document.getElementsByClassName('ui-button')[12];
    $('.ui-button').eq(12).hover(function() {
 	   button3.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
@@ -1202,8 +1184,6 @@ $(function() {
    var uiDialogButtonset = document.getElementsByClassName('ui-dialog-buttonset')[0];
    uiDialogButtonset.style = "margin-top: -13px !important;";
    
-//    var uiButton = document.getElementsByClassName('ui-button')[10];
-//    uiButton.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
    var uiButton2 = document.getElementsByClassName('ui-button')[12];
    uiButton2.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
    var uiButton3 = document.getElementsByClassName('ui-button')[14];
