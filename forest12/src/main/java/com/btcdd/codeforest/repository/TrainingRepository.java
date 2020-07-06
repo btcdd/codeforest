@@ -225,7 +225,6 @@ public class TrainingRepository {
 	}
 
 	public void updateTestProblem(ProblemVo problemVo) {
-		System.out.println(problemVo);
 		sqlSession.update("training.updateTestProblem", problemVo);
 	}
 

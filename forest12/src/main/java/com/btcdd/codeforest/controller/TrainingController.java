@@ -54,8 +54,6 @@ public class TrainingController {
 		
 		trainingService.insert(subProblemList, problemVo, authUser.getNo());
 		
-		System.out.println("subProblemList:" + subProblemList);
-
 		return "redirect:/training";
 	}
 	
@@ -137,8 +135,6 @@ public class TrainingController {
 		
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
 		
-		System.out.println("subProblemList:" + subProblemList);
-
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getTitle() == null) {
 				list.remove(i);

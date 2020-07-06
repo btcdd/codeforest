@@ -146,7 +146,6 @@ public class CodingTestController {
 			map.put("savePathNo", savePathNo);
 			map.put("codeNo",codeNo);
 		}else {
-			System.out.println("기존파일이 존재한다");
 			map.put("result", "no");
 		}
 		
@@ -172,19 +171,12 @@ public class CodingTestController {
 	@Auth
 	@PostMapping("/fileUpdate")
 	public JsonResult fileUpdate(Long savePathNo,Long codeNo,String fileName,Long subProblemNo,String prevFileName,Model model) {
-		System.out.println("savePathNo>>"+savePathNo);
-		System.out.println("codeNo>>"+codeNo);
-		System.out.println("fileName>>"+fileName);
-		System.out.println("prevFileName"+prevFileName);
 		boolean exist = codetreeService.existFile(fileName,savePathNo); //false면 존재하지 않고 true면 존재한다
 		Map<String,Object> map = new HashMap<>();
 		
 		if(!exist) {
-			System.out.println("기존 존재하지 않는다");
 			codetreeService.updateFile(codeNo,fileName);
-			// 여기!!
 		}else {
-			System.out.println("기존파일이 존재한다");
 			map.put("result", "no");
 		}
 		
@@ -211,7 +203,6 @@ public class CodingTestController {
 				iterator.remove();
 			}
 		}
-		System.out.println(">>>>123123>>>>>>>>>>>>>>>>>>"+codeList);
 		List<SubProblemVo> subProblemList = codetreeService.findSubProblemList(saveVo.getProblemNo());
 		
 		Map<String,Object> map = new HashMap<>();

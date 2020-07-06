@@ -44,7 +44,6 @@ $(function(){
 		e.preventDefault();
 	
 		if($("#email").val() ==''){
-			console.log("email");
 			$('.input-email-pattern').show();
 			$("#email").focus();
 			return;

@@ -106,7 +106,6 @@ $(function(){
 				$(this).val(tmp);
 			}
 		} else {
-			console.log('dd');
 			return false;
 		}
 	});

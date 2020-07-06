@@ -325,7 +325,6 @@ $(function() {
 		    $(this).attr('class','fas fa-chevron-up up-menu');
 		}else{
 		    $('#rank-table').hide();
-		    console.log($(this).attr('class'));
 		    $(this).attr('class','fas fa-chevron-down up-menu');
 		}
 	});

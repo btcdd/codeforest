@@ -111,8 +111,6 @@ public class MypageController {
 	@Auth
 	@PostMapping(value="/codemirror")// Code Tree에서 리스트 창 띄울때
 	public JsonResult codemirror(Long problemNo, Long userNo) {
-		System.out.println("problemNo : " + problemNo);
-		System.out.println("userNo : " + userNo);
 		Long saveNo = mypageService.findSaveNoByProblemNoAndUserNo(problemNo, userNo);
 		Map<String, Object> map = new HashMap<>();
 		map.put("saveNo",saveNo);				

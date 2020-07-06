@@ -885,11 +885,9 @@ $(function() {
         }else if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)){ //enter
         	switch(event.target.className){
         	case 'fileName-insert':
-        		console.log('$(".fileName-insert").val()>>>>>>>',$(".fileName-insert").val());
         		$("#fileInsertButton").click();
         		break;
         	case 'fileName-update':
-        		console.log('$(".fileName-update").val()>>>>>>>',$(".fileName-update").val());
         		$("#fileUpdateButton").click();
         	}
         }else if((event.which && event.which == 27) || (event.keyCode && event.keyCode == 27)){//esc
@@ -997,7 +995,6 @@ $(function() {
             }
             
             SavedCode.set(fileNo+"", currentEditor.getValue());
-            console.log("ok");
             layoutId = "layout-"+fileNo;
             tempFile = fileMap.get(fileNo+"");
             tempLayout = root.getItemsById(layoutId)[0];
