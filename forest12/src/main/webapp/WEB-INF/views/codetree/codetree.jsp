@@ -1016,9 +1016,9 @@ $(function() {
          width: 400,
          modal: true,
          buttons: {
-             "확인": function() {
-          	   $(this).dialog("close");
-             }
+//              "확인": function() {
+//           	   $(this).dialog("close");
+//              }
          }
      });
      
@@ -1029,9 +1029,9 @@ $(function() {
          width: 400,
          modal: true,
          buttons: {
-             "확인": function() {
-          	   $(this).dialog("close");
-             }
+//              "확인": function() {
+//           	   $(this).dialog("close");
+//              }
          }
      });
      
@@ -1042,9 +1042,9 @@ $(function() {
          width: 400,
          modal: true,
          buttons: {
-             "확인": function() {
-          	   $(this).dialog("close");
-             }
+//              "확인": function() {
+//           	   $(this).dialog("close");
+//              }
          }
      });
      
