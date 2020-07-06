@@ -1203,13 +1203,13 @@ $(function() {
    uiDialogButtonset.style = "margin-top: -13px !important;";
    
    var uiButton = document.getElementsByClassName('ui-button')[10];
-   uiButton.style = "background-color: #0A93E2 !important; color: #fff !important;";
+   uiButton.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
    var uiButton2 = document.getElementsByClassName('ui-button')[12];
-   uiButton2.style = "background-color: #0A93E2 !important; color: #fff !important;";
+   uiButton2.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
    var uiButton3 = document.getElementsByClassName('ui-button')[14];
-   uiButton3.style = "background-color: #0A93E2 !important; color: #fff !important;";
+   uiButton3.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
    var uiButton4 = document.getElementsByClassName('ui-button')[16];
-   uiButton4.style = "background-color: #0A93E2 !important; color: #fff !important;";
+   uiButton4.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
    
    
 ////// function 끝부분
