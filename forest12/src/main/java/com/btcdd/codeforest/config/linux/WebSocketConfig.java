@@ -18,13 +18,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	UserVo userVo = null;
 	HttpSession session;
 	@Auth
-	public void auth() {
+	public void auth(HttpSession session) {
 		userVo = (UserVo) session.getAttribute("authUser");
+		this.session = session;
 	}
 		
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        auth();
+        auth(session);
     	registry.addEndpoint("/" + userVo.getNo()).setAllowedOrigins("*").withSockJS();
     }
 
