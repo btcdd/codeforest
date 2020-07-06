@@ -1159,29 +1159,33 @@ $(function() {
    });
    
    var button;
-   button = document.getElementsByClassName('ui-button')[16];
    $('#info').click(function() {
+	   button = document.getElementsByClassName('ui-button')[16];
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
 	   
 	   $("#info-div").dialog("open");
    });
    
    $('.ui-button').eq(10).hover(function() {
+	   button = document.getElementsByClassName('ui-button')[10];
 	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
    $('.ui-button').eq(12).hover(function() {
+	   button = document.getElementsByClassName('ui-button')[12];
 	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
    $('.ui-button').eq(14).hover(function() {
+	   button = document.getElementsByClassName('ui-button')[14];
 	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
    $('.ui-button').eq(16).hover(function() {
+	   button = document.getElementsByClassName('ui-button')[16];
 	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
