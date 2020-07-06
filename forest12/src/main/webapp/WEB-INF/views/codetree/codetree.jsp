@@ -1010,7 +1010,7 @@ $(function() {
     }); 
      
      
-     $("#info-div").dialog({
+     $("#answer-div").dialog({
          autoOpen: false,
          resizable: false,
          height: "auto",
@@ -1068,15 +1068,15 @@ $(function() {
                   
                   if(compileError == true) {
 //                      alert("컴파일 오류입니다.");
-                     $("#info-div").dialog("open");
+                     $("#answer-div").dialog("open");
                      return;
                   } else if(compileResult == true) {
 //                      alert("정답입니다.");
-                     $("#info-div").dialog("open");
+                     $("#answer-div").dialog("open");
                      return;
                   } else {
 //                      alert("오답입니다.");
-                     $("#info-div").dialog("open");
+                     $("#answer-div").dialog("open");
                   }
                   outputResult = '';
                },
@@ -1437,6 +1437,30 @@ window.onload = function() {
 </div>
 <div class="info-div-class" id="info-div" title="Compiler Version" style="display:none" >
 	<div class="info-content">
+		<table border="0" class="info-table">
+			<thead>
+				<tr>
+					<th>
+						<span>언어</span>
+					</th>
+					<th>
+						<span>버전</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="line"><td>C</td><td>gcc 4.8.5</td></tr>
+				<tr><td>C++</td><td>gcc 4.8.5</td></tr>
+				<tr class="line"><td>C#</td><td>.NET Core 5.16</td></tr>
+				<tr><td>Java</td><td>OpenJDK 1.8.0</td></tr>
+				<tr class="line"><td>JavaScript</td><td>Node.js 8.17.0</td></tr>
+				<tr><td>Python</td><td>2.7.5</td></tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="answer-div-class" id="answer-div" title="정답 여부" style="display:none" >
+	<div class="answer-content">
 		<table border="0" class="info-table">
 			<thead>
 				<tr>
