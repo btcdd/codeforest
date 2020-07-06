@@ -1012,7 +1012,7 @@ $(function() {
      $("#answer-div").dialog({
          autoOpen: false,
          resizable: false,
-         height: "auto",
+         height: 105,
          width: 400,
          modal: true,
          buttons: {
@@ -1025,7 +1025,7 @@ $(function() {
      $("#wrong-div").dialog({
          autoOpen: false,
          resizable: false,
-         height: "auto",
+         height: 105,
          width: 400,
          modal: true,
          buttons: {
@@ -1038,7 +1038,7 @@ $(function() {
      $("#compile-div").dialog({
          autoOpen: false,
          resizable: false,
-         height: "auto",
+         height: 105,
          width: 400,
          modal: true,
          buttons: {
