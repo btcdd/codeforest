@@ -9,22 +9,31 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 import com.btcdd.codeforest.vo.UserVo;
-import com.btcdd.security.Auth;
+
+
+
+
+class AuthCheck {
+	UserVo userVo = null;
+	HttpSession session;
+	public UserVo auth() {
+		userVo = (UserVo) session.getAttribute("authUser");
+		this.session = session;
+		return userVo;
+	}
+}
+
 
 @Configuration
 @EnableWebSocketMessageBroker//@EnableWebSocketMessageBroker is used to enable our WebSocket server
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-	UserVo userVo = null;
-	HttpSession session;
-	public void auth(HttpSession session) {
-		userVo = (UserVo) session.getAttribute("authUser");
-		this.session = session;
-	}
-		
+	AuthCheck authCheck = null;
+	
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        auth(session);
+    	UserVo userVo = null;
+    	userVo = authCheck.auth();
     	registry.addEndpoint("/" + userVo.getNo()).setAllowedOrigins("*").withSockJS();
     }
 
