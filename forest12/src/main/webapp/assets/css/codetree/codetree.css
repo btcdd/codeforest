@@ -637,6 +637,10 @@ optgroup {
 	border: none !important;
 	background-color: #fff !important;
 }
+.ui-button:hover {
+	border: none !important;
+	background-color: #fff !important;
+}
 
 #fileUpdateButton, #fileDeleteButton, #fileInsertButton	 {
 	background-color: #0A93E2 !important;

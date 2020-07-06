@@ -1159,8 +1159,8 @@ $(function() {
    });
    
    var button;
+   button = document.getElementsByClassName('ui-button')[16];
    $('#info').click(function() {
-	   button = document.getElementsByClassName('ui-button')[10];
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
 	   
 	   $("#info-div").dialog("open");
@@ -1177,6 +1177,11 @@ $(function() {
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
    $('.ui-button').eq(14).hover(function() {
+	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+   }, function() {
+	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+   })
+   $('.ui-button').eq(16).hover(function() {
 	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
@@ -1200,6 +1205,8 @@ $(function() {
    uiButton2.style = "background-color: #0A93E2 !important; color: #fff !important;";
    var uiButton3 = document.getElementsByClassName('ui-button')[14];
    uiButton3.style = "background-color: #0A93E2 !important; color: #fff !important;";
+   var uiButton4 = document.getElementsByClassName('ui-button')[16];
+   uiButton4.style = "background-color: #0A93E2 !important; color: #fff !important;";
    
    
 ////// function 끝부분
