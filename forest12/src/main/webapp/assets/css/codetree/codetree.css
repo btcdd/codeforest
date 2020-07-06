@@ -703,3 +703,7 @@ optgroup {
 .answer-content, .wrong-content, .compile-content {
 	text-align: center;
 }
+
+#ui-id-4 {
+	height: 0 !important;
+} 
