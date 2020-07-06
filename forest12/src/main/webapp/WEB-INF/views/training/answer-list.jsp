@@ -149,8 +149,6 @@ $(function() {
 			root = myLayout.root.contentItems[0] || myLayout.root;
 			
 			for(var i = 0; i < response.data.fileNames.length; i++) {
-// 				console.log("fileNames : ", response.data.fileNames[i]);
-// 				console.log("codes : ", response.data.codes[i]);
 				fileIndex = i;
 				root.addChild({
 					type : "component",
@@ -169,25 +167,20 @@ $(function() {
 					readOnly : true,
 				});		
 
-				console.log("child : ", $(".lm_tab").children().eq(i));
 				$(".lm_tabs").children().eq(i).attr("id", "tab"+i);
 				$(".lm_tabs").children().eq(i).children().eq(1).attr("id", "title"+i);
 				
-				console.log("editorArrayIndex : ",editorArrayIndex);
 				editorArray[editorArrayIndex++] = editor;
 				editor.setValue(response.data.codes[i]);
-				console.log("editorArray : ",editorArray[editorArrayIndex-1]);
 				
 			}			
 			
 			$('li').attrchange({
 			    trackValues: true, // set to true so that the event object is updated with old & new values
 			    callback: function(event) {
-			    	console.log('하이하이');
 			    }
 			});
 			$('.CodeMirror-scroll').click(function() {
-				console.log('gdgd');
 			});
 		},
 		error: function(xhr, status, e){

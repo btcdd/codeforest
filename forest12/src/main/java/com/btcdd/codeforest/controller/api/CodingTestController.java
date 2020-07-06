@@ -173,7 +173,6 @@ public class CodingTestController {
 		
 		if(!exist) {
 			codetreeService.updateFile(codeNo,fileName);
-			// 여기!!
 		}else {
 			map.put("result", "no");
 		}
