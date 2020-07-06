@@ -11,10 +11,15 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker//@EnableWebSocketMessageBroker is used to enable our WebSocket server
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    public void registerStompEndpoints(StompEndpointRegistry registry,WebSocketSession webSocketSession) {
-    	
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
         for(int i = 1; i < 1000; i++) {
-//        	registry.addEndpoint("/" + i).setAllowedOrigins("*").withSockJS();
+        	registry.addEndpoint("/" + i).setAllowedOrigins("*").withSockJS();
+        }
+    }
+    
+    public void registerStompEndpoints(StompEndpointRegistry registry,WebSocketSession webSocketSession) {
+        for(int i = 1; i < 1000; i++) {
         	registry.addEndpoint("/" + webSocketSession.getUri()).setAllowedOrigins("*").withSockJS();
         }
     }
