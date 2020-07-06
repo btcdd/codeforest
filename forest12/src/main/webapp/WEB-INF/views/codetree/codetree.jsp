@@ -1165,12 +1165,12 @@ $(function() {
 	   $("#info-div").dialog("open");
    });
    
-   var button2 = document.getElementsByClassName('ui-button')[10];
-   $('.ui-button').eq(10).hover(function() {
-	   button2.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
-   }, function() {
-	   button2.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
-   })
+//    var button2 = document.getElementsByClassName('ui-button')[10];
+//    $('.ui-button').eq(10).hover(function() {
+// 	   button2.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+//    }, function() {
+// 	   button2.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+//    })
    var button3 = document.getElementsByClassName('ui-button')[12];
    $('.ui-button').eq(12).hover(function() {
 	   button3.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
