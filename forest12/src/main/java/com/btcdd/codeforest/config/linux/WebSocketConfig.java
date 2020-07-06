@@ -1,7 +1,5 @@
 package com.btcdd.codeforest.config.linux;
 
-import java.io.IOException;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
