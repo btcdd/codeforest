@@ -111,9 +111,9 @@ var fetchList = function() {
 		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
    	   }
 	   // 이 부분
-	   else if(map.list[i].privacy == 'n' && map.list[i].endTime <= getTimeStamp()){ 
+	   else if(map.list[i].privacy != null && map.list[i].endTime <= getTimeStamp()){ 
 		   titleStr = map.list[i].title;
-		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
+		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '"><button id="end-btn">마감</button></a></td>';
 		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
 	   } else {
 		   titleStr = map.list[i].title;

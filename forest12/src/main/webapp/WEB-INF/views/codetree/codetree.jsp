@@ -1009,28 +1009,44 @@ $(function() {
       });       
     }); 
      
-     
      $("#answer-div").dialog({
          autoOpen: false,
          resizable: false,
          height: "auto",
          width: 400,
          modal: true,
-         show: {
-             effect: "toggle",
-             duration: 270
-           },
-           hide: {
-             effect: "toggle",
-             duration: 270
-           },
          buttons: {
              "확인": function() {
           	   $(this).dialog("close");
              }
          }
      });
-    
+     
+     $("#wrong-div").dialog({
+         autoOpen: false,
+         resizable: false,
+         height: "auto",
+         width: 400,
+         modal: true,
+         buttons: {
+             "확인": function() {
+          	   $(this).dialog("close");
+             }
+         }
+     });
+     
+     $("#compile-div").dialog({
+         autoOpen: false,
+         resizable: false,
+         height: "auto",
+         width: 400,
+         modal: true,
+         buttons: {
+             "확인": function() {
+          	   $(this).dialog("close");
+             }
+         }
+     });
      
       $(document).on("click","#Submit",function(){
          if(currentEditor == null){
@@ -1068,15 +1084,15 @@ $(function() {
                   
                   if(compileError == true) {
 //                      alert("컴파일 오류입니다.");
-                     $("#answer-div").dialog("open");
+                     $("#compile-div").dialog("open");
                      return;
                   } else if(compileResult == true) {
 //                      alert("정답입니다.");
-                     $("#answer-div").dialog("open");
-                     return;
+					$("#answer-div").dialog("open");
+                    return;
                   } else {
-//                      alert("오답입니다.");
-                     $("#answer-div").dialog("open");
+//                     alert("오답입니다.");
+                	  $("#wrong-div").dialog("open");
                   }
                   outputResult = '';
                },
@@ -1121,33 +1137,33 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-   $("#info-div").dialog({
-       autoOpen: false,
-       resizable: false,
-       height: "auto",
-       width: 400,
-       modal: true,
-       show: {
-           effect: "toggle",
-           duration: 270
-         },
-         hide: {
-           effect: "toggle",
-           duration: 270
-         },
-       buttons: {
-           "확인": function() {
-        	   $(this).dialog("close");
-           }
-       }
-   });
+//    $("#info-div").dialog({
+//        autoOpen: false,
+//        resizable: false,
+//        height: "auto",
+//        width: 400,
+//        modal: true,
+//        show: {
+//            effect: "toggle",
+//            duration: 270
+//          },
+//          hide: {
+//            effect: "toggle",
+//            duration: 270
+//          },
+//        buttons: {
+//            "확인": function() {
+//         	   $(this).dialog("close");
+//            }
+//        }
+//    });
    
    var button;
    $('#info').click(function() {
 	   button = document.getElementsByClassName('ui-button')[10];
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
 	   
-	   $("#info-div").dialog("open");
+// 	   $("#info-div").dialog("open");
    });
    
    $('.ui-button').eq(10).hover(function() {
@@ -1459,28 +1475,19 @@ window.onload = function() {
 		</table>
 	</div>
 </div>
-<div class="answer-div-class" id="answer-div" title="정답 여부" style="display:none" >
+<div class="answer-div-class" id="answer-div" style="display:none" >
 	<div class="answer-content">
-		<table border="0" class="info-table">
-			<thead>
-				<tr>
-					<th>
-						<span>언어</span>
-					</th>
-					<th>
-						<span>버전</span>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="line"><td>C</td><td>gcc 4.8.5</td></tr>
-				<tr><td>C++</td><td>gcc 4.8.5</td></tr>
-				<tr class="line"><td>C#</td><td>.NET Core 5.16</td></tr>
-				<tr><td>Java</td><td>OpenJDK 1.8.0</td></tr>
-				<tr class="line"><td>JavaScript</td><td>Node.js 8.17.0</td></tr>
-				<tr><td>Python</td><td>2.7.5</td></tr>
-			</tbody>
-		</table>
+		<strong>정답입니다!</strong>
+	</div>
+</div>
+<div class="wrong-div-class" id="wrong-div" style="display:none" >
+	<div class="wrong-content">
+		<strong>오답입니다!</strong>
+	</div>
+</div>
+<div class="compile-div-class" id="compile-div" style="display:none" >
+	<div class="compile-content">
+		<strong>컴파일 오류입니다!</strong>
 	</div>
 </div>
 </body>
