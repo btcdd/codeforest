@@ -295,7 +295,7 @@ window.onload = function(){
 	setTimeout(function() {
 		var ckeContents = document.getElementsByClassName("cke_contents")[0];
 		ckeContents.style = "height: 400px";
-	}, 70);
+	}, 100);
 };
 
 function captureReturnKey(e) { 

@@ -887,11 +887,9 @@ $(function() {
         }else if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)){ //enter
         	switch(event.target.className){
         	case 'fileName-insert':
-        		console.log('$(".fileName-insert").val()>>>>>>>',$(".fileName-insert").val());
         		$("#fileInsertButton").click();
         		break;
         	case 'fileName-update':
-        		console.log('$(".fileName-update").val()>>>>>>>',$(".fileName-update").val());
         		$("#fileUpdateButton").click();
         	}
         }else if((event.which && event.which == 27) || (event.keyCode && event.keyCode == 27)){//esc
@@ -999,7 +997,6 @@ $(function() {
             }
             
             SavedCode.set(fileNo+"", currentEditor.getValue());
-            console.log("ok");
             layoutId = "layout-"+fileNo;
             tempFile = fileMap.get(fileNo+"");
             tempLayout = root.getItemsById(layoutId)[0];
@@ -1011,6 +1008,35 @@ $(function() {
       });       
     }); 
      
+     $("#answer-div").dialog({
+         autoOpen: false,
+         resizable: false,
+         height: 105,
+         width: 400,
+         modal: true,
+         buttons: {
+         }
+     });
+     
+     $("#wrong-div").dialog({
+         autoOpen: false,
+         resizable: false,
+         height: 105,
+         width: 400,
+         modal: true,
+         buttons: {
+         }
+     });
+     
+     $("#compile-div").dialog({
+         autoOpen: false,
+         resizable: false,
+         height: 105,
+         width: 400,
+         modal: true,
+         buttons: {
+         }
+     });
      
       $(document).on("click","#Submit",function(){
          if(currentEditor == null){
@@ -1047,13 +1073,13 @@ $(function() {
                   var compileError = response.data.compileError;
                   
                   if(compileError == true) {
-                     alert("컴파일 오류입니다.");
+                     $("#compile-div").dialog("open");
                      return;
                   } else if(compileResult == true) {
-                     alert("정답입니다.");
-                     return;
+					$("#answer-div").dialog("open");
+                    return;
                   } else {
-                     alert("오답입니다.");
+                	  $("#wrong-div").dialog("open");
                   }
                   outputResult = '';
                },
@@ -1119,18 +1145,24 @@ $(function() {
        }
    });
    
-   var button;
    $('#info').click(function() {
-	   button = document.getElementsByClassName('ui-button')[10];
+	   var button = document.getElementsByClassName('ui-button')[13];
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
 	   
 	   $("#info-div").dialog("open");
    });
    
-   $('.ui-button').eq(10).hover(function() {
-	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+   var button4 = document.getElementsByClassName('ui-button')[14];
+   $('.ui-button').eq(14).hover(function() {
+	   button4.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
-	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+	   button4.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+   })
+   var button5 = document.getElementsByClassName('ui-button')[13];
+   $('.ui-button').eq(13).hover(function() {
+	   button5.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+   }, function() {
+	   button5.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
    
    var uiDialogButtonpane = document.getElementsByClassName('ui-dialog-buttonpane')[2];
@@ -1144,6 +1176,12 @@ $(function() {
    
    var uiDialogButtonset = document.getElementsByClassName('ui-dialog-buttonset')[0];
    uiDialogButtonset.style = "margin-top: -13px !important;";
+   
+   var uiButton3 = document.getElementsByClassName('ui-button')[14];
+   uiButton3.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
+   var uiButton4 = document.getElementsByClassName('ui-button')[16];
+   uiButton4.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
+   
    
   	var problemContentLength = $('.problem-content').length;
 	for(i = 0; i < problemContentLength; i++) {
@@ -1440,6 +1478,21 @@ window.onload = function() {
 				<tr><td>Python</td><td>2.7.5</td></tr>
 			</tbody>
 		</table>
+	</div>
+</div>
+<div class="answer-div-class" id="answer-div" style="display:none" >
+	<div class="answer-content">
+		<strong>정답입니다!</strong>
+	</div>
+</div>
+<div class="wrong-div-class" id="wrong-div" style="display:none" >
+	<div class="wrong-content">
+		<strong>오답입니다!</strong>
+	</div>
+</div>
+<div class="compile-div-class" id="compile-div" style="display:none" >
+	<div class="compile-content">
+		<strong>컴파일 오류입니다!</strong>
 	</div>
 </div>
 </body>

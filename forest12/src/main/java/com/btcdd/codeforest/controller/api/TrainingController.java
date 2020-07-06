@@ -124,7 +124,9 @@ public class TrainingController {
 		Map<String, Object> map = new HashMap<>();
 		for(int i = 0; i < list.size(); i++) {
 			fileNames.add(list.get(i).getFileName());
-			codes.add("ㅋㅋㅋ");
+			codes.add(codeTreeLinux.findCode(list.get(i).getPackagePath(), language, list.get(i).getFileName()));
+//			codes.add("ㅋㅋㅋ");
+
 		}
 		
 		map.put("fileNames", fileNames);	

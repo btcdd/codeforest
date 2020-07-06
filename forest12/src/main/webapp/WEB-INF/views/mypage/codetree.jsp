@@ -154,7 +154,6 @@ var fileFetchList = function(){
 					'language' : lang
 				},
 	         success: function(response){
-	        	 console.log(response.data);
 	        	 var html = listTemplate.render(response);
 	        	
 	      	   	 $(".file-tree__item").append(html);  
@@ -332,7 +331,6 @@ $(function() {
  	// 폰트 사이즈 변경
 	$(document).on("click", '#font-size', function(){	
 		var fontSize = $("#font-size option:selected").val();
-		console.log("font-size:"+fontSize);
 		$(".CodeMirror").css("font-size", fontSize);
 	});
 	
@@ -360,8 +358,6 @@ $(function() {
  	});	
  	
  	$(document).on('click','#file-insert',function(){
- 		console.log("savePathNo!!!"+savePathNo);
- 		console.log("subProblemNo!!!"+subProblemNo);
  		var lang = $(".lang option:selected").val();
  		var fileName = null;
  		$('<div> <input type="text" style="z-index:10000" class="fileName-input"  placeholder='+'.'+lang+' > </div>')
@@ -416,7 +412,6 @@ $(function() {
  	
  	
  	$(document).on('click','#userfile-delete',function(){
- 		console.log("userfile-delete   >>codeNo",codeNo);
  		$(".validateTips").css("color","black").html("<p>정말로 삭제하시겠습니까?</p>");
  		dialogDelete.dialog("open");
  	});
@@ -484,7 +479,6 @@ $(function() {
 							return;
 						}
 						fileName = filename2;
-						console.log("fileName>>>>>>>>>>>>>>>>>",fileName);
 						$.ajax({
 							url: '${pageContext.servletContext.contextPath }/api/codetree/fileUpdate',
 							async: true,
@@ -555,7 +549,6 @@ $(function() {
  			
  			
  	 		fileMap.set(fileNo+"", tempFile);
- 	 		console.log($("#cm"+fileNo).length);
  			
 	 		root = myLayout.root.contentItems[0] || myLayout.root;
 			
@@ -578,7 +571,6 @@ $(function() {
 				readOnly : true
 			});			
 			editorArray[editorArrayIndex++]=editor;
-			console.log("editor : " + editor);
 			currentEditor = editor;
 			HashMap.set("editor"+fileNo, editor);
 			
@@ -641,7 +633,6 @@ $(function() {
 						   currentEditor.setValue(face);
 					   }	
 				   }
-					console.log("code : " + response.data);
 					SavedCode.set(fileNo+"",response.data);
 				},
 				error: function(xhr, status, e) {
@@ -658,28 +649,20 @@ $(function() {
  			tempFile = fileMap.get(fileNo+"");
 			tempLayout = root.getItemsById(layoutId)[0];
 			 
-			console.log("tempLayout",tempLayout);
  			root.setActiveContentItem(tempLayout);	
  			   
  			currentEditor = HashMap.get("editor"+fileNo);
  			
- 			console.log("map>>>",HashMap.get("editor"+fileNo));
  		}
  		
  		
  	});
 	$(document).on("mousedown", ".lm_title", function() {
 
-		console.log("title>>>",$(this));
-		console.log("getActiveContentItem()>>",root.getActiveContentItem());
-		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id);
-		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id.split("-")[0]);
-		console.log("getActiveContentItem()>>",root.getActiveContentItem().config.id.split("-")[1]);
 		var tabFileNo = root.getActiveContentItem().config.id.split("-")[1];
 		fileNo = tabFileNo;
  		tempFile = fileMap.get(tabFileNo+"");
 		$(this).parent().attr("id", "tab"+tabFileNo); //dom 분리시 작업 코드 진행중
- 		console.log("mousedown tempFile>>>>>>>",tempFile.data("fileName"));
  		currentEditor = HashMap.get("editor"+tabFileNo);
 		
  		
@@ -687,11 +670,6 @@ $(function() {
 	});
 	
 	$(document).on("click", ".CodeMirror-scroll", function(e) {
-		console.log("root>>>>>>>>>>",root);
-		console.log("클릭한곳:", $(this));
-		console.log("this.parent()>>",$(this).parent());
-		console.log("this.parent().parent>>",$(this).parent().parent().attr("id"));
-		console.log("this.parent().parent>>",$(this).parent().parent().attr("id").split("cm"));
  		var cmNo = $(this).parent().parent().attr("id").split("cm")[1];
  		fileNo = cmNo;
  		tempFile = fileMap.get(cmNo+"");

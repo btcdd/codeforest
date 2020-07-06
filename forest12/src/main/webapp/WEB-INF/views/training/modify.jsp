@@ -260,7 +260,7 @@ window.onload = function(){
 			var ckeContents = document.getElementsByClassName("cke_contents")[i];
 			ckeContents.style = "height: 400px";
 		}
-	}, 70);
+	}, 100);
 };
 
 </script>
@@ -316,12 +316,12 @@ window.onload = function(){
 	
 							<div class="ex-input">
 								<div class="ex-input-title">예제 입력</div>
-								<textarea id="ex-input-text" name="subProblemList[${index }].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off">${item.examInput }</textarea>
+								<textarea id="ex-input-text" name="subProblemList[${index }].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off" readonly>${item.examInput }</textarea>
 							</div>
 	
 							<div class="ex-output">
 								<div class="ex-output-title">예제 출력</div>
-								<textarea id="ex-output-text" name="subProblemList[${index }].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off">${item.examOutput }</textarea>
+								<textarea id="ex-output-text" name="subProblemList[${index }].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off" readonly>${item.examOutput }</textarea>
 							</div>
 						</div> <!--  prob0 -->
 					</c:forEach>

@@ -23,8 +23,6 @@
 		$('#0').addClass("active");
 		$('#0').next().toggleClass("open");
 		
-// 		$('.accordion__content__txt').css('margin', '0 -0.8em');
-		
 		var items = $(".accordion__items");
 
 		items.on("click", function() {
@@ -38,16 +36,6 @@
 				$(this).next().toggleClass("open");
 			}
 		});
-
-// 		setTimeout(function() {
-// 			var height = $('#mCSB_1_dragger_vertical').css('max-height');
-// 			console.log(height);
-// 			if (height !== '0px') {
-// 				console.log('여깅');
-// 				var el = document.getElementsByClassName("accordion__content open")[0];
-// 		      	el.style = "margin: 0px 1em 0 0.05em;";
-// 			}
-// 		}, 70);
 	});
 </script>
 

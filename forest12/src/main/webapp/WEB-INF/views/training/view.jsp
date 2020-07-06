@@ -338,7 +338,7 @@ $(function() {
         	<div class="hit">
 	        	조회수  ${problemVo.hit + 1}
         	</div>
-	       <c:if test="${problemVo.userNo eq authUser.no }">
+	       <c:if test="${problemVo.userNo eq authUser.no && empty problemVo.privacy}">
 	        	<div class="modify" style="margin-right: 1.5em;">
 		       		<a href="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">수정하기</a>
 	       		</div>

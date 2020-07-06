@@ -128,6 +128,27 @@ td {
 	border: 1.5px #907d59 solid;
 }
 
+#end-btn {
+	background-color: #aaa;
+    border: none;
+    color: #fff;
+    padding: 2px 15px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    transition-duration: 0.4s;
+    border: 1.5px #aaa solid;
+    cursor: pointer;
+}
+
+#end-btn:hover {
+	-webkit-box-shadow: 0 2px 3px 0 rgba(192,179,154,0.3), 0 2px 4px 2px rgba(192,179,154,0.15);
+	background-color: #9a9a9a;
+	border: 1.5px #9a9a9a solid;
+}
+
 .sub-problem-padding1 {
 	padding-right: 20px;
 }

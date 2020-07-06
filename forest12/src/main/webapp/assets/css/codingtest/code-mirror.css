@@ -47,3 +47,11 @@
 .timer {
 	margin-top: 8px;
 }
+
+.answer-content, .wrong-content, .compile-content {
+	text-align: center;
+}
+
+#ui-id-4, #ui-id-5, #ui-id-6 {
+	height: 0 !important;
+} 

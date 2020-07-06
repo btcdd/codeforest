@@ -62,7 +62,7 @@ public class UserService {
 			
 			mailSender.send(message);
 		}catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return "success";
 	}

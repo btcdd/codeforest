@@ -23,17 +23,14 @@ $(document).ready(function(){
 	
 	$('#codetree-li').click(function(){
 		var offset = $('#codetree').offset(); //선택한 태그의 위치를 반환
-		console.log(offset);
         $('html').animate({scrollTop : offset.top - 200}, 500);
 	});
 	$('#codingtest-li').click(function(){
 		var offset = $('#codingtest').offset(); //선택한 태그의 위치를 반환
-		console.log(offset);
         $('html').animate({scrollTop : offset.top - 65}, 500);
 	});
 	$('#training-li').click(function(){
 		var offset = $('#training').offset(); //선택한 태그의 위치를 반환
-		console.log(offset);
         $('html').animate({scrollTop : offset.top - 65}, 500);
 	});
 	
