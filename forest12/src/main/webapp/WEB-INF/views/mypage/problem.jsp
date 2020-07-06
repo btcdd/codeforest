@@ -96,6 +96,7 @@ var fetchList = function() {
    var fileDownloadStr = "";
    str += '<tbody id="problem-tbody">';
    for(var i = 0; i < map.list.length; i++){
+	   
 	   if(map.list[i].startTime <= getTimeStamp() && map.list[i].endTime >= getTimeStamp()) {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><button class="blinking" id="modify-btn" style="padding: 2px 9px; background-color: #fc9303; border: 1px solid #fc9303; outline: none; cursor: default" >진행중</button></a></td>';
@@ -108,7 +109,9 @@ var fetchList = function() {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
 		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
-   	   } else if(map.list[i].privacy == 'n' && map.list[i].endTime <= getTimeStamp()){ 
+   	   }
+	   // 이 부분
+	   else if(map.list[i].privacy == 'n' && map.list[i].endTime <= getTimeStamp()){ 
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
 		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
@@ -117,6 +120,7 @@ var fetchList = function() {
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
 		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
 	   }
+	   
        str += '<tr class="list-contents" id="list-contents" data-no="' + map.list[i].no + '">' + 
                 '<td><a data-no="' + map.list[i].no + '">' + map.list[i].no + '</a></td>' + 
                   '<td class="problem-title" data-no="' + map.list[i].no + '" style="text-align: left">' + titleStr + '</td>' + 
