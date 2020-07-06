@@ -1194,6 +1194,12 @@ $(function() {
    var uiDialogButtonset = document.getElementsByClassName('ui-dialog-buttonset')[0];
    uiDialogButtonset.style = "margin-top: -13px !important;";
    
+   var uiButton = document.getElementsByClassName('ui-button')[10];
+   uiButton.style = "background-color: #0A93E2 !important; color: #fff !important;";
+   var uiButton2 = document.getElementsByClassName('ui-button')[12];
+   uiButton2.style = "background-color: #0A93E2 !important; color: #fff !important;";
+   var uiButton3 = document.getElementsByClassName('ui-button')[14];
+   uiButton3.style = "background-color: #0A93E2 !important; color: #fff !important;";
    
    
 ////// function 끝부분
