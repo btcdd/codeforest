@@ -1137,36 +1137,46 @@ $(function() {
    var glCm3 = document.getElementsByClassName("lm_items")[0];
    glCm3.style = "";
    
-//    $("#info-div").dialog({
-//        autoOpen: false,
-//        resizable: false,
-//        height: "auto",
-//        width: 400,
-//        modal: true,
-//        show: {
-//            effect: "toggle",
-//            duration: 270
-//          },
-//          hide: {
-//            effect: "toggle",
-//            duration: 270
-//          },
-//        buttons: {
-//            "확인": function() {
-//         	   $(this).dialog("close");
-//            }
-//        }
-//    });
+   $("#info-div").dialog({
+       autoOpen: false,
+       resizable: false,
+       height: "auto",
+       width: 400,
+       modal: true,
+       show: {
+           effect: "toggle",
+           duration: 270
+         },
+         hide: {
+           effect: "toggle",
+           duration: 270
+         },
+       buttons: {
+           "확인": function() {
+        	   $(this).dialog("close");
+           }
+       }
+   });
    
    var button;
    $('#info').click(function() {
 	   button = document.getElementsByClassName('ui-button')[10];
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
 	   
-// 	   $("#info-div").dialog("open");
+	   $("#info-div").dialog("open");
    });
    
    $('.ui-button').eq(10).hover(function() {
+	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+   }, function() {
+	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+   })
+   $('.ui-button').eq(12).hover(function() {
+	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+   }, function() {
+	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+   })
+   $('.ui-button').eq(14).hover(function() {
 	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
@@ -1183,6 +1193,7 @@ $(function() {
    
    var uiDialogButtonset = document.getElementsByClassName('ui-dialog-buttonset')[0];
    uiDialogButtonset.style = "margin-top: -13px !important;";
+   
    
 ////// function 끝부분
 });
