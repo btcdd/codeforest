@@ -36,8 +36,8 @@ public class CodeTreeChatController {
 	@Autowired
 	CodeTreeService codetreeService = new CodeTreeService();
 	
-	@MessageMapping("/codetree")
-	@SendTo("/topic/public")
+	@MessageMapping("/codetree/{no}")
+	@SendTo("/topic/public/{no}")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
 		chatMessage.setProgramPandan(false);
