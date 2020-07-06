@@ -147,7 +147,7 @@
 		]]>
 		<foreach collection="subProblemList" item="item" separator=",">
 			<![CDATA[
-				(null, "${item.title }", '${item.contents }', "${item.examInput }", "${item.examOutput }", ${problemNo },'y')
+				(null, "${item.title }", '${item.contents }', "${item.examInput }", '${item.examOutput }', ${problemNo },'y')
 			]]>
 		</foreach>
 	</insert>
