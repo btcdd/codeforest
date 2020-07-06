@@ -17,12 +17,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         for(int i = 1; i < 1000; i++) {
         	registry.addEndpoint("/" + i).setAllowedOrigins("*").withSockJS();
         }
-        try {
-			Runtime.getRuntime().exec("mkdir registry: " + registry);
-			Runtime.getRuntime().exec("mkdir registry.toString(): " + registry.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
     }
 
     @Override
