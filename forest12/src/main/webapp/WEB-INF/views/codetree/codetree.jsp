@@ -1158,37 +1158,36 @@ $(function() {
        }
    });
    
-   var button;
    $('#info').click(function() {
-	   button = document.getElementsByClassName('ui-button')[16];
+	   var button = document.getElementsByClassName('ui-button')[16];
 	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
 	   
 	   $("#info-div").dialog("open");
    });
    
+   var button2 = document.getElementsByClassName('ui-button')[10];
    $('.ui-button').eq(10).hover(function() {
-	   button = document.getElementsByClassName('ui-button')[10];
-	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+	   button2.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
-	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+	   button2.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
+   var button3 = document.getElementsByClassName('ui-button')[12];
    $('.ui-button').eq(12).hover(function() {
-	   button = document.getElementsByClassName('ui-button')[12];
-	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+	   button3.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
-	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+	   button3.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
+   var button4 = document.getElementsByClassName('ui-button')[14];
    $('.ui-button').eq(14).hover(function() {
-	   button = document.getElementsByClassName('ui-button')[14];
-	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+	   button4.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
-	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+	   button4.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
+   var button5 = document.getElementsByClassName('ui-button')[16];
    $('.ui-button').eq(16).hover(function() {
-	   button = document.getElementsByClassName('ui-button')[16];
-	   button.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
+	   button5.style = "background-color: #A6A6A6 !important; color: #fff; height: 37px;";
    }, function() {
-	   button.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
+	   button5.style = "background-color: #0A93E2 !important; color: #fff; height: 37px;";
    })
    
    var uiDialogButtonpane = document.getElementsByClassName('ui-dialog-buttonpane')[2];
