@@ -1077,16 +1077,16 @@ $(function() {
             	   var compileResult = response.data.compileResult;
                    var compileError = response.data.compileError;
                   
-                  if(compileError == true) {
-                     alert("컴파일 오류입니다.");
-                     return;
-                  } else if(compileResult == true) {
-                     alert("정답입니다.");
-                     return;
-                  } else {
-                     alert("오답입니다.");
-                  }
-                  outputResult = '';
+                   if(compileError == true) {
+                       $("#compile-div").dialog("open");
+                       return;
+                    } else if(compileResult == true) {
+  					$("#answer-div").dialog("open");
+                      return;
+                    } else {
+                  	  $("#wrong-div").dialog("open");
+                    }
+                    outputResult = '';
                },
                error: function(xhr, status, e) {
                   console.error(status + ":" + e);
