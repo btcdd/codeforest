@@ -30,6 +30,7 @@ import com.btcdd.codeforest.service.CodeTreeService;
 @Controller
 public class CodeTreeChatController {
 	
+	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
 
 	@Autowired
@@ -39,7 +40,6 @@ public class CodeTreeChatController {
 	@SendTo("/topic/public/{no}")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 
-		Process process = null;
 		
 		chatMessage.setProgramPandan(false);
 		chatMessage.setErrorPandan(false);
@@ -64,6 +64,7 @@ public class CodeTreeChatController {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put(authUserNo, process);
+		
 		process = (Process) map.get(authUserNo);
 		
 		try {
