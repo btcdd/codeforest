@@ -103,14 +103,34 @@ public class CodeTreeChatController {
 				}
 			}
 			
-			OutputStream stdin = process1.getOutputStream();
-			InputStream stderr = process1.getErrorStream();
-			InputStream stdout = process1.getInputStream();
+			
+			
+//			OutputStream stdin = null;
+//			InputStream stderr = null;
+//			InputStream stdout = null;
+//
+//			if("1".equals(no)) {
+//				stdin = process1.getOutputStream();
+//			} else if("2".equals(no)) {
+//				stdin = process2.getOutputStream();
+//			}
+			
+//			InputStream stderr = process1.getErrorStream();
+//			InputStream stdout = process1.getInputStream();
 
+			
+			
+			
+			
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-					BufferedReader reader = new BufferedReader(new InputStreamReader(stderr, "utf-8"));
+					BufferedReader reader = null;
+					if("1".equals(no)) {
+						reader = new BufferedReader(new InputStreamReader(process1.getErrorStream(), "utf-8"));
+					} else if("2".contentEquals(no)) {
+						reader = new BufferedReader(new InputStreamReader(process2.getErrorStream(), "utf-8"));
+					}
 					int c = 0;
 					while ((c = reader.read()) != -1) {
 						char line = (char) c;
@@ -126,7 +146,12 @@ public class CodeTreeChatController {
 			// 입력 stream을 BufferedWriter로 받아서 콘솔로부터 받은 입력을 Process 클래스로 실행시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
+					BufferedWriter writer = null;
+					if("1".equals(no)) {
+						writer = new BufferedWriter(new OutputStreamWriter(process1.getOutputStream()));
+					} else if("2".contentEquals(no)) {
+						writer = new BufferedWriter(new OutputStreamWriter(process2.getOutputStream()));
+					}
 					String input = chatMessage.getContent();
 					
 					if(submitPandan == true && input == null) {
@@ -156,7 +181,12 @@ public class CodeTreeChatController {
 			// 출력 stream을 BufferedReader로 받아서 라인 변경이 있을 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
 				try {
-					InputStreamReader is = new InputStreamReader(stdout, "utf-8");
+					InputStreamReader is = null;
+					if("1".equals(no)) {
+						is = new InputStreamReader(process1.getInputStream(), "utf-8");
+					} else if("2".contentEquals(no)) {
+						is = new InputStreamReader(process2.getInputStream(), "utf-8");
+					}
 					int c = 0;
 					readBuffer.setLength(0);
 					while ((c = is.read()) != -1) {
