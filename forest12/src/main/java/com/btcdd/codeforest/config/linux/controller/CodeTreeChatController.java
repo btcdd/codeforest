@@ -31,7 +31,10 @@ import com.btcdd.codeforest.service.CodeTreeService;
 @Controller
 public class CodeTreeChatController {
 	
-	private Process p;
+	private Process process;
+	private Process process1;
+	private Process process2;
+	
 	private StringBuffer readBuffer = new StringBuffer();
 
 	@Autowired
@@ -39,7 +42,7 @@ public class CodeTreeChatController {
 	
 	@MessageMapping("/codetree/{no}")
 	@SendTo("/topic/public/{no}")
-	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, @DestinationVariable String no) {
+	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, @DestinationVariable Long no) {
 		
 		chatMessage.setProgramPandan(false);
 		chatMessage.setErrorPandan(false);
@@ -61,13 +64,6 @@ public class CodeTreeChatController {
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
 		
-		Process process = p;
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put(no, process);
-		
-		process = (Process) map.get(no);
-		
 		try {
 			if(pandan) {
 				Thread.sleep(500);
@@ -87,7 +83,21 @@ public class CodeTreeChatController {
 					RunJavaLinux runJavaLinux = new RunJavaLinux(fileName, packagePath, language);
 				    errorResult = runJavaLinux.execCompile();
 				    String[] split = fileName.split("\\.");
-					process = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
+				    
+				    
+				    
+				    
+				    
+				    if(no == 1) {
+				    	process1 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
+				    } else if(no == 2) {
+				    	process2 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
+				    }
+				    
+				    
+				    
+				    
+				    
 				} else if("js".equals(language)) {
 					process = Runtime.getRuntime().exec("timeout 120s node " + packagePath + "/" + language + "/Test.js");
 				} else if("py".equals(language)) {
@@ -101,9 +111,9 @@ public class CodeTreeChatController {
 				}
 			}
 			
-			OutputStream stdin = process.getOutputStream();
-			InputStream stderr = process.getErrorStream();
-			InputStream stdout = process.getInputStream();
+			OutputStream stdin = process1.getOutputStream();
+			InputStream stderr = process1.getErrorStream();
+			InputStream stdout = process1.getInputStream();
 
 			// 에러 stream을 BufferedReader로 받아서 에러가 발생할 경우 console 화면에 출력시킨다.
 			Executors.newCachedThreadPool().submit(() -> {
