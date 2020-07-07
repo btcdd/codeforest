@@ -84,12 +84,7 @@ public class CodeTreeChatController {
 				    errorResult = runJavaLinux.execCompile();
 				    String[] split = fileName.split("\\.");
 				    
-//				    process1 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
-				    if(no.equals("1")) {
-				    	process = Runtime.getRuntime().exec("mkdir y00jin" + no);
-				    } else if(no.equals("2")) {
-				    	process = Runtime.getRuntime().exec("mkdir y00jin2222dddd" + no);
-				    }
+				    process1 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
 				    
 				} else if("js".equals(language)) {
 					process = Runtime.getRuntime().exec("timeout 120s node " + packagePath + "/" + language + "/Test.js");
