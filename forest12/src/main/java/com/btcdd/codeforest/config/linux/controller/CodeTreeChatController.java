@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -38,8 +39,7 @@ public class CodeTreeChatController {
 	
 	@MessageMapping("/codetree/{no}")
 	@SendTo("/topic/public/{no}")
-	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-
+	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, @DestinationVariable String no) {
 		
 		chatMessage.setProgramPandan(false);
 		chatMessage.setErrorPandan(false);
@@ -61,10 +61,10 @@ public class CodeTreeChatController {
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
 		
-//		Map<String, Object> map = new HashMap<>();
-//		map.put(authUserNo, process);
+		Map<String, Object> map = new HashMap<>();
+		map.put(no, process);
 		
-//		process = (Process) map.get(authUserNo);
+		process = (Process) map.get(no);
 		
 		try {
 			if(pandan) {
