@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 import org.json.simple.JSONObject;
@@ -23,14 +25,11 @@ import com.btcdd.codeforest.runlanguage.RunCLinux;
 import com.btcdd.codeforest.runlanguage.RunCppLinux;
 import com.btcdd.codeforest.runlanguage.RunCsLinux;
 import com.btcdd.codeforest.runlanguage.RunJavaLinux;
-import com.btcdd.codeforest.runlanguage.RunJsLinux;
-import com.btcdd.codeforest.runlanguage.RunPyLinux;
 import com.btcdd.codeforest.service.CodeTreeService;
 
 @Controller
 public class CodeTreeChatController {
 	
-	private Process process;
 	private StringBuffer readBuffer = new StringBuffer();
 
 	@Autowired
@@ -39,6 +38,8 @@ public class CodeTreeChatController {
 	@MessageMapping("/codetree/{no}")
 	@SendTo("/topic/public/{no}")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+
+		Process process = null;
 		
 		chatMessage.setProgramPandan(false);
 		chatMessage.setErrorPandan(false);
@@ -59,7 +60,11 @@ public class CodeTreeChatController {
 		String packagePath = (String) obj.get("packagePath");
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
+		String authUserNo = (String) obj.get("authUserNo");
 		
+		Map<String, Object> map = new HashMap<>();
+		map.put(authUserNo, process);
+		process = (Process) map.get(authUserNo);
 		
 		try {
 			if(pandan) {
@@ -67,7 +72,7 @@ public class CodeTreeChatController {
 				if("c".equals(language)) {
 					RunCLinux runCLinux = new RunCLinux(fileName, packagePath, language);
 				    errorResult = runCLinux.execCompile();
-					process = Runtime.getRuntime().exec("timeout 120s " + packagePath + "/" + language + "/Test.exe");
+				    process = Runtime.getRuntime().exec("timeout 120s " + packagePath + "/" + language + "/Test.exe");
 				} else if("cpp".equals(language)) {
 					RunCppLinux runCppLinux = new RunCppLinux(fileName, packagePath, language);
 				    errorResult = runCppLinux.execCompile();
