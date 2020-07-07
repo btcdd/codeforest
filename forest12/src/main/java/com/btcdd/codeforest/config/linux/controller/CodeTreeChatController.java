@@ -31,6 +31,7 @@ import com.btcdd.codeforest.service.CodeTreeService;
 @Controller
 public class CodeTreeChatController {
 	
+	private Process p;
 	private StringBuffer readBuffer = new StringBuffer();
 
 	@Autowired
@@ -60,7 +61,7 @@ public class CodeTreeChatController {
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
 		
-		Process process = null;
+		Process process = p;
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put(no, process);
