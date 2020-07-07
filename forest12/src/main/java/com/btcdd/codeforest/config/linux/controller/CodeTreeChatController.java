@@ -47,7 +47,6 @@ public class CodeTreeChatController {
 		try {
 			process = Runtime.getRuntime().exec("mkdir y00jin" + no);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
