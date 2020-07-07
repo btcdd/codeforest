@@ -44,12 +44,6 @@ public class CodeTreeChatController {
 	@SendTo("/topic/public/{no}")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, @DestinationVariable String no) {
 		
-		try {
-			process = Runtime.getRuntime().exec("mkdir y00jin" + no);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
 		chatMessage.setProgramPandan(false);
 		chatMessage.setErrorPandan(false);
 		
@@ -90,7 +84,7 @@ public class CodeTreeChatController {
 				    errorResult = runJavaLinux.execCompile();
 				    String[] split = fileName.split("\\.");
 				    
-				    process1 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
+//				    process1 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
 				    if(no.equals("1")) {
 				    	process = Runtime.getRuntime().exec("mkdir y00jin" + no);
 				    } else if(no.equals("2")) {
