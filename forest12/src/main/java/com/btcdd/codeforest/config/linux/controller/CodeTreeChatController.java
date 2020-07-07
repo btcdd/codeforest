@@ -42,7 +42,7 @@ public class CodeTreeChatController {
 	
 	@MessageMapping("/codetree/{no}")
 	@SendTo("/topic/public/{no}")
-	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, @DestinationVariable Long no) {
+	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, @DestinationVariable String no) {
 		
 		chatMessage.setProgramPandan(false);
 		chatMessage.setErrorPandan(false);
@@ -84,19 +84,11 @@ public class CodeTreeChatController {
 				    errorResult = runJavaLinux.execCompile();
 				    String[] split = fileName.split("\\.");
 				    
-				    
-				    
-				    
-				    
-				    if(no == 1) {
+				    if(no.equals("1")) {
 				    	process1 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
-				    } else if(no == 2) {
+				    } else if(no.equals("2")) {
 				    	process2 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
 				    }
-				    
-				    
-				    
-				    
 				    
 				} else if("js".equals(language)) {
 					process = Runtime.getRuntime().exec("timeout 120s node " + packagePath + "/" + language + "/Test.js");
