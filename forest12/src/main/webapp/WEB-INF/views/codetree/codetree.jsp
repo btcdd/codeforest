@@ -74,7 +74,6 @@ function connect(event) {
    code = currentEditor.getValue();
    
    // 서버소켓의 endpoint인 "/ws"로 접속할 클라이언트 소켓 생성
-   
    socket = new SockJS('${pageContext.request.contextPath }/' + authUserNo);
    
    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@", authUserNo);
@@ -101,6 +100,7 @@ function onConnected() {
        	packagePath: tempFile.data("package-path"),
        	submitPandan: submitPandan,
        	subProblemNo: tempFile.data("subproblem-no"),
+       	authUserNo: authUserNo,
         type: 'CHAT'
     };
     
