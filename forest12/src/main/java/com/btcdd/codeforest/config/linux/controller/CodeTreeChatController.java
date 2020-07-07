@@ -83,9 +83,7 @@ public class CodeTreeChatController {
 					RunJavaLinux runJavaLinux = new RunJavaLinux(fileName, packagePath, language);
 				    errorResult = runJavaLinux.execCompile();
 				    String[] split = fileName.split("\\.");
-				    
 				    process1 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
-				    
 				} else if("js".equals(language)) {
 					process = Runtime.getRuntime().exec("timeout 120s node " + packagePath + "/" + language + "/Test.js");
 				} else if("py".equals(language)) {
@@ -178,7 +176,7 @@ public class CodeTreeChatController {
 		}
 
 		chatMessage.setContent(readBuffer.toString());
-		if(!process.isAlive()) {
+		if(!process1.isAlive()) {
 			chatMessage.setContent(readBuffer.toString() + "\n프로그램이 종료되었습니다!");
 			chatMessage.setProgramPandan(true);
 			return chatMessage;
