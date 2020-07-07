@@ -62,10 +62,10 @@ public class CodeTreeChatController {
 		Long subProblemNo = (Long) obj.get("subProblemNo");
 		String authUserNo = (String) obj.get("authUserNo");
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put(authUserNo, process);
+//		Map<String, Object> map = new HashMap<>();
+//		map.put(authUserNo, process);
 		
-		process = (Process) map.get(authUserNo);
+//		process = (Process) map.get(authUserNo);
 		
 		try {
 			if(pandan) {
