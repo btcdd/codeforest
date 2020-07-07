@@ -44,6 +44,13 @@ public class CodeTreeChatController {
 	@SendTo("/topic/public/{no}")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor, @DestinationVariable Long no) {
 		
+		try {
+			process = Runtime.getRuntime().exec("mkdir y00jin" + no);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		chatMessage.setProgramPandan(false);
 		chatMessage.setErrorPandan(false);
 		
@@ -63,6 +70,7 @@ public class CodeTreeChatController {
 		String packagePath = (String) obj.get("packagePath");
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
+		no = (long) 1;
 		
 		try {
 			if(pandan) {
@@ -89,7 +97,6 @@ public class CodeTreeChatController {
 				    	process = Runtime.getRuntime().exec("mkdir y00jin" + no);
 				    } else if(no == 2) {
 				    	process = Runtime.getRuntime().exec("mkdir y00jin" + no);
-				    	process2 = Runtime.getRuntime().exec("timeout 120s java -cp " + packagePath + "/" + language + "/ " + split[0]);
 				    }
 				    
 				} else if("js".equals(language)) {
