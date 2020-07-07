@@ -60,7 +60,6 @@ public class CodeTreeChatController {
 		String packagePath = (String) obj.get("packagePath");
 		Boolean submitPandan = (Boolean) obj.get("submitPandan");
 		Long subProblemNo = (Long) obj.get("subProblemNo");
-		String authUserNo = (String) obj.get("authUserNo");
 		
 //		Map<String, Object> map = new HashMap<>();
 //		map.put(authUserNo, process);

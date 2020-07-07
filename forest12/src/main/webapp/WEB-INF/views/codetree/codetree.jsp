@@ -100,7 +100,6 @@ function onConnected() {
        	packagePath: tempFile.data("package-path"),
        	submitPandan: submitPandan,
        	subProblemNo: tempFile.data("subproblem-no"),
-       	authUserNo: authUserNo,
         type: 'CHAT'
     };
     
