@@ -596,7 +596,7 @@ $(function() {
 	$(document).on('click', '#mail-plus', function(event) {
 		event.preventDefault();
 		
-		$('#mail-plus').before('<div class="input-mail-div">' + index + '<input type="text" class="input-mail" id="input-mail" autocomplete="off"><span class="mail-delete" id="mail-delete">x</span><div>');
+		$('#mail-plus').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off"><span class="mail-delete" id="mail-delete">x</span><div>');
 		
 		index++;
 	});
@@ -604,7 +604,17 @@ $(function() {
 	$(document).on('click', '#mail-delete', function(event) {
 		event.preventDefault();
 		
+		var ind = $(this).parent().children().eq(0).text();
+		
 		$(this).parent().remove();
+		
+		var initIndex = document.getElementsByClassName('input-mail-index');
+		
+		ind = Number(ind) + 1;
+		for(var i = ind; i < index; i++) {
+			initIndex[i - 2].textContent = i - 1;
+		}
+		index--;
 	});
 	
 	$("#mail").change(function(){
@@ -720,7 +730,7 @@ $(function() {
 		</fieldset>
 <!-- 		<input type="file" id="excelFile" onchange="excelExport(event)"/> -->
 	    <div id="input-mail-div">
-	    	<span class="">1</span><input type="text" class="input-mail" id="input-mail" autocomplete="off">
+	    	<span class="input-mail-index">1</span><input type="text" class="input-mail" id="input-mail" autocomplete="off">
 	    </div>
 	    <span class="mail-plus" id="mail-plus">+</span>
 	</div>
