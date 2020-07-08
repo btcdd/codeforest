@@ -124,7 +124,7 @@ var setStyle = function(index2) {
 	setTimeout(function() {
 		var ckeContents2 = document.getElementsByClassName("cke_contents")[index2];
 		ckeContents2.style = "height: 400px";
-	}, 100);
+	}, 120);
 }
 
 $(function() {
@@ -260,7 +260,7 @@ window.onload = function(){
 			var ckeContents = document.getElementsByClassName("cke_contents")[i];
 			ckeContents.style = "height: 400px";
 		}
-	}, 100);
+	}, 120);
 };
 
 </script>

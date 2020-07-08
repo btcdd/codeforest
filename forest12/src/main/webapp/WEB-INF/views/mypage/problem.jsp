@@ -28,6 +28,7 @@ function onKeyDown() {
 
 var page = '1';
 var endPageTrueNum;
+var mailChecked = false;
 
 var originList = function(page2, keyword) {
 	
@@ -39,7 +40,8 @@ var originList = function(page2, keyword) {
       traditional: true,
       data: {
          'page': page2,
-         'keyword': keyword
+         'keyword': keyword,
+         'mailChecked': mailChecked
       },
       success: function(response){
          if(response.result != "success"){
@@ -100,25 +102,48 @@ var fetchList = function() {
 	   if(map.list[i].startTime <= getTimeStamp() && map.list[i].endTime >= getTimeStamp()) {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><button class="blinking" id="modify-btn" style="padding: 2px 9px; background-color: #fc9303; border: 1px solid #fc9303; outline: none; cursor: default" >진행중</button></a></td>';
-		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i class="list-none fas fa-file-download"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
 	   } else if(map.list[i].startTime > getTimeStamp()) {
 		   titleStr = map.list[i].title + '<span class="blinking" id="expected" style="color: #fff; background-color: #3e91b5; border: 1px solid #3e91b5; border-radius: 0.5rem; padding: 0 1em; margin-left: 1em; font-size: 0.8em; margin-top: 2px;outline: none; cursor: default" >예정</span>';
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
-		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i class="list-none fas fa-file-download"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
 	   } else if(map.list[i].privacy == null) {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
-		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
-   	   }
-	   // 이 부분
-	   else if(map.list[i].privacy != null && map.list[i].endTime <= getTimeStamp()){ 
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i class="list-none fas fa-file-download"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
+	   } else if(map.list[i].privacy != null && map.list[i].endTime <= getTimeStamp()){ 
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '"><button id="end-btn">마감</button></a></td>';
-		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download" id="mail-change-icon"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
 	   } else {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
-		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download" id="mail-change-icon"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
 	   }
 	   
        str += '<tr class="list-contents" id="list-contents" data-no="' + map.list[i].no + '">' + 
@@ -173,6 +198,29 @@ var nextRemove = function() {
 	if(page == endPage) {
 		$('.next').remove();
 	}
+}
+
+var sendMail = function(emailArray) {
+	$.ajax({
+	      url: '${pageContext.request.contextPath }/api/mypage/problem/sendMail',
+	      async: false,
+	      type: 'post',
+	      dataType: 'json',
+	      traditional: true,
+	      data: {
+	         'emailArray': emailArray
+	      },
+	      success: function(response){
+	         if(response.result != "success"){
+	            console.error(response.message);
+	            return;
+	         }
+	         console.log('성공');
+	      },
+	      error: function(xhr, status, e){
+	         console.error(status + ":" + e);
+	      }
+	   });
 }
 	
 
@@ -462,6 +510,65 @@ $(function() {
 		
 	});
 	
+	$("#mail-dialog").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "전송": function() {
+            	var textArray = document.getElementsByClassName('input-mail');
+				var mailArray = [];
+            	
+            	for(var i = 0; i < textArray.length; i++) {
+            		mailArray.push(textArray[i].value);
+            	}
+            	
+            	sendMail(mailArray);
+            },
+            "취소": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+	
+	$(document).on('click', '#send-mail-icon', function(event) {
+		event.preventDefault();
+		
+		$('#mail-dialog').dialog("open");
+	});
+	
+	$(document).on('click', '#mail-plus', function(event) {
+		event.preventDefault();
+		
+		$('#mail-plus').before('<div class="input-mail-div"><input type="text" class="input-mail" id="input-mail" autocomplete="off"><span class="mail-delete" id="mail-delete">x</span><div>');
+	});
+	
+	$(document).on('click', '#mail-delete', function(event) {
+		event.preventDefault();
+		
+		$(this).parent().remove();
+	});
+	
+	$("#mail").change(function(){
+        if($(this).is(":checked")){
+        	$('#mail-th').text('메일');
+        	page = $('span b').parent().attr('id');
+        	var kwd = $('#kwd').val();
+        	mailChecked = true;
+        	
+        	originList(page, kwd);
+
+        } else{
+        	$('#mail-th').text('내보내기');
+        	page = $('span b').parent().attr('id');
+        	var kwd = $('#kwd').val();
+        	mailChecked = false;
+        	
+        	originList(page, kwd);
+        }
+    });
 	
 //------------------------------------------- 끝부분	
 });
@@ -478,6 +585,7 @@ $(function() {
             <div class="search">
                 <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();" autoComplete="off">
                 <input type="button" id="search" value="검색" >
+                <input type="checkbox" id="mail"> 메일 보내기
             </div>
             <br>
             <table class="quiz-table">
@@ -488,7 +596,7 @@ $(function() {
                        <th width="10%">조회수</th>
                        <th width="10%">추천수</th>
                        <th width="10%">수정하기</th>
-                       <th width="10%">내보내기</th>
+                       <th width="10%" id="mail-th">내보내기</th>
                        <th width="10%">삭제</th>
                    </tr>
                 </thead>
@@ -546,6 +654,15 @@ $(function() {
             </tr>           
        </table>
     </div>
+    <div id="mail-dialog" title="메일 보내기" style="display:none" >
+		<fieldset class="mail-fieldset">
+		    <label for="name">응시자 메일</label>
+		</fieldset>
+	    <div id="input-mail-div">
+	    	<input type="text" class="input-mail" id="input-mail" autocomplete="off">
+	    </div>
+	    <span class="mail-plus" id="mail-plus">+</span>
+	</div>
     <c:import url="/WEB-INF/views/include/footer.jsp" />
 </body>
 

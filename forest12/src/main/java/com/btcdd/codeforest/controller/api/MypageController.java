@@ -99,11 +99,11 @@ public class MypageController {
 
 	@Auth
 	@PostMapping(value = "/problem")
-	public JsonResult findProblem(String page, String keyword, HttpSession session) {
+	public JsonResult findProblem(String page, String keyword, Boolean mailChecked, HttpSession session) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-
+		
 		int currentPage = Integer.parseInt(page);
-		Map<String, Object> map = mypageService.getContentsList(currentPage, authUser.getNo(), keyword);
+		Map<String, Object> map = mypageService.getContentsList(currentPage, authUser.getNo(), keyword, mailChecked);
 	
 		return JsonResult.success(map);
 	}
@@ -113,8 +113,15 @@ public class MypageController {
 	public JsonResult codemirror(Long problemNo, Long userNo) {
 		Long saveNo = mypageService.findSaveNoByProblemNoAndUserNo(problemNo, userNo);
 		Map<String, Object> map = new HashMap<>();
-		map.put("saveNo",saveNo);				
+		map.put("saveNo",saveNo);
 		return JsonResult.success(map);
 	}
 
+	@Auth
+	@PostMapping(value = "/problem/sendMail")
+	public JsonResult sendMail(String[] emailArray) {
+		
+		
+		return JsonResult.success(null);
+	}
 }

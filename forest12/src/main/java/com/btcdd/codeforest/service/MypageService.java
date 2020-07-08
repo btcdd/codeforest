@@ -55,9 +55,9 @@ public class MypageService {
 		return mypageRepository.problemSolveList(no);
 	}
 
-	public Map<String, Object> getContentsList(int currentPage, Long userNo, String keyword) {
+	public Map<String, Object> getContentsList(int currentPage, Long userNo, String keyword, Boolean mailChecked) {
 		//게시물 총 갯수
-		int count = mypageRepository.getTotalCount(userNo, keyword);
+		int count = mypageRepository.getTotalCount(userNo, keyword, mailChecked);
 		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
 		int pageNum = (int)Math.ceil((double)count/postNum);
 		//출력할 게시물
@@ -73,7 +73,7 @@ public class MypageService {
 		}
 		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력		
 		
-		List<ProblemVo> list = mypageRepository.selectProblemList(displayPost, postNum, userNo, keyword);
+		List<ProblemVo> list = mypageRepository.selectProblemList(displayPost, postNum, userNo, keyword, mailChecked);
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("list",list);		
