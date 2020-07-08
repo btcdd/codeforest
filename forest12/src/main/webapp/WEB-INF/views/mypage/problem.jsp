@@ -29,6 +29,7 @@ function onKeyDown() {
 var page = '1';
 var endPageTrueNum;
 var mailChecked = false;
+var sendMailProblemNo;
 
 var originList = function(page2, keyword) {
 	
@@ -208,7 +209,8 @@ var sendMail = function(emailArray) {
 	      dataType: 'json',
 	      traditional: true,
 	      data: {
-	         'emailArray': emailArray
+	         'emailArray': emailArray,
+	         'problemNo': sendMailProblemNo
 	      },
 	      success: function(response){
 	         if(response.result != "success"){
@@ -535,6 +537,8 @@ $(function() {
 	
 	$(document).on('click', '#send-mail-icon', function(event) {
 		event.preventDefault();
+		
+		sendMailProblemNo = $(this).parent().parent().children().eq(0).text()
 		
 		$('#mail-dialog').dialog("open");
 	});

@@ -101,4 +101,8 @@ public class MypageRepository {
 	public Long selectRank(Long authUserNo) {
 		return sqlSession.selectOne("mypage.selectRank", authUserNo);
 	}
+
+	public String getProblemPassword(Long problemNo) {
+		return sqlSession.selectOne("mypage.getProblemPassword", problemNo);
+	}
 }
