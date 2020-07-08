@@ -119,8 +119,9 @@ public class MypageController {
 
 	@Auth
 	@PostMapping(value = "/problem/sendMail")
-	public JsonResult sendMail(String[] emailArray) {
-		
+	public JsonResult sendMail(String[] emailArray, Long problemNo) {
+		String tempKey = mypageService.getProblemPassword(problemNo);
+		mypageService.sendMail(emailArray, tempKey);
 		
 		return JsonResult.success(null);
 	}

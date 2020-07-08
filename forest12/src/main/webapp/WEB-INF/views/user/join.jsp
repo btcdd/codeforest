@@ -43,10 +43,10 @@ var loadingWithMask = function LoadingWithMask(){
 	$('#loadingImg').show();
 }
 
-var closeLoadingWithMask = function CloseLoadingWithMask(){
-	$('#mask,#loadingImg').hide();
-	$('#mask,#loadingImg').empty();
-} 
+var closeLoadingWithMask = function CloseLoadingWithMask() {
+	$('#mask, #loadingImg').hide();
+	$('#mask, #loadingImg').empty();
+}
 
 var auth_str = '<div id="auth">' +  
 					'<label for="auth-check"></label>' + 
@@ -382,7 +382,7 @@ $(function(){
 			success:function(response){	
 				slide("send-auth-num");
 				
-				console.log(response.data);//인증키
+				console.log(response.data); //인증키
 				tempKey = response.data;
 				closeLoadingWithMask();
 			},

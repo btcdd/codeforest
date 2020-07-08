@@ -183,4 +183,12 @@
       ]]>
    </select>
    
+   <select id="getProblemPassword" parameterType="long" resultType="string">
+      <![CDATA[
+         select password
+           from problem
+          where no = #{problemNo }
+      ]]>
+   </select>
+   
 </mapper>

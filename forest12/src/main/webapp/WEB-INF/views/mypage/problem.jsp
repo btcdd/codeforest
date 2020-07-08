@@ -17,7 +17,55 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/table2excel.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
 <script>
+
+var index = 2;
+
+// function excelExport(event){
+	
+//     var input = event.target;
+//     var reader = new FileReader();
+//     reader.onload = function(){
+//         var fileData = reader.result;
+//         var wb = XLSX.read(fileData, {type : 'binary'});
+        
+//         wb.SheetNames.forEach(function(sheetName){
+// 	        var rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+// 	        var array = JSON.stringify(rowObj);
+// 	        console.log(array[8] + array[9] + array[10]);
+//         })
+//     };
+//     reader.readAsBinaryString(input.files[0]);
+// }
+
+var loadingWithMask = function LoadingWithMask(){
+	
+ 	var widthWindow = window.innerWidth;
+	var heightWindow = window.innerHeight;
+
+	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none; opacity: 0.9; background-color: #fff; z-index: 11000; text-align: center;'></div>";
+	var loadingImg = '';
+		
+	loadingImg += "<div id='loadingImg'>";
+	loadingImg += "<span style='position: absolute; top: 40%; left: 44.5%;z-index: 11001;'>메일을 보내는 중입니다...</span>";
+	loadingImg += "</div>";
+		
+	$('body').append(mask).append(loadingImg);
+	$('#mask').css({
+		'width':widthWindow,
+		'height':heightWindow,
+		'opacity':'0.3'
+	});
+	$('#mask').show();
+	$('#loadingImg').show();
+}
+
+var closeLoadingWithMask = function CloseLoadingWithMask() {
+	$('#mask, #loadingImg').hide();
+	$('#mask, #loadingImg').empty();
+}
+
 function onKeyDown() {
 	if(event.keyCode == 13) {
 		var kwd = $('#kwd').val();
@@ -29,6 +77,7 @@ function onKeyDown() {
 var page = '1';
 var endPageTrueNum;
 var mailChecked = false;
+var sendMailProblemNo;
 
 var originList = function(page2, keyword) {
 	
@@ -201,26 +250,30 @@ var nextRemove = function() {
 }
 
 var sendMail = function(emailArray) {
-	$.ajax({
-	      url: '${pageContext.request.contextPath }/api/mypage/problem/sendMail',
-	      async: false,
-	      type: 'post',
-	      dataType: 'json',
-	      traditional: true,
-	      data: {
-	         'emailArray': emailArray
-	      },
-	      success: function(response){
-	         if(response.result != "success"){
-	            console.error(response.message);
-	            return;
-	         }
-	         console.log('성공');
-	      },
-	      error: function(xhr, status, e){
-	         console.error(status + ":" + e);
-	      }
-	   });
+
+	loadingWithMask();
+	
+	setTimeout(function() {
+		$.ajax({
+		      url: '${pageContext.request.contextPath }/api/mypage/problem/sendMail',
+		      async: false,
+		      type: 'post',
+		      dataType: 'json',
+		      traditional: true,
+		      data: {
+		         'emailArray': emailArray,
+		         'problemNo': sendMailProblemNo
+		      },
+		      success: function(response){
+		    	 console.log('dd');
+	         	 closeLoadingWithMask();
+	 	         $("#mail-dialog").dialog("close");
+		      },
+		      error: function(xhr, status, e) {
+		         console.error(status + ":" + e);
+		      }
+		   });
+	}, 1000)
 }
 	
 
@@ -524,7 +577,6 @@ $(function() {
             	for(var i = 0; i < textArray.length; i++) {
             		mailArray.push(textArray[i].value);
             	}
-            	
             	sendMail(mailArray);
             },
             "취소": function() {
@@ -536,19 +588,33 @@ $(function() {
 	$(document).on('click', '#send-mail-icon', function(event) {
 		event.preventDefault();
 		
+		sendMailProblemNo = $(this).parent().parent().children().eq(0).text()
+		
 		$('#mail-dialog').dialog("open");
 	});
 	
 	$(document).on('click', '#mail-plus', function(event) {
 		event.preventDefault();
 		
-		$('#mail-plus').before('<div class="input-mail-div"><input type="text" class="input-mail" id="input-mail" autocomplete="off"><span class="mail-delete" id="mail-delete">x</span><div>');
+		$('#mail-plus').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off"><span class="mail-delete" id="mail-delete">x</span><div>');
+		
+		index++;
 	});
 	
 	$(document).on('click', '#mail-delete', function(event) {
 		event.preventDefault();
 		
+		var ind = $(this).parent().children().eq(0).text();
+		
 		$(this).parent().remove();
+		
+		var initIndex = document.getElementsByClassName('input-mail-index');
+		
+		ind = Number(ind) + 1;
+		for(var i = ind; i < index; i++) {
+			initIndex[i - 2].textContent = i - 1;
+		}
+		index--;
 	});
 	
 	$("#mail").change(function(){
@@ -570,6 +636,10 @@ $(function() {
         }
     });
 	
+	$("#mail-span").click(function(){
+		$('#mail').trigger('click');
+    });	
+	
 //------------------------------------------- 끝부분	
 });
 </script>
@@ -585,7 +655,7 @@ $(function() {
             <div class="search">
                 <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();" autoComplete="off">
                 <input type="button" id="search" value="검색" >
-                <input type="checkbox" id="mail"> 메일 보내기
+                <input type="checkbox" class="mail" id="mail"> <span class="mail-span" id="mail-span">메일 보내기</span>
             </div>
             <br>
             <table class="quiz-table">
@@ -644,22 +714,23 @@ $(function() {
        </div>
        <table class="problem-list-table rtable">
           <tr>
-          		<th class="discard" id="go-codetree">코드보기</th>
+         		<th class="discard" id="go-codetree">코드보기</th>
                <th id="name">이름</th>
-                <th id="email">이메일</th>
-                <th id="nickname">닉네임</th>
-                <th id="try-count">시도횟수</th>
-                <th id="lang">언어</th>
-                <th id="solve-time">해결시간</th>
-            </tr>           
+               <th id="email">이메일</th>
+               <th id="nickname">닉네임</th>
+               <th id="try-count">시도횟수</th>
+               <th id="lang">언어</th>
+               <th id="solve-time">해결시간</th>
+            </tr>
        </table>
     </div>
     <div id="mail-dialog" title="메일 보내기" style="display:none" >
 		<fieldset class="mail-fieldset">
-		    <label for="name">응시자 메일</label>
+		    <label for="name" class="candidate-label">응시자 메일</label>
 		</fieldset>
+<!-- 		<input type="file" id="excelFile" onchange="excelExport(event)"/> -->
 	    <div id="input-mail-div">
-	    	<input type="text" class="input-mail" id="input-mail" autocomplete="off">
+	    	<span class="input-mail-index">1</span><input type="text" class="input-mail" id="input-mail" autocomplete="off">
 	    </div>
 	    <span class="mail-plus" id="mail-plus">+</span>
 	</div>

@@ -79,16 +79,6 @@ function getTimeStamp() {
 	  return s;
 }
 
-function addslashes(str) {
-    str = str.replace(/\\/g, '\\\\');
-    str = str.replace(/\'/g, '\\\'');
-    str = str.replace(/\"/g, '\\"');
-    str = str.replace(/\^/g, '\\^');
-    str = str.replace(/\`/g, '\\`');
-    str = str.replace(/\0/g, '\\0');
-    return str;
-}
-
 $(function() {
 	
 	$("#delete-sub-problem").dialog({
@@ -203,14 +193,6 @@ $(function() {
 			var str = $('.content').eq(i).val();
 			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
 			$('.content').eq(i).val(str);
-		}
-		
-		for(var i = 0; i < index; i++) {
-			var str = $('#ex-output-text').eq(i).val();
-			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
-			var newstr = addslashes(str);
-			console.log(newstr);
-			$('#ex-output-text').eq(i).val(newstr);
 		}
 		
 		$("#true-submit").trigger("click");

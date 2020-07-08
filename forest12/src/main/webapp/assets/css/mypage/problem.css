@@ -346,3 +346,20 @@ th {
 	margin-left: 1em;
 	font-size: 1.5em;
 }
+
+.mail {
+	cursor: pointer;
+}
+.mail-span {
+	cursor: pointer;
+}
+.excel {
+	cursor: pointer;
+}
+.mail-fieldset {
+	border: none;
+    text-align: center;
+}
+.input-mail-index {
+	margin-right: 2em;
+}
