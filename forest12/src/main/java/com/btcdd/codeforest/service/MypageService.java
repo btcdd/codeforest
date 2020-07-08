@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,14 +145,19 @@ public class MypageService {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			
+			messageHelper.setText("인증번호 : " + tempKey);
+			messageHelper.setFrom("codeforest2020@gmail.com","코드의숲");
+			messageHelper.setSubject("[Code Forest] 코딩 테스트 인증번호입니다");
+			
+			String mailPlus = "";
 			for(int i = 0; i < email.length; i++) {
-				messageHelper.setTo(email[i]);
-				messageHelper.setText("인증번호 : " + tempKey);
-				messageHelper.setFrom("codeforest2020@gmail.com","코드의숲");
-				messageHelper.setSubject("[Code Forest] 코딩 테스트 인증번호입니다");
-				
-				mailSender.send(message);
+				mailPlus += email[i];
+				if(i < email.length - 1) {
+					mailPlus += ", ";
+				}
 			}
+			messageHelper.setTo(InternetAddress.parse(mailPlus));
+			mailSender.send(message);
 		}catch(Exception e) {
 			System.out.println(e);
 		}
