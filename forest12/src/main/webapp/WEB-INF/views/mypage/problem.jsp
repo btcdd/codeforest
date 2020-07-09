@@ -567,7 +567,7 @@ $(function() {
         autoOpen: false,
         resizable: false,
         height: "auto",
-        width: 400,
+        width: 314,
         modal: true,
         buttons: {
             "전송": function() {
@@ -665,8 +665,8 @@ $(function() {
             <table class="quiz-table">
                <thead>
                    <tr>
-                       <th width="13%">문제번호</th>
-                       <th width="43%">제목</th>
+                       <th width="10%">번호</th>
+                       <th width="46%">제목</th>
                        <th width="10%">조회수</th>
                        <th width="10%">추천수</th>
                        <th width="10%">수정하기</th>
@@ -735,8 +735,8 @@ $(function() {
 <!-- 		<input type="file" id="excelFile" onchange="excelExport(event)"/> -->
 	    <div id="input-mail-div">
 	    	<span class="input-mail-index">1</span>
-	    	<input type="text" class="input-mail" id="input-mail" autocomplete="off">
-	    	<span class="mail-delete" id="mail-delete">x</span>
+	    	<input type="text" class="input-mail strange" id="input-mail" autocomplete="off">
+	    	<span class="mail-delete strange-span" id="mail-delete">x</span>
 	    </div>
 	    <span class="mail-plus" id="mail-plus">+</span>
 	</div>
