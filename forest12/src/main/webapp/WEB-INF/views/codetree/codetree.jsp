@@ -1047,6 +1047,10 @@ $(function() {
          $("#Run").trigger("click");
          var problemNo = "${saveVo.problemNo }";
          
+         
+         console.log("compileResult1>>>",compileResult1);
+         console.log("compileResult2>>>",compileResult2);
+         
          setTimeout(function(){
         	 
               var problemNo = "${saveVo.problemNo }";
