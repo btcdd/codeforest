@@ -1062,8 +1062,6 @@ $(function() {
                   var compileResult = response.data.compileResult;
                   var compileError = response.data.compileError;
                   
-                  console.log("compileResult", compileResult);
-                  
                   if(compileError == true) {
                      $("#compile-div").dialog("open");
                      return;

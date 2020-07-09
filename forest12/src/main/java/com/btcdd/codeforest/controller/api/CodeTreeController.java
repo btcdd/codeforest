@@ -1,5 +1,6 @@
 package com.btcdd.codeforest.controller.api;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -218,7 +219,14 @@ public class CodeTreeController {
 		Map<String, Object> map = new HashMap<>();
 		
 		String[] examOutputSplit = examOutput.split("\n");
-		String[] outputResultSplit =outputResult.split("\n");
+		String[] outputResultSplit = outputResult.split("\n");
+		
+		try {
+			Process process = Runtime.getRuntime().exec("mkdir examOutputSplitLength" + examOutputSplit.length);
+			process = Runtime.getRuntime().exec("mkdir outputResultSplitLength" + outputResultSplit.length);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 		
 		if(compileResult2 == false) {
 			for(int i = 0; i < examOutputSplit.length; i++) {
