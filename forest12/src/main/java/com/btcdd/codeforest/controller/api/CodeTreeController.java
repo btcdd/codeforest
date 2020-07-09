@@ -216,9 +216,14 @@ public class CodeTreeController {
 		boolean compileError = false;
 		
 		Map<String, Object> map = new HashMap<>();
+
+		
+		map.put("outputResult",outputResult);
 		
 		String[] examOutputSplit = examOutput.split("\n");
 		String[] outputResultSplit =outputResult.split("\n");
+		
+		
 		
 		if(compileResult2 == false) {
 			for(int i = 0; i < examOutputSplit.length; i++) {
