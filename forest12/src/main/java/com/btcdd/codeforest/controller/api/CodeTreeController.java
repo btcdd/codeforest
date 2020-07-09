@@ -228,7 +228,7 @@ public class CodeTreeController {
 			File file = new File("examOutputSplit.txt");
 			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
-			String str = examOutputSplit[0] + "_\n" + examOutputSplit[1] + "_\n" + outputResultSplit[0] + "_\n" + outputResultSplit[1] + "_";
+			String str = examOutputSplit.length + "_\n" + outputResultSplit.length + "_\n" + examOutputSplit[0] + "_\n" + examOutputSplit[1] + "_\n" + outputResultSplit[0] + "_\n" + outputResultSplit[1] + "_";
 			
 			bufferWriter.write(str);
 			bufferWriter.flush(); 
@@ -236,17 +236,22 @@ public class CodeTreeController {
 			e.printStackTrace();
 		}	
 		
-		if(compileResult2 == false && examOutputSplit.length == outputResultSplit.length) {
-			for(int i = 0; i < examOutputSplit.length; i++) {
-				if(examOutputSplit[i].equals(outputResultSplit[i]) == false) {
-					compileResult = false;
-					compileError = false;
-					break;
+		if(compileResult2 == false) {
+			if(examOutputSplit.length == outputResultSplit.length) {
+				for(int i = 0; i < examOutputSplit.length; i++) {
+					if(examOutputSplit[i].equals(outputResultSplit[i]) == false) {
+						compileResult = false;
+						compileError = false;
+						break;
+					}
+					else {
+						compileResult = true;
+						compileError = false;
+					}
 				}
-				else {
-					compileResult = true;
-					compileError = false;
-				}
+			} else {
+				compileResult = false;
+				compileError = false;
 			}
 		}
 		else {
