@@ -236,7 +236,7 @@ public class CodeTreeController {
 			e.printStackTrace();
 		}	
 		
-		if((compileResult2 == false) && (examOutputSplit.length == outputResultSplit.length)) {
+		if(compileResult2 == false) {
 			for(int i = 0; i < examOutputSplit.length; i++) {
 				if(examOutputSplit[i].equals(outputResultSplit[i]) == false) {
 					compileResult = false;
