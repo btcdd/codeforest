@@ -222,8 +222,10 @@ public class CodeTreeController {
 		String[] outputResultSplit =outputResult.split("\n");
 		
 		try {
-			Process process = Runtime.getRuntime().exec("mkdir examOutputSplitLength" + examOutputSplit.length);
-			process = Runtime.getRuntime().exec("mkdir outputResultSplitLength" + outputResultSplit.length);
+			Process process = Runtime.getRuntime().exec("mkdir examOutputSplitLength_" + examOutputSplit[0]);
+			process = Runtime.getRuntime().exec("mkdir examOutputSplitLength_" + examOutputSplit[1]);
+			process = Runtime.getRuntime().exec("mkdir outputResultSplitLength_" + outputResultSplit[0]);
+			process = Runtime.getRuntime().exec("mkdir outputResultSplitLength_" + outputResultSplit[1]);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
