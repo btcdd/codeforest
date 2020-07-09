@@ -1,5 +1,8 @@
 package com.btcdd.codeforest.controller.api;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -222,10 +225,13 @@ public class CodeTreeController {
 		String[] outputResultSplit =outputResult.split("\n");
 		
 		try {
-			Process process = Runtime.getRuntime().exec("mkdir examOutputSplitLength_" + examOutputSplit[0]);
-			process = Runtime.getRuntime().exec("mkdir examOutputSplitLength_" + examOutputSplit[1]);
-			process = Runtime.getRuntime().exec("mkdir outputResultSplitLength_" + outputResultSplit[0]);
-			process = Runtime.getRuntime().exec("mkdir outputResultSplitLength_" + outputResultSplit[1]);
+			File file = new File("examOutputSplit.txt");
+			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			
+			String str = examOutputSplit[0] + "_\n" + examOutputSplit[1] + "_\n" + outputResultSplit[0] + "_\n" + outputResultSplit[1];
+			
+			bufferWriter.write(str);
+			bufferWriter.flush(); 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
