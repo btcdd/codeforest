@@ -221,15 +221,15 @@ public class CodeTreeController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		String[] examOutputSplit = null;
-		String[] outputResultSplit = null;
+		String[] examOutputSplit = {};
+		String[] outputResultSplit = {};
+		
+		examOutputSplit[0] = examOutput;
+		outputResultSplit[0] = outputResult;
 		
 		if(examOutput.contains("<br />") ) {
 			examOutputSplit = examOutput.split("<br />");
 			outputResultSplit =outputResult.split("\n");
-		} else {
-			examOutputSplit[0] = examOutput;
-			outputResultSplit[0] = outputResult;
 		}
 		
 		try {
