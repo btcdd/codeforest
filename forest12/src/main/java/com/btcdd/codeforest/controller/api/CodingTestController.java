@@ -320,7 +320,7 @@ public class CodingTestController {
 					}
 				}
 				else {
-					if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+					if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
 						compileResult = false;
 						compileError = false;
 						break;
