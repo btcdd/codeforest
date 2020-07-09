@@ -221,17 +221,11 @@ public class CodeTreeController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		String[] examOutputSplit = {};
-		String[] outputResultSplit = {};
-		
-		examOutputSplit[0] = examOutput;
-		outputResultSplit[0] = outputResult;
-		
 		try {
 			File file = new File("examOutputSplit1111.txt");
 			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
-			String str = examOutputSplit.length + "_\n" + outputResultSplit.length + "_\n" + examOutputSplit[0] + "_\n" + outputResultSplit[0] + "_";
+			String str = examOutput + "_\n" + outputResult + "_";
 			
 			bufferWriter.write(str);
 			bufferWriter.flush(); 
@@ -239,11 +233,9 @@ public class CodeTreeController {
 			e.printStackTrace();
 		}
 		
-		if(examOutput.contains("<br />") ) {
-			examOutputSplit = examOutput.split("<br />");
-			outputResultSplit =outputResult.split("\n");
-		}
-		
+		String[] examOutputSplit = examOutput.split("<br />");
+		String[] outputResultSplit =outputResult.split("\n");
+	
 		try {
 			File file = new File("examOutputSplit.txt");
 			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
