@@ -218,7 +218,7 @@ public class CodeTreeController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		String[] examOutputSplit = examOutput.split("\n");
+		String[] examOutputSplit = examOutput.split("<br />");
 		String[] outputResultSplit =outputResult.split("\n");
 		
 		try {
