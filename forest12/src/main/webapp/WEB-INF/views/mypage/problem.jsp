@@ -633,19 +633,17 @@ $(function() {
 	$("#mail").change(function(){
         if($(this).is(":checked")){
         	$('#mail-th').text('메일');
-        	page = $('span b').parent().attr('id');
         	var kwd = $('#kwd').val();
         	mailChecked = true;
         	
-        	originList(page, kwd);
+        	originList('1', kwd);
 
         } else{
         	$('#mail-th').text('내보내기');
-        	page = $('span b').parent().attr('id');
         	var kwd = $('#kwd').val();
         	mailChecked = false;
         	
-        	originList(page, kwd);
+        	originList('1', kwd);
         }
     });
 	
