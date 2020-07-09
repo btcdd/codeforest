@@ -654,16 +654,15 @@ $(function() {
     });	
 	
 	var wrongPandan = false;
+	var deletePandan = false;
 	$(document).on('propertychange change keyup paste input', '#input-mail', function(event) {
 		var email = $(this).val();
 		
 		if(!checkEmail(email) && wrongPandan == false) {
 			$(this).after('<span>하하</span>');
-			console.log('11');
 			wrongPandan = true;
 		} else if(checkEmail(email)) {
-			console.log('22');
-			console.log($(this).parent().eq(2));
+			$(this).parent().children().eq(2).remove();
 			wrongPandan = false;
 		}
 	});

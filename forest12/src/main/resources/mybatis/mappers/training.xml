@@ -242,7 +242,7 @@
 			select count(*) 
 			from problem p, user u, kind k 
 			where p.user_no = u.no
-				and p.user_no = 10000
+				and p.user_no = 1
 				and p.kind_no = k.no
 				and (title like '%${keyword}%' or nickname like '%${keyword}%')
                 and p.kind_no = 6
