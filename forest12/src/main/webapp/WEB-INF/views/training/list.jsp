@@ -121,7 +121,6 @@ var levelChecked = function(page, kwd) {
 		checkValues.push($(this).val());
 		category = 'organization';
 	})
-	
 	originList(page, kwd, category);
 	checkValues = new Array();
 }
@@ -147,7 +146,7 @@ var nextRemove = function() {
 }
 
 $(function() {
-
+	
 	originList('1', '', '');
 	
 	nextRemove();
