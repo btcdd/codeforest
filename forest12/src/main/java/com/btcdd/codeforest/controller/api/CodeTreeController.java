@@ -228,7 +228,7 @@ public class CodeTreeController {
 		outputResultSplit[0] = outputResult;
 		
 		try {
-			File file = new File("examOutputSplit.txt");
+			File file = new File("examOutputSplit1111.txt");
 			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			String str = examOutputSplit.length + "_\n" + outputResultSplit.length + "_\n" + examOutputSplit[0] + "_\n" + outputResultSplit[0] + "_";
