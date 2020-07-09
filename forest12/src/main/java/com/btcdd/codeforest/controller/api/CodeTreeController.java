@@ -221,32 +221,8 @@ public class CodeTreeController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		try {
-			File file = new File("examOutputSplit1111.txt");
-			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
-			
-			String str = examOutput + "_\n" + outputResult + "_";
-			
-			bufferWriter.write(str);
-			bufferWriter.flush(); 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 		String[] examOutputSplit = examOutput.split("<br />");
 		String[] outputResultSplit =outputResult.split("\n");
-	
-		try {
-			File file = new File("examOutputSplit.txt");
-			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
-			
-			String str = examOutputSplit.length + "_\n" + outputResultSplit.length + "_\n" + examOutputSplit[0] + "_\n" + outputResultSplit[0] + "_";
-			
-			bufferWriter.write(str);
-			bufferWriter.flush(); 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
 		
 		if(compileResult2 == false) {
 			if(examOutputSplit.length == outputResultSplit.length) {
