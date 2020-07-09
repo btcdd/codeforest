@@ -221,8 +221,16 @@ public class CodeTreeController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		String[] examOutputSplit = examOutput.split("<br />");
-		String[] outputResultSplit =outputResult.split("\n");
+		String[] examOutputSplit = null;
+		String[] outputResultSplit = null;
+		
+		if(examOutput.contains("<br />") ) {
+			examOutputSplit = examOutput.split("<br />");
+			outputResultSplit =outputResult.split("\n");
+		} else {
+			examOutputSplit[0] = examOutput;
+			outputResultSplit[0] = outputResult;
+		}
 		
 		try {
 			File file = new File("examOutputSplit.txt");
