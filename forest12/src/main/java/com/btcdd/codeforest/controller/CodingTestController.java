@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.btcdd.codeforest.linux.TrainingLinux;
 import com.btcdd.codeforest.service.CodingTestService;
+import com.btcdd.codeforest.service.TrainingService;
 import com.btcdd.codeforest.vo.CodeVo;
 import com.btcdd.codeforest.vo.ProblemVo;
 import com.btcdd.codeforest.vo.SavePathVo;
 import com.btcdd.codeforest.vo.SaveVo;
+import com.btcdd.codeforest.vo.SubProblemList;
 import com.btcdd.codeforest.vo.SubProblemVo;
 import com.btcdd.codeforest.vo.UserVo;
 import com.btcdd.security.Auth;
@@ -35,6 +38,9 @@ public class CodingTestController {
 
 	@Autowired
 	private CodingTestService testService;
+	
+	@Autowired
+	private TrainingService trainingService;
 	
 	private TrainingLinux trainingLinux = new TrainingLinux();
 	
@@ -103,8 +109,15 @@ public class CodingTestController {
 	
 	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String testWritePost() {
-		return "codingtest/write";
+	public String problemWriteSuccess(
+			@ModelAttribute SubProblemList subProblemList,
+			ProblemVo problemVo, HttpSession session) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		trainingService.insert(subProblemList, problemVo, authUser.getNo());
+		
+		return "redirect:/codingtest";
 	}
 	
 	@Auth

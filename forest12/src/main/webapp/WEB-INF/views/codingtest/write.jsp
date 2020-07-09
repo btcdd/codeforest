@@ -292,7 +292,7 @@ function captureReturnKey(e) {
 <body>
 	<c:import url="/WEB-INF/views/include/main-header.jsp" />
 	<form method="post"
-		action="${pageContext.servletContext.contextPath }/training/write" onkeydown="return captureReturnKey(event)">
+		action="${pageContext.servletContext.contextPath }/codingtest/write" onkeydown="return captureReturnKey(event)">
 		<div class="regist">
 			<pre class="make-coding-test-problem-info"><i class="fas fa-info-circle info"></i>  새로운 코딩 테스트 문제를 만들기 위해서는 아래의 체크 버튼을 눌러주세요</pre>
 			<div class="codingtest-div">

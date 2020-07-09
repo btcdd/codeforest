@@ -339,7 +339,7 @@ th {
 
 .mail-delete {
 	cursor: pointer;
-	margin-left: 1em;
+	margin-left: 8px;
 	font-size: 15px;
 }
 
@@ -357,7 +357,7 @@ th {
     text-align: center;
 }
 .input-mail-index {
-	margin-right: 2em;
+	margin-right: 1em;
 }
 
 .strange {
@@ -365,14 +365,33 @@ th {
 }
 
 .strange-span {
-	margin-left: 12px;
+	margin-left: 4px;
 }
 
 .input-mail {
 	background-position: 182px;
-	background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    padding: 2px 4px;
+    border: 1px solid #bebebe;
+    border-radius: 0.3rem;
+    outline: none;
+}
+.input-mail:focus {
+	border-color: #0078ff;
 }
 
 .plus-div {
 	text-align: center;
+}
+
+.input-mail-div {
+	margin: 4px 0;
+}
+
+.content-div {
+	font-size: 13px;
+    margin-top: 6px;
+}
+.content-span {
+	
 }
