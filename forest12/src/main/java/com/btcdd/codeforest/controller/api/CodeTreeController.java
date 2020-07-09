@@ -1,5 +1,9 @@
 package com.btcdd.codeforest.controller.api;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -217,25 +221,49 @@ public class CodeTreeController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		String[] examOutputSplit = examOutput.split("\n");
+		try {
+			File file = new File("examOutputSplit1111.txt");
+			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			
+			String str = examOutput + "_\n" + outputResult + "_";
+			
+			bufferWriter.write(str);
+			bufferWriter.flush(); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		String[] examOutputSplit = examOutput.split("<br />");
 		String[] outputResultSplit =outputResult.split("\n");
+	
+		try {
+			File file = new File("examOutputSplit.txt");
+			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			
+			String str = examOutputSplit.length + "_\n" + outputResultSplit.length + "_\n" + examOutputSplit[0] + "_\n" + outputResultSplit[0] + "_";
+			
+			bufferWriter.write(str);
+			bufferWriter.flush(); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 		
 		if(compileResult2 == false) {
-			for(int i = 0; i < examOutputSplit.length; i++) {
-				if(i == examOutputSplit.length-1) {
-					if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+			if(examOutputSplit.length == outputResultSplit.length) {
+				for(int i = 0; i < examOutputSplit.length; i++) {
+					if(examOutputSplit[i].equals(outputResultSplit[i]) == false) {
 						compileResult = false;
 						compileError = false;
 						break;
 					}
-				}
-				else {
-					if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
-						compileResult = false;
+					else {
+						compileResult = true;
 						compileError = false;
-						break;
 					}
 				}
+			} else {
+				compileResult = false;
+				compileError = false;
 			}
 		}
 		else {
