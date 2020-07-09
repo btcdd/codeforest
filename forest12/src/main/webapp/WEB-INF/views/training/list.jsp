@@ -267,7 +267,9 @@ $(function() {
 			}
 		}
 		$('#kwd').val('');
-		
+		kwd = '';
+		checkValues = new Array();
+		page = '1';
 		originList('1', '', '');
 		
 		$('.hashtag').remove();
