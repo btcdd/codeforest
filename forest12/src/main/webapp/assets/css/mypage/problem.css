@@ -337,12 +337,6 @@ th {
     cursor: pointer;
 }
 
-.input-mail {
-	margin: 0;
-	padding: 0;
-	width: 100px;
-}
-
 .mail-delete {
 	cursor: pointer;
 	margin-left: 1em;
@@ -364,4 +358,12 @@ th {
 }
 .input-mail-index {
 	margin-right: 2em;
+}
+
+.strange {
+	margin-left: -5px;
+}
+
+.strange-span {
+	margin-left: 20px;
 }

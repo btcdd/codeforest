@@ -194,6 +194,16 @@ $(function() {
 			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
 			$('.content').eq(i).val(str);
 		}
+		for(var i = 0; i < index; i++) {
+			var str = $('#ex-input-text').eq(i).val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			$('#ex-input-text').val(str);
+		}
+		for(var i = 0; i < index; i++) {
+			var str = $('#ex-output-text').eq(i).val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			$('#ex-output-text').val(str);
+		}
 		
 		$("#true-submit").trigger("click");
 	});
