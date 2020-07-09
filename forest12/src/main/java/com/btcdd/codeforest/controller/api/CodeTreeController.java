@@ -240,7 +240,7 @@ public class CodeTreeController {
 			File file = new File("examOutputSplit.txt");
 			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
-			String str = examOutputSplit.length + "_\n" + outputResultSplit.length + "_\n" + examOutputSplit[0] + "_\n" + examOutputSplit[1] + "_\n" + outputResultSplit[0] + "_\n" + outputResultSplit[1] + "_";
+			String str = examOutputSplit.length + "_\n" + outputResultSplit.length + "_\n" + examOutputSplit[0] + "_\n" + outputResultSplit[0] + "_";
 			
 			bufferWriter.write(str);
 			bufferWriter.flush(); 
