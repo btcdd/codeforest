@@ -17,7 +17,64 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/table2excel.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
 <script>
+
+var index = 2;
+
+// function excelExport(event){
+	
+//     var input = event.target;
+//     var reader = new FileReader();
+//     reader.onload = function(){
+//         var fileData = reader.result;
+//         var wb = XLSX.read(fileData, {type : 'binary'});
+        
+//         wb.SheetNames.forEach(function(sheetName){
+// 	        var rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+// 	        var array = JSON.stringify(rowObj);
+// 	        console.log(array[8] + array[9] + array[10]);
+//         })
+//     };
+//     reader.readAsBinaryString(input.files[0]);
+// }
+
+var checkEmail = function CheckEmail(str) {
+    var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    if(!reg_email.test(str)) {                            
+    	return false;         
+    } else {               
+        return true;
+    }
+}
+
+var loadingWithMask = function LoadingWithMask(){
+	
+ 	var widthWindow = window.innerWidth;
+	var heightWindow = window.innerHeight;
+
+	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none; opacity: 0.9; background-color: #fff; z-index: 11000; text-align: center;'></div>";
+	var loadingImg = '';
+		
+	loadingImg += "<div id='loadingImg'>";
+	loadingImg += "<span style='position: absolute; top: 40%; left: 44.5%;z-index: 11001;'>메일을 보내는 중입니다...</span>";
+	loadingImg += "</div>";
+		
+	$('body').append(mask).append(loadingImg);
+	$('#mask').css({
+		'width':widthWindow,
+		'height':heightWindow,
+		'opacity':'0.3'
+	});
+	$('#mask').show();
+	$('#loadingImg').show();
+}
+
+var closeLoadingWithMask = function CloseLoadingWithMask() {
+	$('#mask, #loadingImg').hide();
+	$('#mask, #loadingImg').empty();
+}
+
 function onKeyDown() {
 	if(event.keyCode == 13) {
 		var kwd = $('#kwd').val();
@@ -28,6 +85,8 @@ function onKeyDown() {
 
 var page = '1';
 var endPageTrueNum;
+var mailChecked = false;
+var sendMailProblemNo;
 
 var originList = function(page2, keyword) {
 	
@@ -39,7 +98,8 @@ var originList = function(page2, keyword) {
       traditional: true,
       data: {
          'page': page2,
-         'keyword': keyword
+         'keyword': keyword,
+         'mailChecked': mailChecked
       },
       success: function(response){
          if(response.result != "success"){
@@ -100,25 +160,48 @@ var fetchList = function() {
 	   if(map.list[i].startTime <= getTimeStamp() && map.list[i].endTime >= getTimeStamp()) {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><button class="blinking" id="modify-btn" style="padding: 2px 9px; background-color: #fc9303; border: 1px solid #fc9303; outline: none; cursor: default" >진행중</button></a></td>';
-		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i class="list-none fas fa-file-download"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
 	   } else if(map.list[i].startTime > getTimeStamp()) {
 		   titleStr = map.list[i].title + '<span class="blinking" id="expected" style="color: #fff; background-color: #3e91b5; border: 1px solid #3e91b5; border-radius: 0.5rem; padding: 0 1em; margin-left: 1em; font-size: 0.8em; margin-top: 2px;outline: none; cursor: default" >예정</span>';
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
-		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i class="list-none fas fa-file-download"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
 	   } else if(map.list[i].privacy == null) {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
-		   fileDownloadStr = '<td><i class="list-none fas fa-file-download"></i></td>';
-   	   }
-	   // 이 부분
-	   else if(map.list[i].privacy != null && map.list[i].endTime <= getTimeStamp()){ 
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i class="list-none fas fa-file-download"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
+	   } else if(map.list[i].privacy != null && map.list[i].endTime <= getTimeStamp()){ 
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '"><button id="end-btn">마감</button></a></td>';
-		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download" id="mail-change-icon"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
 	   } else {
 		   titleStr = map.list[i].title;
 		   codingTestStr = '<td><a href="${pageContext.servletContext.contextPath }/training/modify/' + map.list[i].no + '"><button id="modify-btn">수정</button></a></td>';
-		   fileDownloadStr = '<td><i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download"></i></td>';
+		   fileDownloadStr = '<td>';
+		   if(mailChecked == false) {
+			   fileDownloadStr += '<i data-no="' + map.list[i].no + '" data-title="' + map.list[i].title + '" type="button" alt="list" class="list fas fa-file-download" id="mail-change-icon"></i></td>';
+		   } else {
+			   fileDownloadStr += '<i class="fas fa-envelope-square" id="send-mail-icon"></i></td>';
+		   }
 	   }
 	   
        str += '<tr class="list-contents" id="list-contents" data-no="' + map.list[i].no + '">' + 
@@ -173,6 +256,33 @@ var nextRemove = function() {
 	if(page == endPage) {
 		$('.next').remove();
 	}
+}
+
+var sendMail = function(emailArray) {
+
+	loadingWithMask();
+	
+	setTimeout(function() {
+		$.ajax({
+		      url: '${pageContext.request.contextPath }/api/mypage/problem/sendMail',
+		      async: false,
+		      type: 'post',
+		      dataType: 'json',
+		      traditional: true,
+		      data: {
+		         'emailArray': emailArray,
+		         'problemNo': sendMailProblemNo
+		      },
+		      success: function(response){
+		    	 console.log('dd');
+	         	 closeLoadingWithMask();
+	 	         $("#mail-dialog").dialog("close");
+		      },
+		      error: function(xhr, status, e) {
+		         console.error(status + ":" + e);
+		      }
+		   });
+	}, 1000)
 }
 	
 
@@ -462,6 +572,100 @@ $(function() {
 		
 	});
 	
+	$("#mail-dialog").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: 314,
+        modal: true,
+        buttons: {
+            "전송": function() {
+            	var textArray = document.getElementsByClassName('input-mail');
+				var mailArray = [];
+            	
+            	for(var i = 0; i < textArray.length; i++) {
+            		mailArray.push(textArray[i].value);
+            	}
+            	sendMail(mailArray);
+            },
+            "취소": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+	
+	$(document).on('click', '#send-mail-icon', function(event) {
+		event.preventDefault();
+		
+		sendMailProblemNo = $(this).parent().parent().children().eq(0).text()
+		
+		$('#mail-dialog').dialog("open");
+	});
+	
+	$(document).on('click', '#mail-plus', function(event) {
+		event.preventDefault();
+		
+		$('#mail-plus').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off" placeholder="1234@gmail.com"><span class="mail-delete" id="mail-delete">x</span>');
+		
+		index++;
+	});
+	
+	$(document).on('click', '#mail-delete', function(event) {
+		event.preventDefault();
+		
+		var ind = $(this).parent().children().eq(0).text();
+		
+		if(ind == 1) {
+			alert('1개 이상은 입력하셔야 합니다');
+			return false;
+		}
+		$(this).parent().remove();
+		
+		var initIndex = document.getElementsByClassName('input-mail-index');
+		
+		ind = Number(ind) + 1;
+		for(var i = ind; i < index; i++) {
+			initIndex[i - 2].textContent = i - 1;
+		}
+		index--;
+	});
+	
+	$("#mail").change(function(){
+        if($(this).is(":checked")){
+        	$('#mail-th').text('메일');
+        	page = $('span b').parent().attr('id');
+        	var kwd = $('#kwd').val();
+        	mailChecked = true;
+        	
+        	originList(page, kwd);
+
+        } else{
+        	$('#mail-th').text('내보내기');
+        	page = $('span b').parent().attr('id');
+        	var kwd = $('#kwd').val();
+        	mailChecked = false;
+        	
+        	originList(page, kwd);
+        }
+    });
+	
+	$("#mail-span").click(function(){
+		$('#mail').trigger('click');
+    });	
+	
+	var wrongPandan = false;
+	var deletePandan = false;
+	$(document).on('propertychange change keyup paste input', '#input-mail', function(event) {
+		var email = $(this).val();
+		
+		if(!checkEmail(email) && wrongPandan == false) {
+			$(this).after('<span>하하</span>');
+			wrongPandan = true;
+		} else if(checkEmail(email)) {
+			$(this).parent().children().eq(2).remove();
+			wrongPandan = false;
+		}
+	});
 	
 //------------------------------------------- 끝부분	
 });
@@ -478,17 +682,18 @@ $(function() {
             <div class="search">
                 <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();" autoComplete="off">
                 <input type="button" id="search" value="검색" >
+                <input type="checkbox" class="mail" id="mail"> <span class="mail-span" id="mail-span">메일 보내기</span>
             </div>
             <br>
             <table class="quiz-table">
                <thead>
                    <tr>
-                       <th width="13%">문제번호</th>
-                       <th width="43%">제목</th>
+                       <th width="10%">번호</th>
+                       <th width="46%">제목</th>
                        <th width="10%">조회수</th>
                        <th width="10%">추천수</th>
                        <th width="10%">수정하기</th>
-                       <th width="10%">내보내기</th>
+                       <th width="10%" id="mail-th">내보내기</th>
                        <th width="10%">삭제</th>
                    </tr>
                 </thead>
@@ -536,16 +741,28 @@ $(function() {
        </div>
        <table class="problem-list-table rtable">
           <tr>
-          		<th class="discard" id="go-codetree">코드보기</th>
+         		<th class="discard" id="go-codetree">코드보기</th>
                <th id="name">이름</th>
-                <th id="email">이메일</th>
-                <th id="nickname">닉네임</th>
-                <th id="try-count">시도횟수</th>
-                <th id="lang">언어</th>
-                <th id="solve-time">해결시간</th>
-            </tr>           
+               <th id="email">이메일</th>
+               <th id="nickname">닉네임</th>
+               <th id="try-count">시도횟수</th>
+               <th id="lang">언어</th>
+               <th id="solve-time">해결시간</th>
+            </tr>
        </table>
     </div>
+    <div id="mail-dialog" title="메일 보내기" style="display:none" >
+		<fieldset class="mail-fieldset">
+		    <label for="name" class="candidate-label">응시자 메일</label>
+		</fieldset>
+<!-- 		<input type="file" id="excelFile" onchange="excelExport(event)"/> -->
+	    <div id="input-mail-div">
+	    	<span class="input-mail-index">1</span>
+	    	<input type="text" class="input-mail strange" id="input-mail" autocomplete="off" placeholder="1234@gmail.com">
+	    	<span class="mail-delete strange-span" id="mail-delete">x</span>
+	    </div>
+	    <span class="mail-plus" id="mail-plus">+</span>
+	</div>
     <c:import url="/WEB-INF/views/include/footer.jsp" />
 </body>
 

@@ -252,7 +252,7 @@ th {
     margin-left: 1.3%;
 }
 
-input[type=text] {
+#kwd {
     width: 30%;
     box-sizing: border-box;
     border: 2px solid #ccc;
@@ -304,7 +304,7 @@ input[type=text] {
 
 .rtable th,
 .rtable td {
-  padding: 8px 50px 8px 12px
+  padding: 8px 50px 8px 12px;
   border: 1px solid #d9d7ce;
   font-size : 1em;
   width: 900px;
@@ -328,4 +328,42 @@ input[type=text] {
 }
 .fa-laptop-code:hover {
 	cursor: pointer;
+}
+#send-mail-icon {
+	cursor: pointer;
+}
+.mail-plus {
+	font-size: 1.5em;
+    cursor: pointer;
+}
+
+.mail-delete {
+	cursor: pointer;
+	margin-left: 1em;
+	font-size: 1.5em;
+}
+
+.mail {
+	cursor: pointer;
+}
+.mail-span {
+	cursor: pointer;
+}
+.excel {
+	cursor: pointer;
+}
+.mail-fieldset {
+	border: none;
+    text-align: center;
+}
+.input-mail-index {
+	margin-right: 2em;
+}
+
+.strange {
+	margin-left: -5px;
+}
+
+.strange-span {
+	margin-left: 20px;
 }

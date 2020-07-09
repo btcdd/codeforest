@@ -39,12 +39,13 @@ public class MypageRepository {
 		sqlSession.update("mypage.foreignKeyChecks", 0L);
 	}
 
-	public List<ProblemVo> selectProblemList(int displayPost, int postNum, Long userNo, String keyword) {
+	public List<ProblemVo> selectProblemList(int displayPost, int postNum, Long userNo, String keyword, Boolean mailChecked) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("displayPost",displayPost);
 		map.put("postNum",postNum);	
 		map.put("userNo",userNo);
 		map.put("keyword", keyword);
+		map.put("mailChecked", mailChecked);
 		
 		List<ProblemVo> list = sqlSession.selectList("mypage.selectProblemList",map);
 		return list;
@@ -58,10 +59,11 @@ public class MypageRepository {
 		return sqlSession.selectList("mypage.problemSolveList", no);
 	}
 
-	public int getTotalCount(Long userNo, String keyword) {
+	public int getTotalCount(Long userNo, String keyword, Boolean mailChecked) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("userNo", userNo);
 		map.put("keyword", keyword);
+		map.put("mailChecked", mailChecked);
 		
 		return sqlSession.selectOne("mypage.totalCount", map);
 	}
@@ -98,5 +100,9 @@ public class MypageRepository {
 
 	public Long selectRank(Long authUserNo) {
 		return sqlSession.selectOne("mypage.selectRank", authUserNo);
+	}
+
+	public String getProblemPassword(Long problemNo) {
+		return sqlSession.selectOne("mypage.getProblemPassword", problemNo);
 	}
 }

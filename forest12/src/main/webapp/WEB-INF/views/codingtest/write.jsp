@@ -36,11 +36,11 @@ var problemAdd = function() {
 			+ '<br>'
 			+ '<div class="ex-input">'
 			+ '<div class="ex-input-title">입력 예제</div>'
-			+ '<textarea id="ex-input-text" name="subProblemList[' + index + '].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off"></textarea>'
+			+ '<textarea class="ex-input-text" id="ex-input-text" name="subProblemList[' + index + '].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off"></textarea>'
 			+ '</div>'
 			+ '<div class="ex-output">'
 			+ '<div class="ex-output-title">출력 예제</div>'
-			+ '<textarea id="ex-output-text" name="subProblemList[' + index + '].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off"></textarea>'
+			+ '<textarea class="ex-output-text" id="ex-output-text" name="subProblemList[' + index + '].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off"></textarea>'
 			+ '</div>'
 			+ '</div>';
 
@@ -186,6 +186,17 @@ $(function() {
 			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
 			$('.content').eq(i).val(str);
 		}
+		for(var i = 0; i < index; i++) {
+			var str = $('.ex-input-text').eq(i).val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			$('.ex-input-text').eq(i).val(str);
+		}
+		for(var i = 0; i < index; i++) {
+			var str = $('.ex-output-text').eq(i).val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			$('.ex-output-text').eq(i).val(str);
+		}
+		
 		$("#true-submit").trigger("click");
 	});
 	
@@ -328,12 +339,12 @@ function captureReturnKey(e) {
 
 						<div class="ex-input">
 							<div class="ex-input-title">입력 예제</div>
-							<textarea id="ex-input-text" name="subProblemList[0].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off"></textarea>
+							<textarea class="ex-input-text" id="ex-input-text" name="subProblemList[0].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off"></textarea>
 						</div>
 
 						<div class="ex-output">
 							<div class="ex-output-title">출력 예제</div>
-							<textarea id="ex-output-text" name="subProblemList[0].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off"></textarea>
+							<textarea class="ex-output-text" id="ex-output-text" name="subProblemList[0].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off"></textarea>
 						</div>
 					</div>
 				</div>

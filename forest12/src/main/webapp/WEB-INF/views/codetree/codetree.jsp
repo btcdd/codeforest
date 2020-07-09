@@ -54,7 +54,8 @@ var prevText = '';
 var submitPandan;
 var outputResult = '';
 var authUserNo = ${authUserNo };
-  
+var codingTestPandan;
+
 //채팅 시작하기
 function connect(event) {
 	
@@ -77,6 +78,8 @@ function connect(event) {
    
    socket = new SockJS('${pageContext.request.contextPath }/' + authUserNo);
    
+   console.log("@@@@@@@@@@@@@@@@@@@@@@@@@", authUserNo);
+   
    // 전역 변수에 세션 설정
    stompClient = Stomp.over(socket);
    stompClient.connect({}, onConnected, onError);
@@ -87,7 +90,7 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic/public/' + authUserNo, onMessageReceived);
     
     execPandan = true;
     
@@ -104,7 +107,7 @@ function onConnected() {
     
     execPandan = false;
     // Tell your username to the server
-    stompClient.send("/app/codetree",
+    stompClient.send("/app/codetree/" + authUserNo,
         {},
         JSON.stringify(chatMessage)
     );
@@ -125,7 +128,7 @@ function sendMessage(event, res) {
       execPandan: execPandan,
         type: 'CHAT'
     };
-    stompClient.send("/app/codetree", {}, JSON.stringify(chatMessage));
+    stompClient.send("/app/codetree/" + authUserNo, {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
@@ -188,9 +191,8 @@ var currentEditor = null;
 var editorArray = new Array();
 var editorArrayIndex = 0;
 
-
-
 $(function() {
+	
    fileFetchList();
    
    submitPandan = false;
@@ -333,17 +335,9 @@ $(function() {
             tree.addClass("file-tree__item--open");
         }
  
-        // Close all siblings
-        /*
-        tree
-            .siblings()
-            .removeClass("file-tree__item--open")
-            .find(".folder--open")
-            .removeClass("folder--open");
-        */
-    });   
+    });
     
- // 파일 열고 닫기
+ 	// 파일 열고 닫기
     $(document).on('click','#folder',function() {
        if ($(this).hasClass("folder--open")) {
           $("#file"+$(this).data("no")).show();
@@ -351,14 +345,12 @@ $(function() {
            $("#file"+$(this).data("no")).hide();
         }
     });
-    
 
     // 폰트 사이즈 변경
    $(document).on("click", '#font-size', function(){   
       var fontSize = $("#font-size option:selected").val();
       $(".CodeMirror").css("font-size", fontSize);
    });
-   
 
     
 ////////////////파일 추가/////////////////////

@@ -4,7 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.btcdd.codeforest.repository.MypageRepository;
@@ -15,6 +20,9 @@ import com.btcdd.codeforest.vo.UserVo;
 
 @Service
 public class MypageService {
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	private static final int postNum = 10; //한 페이지에 출력할 게시물 갯수
 	private static final int pageNum_cnt = 5; 		//한번에 표시할 페이징 번호의 갯수	
@@ -55,9 +63,9 @@ public class MypageService {
 		return mypageRepository.problemSolveList(no);
 	}
 
-	public Map<String, Object> getContentsList(int currentPage, Long userNo, String keyword) {
+	public Map<String, Object> getContentsList(int currentPage, Long userNo, String keyword, Boolean mailChecked) {
 		//게시물 총 갯수
-		int count = mypageRepository.getTotalCount(userNo, keyword);
+		int count = mypageRepository.getTotalCount(userNo, keyword, mailChecked);
 		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
 		int pageNum = (int)Math.ceil((double)count/postNum);
 		//출력할 게시물
@@ -73,7 +81,7 @@ public class MypageService {
 		}
 		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력		
 		
-		List<ProblemVo> list = mypageRepository.selectProblemList(displayPost, postNum, userNo, keyword);
+		List<ProblemVo> list = mypageRepository.selectProblemList(displayPost, postNum, userNo, keyword, mailChecked);
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("list",list);		
@@ -132,5 +140,31 @@ public class MypageService {
 		return mypageRepository.selectRank(authUserNo);
 	}
 
-	
+	public String sendMail(String[] email, String tempKey) {
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setText("인증번호 : " + tempKey + "\n\n" + "http://192.168.1.141:8080/codeforest/" + "\n\n" + "위 링크를 클릭하시면 사이트로 이동합니다.");
+			messageHelper.setFrom("codeforest2020@gmail.com","코드의숲");
+			messageHelper.setSubject("[Code Forest] 코딩 테스트 인증번호입니다");
+			
+			String mailPlus = "";
+			for(int i = 0; i < email.length; i++) {
+				mailPlus += email[i];
+				if(i < email.length - 1) {
+					mailPlus += ", ";
+				}
+			}
+			messageHelper.setTo(InternetAddress.parse(mailPlus));
+			mailSender.send(message);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return "success";
+	}
+
+	public String getProblemPassword(Long problemNo) {
+		return mypageRepository.getProblemPassword(problemNo);
+	}
 }

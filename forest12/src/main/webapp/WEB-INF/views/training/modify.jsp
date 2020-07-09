@@ -46,11 +46,11 @@ var problemAdd = function() {
 			+ '<br>'
 			+ '<div class="ex-input">'
 			+ '<div class="ex-input-title">입력 예제</div>'
-			+ '<textarea id="ex-input-text" name="subProblemList[' + index + '].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off"></textarea>'
+			+ '<textarea class="ex-input-text" id="ex-input-text" name="subProblemList[' + index + '].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off"></textarea>'
 			+ '</div>'
 			+ '<div class="ex-output">'
 			+ '<div class="ex-output-title">출력 예제</div>'
-			+ '<textarea id="ex-output-text" name="subProblemList[' + index + '].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off"></textarea>'
+			+ '<textarea class="ex-output-text" id="ex-output-text" name="subProblemList[' + index + '].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off"></textarea>'
 			+ '</div>'
 			+ '<div class="answer-code' + index + '">'
 			+ '</div></div>';
@@ -124,7 +124,7 @@ var setStyle = function(index2) {
 	setTimeout(function() {
 		var ckeContents2 = document.getElementsByClassName("cke_contents")[index2];
 		ckeContents2.style = "height: 400px";
-	}, 100);
+	}, 120);
 }
 
 $(function() {
@@ -230,6 +230,16 @@ $(function() {
 			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
 			$('.content').eq(i).val(str);
 		}
+		for(var i = 0; i < index; i++) {
+			var str = $('.ex-input-text').eq(i).val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			$('.ex-input-text').eq(i).val(str);
+		}
+		for(var i = 0; i < index; i++) {
+			var str = $('.ex-output-text').eq(i).val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			$('.ex-output-text').eq(i).val(str);
+		}
 		
 		$('.privateAndPassword').append('<input type="hidden" name="array" value="' + array + '">');
 		$("#true-submit").trigger("click");
@@ -260,7 +270,7 @@ window.onload = function(){
 			var ckeContents = document.getElementsByClassName("cke_contents")[i];
 			ckeContents.style = "height: 400px";
 		}
-	}, 100);
+	}, 120);
 };
 
 </script>
@@ -316,12 +326,12 @@ window.onload = function(){
 	
 							<div class="ex-input">
 								<div class="ex-input-title">예제 입력</div>
-								<textarea id="ex-input-text" name="subProblemList[${index }].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off" readonly>${item.examInput }</textarea>
+								<textarea class="ex-input-text" id="ex-input-text" name="subProblemList[${index }].examInput" placeholder="입력 예제를 작성하세요" autocomplete="off" readonly>${item.examInput }</textarea>
 							</div>
 	
 							<div class="ex-output">
 								<div class="ex-output-title">예제 출력</div>
-								<textarea id="ex-output-text" name="subProblemList[${index }].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off" readonly>${item.examOutput }</textarea>
+								<textarea class="ex-output-text" id="ex-output-text" name="subProblemList[${index }].examOutput" placeholder="출력 예제를 작성하세요" required autocomplete="off" readonly>${item.examOutput }</textarea>
 							</div>
 						</div> <!--  prob0 -->
 					</c:forEach>
