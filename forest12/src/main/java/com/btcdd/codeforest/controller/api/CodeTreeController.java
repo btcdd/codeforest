@@ -227,6 +227,18 @@ public class CodeTreeController {
 		examOutputSplit[0] = examOutput;
 		outputResultSplit[0] = outputResult;
 		
+		try {
+			File file = new File("examOutputSplit.txt");
+			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			
+			String str = examOutputSplit.length + "_\n" + outputResultSplit.length + "_\n" + examOutputSplit[0] + "_\n" + outputResultSplit[0] + "_";
+			
+			bufferWriter.write(str);
+			bufferWriter.flush(); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		if(examOutput.contains("<br />") ) {
 			examOutputSplit = examOutput.split("<br />");
 			outputResultSplit =outputResult.split("\n");
