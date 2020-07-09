@@ -21,28 +21,12 @@
 <script>
 
 var index = 2;
-
-// function excelExport(event){
-	
-//     var input = event.target;
-//     var reader = new FileReader();
-//     reader.onload = function(){
-//         var fileData = reader.result;
-//         var wb = XLSX.read(fileData, {type : 'binary'});
-        
-//         wb.SheetNames.forEach(function(sheetName){
-// 	        var rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-// 	        var array = JSON.stringify(rowObj);
-// 	        console.log(array[8] + array[9] + array[10]);
-//         })
-//     };
-//     reader.readAsBinaryString(input.files[0]);
-// }
+var rightPandan = false;
 
 var checkEmail = function CheckEmail(str) {
     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if(!reg_email.test(str)) {                            
-    	return false;         
+    	return false;
     } else {               
         return true;
     }
@@ -274,9 +258,9 @@ var sendMail = function(emailArray) {
 		         'problemNo': sendMailProblemNo
 		      },
 		      success: function(response){
-		    	 console.log('dd');
 	         	 closeLoadingWithMask();
 	 	         $("#mail-dialog").dialog("close");
+	 	         rightPandan = false;
 		      },
 		      error: function(xhr, status, e) {
 		         console.error(status + ":" + e);
@@ -576,10 +560,15 @@ $(function() {
         autoOpen: false,
         resizable: false,
         height: "auto",
-        width: 314,
+        width: 330,
         modal: true,
         buttons: {
             "전송": function() {
+            	if(rightPandan == false) {
+            		alert('빈 값은 전송 불가합니다');
+            		return false;
+            	}
+            	
             	var textArray = document.getElementsByClassName('input-mail');
 				var mailArray = [];
             	
@@ -597,7 +586,7 @@ $(function() {
 	$(document).on('click', '#send-mail-icon', function(event) {
 		event.preventDefault();
 		
-		sendMailProblemNo = $(this).parent().parent().children().eq(0).text()
+		sendMailProblemNo = $(this).parent().parent().children().eq(0).text();
 		
 		$('#mail-dialog').dialog("open");
 	});
@@ -605,7 +594,7 @@ $(function() {
 	$(document).on('click', '#mail-plus', function(event) {
 		event.preventDefault();
 		
-		$('#mail-plus').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off" placeholder="1234@gmail.com"><span class="mail-delete" id="mail-delete">x</span>');
+		$('.plus-div').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off" placeholder="1234@gmail.com"><span class="mail-delete" id="mail-delete">삭제</span>');
 		
 		index++;
 	});
@@ -615,7 +604,7 @@ $(function() {
 		
 		var ind = $(this).parent().children().eq(0).text();
 		
-		if(ind == 1) {
+		if(index == 2) {
 			alert('1개 이상은 입력하셔야 합니다');
 			return false;
 		}
@@ -635,33 +624,33 @@ $(function() {
         	$('#mail-th').text('메일');
         	var kwd = $('#kwd').val();
         	mailChecked = true;
-        	
         	originList('1', kwd);
-
         } else{
         	$('#mail-th').text('내보내기');
         	var kwd = $('#kwd').val();
         	mailChecked = false;
-        	
         	originList('1', kwd);
         }
     });
 	
 	$("#mail-span").click(function(){
 		$('#mail').trigger('click');
-    });	
+    });
 	
-	var wrongPandan = false;
-	var deletePandan = false;
-	$(document).on('propertychange change keyup paste input', '#input-mail', function(event) {
+	$(document).on('keyup', '#input-mail', function(event) {
 		var email = $(this).val();
 		
-		if(!checkEmail(email) && wrongPandan == false) {
-			$(this).after('<span>하하</span>');
-			wrongPandan = true;
-		} else if(checkEmail(email)) {
-			$(this).parent().children().eq(2).remove();
-			wrongPandan = false;
+		if(email == '') {
+			$(this).css('background-image', '');
+			return false;
+		}
+		
+		if(!checkEmail(email)) {
+			$(this).css('background-image', 'url("/forest12/assets/images/user/cross.png")');
+			rightPandan = false;
+		} else {
+			$(this).css('background-image', '');
+			rightPandan = true;
 		}
 	});
 	
@@ -753,13 +742,14 @@ $(function() {
 		<fieldset class="mail-fieldset">
 		    <label for="name" class="candidate-label">응시자 메일</label>
 		</fieldset>
-<!-- 		<input type="file" id="excelFile" onchange="excelExport(event)"/> -->
 	    <div id="input-mail-div">
 	    	<span class="input-mail-index">1</span>
 	    	<input type="text" class="input-mail strange" id="input-mail" autocomplete="off" placeholder="1234@gmail.com">
-	    	<span class="mail-delete strange-span" id="mail-delete">x</span>
+	    	<span class="mail-delete strange-span" id="mail-delete">삭제</span>
 	    </div>
-	    <span class="mail-plus" id="mail-plus">+</span>
+	    <div class="plus-div">
+	    	<span class="mail-plus" id="mail-plus">+</span>
+	    </div>
 	</div>
     <c:import url="/WEB-INF/views/include/footer.jsp" />
 </body>

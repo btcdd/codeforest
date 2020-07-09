@@ -340,7 +340,7 @@ th {
 .mail-delete {
 	cursor: pointer;
 	margin-left: 1em;
-	font-size: 1.5em;
+	font-size: 15px;
 }
 
 .mail {
@@ -361,9 +361,18 @@ th {
 }
 
 .strange {
-	margin-left: -5px;
+	margin-left: -4.5px;
 }
 
 .strange-span {
-	margin-left: 20px;
+	margin-left: 12px;
+}
+
+.input-mail {
+	background-position: 182px;
+	background-repeat: no-repeat;
+}
+
+.plus-div {
+	text-align: center;
 }
