@@ -560,7 +560,7 @@ $(function() {
         autoOpen: false,
         resizable: false,
         height: "auto",
-        width: 330,
+        width: 309,
         modal: true,
         buttons: {
             "전송": function() {
@@ -741,6 +741,9 @@ $(function() {
     <div id="mail-dialog" title="메일 보내기" style="display:none" >
 		<fieldset class="mail-fieldset">
 		    <label for="name" class="candidate-label">응시자 메일</label>
+		    <div class="content-div">
+			    <span for="name" class="content-span">보내고자 하는 이메일을 입력해주세요.</span>
+			</div>
 		</fieldset>
 	    <div id="input-mail-div">
 	    	<span class="input-mail-index">1</span>

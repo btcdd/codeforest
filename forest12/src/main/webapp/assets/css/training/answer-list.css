@@ -179,3 +179,7 @@ textarea {
 .CodeMirror-gutters {
 	z-index: 1 !important;
 }
+
+#showCode {
+	cursor: pointer;
+}
