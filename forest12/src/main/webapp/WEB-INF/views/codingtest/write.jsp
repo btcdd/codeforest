@@ -187,12 +187,12 @@ $(function() {
 			$('.content').eq(i).val(str);
 		}
 		for(var i = 0; i < index; i++) {
-			var str = $('#ex-input-text').eq(i).val();
+			var str = $('#ex-input-text').val();
 			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
 			$('#ex-input-text').val(str);
 		}
 		for(var i = 0; i < index; i++) {
-			var str = $('#ex-output-text').eq(i).val();
+			var str = $('#ex-output-text').val();
 			str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
 			$('#ex-output-text').val(str);
 		}

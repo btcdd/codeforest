@@ -230,4 +230,8 @@ public class CodeTreeService {
 		return codetreeRepository.getExamInput(subProblemNo);
 	}
 
+	public String getEndTime(Long problemNo) {
+		return codetreeRepository.getEndTime(problemNo);
+	}
+
 }

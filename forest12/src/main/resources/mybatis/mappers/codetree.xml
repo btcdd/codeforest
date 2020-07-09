@@ -317,5 +317,13 @@
 			where no = #{authUserNo }
 		]]>	
 	</update>	
+	
+	<select id="getEndTime" parameterType="long" resultType="string">
+		<![CDATA[
+			select end_time as endTime
+			  from problem
+			 where no = #{problemNo }
+		]]>
+	</select>
 
 </mapper>

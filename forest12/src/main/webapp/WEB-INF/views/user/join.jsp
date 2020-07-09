@@ -80,7 +80,7 @@ var checkEmail = function CheckEmail(str) {
     } else {               
         return true;         
     }                            
-} 
+}
 
 var checkPasswordPattern = function CheckPasswordPattern(str) {
 	var pw = str;

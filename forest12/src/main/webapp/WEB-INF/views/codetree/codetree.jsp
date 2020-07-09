@@ -54,7 +54,8 @@ var prevText = '';
 var submitPandan;
 var outputResult = '';
 var authUserNo = ${authUserNo };
-  
+var codingTestPandan;
+
 //채팅 시작하기
 function connect(event) {
 	
@@ -190,9 +191,8 @@ var currentEditor = null;
 var editorArray = new Array();
 var editorArrayIndex = 0;
 
-
-
 $(function() {
+	
    fileFetchList();
    
    submitPandan = false;
@@ -335,17 +335,9 @@ $(function() {
             tree.addClass("file-tree__item--open");
         }
  
-        // Close all siblings
-        /*
-        tree
-            .siblings()
-            .removeClass("file-tree__item--open")
-            .find(".folder--open")
-            .removeClass("folder--open");
-        */
-    });   
+    });
     
- // 파일 열고 닫기
+ 	// 파일 열고 닫기
     $(document).on('click','#folder',function() {
        if ($(this).hasClass("folder--open")) {
           $("#file"+$(this).data("no")).show();
@@ -353,14 +345,12 @@ $(function() {
            $("#file"+$(this).data("no")).hide();
         }
     });
-    
 
     // 폰트 사이즈 변경
    $(document).on("click", '#font-size', function(){   
       var fontSize = $("#font-size option:selected").val();
       $(".CodeMirror").css("font-size", fontSize);
    });
-   
 
     
 ////////////////파일 추가/////////////////////

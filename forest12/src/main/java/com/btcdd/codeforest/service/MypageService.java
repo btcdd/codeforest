@@ -145,7 +145,7 @@ public class MypageService {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			
-			messageHelper.setText("인증번호 : " + tempKey);
+			messageHelper.setText("인증번호 : " + tempKey + "\n\n" + "http://192.168.1.141:8080/codeforest/" + "\n\n" + "위 링크를 클릭하시면 사이트로 이동합니다.");
 			messageHelper.setFrom("codeforest2020@gmail.com","코드의숲");
 			messageHelper.setSubject("[Code Forest] 코딩 테스트 인증번호입니다");
 			

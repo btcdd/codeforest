@@ -39,6 +39,15 @@ var index = 2;
 //     reader.readAsBinaryString(input.files[0]);
 // }
 
+var checkEmail = function CheckEmail(str) {
+    var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    if(!reg_email.test(str)) {                            
+    	return false;         
+    } else {               
+        return true;
+    }
+}
+
 var loadingWithMask = function LoadingWithMask(){
 	
  	var widthWindow = window.innerWidth;
@@ -596,7 +605,7 @@ $(function() {
 	$(document).on('click', '#mail-plus', function(event) {
 		event.preventDefault();
 		
-		$('#mail-plus').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off"><span class="mail-delete" id="mail-delete">x</span>');
+		$('#mail-plus').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off" placeholder="1234@gmail.com"><span class="mail-delete" id="mail-delete">x</span>');
 		
 		index++;
 	});
@@ -643,6 +652,21 @@ $(function() {
 	$("#mail-span").click(function(){
 		$('#mail').trigger('click');
     });	
+	
+	var wrongPandan = false;
+	$(document).on('propertychange change keyup paste input', '#input-mail', function(event) {
+		var email = $(this).val();
+		
+		if(!checkEmail(email) && wrongPandan == false) {
+			$(this).after('<span>하하</span>');
+			console.log('11');
+			wrongPandan = true;
+		} else if(checkEmail(email)) {
+			console.log('22');
+			console.log($(this).parent().eq(2));
+			wrongPandan = false;
+		}
+	});
 	
 //------------------------------------------- 끝부분	
 });
@@ -735,7 +759,7 @@ $(function() {
 <!-- 		<input type="file" id="excelFile" onchange="excelExport(event)"/> -->
 	    <div id="input-mail-div">
 	    	<span class="input-mail-index">1</span>
-	    	<input type="text" class="input-mail strange" id="input-mail" autocomplete="off">
+	    	<input type="text" class="input-mail strange" id="input-mail" autocomplete="off" placeholder="1234@gmail.com">
 	    	<span class="mail-delete strange-span" id="mail-delete">x</span>
 	    </div>
 	    <span class="mail-plus" id="mail-plus">+</span>
