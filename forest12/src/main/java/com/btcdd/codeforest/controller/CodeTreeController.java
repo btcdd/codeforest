@@ -55,6 +55,9 @@ public class CodeTreeController {
 			return "redirect:/main-in";
 		}
 		
+		String endTime = codeTreeService.getEndTime(saveVo.getProblemNo());
+		
+		model.addAttribute("endTime", endTime);
 		model.addAttribute("saveVo", saveVo);
 		model.addAttribute("savePathList", savePathList);
 		model.addAttribute("codeList", codeList);

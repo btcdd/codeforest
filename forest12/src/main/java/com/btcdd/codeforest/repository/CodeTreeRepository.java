@@ -202,4 +202,8 @@ public class CodeTreeRepository {
 	public String getExamInput(Long subProblemNo) {
 		return sqlSession.selectOne("codetree.getExamInput", subProblemNo);
 	}
+
+	public String getEndTime(Long problemNo) {
+		return sqlSession.selectOne("codetree.getEndTime", problemNo);
+	}
 }
