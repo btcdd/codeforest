@@ -121,7 +121,12 @@ public class CodeTreeChatController {
 					String input = chatMessage.getContent();
 					
 					if(submitPandan == true && input == null) {
-						writer.write(codetreeService.getExamInput(subProblemNo) + "\n");
+						// 2<br />1<br />3<br />2<br />3
+						String submitInput = codetreeService.getExamInput(subProblemNo);
+						String[] submitInputSplit = submitInput.split("<br />");
+						for(int i = 0; i < submitInputSplit.length; i++) {
+							writer.write(submitInputSplit[i] + "\n");
+						}
 						writer.flush();
 						readBuffer.setLength(0);
 					} 
