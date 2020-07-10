@@ -331,7 +331,7 @@ public class CodingTestController {
 		else {
 			compileError = true;
 			compileResult = false;
-		}
+		} 
 		
 		map.put("compileError", compileError);
 		map.put("compileResult", compileResult);
