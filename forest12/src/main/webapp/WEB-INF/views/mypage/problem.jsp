@@ -23,6 +23,11 @@
 var index = 2;
 var rightPandan = false;
 
+var slide = function Slide(str) {
+	$("#" + str).slideDown(500);
+	$("#" + str).delay(2000).slideUp(500);
+}
+
 var checkEmail = function CheckEmail(str) {
     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if(!reg_email.test(str)) {
@@ -37,11 +42,11 @@ var loadingWithMask = function LoadingWithMask(){
  	var widthWindow = window.innerWidth;
 	var heightWindow = window.innerHeight;
 
-	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none; opacity: 0.9; background-color: #fff; z-index: 11000; text-align: center;'></div>";
+	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none; opacity: 0.9; background-color: #fff;  text-align: center;'></div>";
 	var loadingImg = '';
 		
 	loadingImg += "<div id='loadingImg'>";
-	loadingImg += "<span style='position: absolute; top: 40%; left: 44.5%;z-index: 11001;'>메일을 보내는 중입니다...</span>";
+	loadingImg += "<span style='position: absolute; top: 40%; left: 44.5%;'></span>";
 	loadingImg += "</div>";
 		
 	$('body').append(mask).append(loadingImg);
@@ -245,6 +250,8 @@ var nextRemove = function() {
 var sendMail = function(emailArray) {
 
 	loadingWithMask();
+	
+	slide("send-mail");
 	
 	setTimeout(function() {
 		$.ajax({
@@ -594,7 +601,7 @@ $(function() {
 	$(document).on('click', '#mail-plus', function(event) {
 		event.preventDefault();
 		
-		$('.plus-div').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off" placeholder="1234@gmail.com"><span class="mail-delete" id="mail-delete">삭제</span>');
+		$('.plus-div').before('<div class="input-mail-div"><span class="input-mail-index">' + index + '</span><input type="text" class="input-mail" id="input-mail" autocomplete="off" placeholder="codeforest2020@gmail.com"><span class="mail-delete" id="mail-delete"><i class="mail-delete fas fa-minus-circle"></i></span>');
 		
 		index++;
 	});
@@ -660,6 +667,9 @@ $(function() {
     
 </head>
 <body>
+	<div class="wrong" id="send-mail" style="display: none">
+		<p class="wrong-ptag">메일을 전송중입니다</p>
+	</div>
     <c:import url="/WEB-INF/views/include/mypage-header.jsp" />
     <div class="container">
         <div class="quizlist">
@@ -738,17 +748,16 @@ $(function() {
             </tr>
        </table>
     </div>
-    <div id="mail-dialog" title="메일 보내기" style="display:none" >
+    <div id="mail-dialog" title="응시자 메일" style="display:none" >
 		<fieldset class="mail-fieldset">
-		    <label for="name" class="candidate-label">응시자 메일</label>
 		    <div class="content-div">
 			    <span for="name" class="content-span">보내고자 하는 이메일을 입력해주세요.</span>
 			</div>
 		</fieldset>
 	    <div id="input-mail-div">
 	    	<span class="input-mail-index">1</span>
-	    	<input type="text" class="input-mail strange" id="input-mail" autocomplete="off" placeholder="1234@gmail.com">
-	    	<span class="mail-delete strange-span" id="mail-delete">삭제</span>
+	    	<input type="text" class="input-mail strange" id="input-mail" autocomplete="off" placeholder="codeforest2020@gmail.com">
+	    	<span class="mail-delete strange-span" id="mail-delete"><i class="mail-delete fas fa-minus-circle"></i></span>
 	    </div>
 	    <div class="plus-div">
 	    	<span class="mail-plus" id="mail-plus">+</span>
