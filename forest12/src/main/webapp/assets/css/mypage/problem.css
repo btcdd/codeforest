@@ -375,6 +375,7 @@ th {
     border: 1px solid #bebebe;
     border-radius: 0.3rem;
     outline: none;
+    width: 206px;
 }
 .input-mail:focus {
 	border-color: #0078ff;
@@ -391,7 +392,30 @@ th {
 .content-div {
 	font-size: 13px;
     margin-top: 6px;
+    margin-bottom: 9px;
 }
 .content-span {
 	
+}
+.mail-delete {
+	color: #E2848C;
+}
+.mail-delete:hover {
+	color: #cb2431;
+}
+
+.wrong {
+    position: absolute;
+    width: 100vw;
+    background-color: #3E91B5;
+    color: #fff;
+    height: 66px;
+    top: 0;
+    z-index: 20000;
+}
+
+.wrong-ptag {
+	margin: 12px 0;
+    text-align: center;
+    line-height: 40px;
 }
