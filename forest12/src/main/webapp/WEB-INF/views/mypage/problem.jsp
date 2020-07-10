@@ -199,9 +199,13 @@ var fetchList = function() {
                   '<td>' + map.list[i].hit + '</td>' + 
                   '<td>' + map.list[i].recommend + '</td>' + 
                   codingTestStr + 
-                  fileDownloadStr + 
-                  '<td><i data-no="' + map.list[i].no + '" alt="delete" class="delete fas fa-minus-circle"></i></td>' + 
-                '</tr>' + 
+                  fileDownloadStr;
+                  if(map.list[i].startTime <= getTimeStamp() && map.list[i].endTime >= getTimeStamp()) {
+                	  str += '<td></td>';
+                  } else {
+                  	str += '<td><i data-no="' + map.list[i].no + '" alt="delete" class="delete fas fa-minus-circle"></i></td>';
+                  }
+                str += '</tr>' + 
              '<tr class="sub-problem-contents' + map.list[i].no + '">' + 
                 '<td></td>' + 
                  '<td colspan="5">' + 
