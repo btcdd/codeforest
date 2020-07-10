@@ -303,29 +303,29 @@ public class CodingTestController {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");	
 		
 		String examOutput = codetreeService.getExamOutput(subProblemNo);
-		 
+		
 		boolean compileResult = true;
 		boolean compileError = false;
 		
-		String[] examOutputSplit = examOutput.split("\n");
-		String[] outputResultSplit = outputResult.split("\n");
+		String[] examOutputSplit = examOutput.split("<br />");
+		String[] outputResultSplit =outputResult.split("\n");
 		
 		if(compileResult2 == false) {
-			for(int i = 0; i < examOutputSplit.length; i++) {
-				if(i == examOutputSplit.length-1) {
-					if((examOutputSplit[i].substring(0, examOutputSplit[i].length())).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
+			if(examOutputSplit.length == outputResultSplit.length) {
+				for(int i = 0; i < examOutputSplit.length; i++) {
+					if(examOutputSplit[i].equals(outputResultSplit[i]) == false) {
 						compileResult = false;
 						compileError = false;
 						break;
 					}
-				}
-				else {
-					if((examOutputSplit[i].substring(0, examOutputSplit[i].length()-1)).equals(outputResultSplit[i].substring(0, outputResultSplit[i].length())) == false) {
-						compileResult = false;
+					else {
+						compileResult = true;
 						compileError = false;
-						break;
 					}
 				}
+			} else {
+				compileResult = false;
+				compileError = false;
 			}
 		}
 		else {
