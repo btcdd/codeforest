@@ -74,6 +74,9 @@ $(function() {
                     		<c:when test="${vo.privacy eq 'n' }">
 		                    	<span><a id="right-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
                     		</c:when>
+                    		<c:when test="${vo.startTime == null}">
+		                    	<span><a id="right-problem" href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+                    		</c:when>
                     		<c:when test="${vo.startTime >= time && vo.endTime <= time}">
 		                    	<span><a id="right-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
                     		</c:when>
@@ -101,6 +104,9 @@ $(function() {
                     		</c:when>
                     		<c:when test="${vo.privacy eq 'n' }">
 		                    	<span><a id="wrong-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
+                    		</c:when>
+                    		<c:when test="${vo.startTime == null}">
+		                    	<span><a id="wrong-problem" href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
                     		</c:when>
                     		<c:when test="${vo.startTime >= time && vo.endTime <= time}">
 		                    	<span><a id="wrong-problem-none" style="color: #616161">${vo.subproblemNo }</a></span>
