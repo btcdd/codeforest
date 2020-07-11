@@ -615,14 +615,14 @@
 	<update id="updateTestProblem" parameterType="problemvo">
 		<![CDATA[
 			update problem 
-			   set password = #{password }, privacy = #{privacy }, start_time = #{startTime}, end_time = #{endTime} where no = #{no}
+			   set title = #{title }, password = #{password }, privacy = #{privacy }, start_time = #{startTime}, end_time = #{endTime} where no = #{no}
 		]]>
 	</update>
 
 	<update id="updateTrainingProblem" parameterType="problemvo">
 		<![CDATA[
 			update problem 
-			   set password = null, privacy = #{privacy }, start_time = null, end_time = null where no = #{no}
+			   set title = #{title }, password = null, privacy = #{privacy }, start_time = null, end_time = null where no = #{no}
 		]]>
 	</update>
 
