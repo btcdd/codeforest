@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.btcdd.codeforest.dto.JsonResult;
 import com.btcdd.codeforest.service.MypageService;
+import com.btcdd.codeforest.vo.ProblemVo;
 import com.btcdd.codeforest.vo.SubProblemVo;
 import com.btcdd.codeforest.vo.SubmitVo;
 import com.btcdd.codeforest.vo.UserVo;
@@ -120,8 +121,8 @@ public class MypageController {
 	@Auth
 	@PostMapping(value = "/problem/sendMail")
 	public JsonResult sendMail(String[] emailArray, Long problemNo) {
-		String tempKey = mypageService.getProblemPassword(problemNo);
-		mypageService.sendMail(emailArray, tempKey);
+		ProblemVo problemVo = mypageService.getProblemPasswordAndTitle(problemNo);
+		mypageService.sendMail(emailArray, problemVo);
 		
 		return JsonResult.success(null);
 	}

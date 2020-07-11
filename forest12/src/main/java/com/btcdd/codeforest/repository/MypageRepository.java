@@ -102,7 +102,7 @@ public class MypageRepository {
 		return sqlSession.selectOne("mypage.selectRank", authUserNo);
 	}
 
-	public String getProblemPassword(Long problemNo) {
-		return sqlSession.selectOne("mypage.getProblemPassword", problemNo);
+	public ProblemVo getProblemPasswordAndTitle(Long problemNo) {
+		return sqlSession.selectOne("mypage.getProblemPasswordAndTitle", problemNo);
 	}
 }

@@ -183,9 +183,9 @@
       ]]>
    </select>
    
-   <select id="getProblemPassword" parameterType="long" resultType="string">
+   <select id="getProblemPasswordAndTitle" parameterType="long" resultType="problemvo">
       <![CDATA[
-         select password
+         select password, title
            from problem
           where no = #{problemNo }
       ]]>
