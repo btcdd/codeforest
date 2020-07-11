@@ -50,8 +50,6 @@ public class MypageService {
 		int deleteUser = mypageRepository.deleteUser(vo);
 		mypageRepository.foreignKeyChecks(1L);
 		
-		
-		
 		return deleteUser;
 	}
 
@@ -140,12 +138,13 @@ public class MypageService {
 		return mypageRepository.selectRank(authUserNo);
 	}
 
-	public String sendMail(String[] email, String tempKey) {
+	public String sendMail(String[] email, ProblemVo problemVo) {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			
-			messageHelper.setText("인증번호 : " + tempKey + "\n\n" + "http://192.168.1.141:8080/codeforest/" + "\n\n" + "위 링크를 클릭하시면 사이트로 이동합니다.");
+			messageHelper.setText("코딩테스트 제목 : " + problemVo.getTitle() + "\n\n" + "인증번호 : " + problemVo.getPassword() + "\n\n" + 
+					"사이트의 Coding Test 탭에서 입장 가능하고, 최초 입장 시 이름, 생년월일, 인증번호를 입력하셔야 합니다.\n\n" + "http://192.168.1.141:8080/codeforest/" + "\n\n" + "위 링크를 클릭하시면 사이트로 이동합니다.");
 			messageHelper.setFrom("codeforest2020@gmail.com","코드의숲");
 			messageHelper.setSubject("[Code Forest] 코딩 테스트 인증번호입니다");
 			
@@ -164,7 +163,7 @@ public class MypageService {
 		return "success";
 	}
 
-	public String getProblemPassword(Long problemNo) {
-		return mypageRepository.getProblemPassword(problemNo);
+	public ProblemVo getProblemPasswordAndTitle(Long problemNo) {
+		return mypageRepository.getProblemPasswordAndTitle(problemNo);
 	}
 }
