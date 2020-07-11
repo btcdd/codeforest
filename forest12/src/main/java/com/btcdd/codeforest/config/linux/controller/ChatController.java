@@ -33,8 +33,8 @@ public class ChatController {
 	private StringBuffer readBuffer = new StringBuffer();
 	private final Long time = System.currentTimeMillis();
 
-	@MessageMapping("/chat")
-	@SendTo("/topic/public")
+	@MessageMapping("/chat/{no}")
+	@SendTo("/topic/public/{no}")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
 		chatMessage.setProgramPandan(false);

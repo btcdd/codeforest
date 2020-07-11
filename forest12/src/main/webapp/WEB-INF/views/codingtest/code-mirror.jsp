@@ -84,7 +84,7 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic/public/' + authUserNo, onMessageReceived);
     
     execPandan = true;
     var chatMessage = {
@@ -100,7 +100,7 @@ function onConnected() {
     
     execPandan = false;
     // Tell your username to the server
-    stompClient.send("/app/codingtest",
+    stompClient.send("/app/codingtest/" + authUserNo,
         {},
         JSON.stringify(chatMessage)
     );
@@ -121,7 +121,7 @@ function sendMessage(event, res) {
       execPandan: execPandan,
         type: 'CHAT'
     };
-    stompClient.send("/app/codingtest", {}, JSON.stringify(chatMessage));
+    stompClient.send("/app/codingtest/" + authUserNo, {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
 
