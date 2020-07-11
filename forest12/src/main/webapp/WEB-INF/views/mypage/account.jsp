@@ -458,7 +458,7 @@ $(function() {
                 <h4>계정 공개 여부</h4>
             </div>
             <strong style="font-size: 0.9em">계정 비공개를 설정하시겠습니까?</strong>
-            <div class="safe-password">계정 공개를 설정하시면 문제를 푼 기록, 팔로우와 관련된 모든 기록을 다른 사람이 열람 할 수 있습니다.</div>
+            <div class="safe-password">계정 공개를 설정하시면 문제를 푼 기록을 다른 사람이 열람 할 수 있습니다.</div>
 			<div class="privacy-div">
 	            <input id="open" type="radio" name="chk_info" value="open"><span class="open-span">공개</span></iuput>
 	            <input id="no-open" type="radio" name="chk_info" value="private"><span class="no-open-span">비공개</span>
