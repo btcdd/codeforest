@@ -1229,6 +1229,12 @@ $(function() {
    var uiButton4 = document.getElementsByClassName('ui-button')[16];
    uiButton4.style = "background-color: #0A93E2 !important; color: #fff !important; height:37px";
    
+ 	var problemContentLength = $('.problem-content').length;
+	for(i = 0; i < problemContentLength; i++) {
+		var problemContentHeight = $('.problem-content').eq(i).height();
+		$('.problem-content').eq(i).css('height', problemContentHeight);
+	}
+   
 ////// function 끝부분
 });
 
@@ -1408,21 +1414,18 @@ window.onload = function() {
      <div name="resizerH1"></div>
      
      <div class="frame vertical" id="code-mirror">
-
         <div class='navigator'>
-
               <div class='language-selector dropdown dropdown-dark'>
                 <select class="lang dropdown-select" name="lang">
-                    <option value="c">C</option>
-                    <option value="cpp">C++</option>
-                    <option value="cs">C#</option>
-                    <option value="java" selected="selected">JAVA</option>
-                    <option value="js">JavaScript</option>
-                    <option value="py">Python</option>
+                    <option class="langlang" value="c">C</option>
+                    <option class="langlang" value="cpp">C++</option>
+                    <option class="langlang" value="cs">C#</option>
+                    <option class="langlang" value="java" selected="selected">JAVA</option>
+                    <option class="langlang" value="js">JavaScript</option>
+                    <option class="langlang" value="py">Python</option>
                 </select>
               </div>
-              
-              <div class='theme-selector dropdown dropdown-dark'>
+             <div class='theme-selector dropdown dropdown-dark'>
                 <select class="theme dropdown-select" name="theme">
                    <optgroup label="black">
                     <option value="abcdef">abcdef</option>
@@ -1443,24 +1446,25 @@ window.onload = function() {
               
               <div class='font-size dropdown dropdown-dark'>
                   <select class="size dropdown-select" id="font-size" name="size">
-                    <option value="10px">10px</option>
-                    <option value="12px">12px</option>
-                    <option value="15px">15px</option>
-                    <option value="16px" selected="selected">16px</option>
-                    <option value="17px">17px</option>
-                    <option value="18px">18px</option>
-                    <option value="19px">19px</option>
-                    <option value="20px">20px</option>
-                    <option value="25px">25px</option>
-                    <option value="30px">30px</option>
-                    <option value="35px">35px</option>
+                    <option class="langlang" value="9px">9</option>
+                    <option class="langlang" value="10px">10</option>
+                    <option class="langlang" value="12px">12</option>
+                    <option class="langlang" value="14px">14</option>
+                    <option class="langlang" value="16px" selected="selected">16</option>
+                    <option class="langlang" value="18px">18</option>
+                    <option class="langlang" value="20px">20</option>
+                    <option class="langlang" value="22px">22</option>
+                    <option class="langlang" value="24px">24</option>
+                    <option class="langlang" value="26px">26</option>
+                    <option class="langlang" value="28px">28</option>
+                    <option class="langlang" value="36px">36</option>
                 </select>
               </div>
               
            <div class="buttons">
-                  <button class="action-button shadow animate" id="Save" class="Save">Save</button>   
-                    <button class="action-button shadow animate" id="Run" class="Run">Run</button>
-                    <button class="action-button shadow animate" id="Submit" class="Submit">Submit</button>
+                  <button class="action-button shadow animate Save" id="Save">저장</button>   
+                    <button class="action-button shadow animate Run" id="Run">실행</button>
+                    <button class="action-button shadow animate Submit" id="Submit">제출</button>
             </div>
           </div> 
   
