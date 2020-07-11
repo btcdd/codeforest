@@ -36,8 +36,8 @@ public class CodingTestChatController {
 	@Autowired
 	CodeTreeService codetreeService = new CodeTreeService();
 
-	@MessageMapping("/codingtest")
-	@SendTo("/topic/public")
+	@MessageMapping("/codingtest/{no}")
+	@SendTo("/topic/public/{no}")
 	public ChatMessage addUser(String data, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 		
 		chatMessage.setProgramPandan(false);
