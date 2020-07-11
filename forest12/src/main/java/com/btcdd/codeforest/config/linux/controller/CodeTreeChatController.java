@@ -23,8 +23,6 @@ import com.btcdd.codeforest.runlanguage.RunCLinux;
 import com.btcdd.codeforest.runlanguage.RunCppLinux;
 import com.btcdd.codeforest.runlanguage.RunCsLinux;
 import com.btcdd.codeforest.runlanguage.RunJavaLinux;
-import com.btcdd.codeforest.runlanguage.RunJsLinux;
-import com.btcdd.codeforest.runlanguage.RunPyLinux;
 import com.btcdd.codeforest.service.CodeTreeService;
 
 @Controller
