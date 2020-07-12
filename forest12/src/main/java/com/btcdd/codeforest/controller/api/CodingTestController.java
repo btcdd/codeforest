@@ -258,7 +258,21 @@ public class CodingTestController {
 	public JsonResult Save(String language, String fileName, String packagePath,Long subProblemNo,String codeValue, Long problemNo) {
 		//db에 저장 필요
 		// 관우 유진 코드
-		codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
+				//////////
+				if("c".equals(language) || "cpp".equals(language)) {
+					try {
+						Runtime.getRuntime().exec("mkdir " + packagePath + "/" + language + "/Main");
+						
+						Thread.sleep(300);
+						
+						codeTreeLinux.createFileAsSourceFake(codeValue, packagePath + "/" + language + "/Main/" + fileName);
+						
+						Thread.sleep(500);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				codeTreeLinux.createFileAsSource(codeValue, packagePath + "/" + language + "/" + fileName);
 		//////////
 		return JsonResult.success(null);
 	}
