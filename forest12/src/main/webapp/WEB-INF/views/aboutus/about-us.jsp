@@ -96,7 +96,7 @@ $(document).ready(function(){
 					<a class="training-start" href="${pageContext.servletContext.contextPath }/training"><i class="far fa-hand-point-right" style="margin-right: 0.5em;"></i>CODING TRAINING 시작하기</a>
 				</div>
 				<div class="training-img-div">
-					<img class="training-img" src="${pageContext.servletContext.contextPath }/assets/images/aboutus/about-us-training2.png">
+					<img class="training-img" src="${pageContext.servletContext.contextPath }/assets/images/aboutus/about-us-codingtraining.png">
 				</div>
 			</div>
 		</section>
