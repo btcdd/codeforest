@@ -183,3 +183,33 @@ textarea {
 #showCode {
 	cursor: pointer;
 }
+
+.pager {
+    width: 100%;
+    float: left;
+    margin-top: 2.5%;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 2.6%;
+    text-align: center;
+}
+
+.prev, .page, .next {
+    position: relative;
+    display: inline-block;
+    padding: .53125rem .84375rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #90929e;
+    cursor: pointer;
+}
+
+.page {
+    text-decoration: none;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+
+.pager b {
+    color: #ca6d03;
+}
