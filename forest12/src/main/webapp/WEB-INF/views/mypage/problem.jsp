@@ -742,7 +742,7 @@ $(function() {
        </div>
        <table class="problem-list-table rtable">
           <tr>
-         		<th class="discard" id="go-codetree">코드보기</th>
+         		<th class="discard" id="go-codetree discard">코드보기</th>
                <th id="name">이름</th>
                <th id="email">이메일</th>
                <th id="nickname">닉네임</th>

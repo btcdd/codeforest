@@ -39,6 +39,7 @@
 <script>
 var page = '1';
 var language = '';
+var endPageTrueNum;
 
 var originList = function(page, language) {
 	var subProblemNo = '${subProblemNo}';
@@ -59,6 +60,12 @@ var originList = function(page, language) {
 				return;
 			}
 			map = response.data;
+			
+			if(map.count / 12 % 1 == 0) {
+	        	 endPageTrueNum = map.count / 12;
+	        } else {
+		         endPageTrueNum = parseInt(map.count / 12 + 1);
+	        }
 						 
 			fetchList();
 		},
@@ -66,6 +73,14 @@ var originList = function(page, language) {
 			console.error(status + ":" + e);
 		}
 	});
+}
+
+var nextRemove = function() {
+	var endPage = endPageTrueNum;
+	
+	if(page == endPage) {
+		$('.next').remove();
+	}
 }
 
 var fetchList = function() {
@@ -88,7 +103,7 @@ var fetchList = function() {
 	var str2 = "<div class='pager'>";
 	
 	if(page != '1'){
-		str2 += '<span class="prev">◀</span>';
+		str2 += '<span class="prev"><i class="fas fa-angle-left"></i></span>';
 	}	
 	for(var i = map.startPageNum; i < map.endPageNum; i++){
 		str2 += '<span class="page" id="' + i + '">';
@@ -101,7 +116,7 @@ var fetchList = function() {
 		str2 += '</span>';
 	}
 	if(map.next){
-		str2 += '<span class="next">▶</span>';
+		str2 += '<span class="next"><i class="fas fa-angle-right"></i></span>';
 	}	 
 	str2 += "</div>";
 		
@@ -112,6 +127,9 @@ var editorArray = new Array();
 var editorArrayIndex = 0;
 
 $(function() {   
+	
+	nextRemove();
+	
    // 파일 열기
    var fileIndex = null;
    var root = null;
@@ -196,6 +214,7 @@ $(function() {
 	$(document).on("click", ".page", function() {
 		page = $(this).attr('id');
 		originList(page, language);
+		nextRemove();
 	});
 	
 	$(document).on("click", ".prev", function() {
@@ -203,6 +222,7 @@ $(function() {
 		var prevNo = parseInt(page) - 1;
 		page = String(prevNo);
 		originList(page, language);
+		nextRemove();
 	});
 	
 	$(document).on("click", ".next", function() {
@@ -210,6 +230,7 @@ $(function() {
 		var prevNo = parseInt(page) + 1;
 		page = String(prevNo);
 		originList(page, language);
+		nextRemove();
 	});
    
 	$('.language').change(function() {
@@ -220,6 +241,8 @@ $(function() {
 			originList(page, language);
 		}
 		originList(page, language);
+		
+		nextRemove();
 	});
 	
  	// 폰트 사이즈 변경
@@ -337,7 +360,7 @@ $(function() {
                    <td>${subStatisticsVo.py }</td>
                </tr>
                <tr>
-                   <th scope="row">정답율</th>
+                   <th scope="row">정답률</th>
                    <td>${subStatisticsVo.rate } %</td>
                </tr>
                </tbody>
@@ -356,13 +379,6 @@ $(function() {
                </thead>
                <tbody>
 				<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
-<!-- 	                <tr> -->
-<%-- 	                   <td>${vo.nickname }</td> --%>
-<%-- 	                   <td>${vo.lang }</td> --%>
-<%-- 	                   <td>${vo.tryCnt }</td> --%>
-<%-- 	                   <td class="${status.index }" id="showCode">코드 보기</td> --%>
-<%-- 	                   <td id="hiddenCode${status.index }" style="display:none">${vo.code }</td> --%>
-<!-- 	                </tr> -->
 				</c:forEach>
                </tbody>
            </table>
