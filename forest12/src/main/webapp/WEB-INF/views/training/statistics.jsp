@@ -140,7 +140,7 @@ $(function() {
 	                        </c:forEach>
 	                    </tr>
 	                    <tr>
-	                        <th>정답율</th>
+	                        <th>정답률</th>
 	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
 								<td id="rate${status.index }" value="${vo.rate }">${vo.rate }%</td>	                        
 	                        </c:forEach>
