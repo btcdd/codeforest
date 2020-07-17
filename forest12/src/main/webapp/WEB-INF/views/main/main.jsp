@@ -132,7 +132,7 @@ function sendMessage(event, res) {
     stompClient.send("/app/chat/" + time, {}, JSON.stringify(chatMessage));
     event.preventDefault();
 }
-
+  
 
 function onMessageReceived(payload) {
     message = JSON.parse(payload.body);
